@@ -36,8 +36,7 @@ namespace GameFeelDescriptions
     }
     
     [DisallowMultipleComponent]
-    //TODO: Change this link 21/04/2020
-    [HelpURL("https://github.itu.dk/madj/game-feel-descriptions")]
+    [HelpURL("https://github.com/pyjamads/GameFeelDescriptions")]
     [Serializable]
     public class GameFeelDescription : MonoBehaviour
     //TODO: rename to something more appropriate, like GameFeelAugmentation or GameFeelEnhancement or something...04/03/2020 
