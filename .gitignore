@@ -5,8 +5,12 @@
 [Bb]uilds/
 [Uu]ser[Ss]ettings/
 [Ll]ogs/
-Assets/AssetStoreTools*
-Assets/Plugins/Editor/JetBrains
+[Aa]ssets/[Aa]sset[Ss]tore[Tt]ools*
+[Aa]ssets/[Pp]lugins/[Ee]ditor/[Jj]etBrains
+
+# Locally saved usage data
+[Aa]ssets/[Gg]ame[Ff]eel[Dd]escriptions/[Rr]ecipes/[Uu]ser[Ss]tudy[Dd]ata/
+[Aa]ssets/[Gg]ame[Ff]eel[Dd]escriptions/[Rr]ecipes/[Ss]tep[Tt]hrough[Mm]ode/
 
 # Visual Studio cache directory
 .vs/
