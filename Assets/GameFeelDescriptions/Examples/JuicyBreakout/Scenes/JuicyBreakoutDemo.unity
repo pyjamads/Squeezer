@@ -7084,7 +7084,7 @@ MonoBehaviour:
         TriggerType: 0
         EffectGroups:
         - GroupName: 
-          Disabled: 1
+          Disabled: 0
           UnscaledTime: 1
           StepThroughMode: 0
           AppliesTo: 1

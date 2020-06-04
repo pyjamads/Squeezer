@@ -23,8 +23,9 @@ namespace GameFeelDescriptions
             
             var tags = UnityEditorInternal.InternalEditorUtility.tags;
             
-            //Generate Description parent GameObject
-            var parent = new GameObject("GameFeelDescriptions");
+            //Find or make Description parent GameObject
+            var parent = GameObject.Find("GameFeelDescriptions");
+            if(!parent) parent = new GameObject("GameFeelDescriptions");
             
             var created = new List<GameFeelDescription>();
 
@@ -51,20 +52,8 @@ namespace GameFeelDescriptions
                     "Yes", "Yes, with StepThroughMode enabled!", "No");
                 if (dialogResult != 2)
                 {
-                    //Generate Descriptions for each selected tag and Attach GameFeelDescription.
-                    var name = tag + "Effects";
-                    var description = new GameObject(name, typeof(GameFeelDescription));
-                    description.transform.parent = parent.transform;
-                    EditorHelpers.SetIconForObject(description.gameObject, index % 8);
-                    description.transform.position += Vector3.down * 0.5f * posOffset++;
+                    var desc = EditorHelpers.CreateGameFeelDescription(tag, parent, ref posOffset);
 
-                    var desc = description.GetComponent<GameFeelDescription>();
-                    desc.Name = name;
-                    desc.Description = "Description of all effects triggered by game objects with the tag [" + tag + "]";
-                    desc.AttachToTag = tag;
-
-                    created.Add(desc);
-                    
                     //Set GameFeelDescription StepThroughMode to true based on first result
                     if (dialogResult != 1) continue;
                     
@@ -83,22 +72,24 @@ namespace GameFeelDescriptions
                         desc.StepThroughMode = true;
                         stepThroughEnabledAlready = true;
                     }
+                    
+                    created.Add(desc);
                 }
             }
             
-            if (created.Count == 0)
+            if (parent.transform.childCount == 0)
             {
                 //No descriptions were created, so just destroy the parent.
                 GameObject.Destroy(parent);
             }
-            else
+            else if(created.Count > 0)
             {
                 //Doing this will probably not be useful, but for now it's fine to ping. 27/04/2020
                 EditorGUIUtility.PingObject(created[0]);
                 Selection.activeObject = created[0];
             }
         }
-        
+
         
         [MenuItem("GameFeelDescriptions/Triggers/Attach To GameObjects")]
         static void AttachAllTriggers()

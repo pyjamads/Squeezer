@@ -118,6 +118,10 @@ namespace GameFeelDescriptions
                     EditorGUIUtility.systemCopyBuffer = audioSynthEffect.synthParameters;
                     //And paste them into the editor.
                     window.PasteValues();
+                    
+                    //This throws an error when it closes,
+                    //probably due to calling this through multiple layers of drawers.
+                    //However the copy/pasting of the parameters work.
                     window.ShowModal();
 
                     window.CopyValues();
@@ -125,13 +129,15 @@ namespace GameFeelDescriptions
                     property.serializedObject.ApplyModifiedProperties();
 
                     Debug.Log(
-                        "Please ignore the stack exception, it's thrown due to using the window in modal mode.");
+                        "Please ignore the stack exception, it's thrown due to using the window in modal mode. The Synth Parameters have been updated correctly!");
                 }
             }
 
 
             //EditorGUI.EndProperty();
         }
+
+        
         
         
         /*

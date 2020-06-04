@@ -35,6 +35,22 @@ namespace GameFeelDescriptions
                 existingPath = newPath;
             }
         }
+
+        public static GameFeelDescription CreateGameFeelDescription(string tag, GameObject parent, ref int posOffset)
+        {
+            //Generate Descriptions for each selected tag and Attach GameFeelDescription.
+            var name = tag + "Effects";
+            var description = new GameObject(name, typeof(GameFeelDescription));
+            description.transform.parent = parent.transform;
+            EditorHelpers.SetIconForObject(description.gameObject, posOffset % 8);
+            description.transform.position += Vector3.down * 0.5f * posOffset++;
+
+            var desc = description.GetComponent<GameFeelDescription>();
+            desc.Name = name;
+            desc.Description = "Description of all effects triggered by game objects with the tag [" + tag + "]";
+            desc.AttachToTag = tag;
+            return desc;
+        }
         
         public static void SetIconForObject(GameObject gameObject, int idx)
         {
