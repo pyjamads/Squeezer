@@ -1048,7 +1048,8 @@ MonoBehaviour:
     all to simulate a bigger impact"
   DynamicReattachRate: 0
   AttachToTag: wall
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -1780,7 +1781,8 @@ MonoBehaviour:
   Description: 
   DynamicReattachRate: 0
   AttachToTag: MainCamera
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -4744,7 +4746,8 @@ MonoBehaviour:
   Description: Squash and stretch of the ball
   DynamicReattachRate: 0
   AttachToTag: ball
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -6827,7 +6830,8 @@ MonoBehaviour:
   Description: A flashing white overlay
   DynamicReattachRate: 0
   AttachToTag: ball
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -7071,7 +7075,8 @@ MonoBehaviour:
     [paddle]
   DynamicReattachRate: 0
   AttachToTag: paddle
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -7834,7 +7839,8 @@ MonoBehaviour:
   Description: 
   DynamicReattachRate: 0
   AttachToTag: ball
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -8332,7 +8338,8 @@ MonoBehaviour:
   Description: Juicy tween in effects!
   DynamicReattachRate: 0
   AttachToTag: block
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -14962,7 +14969,8 @@ MonoBehaviour:
   Description: 
   DynamicReattachRate: 0
   AttachToTag: ball
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0
@@ -15047,7 +15055,8 @@ MonoBehaviour:
   Description: Happens when ball hits block
   DynamicReattachRate: 0
   AttachToTag: block
-  AttachToComponentType: {fileID: 0}
+  AttachToObjects: []
+  AttachToComponentType: 
   StepThroughMode: 0
   TriggerList:
   - id: 0

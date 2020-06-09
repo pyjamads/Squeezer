@@ -27,7 +27,9 @@ namespace GameFeelDescriptions
 
         public string AttachToTag;
         
-        public Component AttachToComponentType;
+        public GameObject[] AttachToObjects;
+        
+        public string AttachToComponentType;
         
         [SerializeReference]
         public List<GameFeelTrigger> TriggerList;
@@ -48,7 +50,7 @@ namespace GameFeelDescriptions
         [NonSerialized]
         public List<GameFeelBehaviorBase> attachedTriggers = new List<GameFeelBehaviorBase>();
         
-        #region Fields (Remember GameFeelDescriptionDataStruct when adding/removing fields)
+        #region Fields (Remember GameFeelDescriptionDataStruct when adding/removing fields, as well as OverrideDescriptionData)
         
         /// <summary>
         /// The name of this description.
@@ -74,11 +76,12 @@ namespace GameFeelDescriptions
         //AttachToName will not work, as there's no way to lookup all objects with a certain name easily.
         
         //Attach to a specified object might be desirable later on.
-        //public GameObject AttachToObject;
+        [Header("The triggers will be attached to all objects in this list.")]
+        public GameObject[] AttachToObjects;
 
         //Attaching to a componentType, might be a good substitute for Tag/Name.
         [Header("The triggers will be attached to all objects with this component type.")]
-        public Component AttachToComponentType;
+        public string AttachToComponentType;
 
         [Header("This mode allows you to add effects as events happen while playing in the editor.")]
         public bool StepThroughMode;
@@ -157,7 +160,6 @@ namespace GameFeelDescriptions
 
         #endregion
         
-        
         #region Setup the triggers and Targets
         
         public void AttachTriggers(bool reattach = false)
@@ -215,7 +217,7 @@ namespace GameFeelDescriptions
             }
         }
 
-        private List<GameObject> FindGameObjectsToAttach()
+        public List<GameObject> FindGameObjectsToAttach()
         {
             //Find game objects to attach to!
             var attachTo = new List<GameObject>();
@@ -230,14 +232,27 @@ namespace GameFeelDescriptions
                 }
             }
 
-            if (AttachToComponentType)
+            if (!string.IsNullOrEmpty(AttachToComponentType))
             {
-                var components = FindObjectsOfType(AttachToComponentType.GetType());
-                foreach (Component comp in components)
+                var type = Type.GetType(AttachToComponentType);
+                if (type != null && type.IsSubclassOf(typeof(Component)))
                 {
-                    if (attachedTriggers.Exists(item => item.gameObject == comp.gameObject)) continue;
-                    attachTo.Add(comp.gameObject);
+                    var components = FindObjectsOfType(type);
+                    foreach (Component comp in components)
+                    {
+                        if (attachedTriggers.Exists(item => item.gameObject == comp.gameObject)) continue;
+                        attachTo.Add(comp.gameObject);
+                    }    
                 }
+                else
+                {
+                    Debug.LogWarning("Failed to find Component type: "+AttachToComponentType);
+                }
+            }
+
+            if (AttachToObjects?.Length > 0)
+            {
+                attachTo.AddRange(AttachToObjects);
             }
 
             return attachTo;
@@ -307,6 +322,9 @@ namespace GameFeelDescriptions
             Name = data.Name;
             Description = data.Description;
             AttachToTag = data.AttachToTag;
+            AttachToObjects = data.AttachToObjects;
+            AttachToComponentType = data.AttachToComponentType;
+            DynamicReattachRate = data.DynamicReattachRate;
             StepThroughMode = data.StepThroughMode;
             TriggerList = data.TriggerList;
         }
