@@ -83,6 +83,8 @@ namespace GameFeelDescriptions
         private bool simplifiedView = true;
         private bool showAttach = false;
         private bool showDescriptionSettings = false;
+
+        private bool showBottomButtons = false;
         
         
         public static Dictionary<int, List<bool>> ExpandedDescriptionNames = new Dictionary<int, List<bool>>();
@@ -207,230 +209,251 @@ namespace GameFeelDescriptions
                 //----------------------------//    
             }
             #endregion
-            
+
             GUILayout.Space(20);
             
-            #region add triggers
-            //Create trigger block
+            showBottomButtons = EditorGUILayout.Foldout(showBottomButtons, "Additional helpers");
+
+            if (showBottomButtons)
             {
-                EditorGUILayout.HelpBox(new GUIContent("Add Triggers to determine when effects are executed. \nTriggers determine when EffectGroups get executed."));
-
-                selectedTriggerType = (GameFeelTriggerType)EditorGUILayout.EnumPopup("Trigger", selectedTriggerType);
-
-                if (GUILayout.Button("Add Trigger"))
+                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    Undo.RecordObject(gameFeelDescription, "Add "+selectedTriggerType.GetName());
-                    gameFeelDescription.TriggerList.Add(GameFeelTrigger.CreateTrigger(selectedTriggerType));
-                    serializedObject.ApplyModifiedProperties();
-                }
-            }
-            #endregion
-            
-            #region add effect recipes
-            if (gameFeelDescription.TriggerList.Count != 0)
-            {
-                GUILayout.Space(20);
-                
-                
+                    #region add triggers
 
-                EditorGUILayout.HelpBox(new GUIContent("Effect groups can be saved and loaded as recipes!"));
-                var (groupNames, groupRefs) =
-                    GenerateLabelObjectLists(gameFeelDescription, typeof(GameFeelEffectGroup));
-
-                //Make sure we're not selecting something out of bounds, because the user removed a value.
-                if (recipeIndex >= groupNames.Count)
-                {
-                    recipeIndex = -1;
-                }
-
-                recipeIndex = EditorGUILayout.Popup("EffectGroup", recipeIndex, groupNames.ToArray());
-
-                if (recipeIndex >= 0)
-                {
-                    var gameFeelEffectGroup = ((GameFeelEffectGroup) groupRefs[recipeIndex]);
-
-                    if (gameFeelEffectGroup != null)
+                    //Create trigger block
                     {
-                        recipeOnly = EditorGUILayout.Toggle("Only save effect list", recipeOnly);
+                        EditorGUILayout.HelpBox(new GUIContent(
+                            "Add Triggers to determine when effects are executed. \nTriggers determine when EffectGroups get executed."));
 
-                        if (recipeOnly)
+                        selectedTriggerType =
+                            (GameFeelTriggerType) EditorGUILayout.EnumPopup("Trigger", selectedTriggerType);
+
+                        if (GUILayout.Button("Add Trigger"))
                         {
-                            EditorGUILayout.LabelField("Description added to the effect list:");
-                            recipeDescription = EditorGUILayout.TextArea(recipeDescription);
-
-                            if (GUILayout.Button("Save As Recipe"))
-                            {
-                                var groupName = gameFeelEffectGroup.GroupName;
-                                if (string.IsNullOrWhiteSpace(groupName))
-                                {
-                                    groupName = gameFeelDescription.Name + "EffectGroup" + recipeIndex;
-                                }
-
-                                gameFeelEffectGroup.SaveToRecipe(true, recipeDescription, groupName + "Recipe.txt");
-                            }
+                            Undo.RecordObject(gameFeelDescription, "Add " + selectedTriggerType.GetName());
+                            gameFeelDescription.TriggerList.Add(GameFeelTrigger.CreateTrigger(selectedTriggerType));
+                            serializedObject.ApplyModifiedProperties();
                         }
-                        else
-                        {
-                            if (GUILayout.Button("Save As EffectGroup"))
-                            {
-                                var groupName = gameFeelEffectGroup.GroupName;
-                                if (string.IsNullOrWhiteSpace(groupName))
-                                {
-                                    groupName = gameFeelDescription.Name + "EffectGroup" + recipeIndex;
-                                }
+                    }
 
-                                gameFeelEffectGroup.SaveToEffectGroup(true, groupName + "Recipe.txt");
-                            }
+                    #endregion
+
+                    #region add effect recipes
+
+                    if (gameFeelDescription.TriggerList.Count != 0)
+                    {
+                        GUILayout.Space(20);
+
+
+
+                        EditorGUILayout.HelpBox(new GUIContent("Effect groups can be saved and loaded as recipes!"));
+                        var (groupNames, groupRefs) =
+                            GenerateLabelObjectLists(gameFeelDescription, typeof(GameFeelEffectGroup));
+
+                        //Make sure we're not selecting something out of bounds, because the user removed a value.
+                        if (recipeIndex >= groupNames.Count)
+                        {
+                            recipeIndex = -1;
                         }
 
-                        recipeAsset = (TextAsset) EditorGUILayout.ObjectField("Load from Recipe File", recipeAsset,
-                            typeof(TextAsset), false);
-                        if (recipeAsset != null)
+                        recipeIndex = EditorGUILayout.Popup("EffectGroup", recipeIndex, groupNames.ToArray());
+
+                        if (recipeIndex >= 0)
                         {
-                            var loadedRecipe = GameFeelEffectGroup.LoadRecipeFromJson(recipeAsset.text);
-                            if (loadedRecipe.Name != null)
-                            {
-                                if (GUILayout.Button("Add effects from Recipe"))
-                                {
-                                    gameFeelEffectGroup.AddEffectsFromRecipe(loadedRecipe);
-                                }
+                            var gameFeelEffectGroup = ((GameFeelEffectGroup) groupRefs[recipeIndex]);
 
-                                if (GUILayout.Button("Replace with Recipe"))
-                                {
-                                    gameFeelEffectGroup.ReplaceEffectsWithRecipe(loadedRecipe);
-                                }
-                            }
-                            else
+                            if (gameFeelEffectGroup != null)
                             {
-                                var loadedGroup = GameFeelEffectGroup.LoadEffectGroupFromJson(recipeAsset.text);
+                                recipeOnly = EditorGUILayout.Toggle("Only save effect list", recipeOnly);
 
-                                if (loadedGroup.GroupName == null)
+                                if (recipeOnly)
                                 {
-                                    Debug.LogError("json file was neither GameFeelRecipe or GameFeelEffectGroup");
+                                    EditorGUILayout.LabelField("Description added to the effect list:");
+                                    recipeDescription = EditorGUILayout.TextArea(recipeDescription);
+
+                                    if (GUILayout.Button("Save As Recipe"))
+                                    {
+                                        var groupName = gameFeelEffectGroup.GroupName;
+                                        if (string.IsNullOrWhiteSpace(groupName))
+                                        {
+                                            groupName = gameFeelDescription.Name + "EffectGroup" + recipeIndex;
+                                        }
+
+                                        gameFeelEffectGroup.SaveToRecipe(true, recipeDescription,
+                                            groupName + "Recipe.txt");
+                                    }
                                 }
                                 else
                                 {
-                                    if (GUILayout.Button("Add effects from EffectGroup"))
+                                    if (GUILayout.Button("Save As EffectGroup"))
                                     {
-                                        gameFeelEffectGroup.AddEffectsFromRecipe(loadedGroup);
-                                    }
+                                        var groupName = gameFeelEffectGroup.GroupName;
+                                        if (string.IsNullOrWhiteSpace(groupName))
+                                        {
+                                            groupName = gameFeelDescription.Name + "EffectGroup" + recipeIndex;
+                                        }
 
-                                    if (GUILayout.Button("Replace with EffectGroup"))
+                                        gameFeelEffectGroup.SaveToEffectGroup(true, groupName + "Recipe.txt");
+                                    }
+                                }
+
+                                recipeAsset = (TextAsset) EditorGUILayout.ObjectField("Load from Recipe File",
+                                    recipeAsset,
+                                    typeof(TextAsset), false);
+                                if (recipeAsset != null)
+                                {
+                                    var loadedRecipe = GameFeelEffectGroup.LoadRecipeFromJson(recipeAsset.text);
+                                    if (loadedRecipe.Name != null)
                                     {
-                                        gameFeelEffectGroup.ReplaceEffectsWithRecipe(loadedGroup);
+                                        if (GUILayout.Button("Add effects from Recipe"))
+                                        {
+                                            gameFeelEffectGroup.AddEffectsFromRecipe(loadedRecipe);
+                                        }
+
+                                        if (GUILayout.Button("Replace with Recipe"))
+                                        {
+                                            gameFeelEffectGroup.ReplaceEffectsWithRecipe(loadedRecipe);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        var loadedGroup = GameFeelEffectGroup.LoadEffectGroupFromJson(recipeAsset.text);
+
+                                        if (loadedGroup.GroupName == null)
+                                        {
+                                            Debug.LogError(
+                                                "json file was neither GameFeelRecipe or GameFeelEffectGroup");
+                                        }
+                                        else
+                                        {
+                                            if (GUILayout.Button("Add effects from EffectGroup"))
+                                            {
+                                                gameFeelEffectGroup.AddEffectsFromRecipe(loadedGroup);
+                                            }
+
+                                            if (GUILayout.Button("Replace with EffectGroup"))
+                                            {
+                                                gameFeelEffectGroup.ReplaceEffectsWithRecipe(loadedGroup);
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                     }
-                }
-            }
 
-            #endregion
-            
-            #region add effects
-            if (gameFeelDescription.TriggerList.Count != 0)
-            {
-                GUILayout.Space(20);
-                EditorGUILayout.HelpBox(
-                    new GUIContent("Add Effects to the list of Effects this Game Feel Description executes."));
+                    #endregion
 
-                selectedEffectIndex = EditorGUILayout.Popup("Effect", selectedEffectIndex, gameFeelEffectNames);
+                    #region add effects
 
-                var (names, refs) = GenerateLabelObjectLists(gameFeelDescription);
-                
-                //Make sure we're not selecting something out of bounds, because the user removed a value.
-                if (attachToIndex >= names.Count)
-                {
-                    attachToIndex = -1;
-                }
-                
-                attachToIndex = EditorGUILayout.Popup("Attach to", attachToIndex, names.ToArray());
-
-                if (GUILayout.Button("Add Effect"))
-                {
-                    if (refs[attachToIndex] == null) return;
-
-                    if (gameFeelEffects == null || gameFeelEffects.Count == 0)
+                    if (gameFeelDescription.TriggerList.Count != 0)
                     {
-                        Init();
-                    }
+                        GUILayout.Space(20);
+                        EditorGUILayout.HelpBox(
+                            new GUIContent("Add Effects to the list of Effects this Game Feel Description executes."));
 
-                    var effectType = gameFeelEffects[selectedEffectIndex];
+                        selectedEffectIndex = EditorGUILayout.Popup("Effect", selectedEffectIndex, gameFeelEffectNames);
 
-                    var instance = (GameFeelEffect) Activator.CreateInstance(effectType);
+                        var (names, refs) = GenerateLabelObjectLists(gameFeelDescription);
 
-                    Undo.RecordObject(gameFeelDescription, "Add "+effectType.Name);
-                    switch (refs[attachToIndex])
-                    {
-                        case GameFeelEffect effect:
-                            effect.ExecuteAfterCompletion.Add(instance);
-                            break;
-                        case GameFeelEffectGroup group:
-                            @group.EffectsToExecute.Add(instance);
-                            break;
-                        case GameFeelTrigger trigger:
-                            if (trigger.EffectGroups.Count == 0)
+                        //Make sure we're not selecting something out of bounds, because the user removed a value.
+                        if (attachToIndex >= names.Count)
+                        {
+                            attachToIndex = -1;
+                        }
+
+                        attachToIndex = EditorGUILayout.Popup("Attach to", attachToIndex, names.ToArray());
+
+                        if (GUILayout.Button("Add Effect"))
+                        {
+                            if (refs[attachToIndex] == null) return;
+
+                            if (gameFeelEffects == null || gameFeelEffects.Count == 0)
                             {
-                                trigger.EffectGroups.Add(new GameFeelEffectGroup
-                                    {EffectsToExecute = new List<GameFeelEffect> {instance}});
-                            }
-                            else
-                            {
-                                trigger.EffectGroups[0].EffectsToExecute.Add(instance);
+                                Init();
                             }
 
-                            break;
+                            var effectType = gameFeelEffects[selectedEffectIndex];
+
+                            var instance = (GameFeelEffect) Activator.CreateInstance(effectType);
+
+                            Undo.RecordObject(gameFeelDescription, "Add " + effectType.Name);
+                            switch (refs[attachToIndex])
+                            {
+                                case GameFeelEffect effect:
+                                    effect.ExecuteAfterCompletion.Add(instance);
+                                    break;
+                                case GameFeelEffectGroup group:
+                                    @group.EffectsToExecute.Add(instance);
+                                    break;
+                                case GameFeelTrigger trigger:
+                                    if (trigger.EffectGroups.Count == 0)
+                                    {
+                                        trigger.EffectGroups.Add(new GameFeelEffectGroup
+                                            {EffectsToExecute = new List<GameFeelEffect> {instance}});
+                                    }
+                                    else
+                                    {
+                                        trigger.EffectGroups[0].EffectsToExecute.Add(instance);
+                                    }
+
+                                    break;
+                            }
+
+                            serializedObject.ApplyModifiedProperties();
+                        }
+
+                        //Extra button for CustomFadeEffect on trails.
+                        if (0 < attachToIndex && attachToIndex < refs.Count &&
+                            refs[attachToIndex] is TrailEffect trail &&
+                            GUILayout.Button("Add Custom Fade Effect"))
+                        {
+                            if (gameFeelEffects == null || gameFeelEffects.Count == 0)
+                            {
+                                Init();
+                            }
+
+                            var effectType = gameFeelEffects[selectedEffectIndex];
+                            var instance = (GameFeelEffect) Activator.CreateInstance(effectType);
+
+                            Undo.RecordObject(gameFeelDescription, "Add " + effectType.Name);
+                            trail.CustomFadeEffects.Add(instance);
+
+                            serializedObject.ApplyModifiedProperties();
+                        }
                     }
 
-                    serializedObject.ApplyModifiedProperties(); 
-                }
+                    #endregion
 
-                //Extra button for CustomFadeEffect on trails.
-                if (0 < attachToIndex && attachToIndex < refs.Count &&
-                    refs[attachToIndex] is TrailEffect trail &&
-                    GUILayout.Button("Add Custom Fade Effect"))
-                {
-                    if (gameFeelEffects == null || gameFeelEffects.Count == 0)
+                    #region save/load description
+
+                    GUILayout.Space(20);
+                    EditorGUILayout.HelpBox(new GUIContent("Save and Load entire Descriptions!"));
+
+                    if (gameFeelDescription.TriggerList.Count > 0)
                     {
-                        Init();
+                        if (GUILayout.Button("Save Description"))
+                        {
+                            GameFeelDescription.SaveToFile(gameFeelDescription, gameFeelDescription.Name + ".txt");
+                        }
                     }
 
-                    var effectType = gameFeelEffects[selectedEffectIndex];
-                    var instance = (GameFeelEffect) Activator.CreateInstance(effectType);
+                    descriptionAsset = (TextAsset) EditorGUILayout.ObjectField("Load from Description File",
+                        descriptionAsset, typeof(TextAsset), false);
 
-                    Undo.RecordObject(gameFeelDescription, "Add "+effectType.Name);
-                    trail.CustomFadeEffects.Add(instance);
+                    if (GUILayout.Button("Load Description"))
+                    {
+                        var data = GameFeelDescription.LoadDescriptionFromJson(descriptionAsset.text);
 
-                    serializedObject.ApplyModifiedProperties();
+                        Undo.RecordObject(gameFeelDescription, "Loaded " + descriptionAsset.name + ".");
+                        gameFeelDescription.OverrideDescriptionData(data);
+                        serializedObject.ApplyModifiedProperties();
+                        UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+                    }
+
+                    #endregion
                 }
             }
-            #endregion
-
-            #region save/load description
-            GUILayout.Space(20);
-            EditorGUILayout.HelpBox(new GUIContent("Save and Load entire Descriptions!"));
-
-            if(gameFeelDescription.TriggerList.Count > 0)
-            {
-                if (GUILayout.Button("Save Description"))
-                {
-                    GameFeelDescription.SaveToFile(gameFeelDescription, gameFeelDescription.Name + ".txt");
-                }
-            }
-            
-            descriptionAsset = (TextAsset) EditorGUILayout.ObjectField("Load from Description File", descriptionAsset, typeof(TextAsset), false);
-
-            if (GUILayout.Button("Load Description"))
-            {
-                var data = GameFeelDescription.LoadDescriptionFromJson(descriptionAsset.text);
-                
-                Undo.RecordObject(gameFeelDescription, "Loaded "+descriptionAsset.name+".");
-                gameFeelDescription.OverrideDescriptionData(data);
-                serializedObject.ApplyModifiedProperties();
-                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
-            }
-            #endregion
 
             var changed = EditorGUI.EndChangeCheck();
             
@@ -594,52 +617,49 @@ namespace GameFeelDescriptions
             {
                 case GameFeelDescription desc:
                 {
-                    using (var scope = new EditorGUILayout.ToggleGroupScope("Description Settings", showDescriptionSettings))
+                    showDescriptionSettings = EditorGUILayout.Foldout(showDescriptionSettings, "Description Settings");
+                    
+                    if (showDescriptionSettings)
                     {
-                        showDescriptionSettings = scope.enabled;
-                        //EditorGUI.indentLevel += 1;
-                        if (showDescriptionSettings)
+                        using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                         {
-                            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+                            EditorGUILayout.PropertyField(serializedObject.FindProperty("Name"));
+                            EditorGUILayout.PropertyField(serializedObject.FindProperty("Description"));
+
+                            GUILayout.Label("Choose how to attach the description to objects:", EditorStyles.boldLabel);
+                            EditorGUI.indentLevel += 1;
+                            showAttach = EditorGUILayout.Foldout(showAttach, "AttachTo");
+                            EditorGUI.indentLevel -= 1;
+
+                            if (showAttach)
                             {
-                                EditorGUILayout.PropertyField(serializedObject.FindProperty("Name"));
-                                EditorGUILayout.PropertyField(serializedObject.FindProperty("Description"));
-
-                                GUILayout.Label("Choose how to attach the description to objects:", EditorStyles.boldLabel);
-                                EditorGUI.indentLevel += 1;
-                                showAttach = EditorGUILayout.Foldout(showAttach, "AttachTo");
-                                EditorGUI.indentLevel -= 1;
-
-                                if (showAttach)
+                                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
                                 {
-                                    using (new GUILayout.VerticalScope(EditorStyles.helpBox))
-                                    {
-                                        EditorGUI.indentLevel += 1;
-                                        EditorGUILayout.PropertyField(serializedObject.FindProperty("DynamicReattachRate"));
-                                        EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToTag"));
-                                        EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToObjects"));
-                                        EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToComponentType"));
-                                        EditorGUI.indentLevel -= 1;
-                                    }
+                                    EditorGUI.indentLevel += 1;
+                                    EditorGUILayout.PropertyField(serializedObject.FindProperty("DynamicReattachRate"));
+                                    EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToTag"));
+                                    EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToObjects"));
+                                    EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToComponentType"));
+                                    EditorGUI.indentLevel -= 1;
                                 }
-
-                                EditorGUILayout.PropertyField(serializedObject.FindProperty("StepThroughMode"));
-                                if (desc.StepThroughMode)
-                                {
-                                    EditorGUILayout.HelpBox(new GUIContent(
-                                        "StepThroughMode let's you add effects as collisions between objects occur.\n" +
-                                        "In addition when StepThroughMode is enabled, \n" +
-                                        "PlayMode changes to the description will persist in EditMode."));
-                                }
-
-                                serializedObject.ApplyModifiedProperties();
                             }
-                        }
 
-                        //EditorGUI.indentLevel -= 1;
+                            EditorGUILayout.PropertyField(serializedObject.FindProperty("StepThroughMode"));
+                            if (desc.StepThroughMode)
+                            {
+                                EditorGUILayout.HelpBox(new GUIContent(
+                                    "StepThroughMode let's you add effects as collisions between objects occur.\n" +
+                                    "In addition when StepThroughMode is enabled, \n" +
+                                    "PlayMode changes to the description will persist in EditMode."));
+                            }
+
+                            serializedObject.ApplyModifiedProperties();
+                        }
                     }
                     
                     GUILayout.Space(20);
+                    
+                    GUILayout.Label("Effect Tree (Click elements to edit, or right click for options):", EditorStyles.boldLabel);
 
 //                    desc.StepThroughMode = EditorGUILayout.Toggle("Step Through Mode", desc.StepThroughMode);
 //                    
@@ -736,8 +756,8 @@ namespace GameFeelDescriptions
                     {
                         DrawPropertyWithColor(propertyPath, highlightColor, doHighlight, alpha);
                     }
-                    else
-                    {
+                    // else
+                    // {
                         for (var i = 0; i < trigger.EffectGroups.Count; i++)
                         {
                             if(trigger.EffectGroups[i] == null) continue;
@@ -746,7 +766,7 @@ namespace GameFeelDescriptions
                             GenerateSimpleInterface(trigger.EffectGroups[i], ref index, indent+1, 
                                 propertyPath+".EffectGroups", i); 
                         }    
-                    }
+                    // }
                     
                     break;
                 }
@@ -765,8 +785,11 @@ namespace GameFeelDescriptions
                     var groupLabel = prefix+"EffectGroup "+(string.IsNullOrWhiteSpace(group.GroupName) ? "" : "'"+group.GroupName+"'") 
                                      +" [Applies to "+ (group.ExecuteOnTargetCopy ? "a copy of " : "")
                                      + group.AppliesTo.GetName() + "]";
-                    
-                    ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea, ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel);
+
+                    using (new EditorGUI.DisabledScope(group.Disabled))
+                    {
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea, ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel);    
+                    }
 
                     group.Disabled = !EditorGUI.ToggleLeft(new Rect(clickArea.x - 28f, clickArea.y, clickArea.width, clickArea.height), GUIContent.none, !group.Disabled);
                     
@@ -776,8 +799,8 @@ namespace GameFeelDescriptions
                         {
                             DrawPropertyWithColor(propertyPath, highlightColor);
                         }
-                        else
-                        {   
+                        // else
+                        // {   
                             for (var i = 0; i < group.EffectsToExecute.Count; i++)
                             {
                                 if (group.EffectsToExecute[i] == null) continue;
@@ -786,7 +809,7 @@ namespace GameFeelDescriptions
                                 GenerateSimpleInterface(group.EffectsToExecute[i], ref index, indent + 1,
                                     propertyPath + ".EffectsToExecute", i);
                             }
-                        }
+                        // }
                     }
 
                     break;
@@ -807,8 +830,12 @@ namespace GameFeelDescriptions
 
                     EditorGUILayout.BeginHorizontal();
 
-                    ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea, ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel, false);
-                    
+                    using (new EditorGUI.DisabledScope(effect.Disabled))
+                    {
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea,
+                            ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel, false);
+                    }
+
                     effect.Disabled = !EditorGUI.ToggleLeft(new Rect(clickArea.x - 28f, clickArea.y, clickArea.width, clickArea.height), GUIContent.none, !effect.Disabled);
                     
                     EditorGUILayout.EndHorizontal();
@@ -819,8 +846,8 @@ namespace GameFeelDescriptions
                         {
                             DrawPropertyWithColor(propertyPath, highlightColor);
                         }
-                        else
-                        {
+                        // else
+                        // {
                             for (var i = 0; i < effect.ExecuteAfterCompletion.Count; i++)
                             {
                                 if (effect.ExecuteAfterCompletion[i] == null) continue;
@@ -848,7 +875,7 @@ namespace GameFeelDescriptions
                                     }
                                 }
                             }
-                        }
+                        // }
                     }
                     break;
                 }
@@ -859,24 +886,30 @@ namespace GameFeelDescriptions
             void DrawPropertyWithColor(string path, Color separatorColor, bool highlight = false, float highlightAlpha = 1f)
             {
                 EditorGUI.indentLevel = 0;
-                var rect = EditorGUILayout.GetControlRect();
-                EditorHelpers.DrawColoredRect(rect, separatorColor.withA(0.9f));
-
-                serializedObject.FindProperty(path).isExpanded = true;
-                
-                EditorGUI.indentLevel = 1;
-                rect = EditorGUILayout.GetControlRect(true, EditorGUI.GetPropertyHeight(serializedObject.FindProperty(path), true) + EditorGUIUtility.standardVerticalSpacing);
-                if (highlight)
+                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    EditorHelpers.DrawColoredRect(rect, separatorColor.withA(highlightAlpha));    
-                }
-                EditorGUI.PropertyField(rect, serializedObject.FindProperty(path), true);
-                serializedObject.ApplyModifiedProperties();
+                    // var rect = EditorGUILayout.GetControlRect();
+                    // EditorHelpers.DrawColoredRect(rect, separatorColor.withA(0.9f));
 
-                
-                EditorGUI.indentLevel = 0;
-                rect = EditorGUILayout.GetControlRect();
-                EditorHelpers.DrawColoredRect(rect, separatorColor.withA(0.9f));
+                    serializedObject.FindProperty(path).isExpanded = true;
+
+                    EditorGUI.indentLevel = 1;
+                    var rect = EditorGUILayout.GetControlRect(true,
+                        EditorGUI.GetPropertyHeight(serializedObject.FindProperty(path), true) +
+                        EditorGUIUtility.standardVerticalSpacing);
+                    if (highlight)
+                    {
+                        EditorHelpers.DrawColoredRect(rect, separatorColor.withA(highlightAlpha));
+                    }
+
+                    EditorGUI.PropertyField(rect, serializedObject.FindProperty(path), true);
+                    serializedObject.ApplyModifiedProperties();
+
+
+                    EditorGUI.indentLevel = 0;
+                    // rect = EditorGUILayout.GetControlRect();
+                    // EditorHelpers.DrawColoredRect(rect, separatorColor.withA(0.9f));
+                }
             }
 
             Rect ClickAreaWithContextMenu(object context, bool removeItem = true)
