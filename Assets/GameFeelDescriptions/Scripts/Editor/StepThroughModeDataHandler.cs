@@ -42,7 +42,6 @@ namespace GameFeelDescriptions
                 for (var index = 0; index < descriptions.Length; index++)
                 {
                     var description = descriptions[index];
-                    var innerStepThroughMode = false;
 
                     //Cleanup Triggers with empty effect groups.
                     var emptyTriggers = new List<GameFeelTrigger>();
@@ -52,36 +51,20 @@ namespace GameFeelDescriptions
                         {
                             emptyTriggers.Add(trigger);
                         }
-                        else
-                        {
-                            foreach (var effectGroup in trigger.EffectGroups)
-                            {
-                                if (effectGroup.StepThroughMode)
-                                {
-                                    innerStepThroughMode = true;
-                                    break;
-                                }
-                            }
-                        }
                     }
 
-                    if (description.StepThroughMode || innerStepThroughMode)
+                    //Empty triggers appear if you started with StepThroughMode enabled, but don't contain data.
+                    foreach (var trigger in emptyTriggers)
                     {
-                        foreach (var trigger in emptyTriggers)
-                        {
-                            description.TriggerList.Remove(trigger);
-                        }
-
-                        //Make a custom name, based on the index, to avoid issues when the user changes the name of
-                        //the Description during Step Through Mode. 
-                        var name = index+".SerializedDescription.txt";
-                        var path = Path.Combine(GameFeelDescription.savePath, stepThroughModeDir);
-
-                        GameFeelDescription.SaveToFile(description, name, path);
+                        description.TriggerList.Remove(trigger);
                     }
+                    
+                    //Make a custom name, based on the index, to avoid issues when the user changes the name of
+                    //the Description during Step Through Mode. 
+                    var name = index+".SerializedDescription.txt";
+                    var path = Path.Combine(GameFeelDescription.savePath, stepThroughModeDir);
+                    GameFeelDescription.SaveToFile(description, name, path);
                 }
-
-                //Debug.Log("Exiting Play mode.");
             }
             //Restore the StepThroughMode descriptions when we've entered Edit Mode!
             else if (playModeState == PlayModeStateChange.EnteredEditMode)

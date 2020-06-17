@@ -86,7 +86,6 @@ namespace GameFeelDescriptions
 
         private bool showBottomButtons = false;
         
-        
         public static Dictionary<int, List<bool>> ExpandedDescriptionNames = new Dictionary<int, List<bool>>();
 
         //TODO: Consider making these static, to cache them between instances.
@@ -95,10 +94,16 @@ namespace GameFeelDescriptions
         private static string[] gameFeelEffectNames;
 
         private float lastSaveTime;
+        private double editorTimeAtLastUpdate;
 
         private void OnEnable()
         {
             Init();
+        }
+        
+        public override bool RequiresConstantRepaint()
+        {
+            return EditorApplication.timeSinceStartup > EditorHelpers.HighlightUntil || base.RequiresConstantRepaint();
         }
 
         void Init()
@@ -165,7 +170,9 @@ namespace GameFeelDescriptions
         // }
         
         #endregion
-
+        
+        
+        
         public override void OnInspectorGUI()
         {   
             EditorGUI.BeginChangeCheck();
@@ -594,7 +601,7 @@ namespace GameFeelDescriptions
             return (list, objs);
         }
         
-        private void GenerateSimpleInterface(object container, ref int index, int indent = 0, string parentProperty = null, int dataIndex = 0)
+        private void GenerateSimpleInterface(object container, ref int index, int indent = 0, string parentProperty = null, int dataIndex = 0, bool doHighlight = false)
         {
             var propertyPath = "";
             if (parentProperty != null)
@@ -605,6 +612,7 @@ namespace GameFeelDescriptions
             //var canPaste = false;
             
             var highlightColor = new Color(1f, 1f, 0f, 1f);
+            var alpha = (float)((EditorHelpers.HighlightUntil - EditorApplication.timeSinceStartup) / EditorHelpers.HighlightTime);
             
             if (ExpandedDescriptionNames[target.GetInstanceID()].Count <= index)
             {
@@ -732,10 +740,8 @@ namespace GameFeelDescriptions
                                             "("+string.Join(",", custom.Sources)+")" : 
                                             custom.AllowFrom.GetName())+ "]";
                     }
-                    
-                    var highlightTime = 2.5f;
-                    var doHighlight = EditorHelpers.HighlightedTriggerIndex == dataIndex && EditorApplication.timeSinceStartup - EditorHelpers.LastHighlightTime < highlightTime;
-                    var alpha = (float)(EditorApplication.timeSinceStartup - EditorHelpers.LastHighlightTime) / highlightTime;
+
+                    doHighlight = EditorHelpers.HighlightedTriggerIndex == dataIndex && EditorApplication.timeSinceStartup < EditorHelpers.HighlightUntil;
 
 //                    if (!string.IsNullOrWhiteSpace(EditorGUIUtility.systemCopyBuffer) && 
 //                        JsonUtility.FromJson<GameFeelEffectGroup>(EditorGUIUtility.systemCopyBuffer) != null)
@@ -748,6 +754,11 @@ namespace GameFeelDescriptions
                     {
                         //DO COLORING, if highlight is enabled, for highlightTime seconds!
                         EditorHelpers.DrawColoredRect(clickArea, highlightColor.withA(alpha));
+                        
+                        if (EditorHelpers.HighlightedEffectGroupIndex == -1)
+                        {
+                            ExpandedDescriptionNames[target.GetInstanceID()][index] = true;    
+                        }
                     }
                 
                     ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea, ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel);    
@@ -764,7 +775,7 @@ namespace GameFeelDescriptions
                         
                             index++;
                             GenerateSimpleInterface(trigger.EffectGroups[i], ref index, indent+1, 
-                                propertyPath+".EffectGroups", i); 
+                                propertyPath+".EffectGroups", i, doHighlight); 
                         }    
                     // }
                     
@@ -785,6 +796,14 @@ namespace GameFeelDescriptions
                     var groupLabel = prefix+"EffectGroup "+(string.IsNullOrWhiteSpace(group.GroupName) ? "" : "'"+group.GroupName+"'") 
                                      +" [Applies to "+ (group.ExecuteOnTargetCopy ? "a copy of " : "")
                                      + group.AppliesTo.GetName() + "]";
+
+                    if (doHighlight && EditorHelpers.HighlightedEffectGroupIndex == dataIndex)
+                    {
+                        //DO COLORING, if highlight is enabled, for highlightTime seconds!
+                        EditorHelpers.DrawColoredRect(clickArea, highlightColor.withA(alpha));
+                        
+                        // ExpandedDescriptionNames[target.GetInstanceID()][index] = true;
+                    }
 
                     using (new EditorGUI.DisabledScope(group.Disabled))
                     {

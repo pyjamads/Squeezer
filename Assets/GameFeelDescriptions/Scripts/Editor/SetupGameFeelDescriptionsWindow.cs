@@ -1,10 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Analytics;
-using UnityEngine.UI;
 
 namespace GameFeelDescriptions
 {
@@ -215,7 +212,6 @@ namespace GameFeelDescriptions
                 
                 createdDescription.StepThroughMode = EditorGUILayout.Toggle("Step Through Mode", createdDescription.StepThroughMode);
             }
-            
         }
 
         private void AddTriggers(GameFeelDescription desc)

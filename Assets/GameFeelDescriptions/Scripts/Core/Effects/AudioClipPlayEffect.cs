@@ -29,8 +29,9 @@ namespace GameFeelDescriptions
         [HideFieldIf("playOneShot", false)]
         public float pitchResetDelay = 1f;
 
-        [Header("Play the audio clip looping.")]
+        
         [HideFieldIf("playOneShot", true)]
+        [Header("Play the audio clip looping.")]
         public bool playLoop;
 
         [HideInInspector]

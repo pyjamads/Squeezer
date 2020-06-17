@@ -112,14 +112,14 @@ namespace GameFeelDescriptions
                     return;
             }
 
-
+            //TODO: find bug, where two "tags" have been defined as !tags but it still hits one of them (wall fx in paddle)
             var shouldHandleEffect = ReactTo.Any(item => item.Contains("!"));
             for (var index = 0; index < ReactTo.Count; index++)
             {
                 var reactTo = ReactTo[index];
                 var checkTag = isTag[index];
                 
-//Check for ! and *, and if those are not in the tag string, check the tag itself.
+                //Check for ! and *, and if those are not in the tag string, check the tag itself.
                 if (reactTo.Contains("!"))
                 {
                     if (checkTag && other.tag.Contains(reactTo.Substring(1)))

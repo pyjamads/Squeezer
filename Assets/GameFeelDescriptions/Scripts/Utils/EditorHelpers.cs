@@ -10,8 +10,10 @@ namespace GameFeelDescriptions
 {
     public static class EditorHelpers
     {
-        public static double LastHighlightTime = -5;
+        public static double HighlightUntil = -5f;
+        public const float HighlightTime = 5f;
         public static int HighlightedTriggerIndex = -1;
+        public static int HighlightedEffectGroupIndex = -1;
         
         public static void CreateFolder(string path, bool recursive = true)
         {
