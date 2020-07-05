@@ -20,6 +20,13 @@ namespace GameFeelDescriptions
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
             Vector3? interactionDirection = null)
         {
+            //This effect does nothing, when no event name is specified!
+            if (string.IsNullOrEmpty(EventName))
+            {
+                Debug.LogWarning("No EventName specified on TriggerCustomEventEffect! Description: "+origin+" target: "+target);
+                return null;
+            }
+
             var hash = EventName.GetHashCode();
             var now = unscaledTime ? Time.unscaledTime : Time.time;
             

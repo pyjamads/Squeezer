@@ -1,68 +1,69 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class ballBehavior : MonoBehaviour
+namespace GameFeelDescriptions.Examples
 {
-    public float acceleration = 1f;
-    public Vector2 velocity;
-    public float maxSpeed;
 
-    public int something;
-    private Rigidbody2D body;
-    
-    public bool ballReady = true;
-    
-    // Start is called before the first frame update
-    void Start()
+    [RequireComponent(typeof(Rigidbody2D))]
+    public class ballBehavior : MonoBehaviour
     {
-        body = GetComponent<Rigidbody2D>();
-        velocity = Vector2.up * 5 + (Vector2)Random.onUnitSphere;
-    }
-    
+        public float acceleration = 1f;
+        public Vector2 velocity;
+        public float maxSpeed;
 
-    public void ResetBall()
-    {
-        ballReady = true;
-        transform.position = new Vector3(0, -3, 0);
-        velocity = Vector2.up * 5 + Random.insideUnitCircle.normalized;
-        body.velocity = Vector2.zero;
-    }
+        public int something;
+        private Rigidbody2D body;
+
+        public bool ballReady = true;
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            body = GetComponent<Rigidbody2D>();
+            velocity = Vector2.up * 5 + (Vector2) Random.onUnitSphere;
+        }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (ballReady) return;
-        
-        //Standard movement update
+        public void ResetBall()
+        {
+            ballReady = true;
+            transform.position = new Vector3(0, -3, 0);
+            velocity = Vector2.up * 5 + Random.insideUnitCircle.normalized;
+            body.velocity = Vector2.zero;
+        }
+
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (ballReady) return;
+
+            //Standard movement update
 //        velocity += acceleration * Time.deltaTime;
 //        acceleration = Vector2.zero;
-        body.velocity = velocity;
+            body.velocity = velocity;
 
-        if (velocity.magnitude > maxSpeed)
-        {
-            velocity = velocity.normalized * maxSpeed;
-        }
-        
-        //TODO: fix wall clipping bug, just make it math based really...
-        if(transform.position.y < -5  || 5 < transform.position.y ||
-           transform.position.x < -10 || 10 < transform.position.x) ResetBall();
-    }
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity = velocity.normalized * maxSpeed;
+            }
 
-    
-    
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("paddle"))
-        {
-            var dir = transform.position - other.gameObject.transform.position;
-            var mag = velocity.magnitude;
-            velocity = dir.normalized * mag * acceleration;
+            //TODO: fix wall clipping bug, just make it math based really...
+            if (transform.position.y < -5 || 5 < transform.position.y ||
+                transform.position.x < -10 || 10 < transform.position.x) ResetBall();
         }
-        else
+
+
+
+        private void OnCollisionEnter2D(Collision2D other)
         {
+            if (other.gameObject.CompareTag("paddle"))
+            {
+                var dir = transform.position - other.gameObject.transform.position;
+                var mag = velocity.magnitude;
+                velocity = dir.normalized * mag * acceleration;
+            }
+            else
+            {
 //            if (other.contactCount > 1)
 //            {
 //                var maxDot = float.NegativeInfinity;
@@ -91,11 +92,12 @@ public class ballBehavior : MonoBehaviour
                 velocity = Vector2.Reflect(velocity, contact.normal) * acceleration;
 //            }
 
-            if (other.gameObject.CompareTag("block"))
-            {
-                Destroy(other.gameObject);
+                if (other.gameObject.CompareTag("block"))
+                {
+                    Destroy(other.gameObject);
+                }
             }
+
         }
-        
     }
 }

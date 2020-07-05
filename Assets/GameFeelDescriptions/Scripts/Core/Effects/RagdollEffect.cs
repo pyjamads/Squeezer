@@ -6,7 +6,7 @@ namespace GameFeelDescriptions
     //which means all effects need to be added as an OnComplete to the Ragdoll,
     //in order to apply to the "new" target!
     
-    public class RagdollEffect : GameFeelEffect
+    public class RagdollEffect : GameFeelEffect //TODO: use SpawningGameFeelEffect instead, and fix effect trees!
     {
         public RagdollEffect()
         {
@@ -61,7 +61,7 @@ namespace GameFeelDescriptions
             if (!target.GetComponent<Rigidbody>() && !target.GetComponent<Rigidbody2D>())
             {
                 var rigid = target.AddComponent<Rigidbody>();
-
+//TODO: saw a null ref here, when not 'copying' the object, and it had a Rigidbody2D attached...
                 rigid.useGravity = ApplyGravity;
                 rigid.velocity = AdditionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);                
             }

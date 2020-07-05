@@ -13,6 +13,9 @@ using Object = UnityEngine.Object;
 
 namespace GameFeelDescriptions
 {
+    //TODO: Remove effect groups 1: move appliesTo, unscaledTime, executeOnCopy, (alter follow to just nest the copy under the original) to effects.
+    //TODO: Remove effect groups 2: move stepthroughmode and disabled up to triggers, and rename it to pause on trigger or something.
+    
     [Serializable]
     public class GameFeelEffectGroup
     {
@@ -28,7 +31,7 @@ namespace GameFeelDescriptions
         public bool Disabled;
 
         /// <summary>
-        /// Use unscaledTime when executing this effect, this allows effects to be follow game play time scale or not. 
+        /// Use unscaledTime when executing this effect, this allows effects to follow game play time scale or not. 
         /// </summary>
         public bool UnscaledTime;
         
@@ -44,8 +47,7 @@ namespace GameFeelDescriptions
         [Header("Controls which targets the effects apply to.")]
         [ShowTypeAttribute]
         public GameFeelTarget AppliesTo;
-
-        //TODO: don't show the targetTag, component or list, unless selected in AppliesTo 11/02/2020
+        
         /// <summary>
         /// Used when <see cref="GameFeelEffect.AppliesTo"/> is set to <see cref="GameFeelTarget.Tag"/>.
         /// Applies to objects with the given Tag, or Name.

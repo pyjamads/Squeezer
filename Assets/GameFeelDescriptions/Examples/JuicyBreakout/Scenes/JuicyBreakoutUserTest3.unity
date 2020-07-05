@@ -986,93 +986,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174127964}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &176529135
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 176529136}
-  - component: {fileID: 176529137}
-  m_Layer: 0
-  m_Name: ballEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &176529136
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176529135}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2083772420}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &176529137
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 176529135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: ballEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [ball]
-  StepThroughMode: 0
-  AttachToTag: ball
-  TriggerList:
-  - id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: OnMoveTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 1
-        EffectGroups:
-        - GroupName: 
-          Disabled: 0
-          UnscaledTime: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          ExecuteOnTargetCopy: 0
-          DisableRendererAndFollowOriginal: 0
-          FollowEasing: 0
-          EffectsToExecute:
-          - id: 1
-        type: 1
-    00000001:
-      type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Make a trail of copies of the game object, which slowly fades.
-        Delay: 0.1
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        TrailPrefab: {fileID: 0}
-        FadeTime: 1.3347447
-        FadeDelay: 0.1
-        FadeEase: 8
-        FadeCopyOffset: {x: 0, y: 0, z: 0}
-        CustomFadeEffects: []
-        DelayBetweenCopies: 0.2
 --- !u!1 &192986219
 GameObject:
   m_ObjectHideFlags: 0
@@ -1862,7 +1775,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356199983}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -2360,168 +2273,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456201434}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &474575721
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 474575722}
-  - component: {fileID: 474575723}
-  m_Layer: 0
-  m_Name: paddleEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &474575722
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474575721}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2083772420}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &474575723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474575721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: paddleEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [paddle]
-  StepThroughMode: 0
-  AttachToTag: paddle
-  TriggerList:
-  - id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        EffectGroups:
-        - GroupName: 
-          Disabled: 0
-          UnscaledTime: 0
-          StepThroughMode: 0
-          AppliesTo: 1
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          ExecuteOnTargetCopy: 1
-          DisableRendererAndFollowOriginal: 0
-          FollowEasing: 0
-          EffectsToExecute:
-          - id: 1
-          - id: 2
-          - id: 3
-        OtherTags:
-        - ball
-        type: 0
-    00000001:
-      type: {class: ShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Simple shake effect. Can be used for shaking camera or other
-          things.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion:
-        - id: 4
-        Duration: 0.4
-        useInteractionDirection: 1
-        interactionDirectionMultiplier: 1
-        amount: 0.05
-        easeAmountInOut:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0.4985962
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 2
-            outSlope: 2
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        useResetPositionAfterShake: 0
-        resetPosition: {x: 0, y: 0, z: 0}
-    00000002:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        Duration: 0.4
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 6, y: 6, z: 6}
-        easing: 3
-        loopType: 0
-        repeat: 1
-    00000003:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        Duration: 0.4
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0, g: 0, b: 0, a: 0}
-        easing: 5
-        loopType: 0
-        repeat: 1
-        useMaterialReference: 0
-        materialToModify: {fileID: 0}
-    00000004:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Simple destruction effect.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
 --- !u!1 &480757576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2945,99 +2696,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483932638}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &527705819
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 527705820}
-  - component: {fileID: 527705823}
-  - component: {fileID: 527705822}
-  - component: {fileID: 527705821}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &527705820
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527705819}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.523, z: 0}
-  m_LocalScale: {x: 1, y: 0.01, z: 0.0001}
-  m_Children: []
-  m_Father: {fileID: 947963348}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &527705821
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527705819}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &527705822
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527705819}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 0e5d404ce26464e36bf101cf0fc93a4f, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &527705823
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 527705819}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &534568735
 GameObject:
@@ -5053,113 +4711,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 920071533}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &947963344
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 947963348}
-  - component: {fileID: 947963347}
-  - component: {fileID: 947963346}
-  - component: {fileID: 947963345}
-  m_Layer: 0
-  m_Name: BallSpeedArea
-  m_TagString: highspeed
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!61 &947963345
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947963344}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!23 &947963346
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947963344}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &947963347
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947963344}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &947963348
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947963344}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 0}
-  m_LocalScale: {x: 16.71, y: 6.538438, z: 10}
-  m_Children:
-  - {fileID: 527705820}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &948432252
 GameObject:
   m_ObjectHideFlags: 0
@@ -5266,57 +4817,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948432252}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &953177336
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 953177337}
-  - component: {fileID: 953177338}
-  m_Layer: 0
-  m_Name: MainCameraEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &953177337
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953177336}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2083772420}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &953177338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953177336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: MainCameraEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [MainCamera]
-  StepThroughMode: 0
-  AttachToTag: MainCamera
-  TriggerList: []
-  references:
-    version: 1
 --- !u!1 &1015288553
 GameObject:
   m_ObjectHideFlags: 0
@@ -6059,6 +5559,87 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1195170230}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1196276155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1196276157}
+  - component: {fileID: 1196276156}
+  m_Layer: 0
+  m_Name: Flash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &1196276156
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196276155}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.16}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1196276157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196276155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 200, y: 200, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1499500741}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1238064693
 GameObject:
   m_ObjectHideFlags: 0
@@ -6983,7 +6564,7 @@ Transform:
   m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1305098161
 GameObject:
@@ -8231,7 +7812,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1196276157}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8437,57 +8019,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504341577}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1553147807
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1553147808}
-  - component: {fileID: 1553147809}
-  m_Layer: 0
-  m_Name: highspeedEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1553147808
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553147807}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2083772420}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1553147809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553147807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: highspeedEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [highspeed]
-  StepThroughMode: 0
-  AttachToTag: highspeed
-  TriggerList: []
-  references:
-    version: 1
 --- !u!1 &1560730003
 GameObject:
   m_ObjectHideFlags: 0
@@ -8953,57 +8484,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655097620}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1656867024
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1656867025}
-  - component: {fileID: 1656867026}
-  m_Layer: 0
-  m_Name: wallEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1656867025
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1656867024}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2083772420}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1656867026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1656867024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: wallEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [wall]
-  StepThroughMode: 0
-  AttachToTag: wall
-  TriggerList: []
-  references:
-    version: 1
 --- !u!1 &1690288186
 GameObject:
   m_ObjectHideFlags: 0
@@ -10136,7 +9616,7 @@ Transform:
   - {fileID: 646041299}
   - {fileID: 948432253}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1972549586
 GameObject:
@@ -10244,174 +9724,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1972549586}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2007832506
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2007832507}
-  - component: {fileID: 2007832508}
-  m_Layer: 0
-  m_Name: blockEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2007832507
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007832506}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2083772420}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2007832508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2007832506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: blockEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [block]
-  StepThroughMode: 0
-  AttachToTag: block
-  TriggerList:
-  - id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        EffectGroups:
-        - GroupName: 
-          Disabled: 0
-          UnscaledTime: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          ExecuteOnTargetCopy: 1
-          DisableRendererAndFollowOriginal: 0
-          FollowEasing: 0
-          EffectsToExecute:
-          - id: 1
-          - id: 2
-          - id: 3
-          - id: 4
-        OtherTags:
-        - ball
-        type: 0
-    00000001:
-      type: {class: ShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Simple shake effect. Can be used for shaking camera or other
-          things.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        Duration: 1
-        useInteractionDirection: 1
-        interactionDirectionMultiplier: -1
-        amount: -0.2
-        easeAmountInOut:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 2
-            outSlope: 2
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        useResetPositionAfterShake: 0
-        resetPosition: {x: 0, y: 0, z: 0}
-    00000002:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        Duration: 1
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0, g: 0, b: 0, a: 0}
-        easing: 5
-        loopType: 0
-        repeat: 1
-        useMaterialReference: 0
-        materialToModify: {fileID: 0}
-    00000003:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        Duration: 1
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 0
-        to: {x: 0, y: 0, z: 0}
-        easing: 8
-        loopType: 0
-        repeat: 1
-    00000004:
-      type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Play Audio clip Effect allows you to a sound clip and adjust
-          volume using easing.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        createAudioSource: 0
-        source: {fileID: 1499500742}
-        clip: {fileID: 8300000, guid: 375c8859daffa404b9fc791a2b415ef4, type: 3}
-        playOneShot: 0
-        playLoop: 0
 --- !u!1 &2009092097
 GameObject:
   m_ObjectHideFlags: 0
@@ -10942,42 +10254,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055516298}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2083772419
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2083772420}
-  m_Layer: 0
-  m_Name: GameFeelDescriptions
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2083772420
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2083772419}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 953177337}
-  - {fileID: 176529136}
-  - {fileID: 474575722}
-  - {fileID: 2007832507}
-  - {fileID: 1656867025}
-  - {fileID: 1553147808}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2084752850
 GameObject:
   m_ObjectHideFlags: 0
@@ -11120,7 +10396,7 @@ Transform:
   - {fileID: 150795473}
   - {fileID: 268240163}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2106892003
 GameObject:

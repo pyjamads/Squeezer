@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 namespace GameFeelDescriptions
 {
     [Serializable]
-    public class TrailEffect : GameFeelEffect
+    public class TrailEffect : GameFeelEffect //TODO: use SpawningGameFeelEffect instead, and fix effect trees!
     {
         public TrailEffect()
         {

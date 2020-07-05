@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -222,7 +223,7 @@ namespace GameFeelDescriptions
                 {
                     effectGroup.StepThroughMode = false;
                 }
-                else if (Description.StepThroughMode && EffectGroups.Count == 0)
+                else if (Description.StepThroughMode && (EffectGroups.Count == 0 || EffectGroups.Any(item => item.EffectsToExecute.Count == 0)))
                 {
                     switch (TriggerType)
                     {
@@ -230,9 +231,10 @@ namespace GameFeelDescriptions
                         {
                             var col = (OnCollisionTrigger) Description.TriggerList[TriggerIndex];
                             var other = (GameObject) context[1];
-
+                            var reactTo = other.tag.Equals("Untagged") ? other.name : other.tag;
+                            
                             col.ReactTo.Remove("*");
-                            col.ReactTo.Add("!" + other.tag);
+                            col.ReactTo.Add("!" + reactTo);
                             serializedObject.ApplyModifiedProperties();
 
                             break;
@@ -240,11 +242,14 @@ namespace GameFeelDescriptions
                         default:
                             //For all the other trigger types, just remove them.
                         {
-                            var sp = serializedObject.FindProperty("TriggerList");
-                            sp.DeleteArrayElementAtIndex(TriggerIndex);
-                            serializedObject.ApplyModifiedProperties();
+                            if (EffectGroups.Count == 0)
+                            {
+                                var sp = serializedObject.FindProperty("TriggerList");
+                                sp.DeleteArrayElementAtIndex(TriggerIndex);
+                                serializedObject.ApplyModifiedProperties();
 
-                            Destroy(this);
+                                Destroy(this);    
+                            }
                             break;
                         }
                     }

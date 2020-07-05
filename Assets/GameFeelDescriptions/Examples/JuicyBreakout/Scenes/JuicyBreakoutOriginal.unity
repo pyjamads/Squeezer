@@ -1740,6 +1740,7 @@ MonoBehaviour:
   acceleration: 1.01
   velocity: {x: 0, y: 0}
   maxSpeed: 10
+  something: 0
   ballReady: 1
 --- !u!61 &356199985
 BoxCollider2D:
@@ -1787,7 +1788,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!23 &356199987
 MeshRenderer:
   m_ObjectHideFlags: 0

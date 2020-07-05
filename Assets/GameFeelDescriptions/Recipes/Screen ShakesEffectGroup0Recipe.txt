@@ -1,0 +1,98 @@
+{
+    "Name": "",
+    "Description": "CameraEffects (Shake and background color)",
+    "effects": [
+        {
+            "id": 0
+        },
+        {
+            "id": 1
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "ShakeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Simple shake effect. Can be used for shaking camera or other things.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 0.10000000149011612,
+                "useInteractionDirection": false,
+                "interactionDirectionMultiplier": 0.0,
+                "amount": 0.05000000074505806,
+                "easeAmountInOut": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "useResetPositionAfterShake": true,
+                "resetPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -10.0
+                }
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "CameraBackgroundColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Camera Background Color change Effect allows you to change a camera background color field using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 0.5,
+                "setFromValue": false,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.8679245114326477,
+                    "g": 0.8679245114326477,
+                    "b": 0.8679245114326477,
+                    "a": 1.0
+                },
+                "easing": 9,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 1,
+                "repeat": 1,
+                "cameraToModify": {
+                    "instanceID": 0
+                }
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

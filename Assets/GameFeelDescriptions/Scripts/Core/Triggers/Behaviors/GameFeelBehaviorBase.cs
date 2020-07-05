@@ -111,7 +111,9 @@ namespace GameFeelDescriptions
         {
             //Step Through Mode
             if (Description.StepThroughMode 
-                && (EffectGroups.Count == 0 || AutomatedDesigner.AutomatedEffectDesigner))
+                && (EffectGroups.Count == 0 || 
+                    EffectGroups.Any(item => item.EffectsToExecute.Count == 0) || 
+                    AutomatedDesigner.AutomatedEffectDesigner))
             {
                 PauseAndSelectTrigger(null, context);
             }

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using Packages.Rider.Editor.UnitTesting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace GameFeelDescriptions
 {   
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     public class GameFeelEffectExecutor : MonoBehaviour
     {
         public int CurrentlyExecuting;
@@ -128,8 +129,7 @@ namespace GameFeelDescriptions
             activeEffects.Remove(effect);
         }
         
-        
-
+        public void TriggerCustomEvent(GameObject origin, string eventName, Vector3 direction) => OnCustomEventTriggered.Invoke(origin, eventName, direction);
 
         //TODO: make an GameFeelEventExecutor instead.
         //TODO: Make an attribute CustomEventTriggerAttribute(string eventName), that invokes this when the Method is called. 7/4/2020

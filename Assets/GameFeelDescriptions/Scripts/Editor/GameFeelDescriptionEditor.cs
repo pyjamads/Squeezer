@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 namespace GameFeelDescriptions
 {
@@ -85,6 +86,10 @@ namespace GameFeelDescriptions
         private bool showDescriptionSettings = false;
 
         private bool showBottomButtons = false;
+
+        private bool canPaste = false;
+
+        private object copiedObject;
         
         public static Dictionary<int, List<bool>> ExpandedDescriptionNames = new Dictionary<int, List<bool>>();
 
@@ -639,7 +644,7 @@ namespace GameFeelDescriptions
                             showAttach = EditorGUILayout.Foldout(showAttach, "AttachTo");
                             EditorGUI.indentLevel -= 1;
 
-                            if (showAttach)
+                            //if (showAttach) //Don't do foldout inside foldout here!
                             {
                                 using (new GUILayout.VerticalScope(EditorStyles.helpBox))
                                 {
@@ -652,18 +657,20 @@ namespace GameFeelDescriptions
                                 }
                             }
 
-                            EditorGUILayout.PropertyField(serializedObject.FindProperty("StepThroughMode"));
-                            if (desc.StepThroughMode)
-                            {
-                                EditorGUILayout.HelpBox(new GUIContent(
-                                    "StepThroughMode let's you add effects as collisions between objects occur.\n" +
-                                    "In addition when StepThroughMode is enabled, \n" +
-                                    "PlayMode changes to the description will persist in EditMode."));
-                            }
-
                             serializedObject.ApplyModifiedProperties();
                         }
                     }
+                    
+                    EditorGUILayout.PropertyField(serializedObject.FindProperty("StepThroughMode"));
+                    if (desc.StepThroughMode)
+                    {
+                        EditorGUILayout.HelpBox(new GUIContent(
+                            "StepThroughMode let's you add effects as collisions between objects occur.\n" +
+                            "In addition when StepThroughMode is enabled, \n" +
+                            "PlayMode changes to the description will persist in EditMode."));
+                    }
+                    
+                    serializedObject.ApplyModifiedProperties();
                     
                     GUILayout.Space(20);
                     
@@ -671,11 +678,14 @@ namespace GameFeelDescriptions
 
 //                    desc.StepThroughMode = EditorGUILayout.Toggle("Step Through Mode", desc.StepThroughMode);
 //                    
-//                    if (!string.IsNullOrWhiteSpace(EditorGUIUtility.systemCopyBuffer) && 
-//                        JsonUtility.FromJson<GameFeelTrigger>(EditorGUIUtility.systemCopyBuffer) != null)
-//                    {
-//                        canPaste = true;
-//                    }
+                    if (copiedObject is GameFeelTrigger)
+                    {
+                        canPaste = true;
+                    }
+                    else
+                    {
+                        canPaste = false;
+                    }
 
                     var clickArea = ClickAreaWithContextMenu(desc, false);
                     if (desc.TriggerList.Count == 0)
@@ -693,7 +703,7 @@ namespace GameFeelDescriptions
                     }
                     else
                     {
-                        var seperator = !string.IsNullOrEmpty(desc.AttachToTag) && desc.AttachToComponentType != null
+                        var seperator = !string.IsNullOrEmpty(desc.AttachToTag) && !string.IsNullOrEmpty(desc.AttachToComponentType)
                             ? " and "
                             : "";
 
@@ -743,11 +753,14 @@ namespace GameFeelDescriptions
 
                     doHighlight = EditorHelpers.HighlightedTriggerIndex == dataIndex && EditorApplication.timeSinceStartup < EditorHelpers.HighlightUntil;
 
-//                    if (!string.IsNullOrWhiteSpace(EditorGUIUtility.systemCopyBuffer) && 
-//                        JsonUtility.FromJson<GameFeelEffectGroup>(EditorGUIUtility.systemCopyBuffer) != null)
-//                    {
-//                        canPaste = true;
-//                    }
+                    if (copiedObject is GameFeelEffectGroup)
+                    {
+                        canPaste = true;
+                    }
+                    else
+                    {
+                        canPaste = false;
+                    }
                     
                     var clickArea = ClickAreaWithContextMenu(trigger);
                     if (doHighlight)
@@ -765,7 +778,13 @@ namespace GameFeelDescriptions
                 
                     if (ExpandedDescriptionNames[target.GetInstanceID()][index])
                     {
-                        DrawPropertyWithColor(propertyPath, highlightColor, doHighlight, alpha);
+                        // EditorGUI.indentLevel += 1;
+                        // ExpandedDescriptionNames[target.GetInstanceID()][index][1] = EditorGUILayout.Foldout(ExpandedDescriptionNames[target.GetInstanceID()][index][1], "Trigger Properties");
+                        // EditorGUI.indentLevel -= 1;
+                        // if (ExpandedDescriptionNames[target.GetInstanceID()][index][1])
+                        // {
+                            DrawPropertyWithColor(propertyPath, highlightColor, doHighlight, alpha);
+                        // }
                     }
                     // else
                     // {
@@ -783,12 +802,14 @@ namespace GameFeelDescriptions
                 }
                 case GameFeelEffectGroup group:
                 {
-                    
-//                    if (!string.IsNullOrWhiteSpace(EditorGUIUtility.systemCopyBuffer) && 
-//                        JsonUtility.FromJson<GameFeelEffect>(EditorGUIUtility.systemCopyBuffer) != null)
-//                    {
-//                        canPaste = true;
-//                    }
+                    if (copiedObject is GameFeelEffect)
+                    {
+                        canPaste = true;
+                    }
+                    else
+                    {
+                        canPaste = false;
+                    }
                     
                     var clickArea = ClickAreaWithContextMenu(group);
                     
@@ -816,14 +837,20 @@ namespace GameFeelDescriptions
                     {
                         if (ExpandedDescriptionNames[target.GetInstanceID()][index])
                         {
-                            DrawPropertyWithColor(propertyPath, highlightColor);
+                            // ExpandedDescriptionNames[target.GetInstanceID()][index][1] =
+                            //     EditorGUILayout.Foldout(ExpandedDescriptionNames[target.GetInstanceID()][index][1], "Group Properties");
+                            //
+                            // if (ExpandedDescriptionNames[target.GetInstanceID()][index][1])
+                            // {
+                                DrawPropertyWithColor(propertyPath, highlightColor);    
+                            // }
                         }
                         // else
                         // {   
                             for (var i = 0; i < group.EffectsToExecute.Count; i++)
                             {
                                 if (group.EffectsToExecute[i] == null) continue;
-
+                            
                                 index++;
                                 GenerateSimpleInterface(group.EffectsToExecute[i], ref index, indent + 1,
                                     propertyPath + ".EffectsToExecute", i);
@@ -835,12 +862,14 @@ namespace GameFeelDescriptions
                 }
                 case GameFeelEffect effect:
                 {
-                                        
-//                    if (!string.IsNullOrWhiteSpace(EditorGUIUtility.systemCopyBuffer) && 
-//                        JsonUtility.FromJson<GameFeelEffect>(EditorGUIUtility.systemCopyBuffer) != null)
-//                    {
-//                        canPaste = true;
-//                    }
+                    if (copiedObject is GameFeelEffect)
+                    {
+                        canPaste = true;
+                    }
+                    else
+                    {
+                        canPaste = false;
+                    }
                     
                     var clickArea = ClickAreaWithContextMenu(effect);
                     
@@ -851,6 +880,13 @@ namespace GameFeelDescriptions
 
                     using (new EditorGUI.DisabledScope(effect.Disabled))
                     {
+                        // if (effect is TrailEffect trail)
+                        // {
+                        //     showAttach =
+                        //         EditorGUI.Foldout(new Rect(clickArea.x + 100f, clickArea.y, clickArea.width - 100f, clickArea.height),
+                        //             showAttach, "Custom Fade Effect");
+                        // }
+                        
                         ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea,
                             ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel, false);
                     }
@@ -883,14 +919,17 @@ namespace GameFeelDescriptions
                                     EditorGUI.indentLevel = indent + 1;
                                     var subClickArea = ClickAreaWithContextMenu(trail, false);
 
-                                    EditorGUI.LabelField(subClickArea, "Custom Trail Effect:");
+                                    showAttach = EditorGUI.Foldout(subClickArea, showAttach, "Custom Fade Effect");
 
-                                    for (var i = 0; i < trail.CustomFadeEffects.Count; i++)
+                                    if (showAttach)
                                     {
-                                        if (trail.CustomFadeEffects[i] == null) continue;
-                                        index++;
-                                        GenerateSimpleInterface(trail.CustomFadeEffects[i], ref index, indent + 2,
-                                            propertyPath + ".CustomFadeEffects", i);
+                                        for (var i = 0; i < trail.CustomFadeEffects.Count; i++)
+                                        {
+                                            if (trail.CustomFadeEffects[i] == null) continue;
+                                            index++;
+                                            GenerateSimpleInterface(trail.CustomFadeEffects[i], ref index, indent + 2,
+                                                propertyPath + ".CustomFadeEffects", i);
+                                        }    
                                     }
                                 }
                             }
@@ -935,33 +974,236 @@ namespace GameFeelDescriptions
             {
                 var clickArea = EditorGUILayout.GetControlRect();
                 var current = Event.current;
-
-                if (clickArea.Contains(current.mousePosition) && current.type == EventType.ContextClick)
+                
+                if (clickArea.Contains(Event.current.mousePosition))
                 {
-                    //Do a thing, in this case a drop down menu
-                    var menu = new GenericMenu();
-
-                    //TODO: cache this menu, so we don't need to rebuild it all the time. 12/05/2020
-                    //Add items from context.
-                    switch (context)
+                    if (current.type == EventType.Repaint)
                     {
-                        case GameFeelDescription desc:
+                        if (DragAndDrop.visualMode != DragAndDropVisualMode.None &&
+                            DragAndDrop.visualMode != DragAndDropVisualMode.Rejected)
+                        {
+                            EditorGUI.DrawRect(clickArea, Color.grey);
+                        }
+                    }
+                    else if (Event.current.type == EventType.MouseDrag)
+                    {
+                        // Clear out drag data
+                        DragAndDrop.PrepareStartDrag();
+                        // Set up what we want to drag
+                        DragAndDrop.SetGenericData("context", context);
+                        DragAndDrop.SetGenericData("parentProperty", parentProperty);
+                        DragAndDrop.SetGenericData("dataIndex", dataIndex);
+
+                        // Start the actual drag
+                        DragAndDrop.StartDrag(context.GetType().Name);
+
+                        // Make sure no one uses the event after us
+                        Event.current.Use();
+                    }
+                    else if (Event.current.type == EventType.DragUpdated)
+                    {
+                        switch (context)
+                        {
+                            case GameFeelTrigger trigger:
+                                if (DragAndDrop.GetGenericData("context") is GameFeelEffectGroup ||
+                                    DragAndDrop.GetGenericData("context") is GameFeelTrigger)
+                                {
+                                    DragAndDrop.visualMode = DragAndDropVisualMode.Move;
+                                }
+                                else
+                                {
+                                    DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
+                                }
+                                break;
+                            
+                            case GameFeelEffectGroup group:
+                                if (DragAndDrop.GetGenericData("context") is GameFeelEffect ||
+                                    DragAndDrop.GetGenericData("context") is GameFeelEffectGroup)
+                                {
+                                    DragAndDrop.visualMode = DragAndDropVisualMode.Move;
+                                }
+                                else
+                                {
+                                    DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
+                                }
+                                break;
+                            
+                            case GameFeelEffect effect:
+                                if (DragAndDrop.GetGenericData("context") is GameFeelEffect)
+                                {
+                                    DragAndDrop.visualMode = DragAndDropVisualMode.Move;
+                                }
+                                else
+                                {
+                                    DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
+                                }
+                                break;
+                        }
+                        
+                        Event.current.Use();
+                    }
+                    else if (Event.current.type == EventType.DragPerform) //IE. DROP !!
+                    {
+                        DragAndDrop.AcceptDrag();
+                        
+                        //NOTE: Move works, but nesting will not work using this trick!
+                        //Actually we need to check "upwards" here!
+                        //trigger -> desc
+                        //group -> trigger
+                        //effect -> group, effect
+                        
+                        //FOR EFFECTS, WE WANT TO BE ABLE TO EITHER MOVE OR NEST!
+                        //Do a thing, in this case a drop down menu
+                        var menu = new GenericMenu();
+                        if (!string.IsNullOrEmpty(parentProperty) && parentProperty.Equals(DragAndDrop.GetGenericData("parentProperty")))
+                        {
+                            menu.AddItem(new GUIContent("Reorder"), false, () =>
                             {
-//                                if (canPaste)
-//                                {
-//                                    var data = new addCallbackStruct
-//                                    {
-//                                        isPaste = true,
-//                                        context = desc,
-//                                        instance = () => JsonUtility.FromJson<GameFeelTrigger>(EditorGUIUtility.systemCopyBuffer),
-//                                    };
-//                                    menu.AddItem(new GUIContent("Paste Trigger"), false, 
-//                                        AddPropertyCallback, data);
-//                                }
-                                
+                                var sp = serializedObject.FindProperty(parentProperty);
+                                var dragDataIndex = (int) DragAndDrop.GetGenericData("dataIndex");
+
+                                //TODO: fix bug where sometimes nothing happens when you try to do this.
+                                if (dragDataIndex > dataIndex) // came from 3, going to 0
+                                {
+                                    for (int i = dragDataIndex-1; i > dataIndex-1; i--)
+                                    {
+                                        sp.MoveArrayElement(i,i+1);
+                                    }  
+                                }
+                                else // came from 0, going to 3
+                                {
+                                    for (int i = dragDataIndex; i < dataIndex; i++)
+                                    {
+                                        sp.MoveArrayElement(i,i+1);
+                                    }
+                                }
+                                serializedObject.ApplyModifiedProperties();
+                            });
+                        }
+                        
+                        switch (context)
+                        {
+                            case GameFeelTrigger trigger:
+                            {
+                                if (DragAndDrop.GetGenericData("context") is GameFeelEffectGroup group)
+                                {
+                                    // if (!propertyPath.Equals(DragAndDrop.GetGenericData("parentProperty")))
+                                    // {
+                                    //     menu.AddItem(new GUIContent("Move"), false, () =>
+                                    //     {
+                                    //         //serializedObject.Update();
+                                    //         //Add it to the new location
+                                    //         trigger.EffectGroups.Add((GameFeelEffectGroup)JsonUtility.FromJson(JsonUtility.ToJson(group), group.GetType()));
+                                    //         serializedObject.ApplyModifiedProperties();
+                                    //         
+                                    //         //Remove it from it's old location.
+                                    //         var sp = serializedObject.FindProperty(
+                                    //             (string) DragAndDrop.GetGenericData("parentProperty"));
+                                    //         sp.DeleteArrayElementAtIndex((int) DragAndDrop.GetGenericData("dataIndex"));
+                                    //         serializedObject.ApplyModifiedProperties();
+                                    //     });
+                                    // }
+                                    
+                                    menu.AddItem(new GUIContent("Copy"), false, () =>
+                                    {
+                                        //Copy it to the new location
+                                        trigger.EffectGroups.Add((GameFeelEffectGroup)JsonUtility.FromJson(JsonUtility.ToJson(group), group.GetType()));
+                                    });
+                                }
+                                break;
+                            }
+                            case GameFeelEffectGroup group:
+                            {
+                                if (DragAndDrop.GetGenericData("context") is GameFeelEffect effect)
+                                {
+                                    // if (!propertyPath.Equals(DragAndDrop.GetGenericData("parentProperty")))
+                                    // {
+                                    //     menu.AddItem(new GUIContent("Move"), false, () =>
+                                    //     {
+                                    //         //serializedObject.Update();
+                                    //         //Add it to the new location
+                                    //         group.EffectsToExecute.Add(
+                                    //             (GameFeelEffect) JsonUtility.FromJson(JsonUtility.ToJson(effect),
+                                    //                 effect.GetType()));
+                                    //         serializedObject.ApplyModifiedProperties();
+                                    //         //Remove it from it's old location.
+                                    //         var sp = serializedObject.FindProperty(
+                                    //             (string) DragAndDrop.GetGenericData("parentProperty"));
+                                    //         sp.DeleteArrayElementAtIndex((int) DragAndDrop.GetGenericData("dataIndex"));
+                                    //         serializedObject.ApplyModifiedProperties();
+                                    //     });
+                                    // }
+
+                                    menu.AddItem(new GUIContent("Copy"), false, () =>
+                                    {
+                                        //Copy it to the new location
+                                        group.EffectsToExecute.Add(
+                                            (GameFeelEffect) JsonUtility.FromJson(JsonUtility.ToJson(effect),
+                                                effect.GetType()));
+                                    });
+                                }
+                                break;
+                            }
+                            case GameFeelEffect effect:
+                                if (DragAndDrop.GetGenericData("context") is GameFeelEffect other)
+                                {
+                                    // if (!propertyPath.Equals(DragAndDrop.GetGenericData("parentProperty")))
+                                    // {
+                                    //     menu.AddItem(new GUIContent("Move to OnComplete"), false, () =>
+                                    //     {
+                                    //         //serializedObject.Update();
+                                    //         //Add it to the new location
+                                    //         effect.ExecuteAfterCompletion.Add(
+                                    //             (GameFeelEffect) JsonUtility.FromJson(JsonUtility.ToJson(other),
+                                    //                 other.GetType()));
+                                    //         serializedObject.ApplyModifiedProperties();
+                                    //         //Remove it from it's old location.
+                                    //         var sp = serializedObject.FindProperty(
+                                    //             (string) DragAndDrop.GetGenericData("parentProperty"));
+                                    //         sp.DeleteArrayElementAtIndex((int) DragAndDrop.GetGenericData("dataIndex"));
+                                    //         serializedObject.ApplyModifiedProperties();
+                                    //     });
+                                    // }
+
+                                    menu.AddItem(new GUIContent("Copy to OnComplete"), false, () =>
+                                    {
+                                        //Copy it to the new location
+                                        effect.ExecuteAfterCompletion.Add(
+                                            (GameFeelEffect) JsonUtility.FromJson(JsonUtility.ToJson(other),
+                                                other.GetType()));
+                                    });
+                                }
+                                break;
+                            //TODO: handle TrailEffect here as well!
+                        }
+                        
+                        menu.AddItem(new GUIContent("Cancel"), false, DragAndDrop.PrepareStartDrag);
+                        
+                        menu.ShowAsContext();
+                        
+                        // var desc = (GameFeelDescription) DragAndDrop.GetGenericData("description");
+                        // var trigger = DragAndDrop.GetGenericData("trigger");
+                        //
+                        // desc.TriggerList.Add((GameFeelTrigger) JsonUtility.FromJson(JsonUtility.ToJson(trigger),
+                        //     trigger.GetType()));
+
+                        Event.current.Use();
+                    }
+                    
+                    if (current.type == EventType.ContextClick)
+                    {
+                        //Do a thing, in this case a drop down menu
+                        var menu = new GenericMenu();
+
+                        //TODO: cache this menu, so we don't need to rebuild it all the time. 12/05/2020
+                        //Add items from context.
+                        switch (context)
+                        {
+                            case GameFeelDescription desc:
+                            {
                                 for (var i = 0; i < Enum.GetNames(typeof(GameFeelTriggerType)).Length; i++)
                                 {
-                                    var type = (GameFeelTriggerType)i;
+                                    var type = (GameFeelTriggerType) i;
                                     var typeName = type.GetName();
                                     var data = new addCallbackStruct
                                     {
@@ -973,107 +1215,104 @@ namespace GameFeelDescriptions
                                             var group = new GameFeelEffectGroup();
                                             //group.GroupName = "List of effects applied to Self "+typeName;
                                             trigger.EffectGroups.Add(group);
-                                            
+
                                             return trigger;
                                         },
                                     };
-                                    menu.AddItem(new GUIContent("Add Trigger/" + typeName), false, 
+                                    menu.AddItem(new GUIContent("Add Trigger/" + typeName), false,
+                                        AddPropertyCallback, data);
+                                }
+
+                                if (canPaste)
+                                {
+                                    var data = new addCallbackStruct
+                                    {
+                                        isPaste = true,
+                                        context = desc,
+                                        instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                            copiedObject.GetType()),
+                                    };
+                                    menu.AddItem(new GUIContent("Paste Trigger"), false,
                                         AddPropertyCallback, data);
                                 }
                             }
-                            break;
-                        case GameFeelTrigger trigger:
+                                break;
+                            case GameFeelTrigger trigger:
                             {
-//                                menu.AddItem(new GUIContent("Copy Trigger"), false, CopyPropertyCallback, trigger);
-//                                if (canPaste)
-//                                {
-//                                    var pasteData = new addCallbackStruct
-//                                    {
-//                                        isPaste = true,
-//                                        context = trigger,
-//                                        instance = () => JsonUtility.FromJson<GameFeelEffectGroup>(EditorGUIUtility.systemCopyBuffer),
-//                                    };
-//                                    menu.AddItem(new GUIContent("Paste EffectGroup"), false, 
-//                                        AddPropertyCallback, pasteData);
-//                                }
-                                
                                 var data = new addCallbackStruct
                                 {
                                     context = trigger,
                                     instance = () => new GameFeelEffectGroup()
                                 };
-                                menu.AddItem(new GUIContent("Add EffectGroup"), false, 
+                                menu.AddItem(new GUIContent("Add EffectGroup"), false,
                                     AddPropertyCallback, data);
+
+                                if (canPaste)
+                                {
+                                    var pasteData = new addCallbackStruct
+                                    {
+                                        isPaste = true,
+                                        context = trigger,
+                                        instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                            copiedObject.GetType()),
+                                    };
+                                    menu.AddItem(new GUIContent("Paste EffectGroup"), false,
+                                        AddPropertyCallback, pasteData);
+                                }
+
+                                menu.AddItem(new GUIContent("Copy Trigger"), false, CopyPropertyCallback, trigger);
+                                if (removeItem)
+                                {
+                                    menu.AddItem(new GUIContent("Remove Trigger"), false, RemovePropertyCallback);
+                                }
                             }
-                            break;
-                        
-                        case GameFeelEffectGroup group:
+                                break;
+
+                            case GameFeelEffectGroup group:
                             {
-//                                menu.AddItem(new GUIContent("Copy EffectGroup"), false, CopyPropertyCallback, group);
-//                                if (canPaste)
-//                                {
-//                                    var pasteData = new addCallbackStruct
-//                                    {
-//                                        isPaste = true,
-//                                        context = group.EffectsToExecute,
-//                                        instance = () => JsonUtility.FromJson<GameFeelEffect>(EditorGUIUtility.systemCopyBuffer),
-//                                    };
-//                                    menu.AddItem(new GUIContent("Paste Effect"), false, 
-//                                        AddPropertyCallback, pasteData);
-//                                }
-                                
-                                var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));                   
+                                var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
                                 foreach (var type in types)
-                                { 
+                                {
                                     // Skip abstract classes because they should not be instantiated
-                                    if(type.IsAbstract) 
-                                        continue;    
-                                    
+                                    if (type.IsAbstract)
+                                        continue;
+
                                     var data = new addCallbackStruct
                                     {
                                         context = group.EffectsToExecute,
                                         instance = () => Activator.CreateInstance(type)
                                     };
-                                    menu.AddItem(new GUIContent("Add Effect/"+ type.Name), false, 
+                                    menu.AddItem(new GUIContent("Add Effect/" + type.Name), false,
                                         AddPropertyCallback, data);
                                 }
+
+                                if (canPaste)
+                                {
+                                    var pasteData = new addCallbackStruct
+                                    {
+                                        isPaste = true,
+                                        context = group.EffectsToExecute,
+                                        instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                            copiedObject.GetType()),
+                                    };
+                                    menu.AddItem(new GUIContent("Paste Effect"), false,
+                                        AddPropertyCallback, pasteData);
+                                }
+
+                                menu.AddItem(new GUIContent("Copy EffectGroup"), false, CopyPropertyCallback, group);
+                                if (removeItem)
+                                {
+                                    menu.AddItem(new GUIContent("Remove EffectGroup"), false, RemovePropertyCallback);
+                                }
                             }
-                            break;
-                        case GameFeelEffect effect:
+                                break;
+                            case GameFeelEffect effect:
                             {
-//                                menu.AddItem(new GUIContent("Copy Effect"), false, CopyPropertyCallback, effect);
-//                                if (canPaste)
-//                                {
-//                                    //Regular paste block
-//                                    {
-//                                        var pasteData = new addCallbackStruct
-//                                        {
-//                                            isPaste = true,
-//                                            context = effect.ExecuteAfterCompletion,
-//                                            instance = () => JsonUtility.FromJson<GameFeelEffect>(EditorGUIUtility.systemCopyBuffer),
-//                                        };
-//                                        menu.AddItem(new GUIContent("Paste as OnComplete Effect"), false, 
-//                                            AddPropertyCallback, pasteData);    
-//                                    }
-//
-//                                    if (effect is TrailEffect trail)
-//                                    {
-//                                        var pasteData = new addCallbackStruct
-//                                        {
-//                                            isPaste = true,
-//                                            context = trail.CustomFadeEffects,
-//                                            instance = () => JsonUtility.FromJson<GameFeelEffect>(EditorGUIUtility.systemCopyBuffer),
-//                                        };
-//                                        menu.AddItem(new GUIContent("Paste as CustomFade Effect"), false, 
-//                                            AddPropertyCallback, pasteData);
-//                                    }
-//                                }
-                                
-                                var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));                   
+                                var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
                                 foreach (var type in types)
-                                { 
+                                {
                                     // Skip abstract classes because they should not be instantiated
-                                    if(type.IsAbstract) 
+                                    if (type.IsAbstract)
                                         continue;
 
                                     //Block to separate variable names
@@ -1086,7 +1325,7 @@ namespace GameFeelDescriptions
                                         menu.AddItem(new GUIContent("Add OnComplete Effect/" + type.Name), false,
                                             AddPropertyCallback, data);
                                     }
-                                    
+
                                     if (effect is TrailEffect trail)
                                     {
                                         var data = new addCallbackStruct
@@ -1094,27 +1333,63 @@ namespace GameFeelDescriptions
                                             context = trail.CustomFadeEffects,
                                             instance = () => Activator.CreateInstance(type)
                                         };
-                                        menu.AddItem(new GUIContent("Add CustomFade Effect/"+ type.Name), false, 
+                                        menu.AddItem(new GUIContent("Add CustomFade Effect/" + type.Name), false,
                                             AddPropertyCallback, data);
                                     }
                                 }
-                            }
-                            break;
-                    }
-                    
-                    if(removeItem)
-                    {
-                        menu.AddItem(new GUIContent("Remove Item"), false, RemovePropertyCallback);
-                    }
-                    menu.ShowAsContext();
 
-                    current.Use();
+                                if (canPaste)
+                                {
+                                    //Regular paste block
+                                    {
+                                        var pasteData = new addCallbackStruct
+                                        {
+                                            isPaste = true,
+                                            context = effect.ExecuteAfterCompletion,
+                                            instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                                copiedObject.GetType()),
+                                        };
+                                        menu.AddItem(new GUIContent("Paste as OnComplete Effect"), false,
+                                            AddPropertyCallback, pasteData);
+                                    }
+
+                                    if (effect is TrailEffect trail)
+                                    {
+                                        var pasteData = new addCallbackStruct
+                                        {
+                                            isPaste = true,
+                                            context = trail.CustomFadeEffects,
+                                            instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                                copiedObject.GetType()),
+                                        };
+                                        menu.AddItem(new GUIContent("Paste as CustomFade Effect"), false,
+                                            AddPropertyCallback, pasteData);
+                                    }
+                                }
+
+                                menu.AddItem(new GUIContent("Copy Effect"), false, CopyPropertyCallback, effect);
+
+                                if (removeItem)
+                                {
+                                    menu.AddItem(new GUIContent("Remove Effect"), false, RemovePropertyCallback);
+                                }
+                            }
+                                break;
+                        }
+
+                        menu.ShowAsContext();
+
+                        current.Use();
+                    }
                 }
+                
+                // if (current.type == EventType.MouseUp)
+                // {
+                //     DragAndDrop.PrepareStartDrag();
+                // }
 
                 return clickArea;
             }
-
-            
 
             void AddPropertyCallback(object input)
             {
@@ -1160,27 +1435,10 @@ namespace GameFeelDescriptions
                 serializedObject.ApplyModifiedProperties();
             }
 
-//            void CopyPropertyCallback(object instance)
-//            {
-//                var prefix = "";
-//                switch (instance)
-//                {
-//                   case GameFeelDescription desc:
-//                       prefix = "0";
-//                       break;
-//                   case GameFeelTrigger trigger:
-//                       prefix = "1";
-//                       break;
-//                   case GameFeelEffectGroup group:
-//                       prefix = "2";
-//                       break;
-//                   case GameFeelEffect effect:
-//                       prefix = "3";
-//                       break;
-//                }
-//                
-//                EditorGUIUtility.systemCopyBuffer = prefix+JsonUtility.ToJson(instance); 
-//            }
+            void CopyPropertyCallback(object instance)
+            {
+                copiedObject = instance;
+            }
 
             #endregion
         }

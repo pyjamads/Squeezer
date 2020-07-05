@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookAt : MonoBehaviour
+namespace GameFeelDescriptions.Examples
 {
-    public Transform lookAt;
-    // Update is called once per frame
-    void Update()
+
+    public class LookAt : MonoBehaviour
     {
-        transform.LookAt(lookAt);
+        public Transform lookAt;
+
+        // Update is called once per frame
+        void Update()
+        {
+            transform.LookAt(lookAt);
+        }
     }
 }

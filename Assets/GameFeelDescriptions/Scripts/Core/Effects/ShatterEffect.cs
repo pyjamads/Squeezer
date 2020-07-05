@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class ShatterEffect : GameFeelEffect
+    public class ShatterEffect : GameFeelEffect //TODO: use SpawningGameFeelEffect instead, and fix effect trees!
     {
         public ShatterEffect()
         {

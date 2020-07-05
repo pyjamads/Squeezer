@@ -9,6 +9,11 @@ TagManager:
   - Bullet
   - Ground
   - Pickup
+  - block
+  - wall
+  - ball
+  - highspeed
+  - paddle
   layers:
   - Default
   - TransparentFX
@@ -18,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 

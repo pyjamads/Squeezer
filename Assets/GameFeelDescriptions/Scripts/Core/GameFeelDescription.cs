@@ -176,26 +176,31 @@ namespace GameFeelDescriptions
                 //NOTE: Just add collisions to step through mode for now! 11/05/2020
                 Debug.Log("Description StepThroughMode currently only supports collision step through. " +
                           "For other trigger types use StepThroughMode on Effect Groups.");
-                var trigger = (OnCollisionTrigger)GameFeelTrigger.CreateTrigger(GameFeelTriggerType.OnCollision);
-                trigger.ReactTo = new List<string>();
-                trigger.type = OnCollisionTrigger.CollisionActivationType.OnAllEnter;
                 
-                //Step through mode will handle any case not currently handled by a trigger.
-                foreach (var otherTrigger in TriggerList.Where(item => item is OnCollisionTrigger))
+                //If there isn't already a trigger colliding with a wildcard like * or ![tag], add it!
+                if(!TriggerList.Exists(item => item is OnCollisionTrigger && ((OnCollisionTrigger)item).ReactTo.Any(s => s.Contains("*"))))
                 {
-                    var col = (OnCollisionTrigger) otherTrigger;
-                    foreach (var otherTag in col.ReactTo)
-                    {
-                        trigger.ReactTo.Add("!"+otherTag);
-                    }
-                }
+                    var trigger = (OnCollisionTrigger) GameFeelTrigger.CreateTrigger(GameFeelTriggerType.OnCollision);
+                    trigger.ReactTo = new List<string>();
+                    trigger.type = OnCollisionTrigger.CollisionActivationType.OnAllEnter;
 
-                if (trigger.ReactTo.Count == 0)
-                {
-                    trigger.ReactTo.Add("*");
+                    //Step through mode will handle any case not currently handled by a trigger.
+                    foreach (var otherTrigger in TriggerList.Where(item => item is OnCollisionTrigger))
+                    {
+                        var col = (OnCollisionTrigger) otherTrigger;
+                        foreach (var otherTag in col.ReactTo)
+                        {
+                            trigger.ReactTo.Add("!" + otherTag);
+                        }
+                    }
+
+                    if (trigger.ReactTo.Count == 0)
+                    {
+                        trigger.ReactTo.Add("*");
+                    }
+
+                    TriggerList.Add(trigger);
                 }
-                
-                TriggerList.Add(trigger);
             }
             #endif
             

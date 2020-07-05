@@ -373,14 +373,8 @@ namespace GameFeelDescriptions
             var name = baseName + "Effects";
             var description = new GameObject(name, typeof(GameFeelDescription));
             description.transform.parent = parent.transform;
-            var posOffset = Vector3.down * 0.5f;
-            var position = parent.transform.position;
-            
-            if (parent.transform.childCount > 0)
-            {
-                var child = parent.transform.GetChild(parent.transform.childCount - 1);
-                position = child.position + posOffset;
-            }
+            var posOffset = Vector3.down * 0.5f * parent.transform.childCount;
+            var position = parent.transform.position + posOffset;
             
             EditorHelpers.SetIconForObject(description.gameObject, parent.transform.childCount % 8);
             description.transform.position = position;

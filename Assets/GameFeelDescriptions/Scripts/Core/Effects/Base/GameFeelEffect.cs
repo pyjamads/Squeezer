@@ -39,24 +39,24 @@ namespace GameFeelDescriptions
       
       /// <summary>
       /// Stacking effect types:
-      /// <para>- Discard discards subsequent invocations, until the effect has completed.</para> 
-      /// <para>- Replace removes the old version of the effect, before inserting itself.</para>
-      /// <para>- Add allows stacking multiple invocations of the effect on top of each other.</para>
-      /// <para>- Queue adds the new invocation to the <see cref="GameFeelEffect.ExecuteAfterCompletion"/> list.</para>
-      /// <para>- OverrideGoal updates the the goal and recalculates time remaining.</para>
+      /// <para>- Discard discards this, if there's currently an active copy of this effect running.</para> 
+      /// <para>- Replace removes any currently active copy of this effect from execution before inserting itself.</para>
+      /// <para>- Add allows simultaneously executing multiple instances of the effect on a single target.</para>
+      /// <para>- Queue executes this effect after the currently active copy of this effect has completed.</para>
+      /// <para>- Yield allows any effect to replace it, and discards itself if there's currently an active copy of this effect running.</para>
       /// </summary>
       public enum StackEffectType
       {
-         [Tooltip("Discard discards subsequent invocations, until the effect has completed.")]
+         [Tooltip("Discard discards this, if there's currently an active copy of this effect running.")]
          Discard,
-         [Tooltip("Replace removes the old version from execution before inserting itself.")]
+         [Tooltip("Replace removes any currently active copy of this effect from execution before inserting itself.")]
          Replace,
-         [Tooltip("Add allows stacking multiple instances of the effect on a target.")]
+         [Tooltip("Add allows simultaneously executing multiple instances of the effect on a single target.")]
          Add,
-         [Tooltip("Queue adds the new invocation to the ExecuteAfterCompletion list.")]
+         [Tooltip("Queue executes this effect after the currently active copy of this effect has completed.")]
          Queue,
-         [Tooltip("OverrideGoal updates the the goal and recalculates time remaining.")]
-         OverrideGoal,
+         [Tooltip("Yield allows any effect to replace it, and discards itself if there's currently an active copy of this effect running.")]
+         Yield,
       }
       
       /// <summary>
@@ -107,6 +107,9 @@ namespace GameFeelDescriptions
       [Header("List of effects to execute after this effect finishes.")]
       public List<GameFeelEffect> ExecuteAfterCompletion = new List<GameFeelEffect>();
       
+      //TODO: INSTEAD OF THE ABOVE LIST: make a GameFeelEffect ref, that's called ExecuteAfter,
+      //TODO: and it'll just calculate the added delay on execution by traversing that tree backwards. 04/07/2020
+      
       // Progression tracker
       [Space]
       protected float elapsed;
@@ -144,11 +147,20 @@ namespace GameFeelDescriptions
          if (previous == null || previous.isComplete) return (true, false);
 
          //If previous finishes before copy begins, we don't need to do anything. Unless it's Replace.
-         if (previous.GetRemainingTime() < Delay
-             && StackingType != StackEffectType.Replace) return (true, false);
+         //TODO NOTE: Delay will have to change to a GetDelay function, if we remove nested effect lists!
+         if (previous.GetRemainingTime() < Delay) return (true, false);
+
+         //When the previous has stacking type yield, we handle it like replace.
+         if (previous.StackingType == StackEffectType.Yield)
+         {
+            previous.StopExecution();
+            return (true, true);
+         }
          
+         //TODO: draw up a figure for how StackingTypes work, and which of previous or the new effect controls this!!
          switch (StackingType)
          {
+            case StackEffectType.Yield: //Yield functions like Discard, when adding a new copy.
             case StackEffectType.Discard: //Can be handled here.
                return (false, true);
             
@@ -161,28 +173,13 @@ namespace GameFeelDescriptions
                return (true, true);
             
             case StackEffectType.Queue: //Can be handled here.
-               previous.OnComplete(this);
-               return (false, true);
-            
-            case StackEffectType.OverrideGoal: //Needs to be handled per effect.
-               UpdateGoal(previous);
-               
-               //For Tween effects, it's handled like this:
-               //Update end value.
-               //previous.end = GetEndValue();
-               //Update time to match relative progression (linearly).
-               //previous.elapsed = GameFeelTween.InverseLerp(previous.start, previous.end, previous.GetValue(previous.target));
+               previous.OnComplete(this); //TODO NOTE: OnComplete will have to change if we remove nested effect lists
                return (false, true);
             default:
                throw new ArgumentOutOfRangeException();
          }
       }
-
-      public virtual void UpdateGoal(GameFeelEffect previous)
-      {
-         Debug.LogWarning(GetType().Name+": Currently doesn't support OverrideGoal option. Will function like Discard instead.");
-      }
-
+      
       /// <summary>
       /// Initialize origin, target and direction of interaction.
       /// Direction is provided in some cases (OnCollision, OnMove, OnRotate, OnCustomEvent)
