@@ -63,9 +63,14 @@ namespace GameFeelDescriptions
         [TextArea]
         public string Description;
 
+        [Header("Enable this, if your game consists of multiple scenes, ", order=0), 
+         Header("as an alternative to making descriptions for each scene or including the descriptions as prefabs in every scene.", order=1),
+         Header("Use Dynamic Reattach Rate > 0, to make sure triggers are added when a new scene loads.", order=2)]
+        public bool DontDestroyOnLoad = false;
+        
         //TODO: make multiline header? 31/05/2020
         [Header("How often should the description try to reattach triggers.", order=1)]
-        [Tooltip("Only use this if objects with the tag/component are dynamically spawned at runtime.\n0 or less means only attach at start up.")]
+        [Tooltip("Use this if objects with the tag/component are dynamically spawned or loading scenes at runtime.\n0 or less means only attach at start up.")]
         public float DynamicReattachRate;
         
         /// <summary>
@@ -99,6 +104,13 @@ namespace GameFeelDescriptions
             //NOTE: Moved from Start() to Awake(), to deal with setting up OnStartTrigger, before Start is run. 12/02/2020 
             //TODO: figure out if this is the most optimal way to set these up. 04/02/2020
             AttachTriggers();
+
+            if (DontDestroyOnLoad)
+            {
+                transform.parent = null;
+                DontDestroyOnLoad(gameObject);
+            }
+            
             LastAttachTime = Time.unscaledTime;
         }
 

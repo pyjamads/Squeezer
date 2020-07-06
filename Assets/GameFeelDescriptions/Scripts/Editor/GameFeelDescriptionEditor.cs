@@ -649,6 +649,7 @@ namespace GameFeelDescriptions
                                 using (new GUILayout.VerticalScope(EditorStyles.helpBox))
                                 {
                                     EditorGUI.indentLevel += 1;
+                                    EditorGUILayout.PropertyField(serializedObject.FindProperty("DontDestroyOnLoad"));
                                     EditorGUILayout.PropertyField(serializedObject.FindProperty("DynamicReattachRate"));
                                     EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToTag"));
                                     EditorGUILayout.PropertyField(serializedObject.FindProperty("AttachToObjects"));
