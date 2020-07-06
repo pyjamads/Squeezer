@@ -83,7 +83,9 @@ namespace GameFeelDescriptions
             window.message = message;
             window.effectGroup = effectGroup;
             window.context = context;
-
+            
+            //TODO: set window position to not be in front of sceneview, when popping up the first time! -Mads 2020-07-06
+            
             if (trigger != null)
             {
                 window.triggerPosition = trigger.transform.position;
@@ -140,10 +142,6 @@ namespace GameFeelDescriptions
             
             serializedObject = new SerializedObject(Description);
             
-            //First move position to the last selected position.
-            SceneView.lastActiveSceneView.FixNegativeSize();
-            SceneView.lastActiveSceneView.LookAt(triggerPosition + Vector3.forward, triggerRotation, 2f);
-
             //Then show the Effect tree, from the trigger
             using (var scroll = new EditorGUILayout.ScrollViewScope(scrollPosition))
             {

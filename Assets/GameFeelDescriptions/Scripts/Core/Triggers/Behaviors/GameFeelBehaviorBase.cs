@@ -147,9 +147,9 @@ namespace GameFeelDescriptions
             var typeName = TriggerType.GetName();
             
             //Get possible effects from trigger type
-            var effects = GetGameFeelEffects(TriggerType, context);
+            //var effects = GetGameFeelEffects(TriggerType, context);
             //Generate a recipe of up to 5 effects, from those effects.
-            var recipe = MakeRecipe(effects);
+            //var recipe = MakeRecipe(effects);
 
             var activation = "";
             switch (TriggerType)
@@ -188,6 +188,11 @@ namespace GameFeelDescriptions
             
             var message = typeName + " for "+gameObject.name+" [" + gameObject.tag + "] \n" +  activation;
             EditorApplication.isPaused = true;
+            
+            //First move position to the last selected position.
+            SceneView.lastActiveSceneView.FixNegativeSize();
+            SceneView.lastActiveSceneView.LookAt(this.transform.position + Vector3.forward, this.transform.rotation, 2f);
+            SceneView.lastActiveSceneView.Focus();
             
             StepThroughModeWindow.ShowWindow(message, this, effectGroup, context);
 
