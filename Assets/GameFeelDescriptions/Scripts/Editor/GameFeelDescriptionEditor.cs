@@ -990,6 +990,7 @@ namespace GameFeelDescriptions
                     {
                         // Clear out drag data
                         DragAndDrop.PrepareStartDrag();
+                        
                         // Set up what we want to drag
                         DragAndDrop.SetGenericData("context", context);
                         DragAndDrop.SetGenericData("parentProperty", parentProperty);
@@ -997,9 +998,10 @@ namespace GameFeelDescriptions
 
                         // Start the actual drag
                         DragAndDrop.StartDrag(context.GetType().Name);
-
+                        
+                        //NOTE: this bit of code makes it extremely hard to click the foldouts! So don't do that!
                         // Make sure no one uses the event after us
-                        Event.current.Use();
+                        //Event.current.Use();
                     }
                     else if (Event.current.type == EventType.DragUpdated)
                     {
@@ -1041,17 +1043,22 @@ namespace GameFeelDescriptions
                                 break;
                         }
                         
+                        if (DragAndDrop.GetGenericData("context") == context)
+                        {
+                            DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
+                        }
+                        
                         Event.current.Use();
+                        
                     }
                     else if (Event.current.type == EventType.DragPerform) //IE. DROP !!
                     {
                         DragAndDrop.AcceptDrag();
                         
-                        //NOTE: Move works, but nesting will not work using this trick!
-                        //Actually we need to check "upwards" here!
-                        //trigger -> desc
-                        //group -> trigger
-                        //effect -> group, effect
+                        if (DragAndDrop.GetGenericData("context") == context)
+                        {
+                            return clickArea;
+                        }
                         
                         //FOR EFFECTS, WE WANT TO BE ABLE TO EITHER MOVE OR NEST!
                         //Do a thing, in this case a drop down menu
@@ -1088,6 +1095,7 @@ namespace GameFeelDescriptions
                             {
                                 if (DragAndDrop.GetGenericData("context") is GameFeelEffectGroup group)
                                 {
+                                    //NOTE: Deletion does quite work, so instead we just copy, and let the user do the deletion.
                                     // if (!propertyPath.Equals(DragAndDrop.GetGenericData("parentProperty")))
                                     // {
                                     //     menu.AddItem(new GUIContent("Move"), false, () =>
@@ -1117,6 +1125,7 @@ namespace GameFeelDescriptions
                             {
                                 if (DragAndDrop.GetGenericData("context") is GameFeelEffect effect)
                                 {
+                                    //NOTE: Deletion does quite work, so instead we just copy, and let the user do the deletion.
                                     // if (!propertyPath.Equals(DragAndDrop.GetGenericData("parentProperty")))
                                     // {
                                     //     menu.AddItem(new GUIContent("Move"), false, () =>
@@ -1148,6 +1157,7 @@ namespace GameFeelDescriptions
                             case GameFeelEffect effect:
                                 if (DragAndDrop.GetGenericData("context") is GameFeelEffect other)
                                 {
+                                    //NOTE: Deletion does quite work, so instead we just copy, and let the user do the deletion.
                                     // if (!propertyPath.Equals(DragAndDrop.GetGenericData("parentProperty")))
                                     // {
                                     //     menu.AddItem(new GUIContent("Move to OnComplete"), false, () =>
@@ -1182,12 +1192,6 @@ namespace GameFeelDescriptions
                         
                         menu.ShowAsContext();
                         
-                        // var desc = (GameFeelDescription) DragAndDrop.GetGenericData("description");
-                        // var trigger = DragAndDrop.GetGenericData("trigger");
-                        //
-                        // desc.TriggerList.Add((GameFeelTrigger) JsonUtility.FromJson(JsonUtility.ToJson(trigger),
-                        //     trigger.GetType()));
-
                         Event.current.Use();
                     }
                     
