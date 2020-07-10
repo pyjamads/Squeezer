@@ -97,8 +97,7 @@ namespace GameFeelDescriptions
         // [Tooltip("Force to add in addition to the collision force.")]
         // public Vector3 AdditionalForce = Vector3.one;
         //
-        // [Tooltip("Apply a randomization of the Additional force vector.")]
-        // public bool RandomizeAdditionalForce = true;
+        
         //
         // public bool ApplyGravity = true;
         //

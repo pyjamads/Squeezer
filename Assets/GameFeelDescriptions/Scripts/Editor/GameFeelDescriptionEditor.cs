@@ -1000,14 +1000,14 @@ namespace GameFeelDescriptions
 
                     EditorGUI.indentLevel = 1;
                     var rect = EditorGUILayout.GetControlRect(true,
-                        EditorGUI.GetPropertyHeight(serializedObject.FindProperty(path)) + //, true
+                        EditorGUI.GetPropertyHeight(serializedObject.FindProperty(path), true) + 
                         EditorGUIUtility.standardVerticalSpacing);
                     if (highlight)
                     {
                         EditorHelpers.DrawColoredRect(rect, separatorColor.withA(highlightAlpha));
                     }
 
-                    EditorGUI.PropertyField(rect, serializedObject.FindProperty(path));//, true
+                    EditorGUI.PropertyField(rect, serializedObject.FindProperty(path), true);
                     serializedObject.ApplyModifiedProperties();
 
 

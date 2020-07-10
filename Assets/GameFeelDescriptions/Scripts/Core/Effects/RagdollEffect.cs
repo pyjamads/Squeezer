@@ -31,6 +31,9 @@ namespace GameFeelDescriptions
         [Tooltip("Initial velocity force multiplier (Can be negative)")]
         public float ForceMultiplier = Random.Range(1f, 5f);
         
+        [Tooltip("Apply a randomization of the Additional force vector.")]
+        public bool RandomizeAdditionalForce = false;
+        
         public Vector3 AdditionalForce;
 
         public bool ApplyGravity = true;
@@ -50,6 +53,7 @@ namespace GameFeelDescriptions
             cp.ForceMultiplier = ForceMultiplier;
             cp.AdditionalForce = AdditionalForce;
             cp.ApplyGravity = ApplyGravity;
+            cp.RandomizeAdditionalForce = RandomizeAdditionalForce;
             // cp.DestroyRagdoll = DestroyRagdoll;
             // cp.DestroyDelay = DestroyDelay;
             cp.Init(origin, target, unscaledTime, interactionDirection);
@@ -73,12 +77,18 @@ namespace GameFeelDescriptions
                 ragdoll = Object.Instantiate(RagdollPrefab, targetPos, Quaternion.identity, GameFeelEffectExecutor.Instance.transform);
             }
             
+            var additionalForce = AdditionalForce;
+            if (RandomizeAdditionalForce)
+            {
+                additionalForce = AdditionalForce.multiplyElements(Random.onUnitSphere);
+            }
+            
             if (!target.GetComponent<Rigidbody>() && !target.GetComponent<Rigidbody2D>())
             {
                 var rigid = target.AddComponent<Rigidbody>();
                 //TODO: saw a null ref here, when not 'copying' the object, and it had a Rigidbody2D attached...
                 rigid.useGravity = ApplyGravity;
-                rigid.velocity = AdditionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);                
+                rigid.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);                
             }
             else
             {
@@ -86,13 +96,13 @@ namespace GameFeelDescriptions
                 if (body)
                 {
                     body.useGravity = ApplyGravity;
-                    body.velocity = AdditionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
+                    body.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
                 }
                 else
                 {
                     var body2D = target.GetComponent<Rigidbody2D>();
                     body2D.gravityScale = ApplyGravity ? 1f : 0f;
-                    body2D.velocity = AdditionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
+                    body2D.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
                 }
             }
 
