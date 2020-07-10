@@ -8,33 +8,46 @@ using Random = UnityEngine.Random;
 namespace GameFeelDescriptions
 {
     [Serializable]
-    public class TrailEffect : GameFeelEffect //TODO: use SpawningGameFeelEffect instead, and fix effect trees!
+    public class TrailEffect : SpawningGameFeelEffect
     {
         public TrailEffect()
         {
             //TODO: Consider renaming to 'copy and fade effect', making a trail is just a side-effect of calling this continuously. 18/4/2020
             Description = "Make a trail of copies of the game object, which slowly fades.";
+            
+            var fadeTime = Random.Range(0.1f,2f);
+            var fadeDelay = 0.1f;
+            
+            //Add a translate effect, to move towards the offset.
+            var translate = new TranslateEffect();
+            //translate.to = FadeCopyOffset; //Allow a random offset to be generated, or uncomment this, for default of (0,0,0) offset
+            translate.relative = true;
+            translate.Duration = fadeDelay + fadeTime;
+            
+            var fade = new MaterialColorChangeEffect();
+            fade.to = Color.clear;
+            fade.relative = false;
+            fade.Delay = fadeDelay;
+            fade.Duration = fadeTime;
+
+            //Make sure to destroy the copy after the fade!
+            fade.OnComplete(new DestroyEffect());
+            
+            ExecuteOnOffspring = new List<GameFeelEffect>
+            {
+                translate,
+                fade
+            };
         }
 
         public GameObject TrailPrefab;
+
+        public Vector3 TrailPositionOffset;
         
-        [Tooltip("The time it takes for the trail copies to fade")]
-        [HideFieldIf("CustomFadeEffects", null)]
-        public float FadeTime = Random.Range(0.1f,2f);
-        
-        [HideFieldIf("CustomFadeEffects", null)]
-        public float FadeDelay = 0.1f;
-        
-        [HideFieldIf("CustomFadeEffects", null)]
-        public EasingHelper.EaseType FadeEase;
-        
-        [HideFieldIf("CustomFadeEffects", null)]
-        public Vector3 FadeCopyOffset;
-        
-        [SerializeReference]
-        [ShowTypeAttribute]
-        [Tooltip("This list will replace the standard fade effect of the trail. Remember add a DestroyEffect to the list.")]
-        public List<GameFeelEffect> CustomFadeEffects = new List<GameFeelEffect>();
+        // [SerializeReference]
+        // [ShowTypeAttribute]
+        // [Tooltip("This list will replace the standard fade effect of the trail. Remember add a DestroyEffect to the list.")]
+        // public List<GameFeelEffect> CustomFadeEffects = new List<GameFeelEffect>();
         
         public float DelayBetweenCopies;
 
@@ -51,15 +64,17 @@ namespace GameFeelDescriptions
             var cp = new TrailEffect();
 
             cp.TrailPrefab = TrailPrefab;
-            cp.FadeTime = FadeTime;
-            cp.FadeDelay = FadeDelay;
-            cp.FadeEase = FadeEase;
-            cp.FadeCopyOffset = FadeCopyOffset;
+            // cp.FadeTime = FadeTime;
+            // cp.FadeDelay = FadeDelay;
+            // cp.FadeEase = FadeEase;
+            cp.TrailPositionOffset = TrailPositionOffset;
             cp.DelayBetweenCopies = DelayBetweenCopies;
-            cp.CustomFadeEffects = CustomFadeEffects;
+            // cp.CustomFadeEffects = CustomFadeEffects;
             cp.Init(origin, target, unscaledTime, interactionDirection);
             
             LastCopyTime = Time.time;
+            cp.targetPos = target != null ? target.transform.position : origin.transform.position;
+            
             return DeepCopy(cp);
         }
 
@@ -109,72 +124,76 @@ namespace GameFeelDescriptions
                 Object.Destroy(col2D);
             }
 
+            trailObject.transform.position += TrailPositionOffset;
+
             //TODO: Note that it probably doesn't make sense to have an ExecuteOnCompletion list in addition
             //TODO: to the CustomFadeEffect list, and as such effects such as the trail here,
             //TODO: could just set it's own target to the trailObject, and allow which ever effects exists,
             //TODO: in the ExecuteOnCompletion list to be executed on the trailObject. (See Ragdoll and Shatter) 13/05/2020   
             
             //if (CustomFadeEffects == null || CustomFadeEffects.Count > 0)
-            if (CustomFadeEffects.Count > 0)
-            {
-                for (var i = 0; i < CustomFadeEffects.Count; i++)
-                {
-                    //If the effect is disabled, skip it.
-                    if(CustomFadeEffects[i].Disabled) continue;
-            
-                    var effectCopy = CustomFadeEffects[i].CopyAndSetElapsed(origin, trailObject, unscaledTime);
-            
-                    if(effectCopy == null) continue;
-                    
-                    //We don't need to handle effect copies, because it's a new target.
-                    effectCopy.QueueExecution();   
-                }
-            }
-            else
-            {
-                //Add a translate effect, to move towards the offset.
-                var translate = new TranslateEffect();
-                translate.to = FadeCopyOffset;
-                translate.easing = EasingHelper.EaseType.Linear;
-                translate.relative = true;
-                translate.Duration = FadeDelay + FadeTime;
-                
-                translate.Init(origin, trailObject, unscaledTime);
-                translate.SetupLooping();
-                translate.SetElapsed();
-                
-                translate.QueueExecution();
-                
-                //NOTE: this is a really neat use of our effect system, to queue a fade out and a destroy effect.
-                TweenEffect<Color> fade;
+//             if (CustomFadeEffects.Count > 0)
+//             {
+//                 for (var i = 0; i < CustomFadeEffects.Count; i++)
+//                 {
+//                     //If the effect is disabled, skip it.
+//                     if(CustomFadeEffects[i].Disabled) continue;
+//             
+//                     var effectCopy = CustomFadeEffects[i].CopyAndSetElapsed(origin, trailObject, unscaledTime);
+//             
+//                     if(effectCopy == null) continue;
+//                     
+//                     //We don't need to handle effect copies, because it's a new target.
+//                     effectCopy.QueueExecution();   
+//                 }
+//             }
+//             else
+//             {
+//                 //Add a translate effect, to move towards the offset.
+//                 var translate = new TranslateEffect();
+//                 translate.to = FadeCopyOffset;
+//                 translate.easing = EasingHelper.EaseType.Linear;
+//                 translate.relative = true;
+//                 translate.Duration = FadeDelay + FadeTime;
+//                 
+//                 translate.Init(origin, trailObject, unscaledTime);
+//                 translate.SetupLooping();
+//                 translate.SetElapsed();
+//                 
+//                 translate.QueueExecution();
+//                 
+//                 //NOTE: this is a really neat use of our effect system, to queue a fade out and a destroy effect.
+//                 TweenEffect<Color> fade;
+//
+// //                if (isSprite)
+// //                {
+// //                    fade = new SpriteColorChangeEffect();
+// //                }
+// //                else
+// //                {
+//                     fade = new MaterialColorChangeEffect();
+// //                }
+//                 
+//                 fade.to = Color.clear;
+//                 fade.relative = false;
+//                 fade.Delay = FadeDelay;
+//                 fade.Duration = FadeTime;
+//                 fade.easing = FadeEase;
+//                 
+//                 //TODO: maybe just add the fade to this.OnComplete, and set target = trailObject. 13/05/2020
+//                 fade.Init(origin, trailObject, unscaledTime);
+//                 fade.SetupLooping();
+//                 fade.SetElapsed();
+//             
+//                 //Make sure to destroy the copy after the fade!
+//                 fade.OnComplete(new DestroyEffect());
+//                 
+//                 //We don't need to handle effect copies, because it's a new target.
+//                 fade.QueueExecution();
+//             }
 
-//                if (isSprite)
-//                {
-//                    fade = new SpriteColorChangeEffect();
-//                }
-//                else
-//                {
-                    fade = new MaterialColorChangeEffect();
-//                }
-                
-                fade.to = Color.clear;
-                fade.relative = false;
-                fade.Delay = FadeDelay;
-                fade.Duration = FadeTime;
-                fade.easing = FadeEase;
-                
-                //TODO: maybe just add the fade to this.OnComplete, and set target = trailObject. 13/05/2020
-                fade.Init(origin, trailObject, unscaledTime);
-                fade.SetupLooping();
-                fade.SetElapsed();
+            QueueOffspringEffects(trailObject);
             
-                //Make sure to destroy the copy after the fade!
-                fade.OnComplete(new DestroyEffect());
-                
-                //We don't need to handle effect copies, because it's a new target.
-                fade.QueueExecution();
-            }
-
             return false;
         }
     }

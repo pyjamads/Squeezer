@@ -67,7 +67,7 @@ namespace GameFeelDescriptions
             }
             else
             {
-                EditorGUI.PropertyField(position, property, GUIContent.none, true);    
+                EditorGUI.PropertyField(position, property, GUIContent.none, true);
             }
         
             EditorGUI.EndProperty(); 

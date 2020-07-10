@@ -306,7 +306,7 @@ namespace GameFeelDescriptions
 //             }
         }
 
-        public static List<Func<GameFeelEffect>> GetGameFeelEffects(GameFeelTriggerType triggerType, params object[] context)
+        public static List<Func<GameFeelEffect>> GetGameFeelEffects(GameFeelTriggerType triggerType = GameFeelTriggerType.OnCollision, params object[] context)
             {
                 var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
                 var gameFeelEffects = new List<Func<GameFeelEffect>>();

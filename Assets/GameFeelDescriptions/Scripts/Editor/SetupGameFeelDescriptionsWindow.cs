@@ -20,6 +20,8 @@ namespace GameFeelDescriptions
         private OnCollisionTrigger.CollisionActivationType collisionActivationType;
         private OnMoveTrigger.MovementActivationType movementActivationType;
         private string eventName;
+
+        private StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
         
         private string selectedTag;
         private string selectedComponentType;
@@ -79,6 +81,8 @@ namespace GameFeelDescriptions
                                 using (new EditorGUI.DisabledScope(hasNotSelectedTag))
                                 {
                                     DrawTriggerSelection();
+
+                                    DrawCategorySelection();
                                     
                                     if (GUILayout.Button("Create"))
                                     {
@@ -114,6 +118,8 @@ namespace GameFeelDescriptions
                                 using (new EditorGUI.DisabledScope(hasNotSelectedAnything))
                                 {
                                     DrawTriggerSelection();
+                                    
+                                    DrawCategorySelection();
                                     
                                     if (GUILayout.Button("Create"))
                                     {
@@ -156,7 +162,7 @@ namespace GameFeelDescriptions
                                         scrollPosition = scrollView.scrollPosition;
                                         foreach (var gameObject in gameObjects)
                                         {
-                                            GUILayout.Label(gameObject.name, EditorStyles.centeredGreyMiniLabel);
+                                            GUILayout.Label(gameObject.name, EditorStyles.miniBoldLabel);
                                         }    
                                     }
                                 }
@@ -164,6 +170,8 @@ namespace GameFeelDescriptions
                                 using(new EditorGUI.DisabledScope(anySelected == false))
                                 {
                                     DrawTriggerSelection();
+                                    
+                                    DrawCategorySelection();
                                     
                                     if (GUILayout.Button("Create"))
                                     {
@@ -197,6 +205,9 @@ namespace GameFeelDescriptions
                 {    
                     EditorGUIUtility.PingObject(createdDescription);
                     Selection.activeObject = createdDescription;
+                    
+                    //NOTE: clearing the form afterwards! -mads 2020-07-09
+                    ClearForm();
                 }
             }
             else
@@ -265,6 +276,11 @@ namespace GameFeelDescriptions
             movementActivationType = OnMoveTrigger.MovementActivationType.OnAnyStateChange;
         }
 
+        private void DrawCategorySelection()
+        {
+            
+        }
+        
         private void DrawTriggerSelection()
         {
             if (triggerTypes == null)

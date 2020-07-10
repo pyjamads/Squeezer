@@ -6,6 +6,40 @@ namespace GameFeelDescriptions
     public static class GameFeelExtensions
     {
         /// <summary>
+        /// Allows adding effects to the offspring list.
+        /// <code>
+        /// ShakeEffect.OnComplete(BlinkEffect).OnComplete(ExplodeEffect);
+        /// </code>
+        /// </summary>
+        /// <param name="spawner">The effect to wait for.</param>
+        /// <param name="effect">The effect to execute afterwards.</param>
+        /// <returns>Returns the added effect, for further chaining.</returns>
+        public static void OnOffspring(this SpawningGameFeelEffect spawner, GameFeelEffect effect)
+        {
+            if (spawner.ExecuteOnOffspring == null)
+            {
+                spawner.ExecuteOnOffspring = new List<GameFeelEffect>();        
+            }
+
+            spawner.ExecuteOnOffspring.Add(effect);
+        }
+        
+        /// <summary>
+        /// Allows adding a list of effects to be executed after another effect is done.
+        /// </summary>
+        /// <param name="spawner"></param>
+        /// <param name="effects"></param>
+        public static void OnOffspring(this SpawningGameFeelEffect spawner, IEnumerable<GameFeelEffect> effects)
+        {
+            if (spawner.ExecuteOnOffspring == null)
+            {
+                spawner.ExecuteOnOffspring = new List<GameFeelEffect>();        
+            }
+
+            spawner.ExecuteOnOffspring.AddRange(effects);
+        }
+        
+        /// <summary>
         /// Allows chaining effects together.
         /// <code>
         /// ShakeEffect.OnComplete(BlinkEffect).OnComplete(ExplodeEffect);
@@ -31,7 +65,7 @@ namespace GameFeelDescriptions
         /// </summary>
         /// <param name="waitFor"></param>
         /// <param name="effects"></param>
-        public static void OnComplete(this GameFeelEffect waitFor, List<GameFeelEffect> effects)
+        public static void OnComplete(this GameFeelEffect waitFor, IEnumerable<GameFeelEffect> effects)
         {
             if (waitFor.ExecuteAfterCompletion == null)
             {

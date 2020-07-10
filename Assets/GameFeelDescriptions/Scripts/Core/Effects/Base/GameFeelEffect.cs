@@ -83,7 +83,6 @@ namespace GameFeelDescriptions
       /// Delay in seconds from call to execution.
       /// Can be used to 'jumpstart' the effect, by setting a negative delay (Only works for <see cref="DurationalGameFeelEffect"/>).
       /// </summary>
-      [EnableFieldIf("RandomizeDelay", 0, negate = true)]
       [Header("Delay in seconds from call to execution.")]
       [Tooltip("Can be used to 'jumpstart' the effect, by setting a negative delay, ie. starting it between 0 and 1.")]
       public float Delay;
@@ -91,8 +90,8 @@ namespace GameFeelDescriptions
       /// <summary>
       /// Randomize the delay, between 0 and <see cref="Delay"/>.
       /// </summary>
-      [HideInInspector]
       [Header("Randomize the delay, between 0 and the specified Delay")]
+      [Space(-10)]
       public bool RandomizeDelay;
       
       /// <summary>
@@ -101,17 +100,17 @@ namespace GameFeelDescriptions
       /// <returns></returns>
       //[SerializeReferenceButton(readOnly: true)] //NOTE: active SerializeReferenceButton on GameFeelEffects are broken.
 //      [HideInInspector]
-      [Space]
+      //[Space]
+      
       [SerializeReference]
-      [ShowTypeAttribute]
-      [Header("List of effects to execute after this effect finishes.")]
+      [ShowType]
+      //[Header("List of effects to execute after this effect finishes.")]
       public List<GameFeelEffect> ExecuteAfterCompletion = new List<GameFeelEffect>();
       
       //TODO: INSTEAD OF THE ABOVE LIST: make a GameFeelEffect ref, that's called ExecuteAfter,
       //TODO: and it'll just calculate the added delay on execution by traversing that tree backwards. 04/07/2020
       
       // Progression tracker
-      [Space]
       protected float elapsed;
       
       /// <summary>

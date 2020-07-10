@@ -124,8 +124,12 @@ namespace GameFeelDescriptions
                     //However the copy/pasting of the parameters work.
                     window.ShowModal();
 
+                    Undo.RecordObject(property.serializedObject.targetObject, "Modify Synth Settings");
+                    
                     window.CopyValues();
+                    
                     audioSynthEffect.synthParameters = EditorGUIUtility.systemCopyBuffer;
+                    audioSynthEffect.LoadSynthParameters();
                     property.serializedObject.ApplyModifiedProperties();
 
                     Debug.Log(

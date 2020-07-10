@@ -4,11 +4,69 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
     public class StepThroughModeWindow : EditorWindow
     {
+        public enum EffectGeneratorCategories
+        {
+            RANDOM,
+            PICKUP,
+            EXPLODE, //DESTROY
+            JUMP, 
+            IMPACT, //LAND/BOUNCE 
+            SHOOT, 
+            PROJECTILE_MOVE,  
+            PLAYER_MOVE,
+        }
+
+        public static List<GameFeelEffect> GenerateRecipe(EffectGeneratorCategories category)
+        {
+            var recipe = new List<GameFeelEffect>();
+
+            if (category == EffectGeneratorCategories.IMPACT)
+            {
+                var squash = (SquashAndStretchEffect) Activator.CreateInstance(typeof(SquashAndStretchEffect));
+                //TODO: more settings for squash
+                squash.Amount = 0.2f;
+                recipe.Add(squash);
+                    
+                var synth = (AudioSynthPlayEffect) Activator.CreateInstance(typeof(AudioSynthPlayEffect));
+                //TODO: more settings for synth
+                synth.soundGeneratorBase = AudioSynthPlayEffect.SynthBaseSounds.HitHurt;
+                recipe.Add(synth);
+                    
+                var mat = (MaterialColorChangeEffect) Activator.CreateInstance(typeof(MaterialColorChangeEffect));
+                mat.loopType = TweenEffect<Color>.LoopType.Yoyo;
+                mat.repeat = 1;
+                mat.Duration = Random.Range(0.01f, 0.5f);
+                //mat.to = Color.red;
+                mat.relative = false;
+                recipe.Add(mat);
+                    
+                //TODO: add a particle poof instead of trail! once copying is moved to effects!
+                var particle = (TrailEffect) Activator.CreateInstance(typeof(TrailEffect));
+                recipe.Add(particle);
+            }
+            else if (category == EffectGeneratorCategories.PLAYER_MOVE)
+            {
+                //TODO: Make more complex generator here! 
+                var trailEffect = (TrailEffect) Activator.CreateInstance(typeof(TrailEffect));
+                recipe.Add(trailEffect);
+            }
+            else //if (category == EffectGeneratorCategories.RANDOM)
+            {
+                //Get possible effects from trigger type
+                var effects = GameFeelBehaviorBase.GetGameFeelEffects();
+                //Generate a recipe of up to 5 effects, from those effects.
+                recipe = GameFeelBehaviorBase.MakeRecipe(effects);
+            }
+
+            return recipe;
+        }
+        
         //public GameFeelBehaviorBase trigger;
 
         public GameFeelTriggerType TriggerType;
@@ -42,6 +100,7 @@ namespace GameFeelDescriptions
 
         private const bool showRecipeDebug = false;
 
+        private EffectGeneratorCategories category;
         private bool hasAssisted = false;
         
         private Vector2 scrollPosition;
@@ -76,6 +135,21 @@ namespace GameFeelDescriptions
         {
             ShowWindow(null, null, null);
         }
+        
+        /*
+         * STEP THROUGH MODE REIMAGINED!
+         *
+         * FIRST TIME AN EVENT HAPPENS, THE SYSTEM ASKS WHAT TYPE OF EVENT THIS WAS
+         * YOU CHOOSE BETWEEN [PICK-UP, DESTROY/EXPLODE, JUMP, LAND/BOUNCE, SHOOT, PROJECTILE MOVE, PLAYER MOVE, etc.]
+         *
+         * YOU ALSO DECIDE ON NUMBER OF EVALUATIONS, IE. NUMBER OF TIMES THE EVENT HAPPENS BEFORE
+         * THE WINDOW POPS BACK UP, THIS TIME YOU CHOOSE A NEW CATEGORY OR [KEEP (which disables "step through mode" for this event),
+         * MUTATE or RANDOMIZE (both MUTATE and RANDOMIZE will respect when "HOLD" is active on one or more effects)]
+         *
+         * MANUAL EDITING WILL ALSO BE AVAILABLE DURING THE PAUSES, LIKE CURRENT STEP THROUGH MODE!
+         *  
+         * THIS SHOULD JUST BE AVAILABLE IN THE REGULAR INSPECTOR AT RUNTIME AND AT EDITOR TIME!!!
+         */
         
         public static void ShowWindow(string message, GameFeelBehaviorBase trigger, GameFeelEffectGroup effectGroup, params object[] context)
         {
@@ -133,10 +207,6 @@ namespace GameFeelDescriptions
                 GUILayout.Label("Waiting for Step Through Mode to trigger!");
                 return;
             }
-            //Get possible effects from trigger type
-            var effects = GameFeelBehaviorBase.GetGameFeelEffects(TriggerType, context);
-            //Generate a recipe of up to 5 effects, from those effects.
-            var recipe = GameFeelBehaviorBase.MakeRecipe(effects);
             
             EditorGUILayout.HelpBox(new GUIContent(message), true);
             
@@ -153,13 +223,15 @@ namespace GameFeelDescriptions
                 GUILayout.Space(20);
             }
 
-            //TODO: make this automatic for half the people, for the userStudy ... 
+            category = (EffectGeneratorCategories)EditorGUILayout.EnumPopup("Type", category);
             //Assist Me / Accept button!
-            if (!hasAssisted && GUILayout.Button("Assist Me!"))
+            if (!hasAssisted && GUILayout.Button("GENERATE "+category.GetName()))
             {
                 var desc = (GameFeelDescription)serializedObject.targetObject;
                 Undo.RecordObject(desc, "Generate feedback effects!");
-                    
+
+                var recipe = GenerateRecipe(category);
+                
                 for (int i = 0; i < recipe.Count; i++)
                 {
                     if (effectGroup != null)
@@ -470,21 +542,21 @@ namespace GameFeelDescriptions
                                     propertyPath + ".ExecuteAfterCompletion", i);
                             }
 
-                            if (effect is TrailEffect trail)
+                            if (effect is SpawningGameFeelEffect spawner)
                             {
-                                if (trail.CustomFadeEffects.Count > 0)
+                                if (spawner.ExecuteOnOffspring.Count > 0)
                                 {
-                                    EditorGUI.indentLevel = indent + 1;
-                                    var subClickArea = ClickAreaWithContextMenu(trail, false);
+                                    EditorGUI.indentLevel = indent - 1;
+                                    var subClickArea = ClickAreaWithContextMenu(spawner, false);
 
-                                    EditorGUI.LabelField(subClickArea, "Custom Trail Effect:");
+                                    EditorGUI.LabelField(subClickArea, "Executed on "+spawner.GetType().Name+" Offspring:", EditorStyles.miniBoldLabel);
 
-                                    for (var i = 0; i < trail.CustomFadeEffects.Count; i++)
+                                    for (var i = 0; i < spawner.ExecuteOnOffspring.Count; i++)
                                     {
-                                        if (trail.CustomFadeEffects[i] == null) continue;
+                                        if (spawner.ExecuteOnOffspring[i] == null) continue;
                                         index++;
-                                        GenerateSimpleInterface(trail.CustomFadeEffects[i], ref index, indent + 2,
-                                            propertyPath + ".CustomFadeEffects", i);
+                                        GenerateSimpleInterface(spawner.ExecuteOnOffspring[i], ref index, indent + 1,
+                                            propertyPath + ".ExecuteOnOffspring", i);
                                     }
                                 }
                             }
@@ -680,14 +752,14 @@ namespace GameFeelDescriptions
                                             AddPropertyCallback, data);
                                     }
                                     
-                                    if (effect is TrailEffect trail)
+                                    if (effect is SpawningGameFeelEffect spawner)
                                     {
                                         var data = new addCallbackStruct
                                         {
-                                            context = trail.CustomFadeEffects,
+                                            context = spawner.ExecuteOnOffspring,
                                             instance = () => Activator.CreateInstance(type)
                                         };
-                                        menu.AddItem(new GUIContent("Add CustomFade Effect/"+ type.Name), false, 
+                                        menu.AddItem(new GUIContent("Add OnOffspring Effect/"+ type.Name), false, 
                                             AddPropertyCallback, data);
                                     }
                                 }

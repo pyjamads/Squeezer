@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -28,7 +29,7 @@ namespace GameFeelDescriptions
         public TTween to = (TTween)TweenHelper.GetRandomValue(typeof(TTween), Random.Range(0f, 5f));
 
         [Tooltip("Easing adjusts the value non-linearly over the duration.")]
-        public EasingHelper.EaseType easing = EnumExtensions.GetRandomValue<EasingHelper.EaseType>();
+        public EasingHelper.EaseType easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
 
         [HideInInspector]
         public AnimationCurve curve; 

@@ -72,6 +72,8 @@ namespace GameFeelDescriptions
     {
         private GameFeelTriggerType selectedTriggerType;
         private int selectedEffectIndex;
+        private StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
+        
         private int attachToIndex = -1;
         
         private int recipeIndex = -1;
@@ -310,8 +312,7 @@ namespace GameFeelDescriptions
                                 }
 
                                 recipeAsset = (TextAsset) EditorGUILayout.ObjectField("Load from Recipe File",
-                                    recipeAsset,
-                                    typeof(TextAsset), false);
+                                    recipeAsset, typeof(TextAsset), false);
                                 if (recipeAsset != null)
                                 {
                                     var loadedRecipe = GameFeelEffectGroup.LoadRecipeFromJson(recipeAsset.text);
@@ -417,8 +418,8 @@ namespace GameFeelDescriptions
 
                         //Extra button for CustomFadeEffect on trails.
                         if (0 < attachToIndex && attachToIndex < refs.Count &&
-                            refs[attachToIndex] is TrailEffect trail &&
-                            GUILayout.Button("Add Custom Fade Effect"))
+                            refs[attachToIndex] is SpawningGameFeelEffect spawner &&
+                            GUILayout.Button("Add Offspring Effect"))
                         {
                             if (gameFeelEffects == null || gameFeelEffects.Count == 0)
                             {
@@ -429,7 +430,7 @@ namespace GameFeelDescriptions
                             var instance = (GameFeelEffect) Activator.CreateInstance(effectType);
 
                             Undo.RecordObject(gameFeelDescription, "Add " + effectType.Name);
-                            trail.CustomFadeEffects.Add(instance);
+                            spawner.ExecuteOnOffspring.Add(instance);
 
                             serializedObject.ApplyModifiedProperties();
                         }
@@ -535,12 +536,12 @@ namespace GameFeelDescriptions
                         objs.AddRange(subList.refs);   
                     }
                 
-                    if (effect is TrailEffect trail)
+                    if (effect is SpawningGameFeelEffect spawner)
                     {
-                        for (int i = 0; i < trail.CustomFadeEffects.Count; i++)
+                        for (int i = 0; i < spawner.ExecuteOnOffspring.Count; i++)
                         {
-                            if (trail.CustomFadeEffects[i] == null) continue;
-                            var subList = GenerateLabelObjectLists(trail.CustomFadeEffects[i], type, i, indent+1,"CustomFade: ");
+                            if (spawner.ExecuteOnOffspring[i] == null) continue;
+                            var subList = GenerateLabelObjectLists(spawner.ExecuteOnOffspring[i], type, i, indent+1,"OnOffspring: ");
                             list.AddRange(subList.names);
                             objs.AddRange(subList.refs);  
                         }
@@ -641,12 +642,13 @@ namespace GameFeelDescriptions
 
                             GUILayout.Label("Choose how to attach the description to objects:", EditorStyles.boldLabel);
                             EditorGUI.indentLevel += 1;
-                            showAttach = EditorGUILayout.Foldout(showAttach, "AttachTo");
+                            
+                            //showAttach = EditorGUILayout.Foldout(showAttach, "AttachTo");
                             EditorGUI.indentLevel -= 1;
 
                             //if (showAttach) //Don't do foldout inside foldout here!
                             {
-                                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
+                                using (new GUILayout.VerticalScope( "AttachTo", EditorStyles.helpBox))
                                 {
                                     EditorGUI.indentLevel += 1;
                                     EditorGUILayout.PropertyField(serializedObject.FindProperty("DontDestroyOnLoad"));
@@ -789,6 +791,7 @@ namespace GameFeelDescriptions
                     }
                     // else
                     // {
+
                         for (var i = 0; i < trigger.EffectGroups.Count; i++)
                         {
                             if(trigger.EffectGroups[i] == null) continue;
@@ -848,14 +851,57 @@ namespace GameFeelDescriptions
                         }
                         // else
                         // {   
-                            for (var i = 0; i < group.EffectsToExecute.Count; i++)
+                        
+                        if (group.EffectsToExecute.Count == 0)
+                        {
+                            //GUILayout.Label("Select what type of reaction you'd like here:", EditorStyles.largeLabel);
+                            using (new EditorGUILayout.HorizontalScope())
                             {
-                                if (group.EffectsToExecute[i] == null) continue;
-                            
-                                index++;
-                                GenerateSimpleInterface(group.EffectsToExecute[i], ref index, indent + 1,
-                                    propertyPath + ".EffectsToExecute", i);
+                                selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup(selectedCategory);
+                                if (GUILayout.Button("Generate!"))
+                                {
+                                    Undo.RecordObject(target, "Generate "+selectedCategory.GetName());
+                                    var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory);
+                                    
+                                    group.EffectsToExecute.AddRange(recipe);
+                                    serializedObject.ApplyModifiedProperties();
+                                }
                             }
+                        }
+                        else
+                        {
+                            using (new EditorGUILayout.HorizontalScope())
+                            {
+                                selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup(selectedCategory);
+                                if (GUILayout.Button("Regenerate"))
+                                {
+                                    Undo.RecordObject(target, "Regenerate "+selectedCategory.GetName());
+                                    group.EffectsToExecute.Clear();
+                                    var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory);
+                                    
+                                    group.EffectsToExecute.AddRange(recipe);
+                                    
+                                    serializedObject.ApplyModifiedProperties();
+                                }
+                                
+                                if (GUILayout.Button("Mutate"))
+                                {
+                                    Undo.RecordObject(target, "Mutate "+ (string.IsNullOrEmpty(group.GroupName) ? "EffectGroup" : group.GroupName));
+                                    //TODO: go through all effects in EffectsToExecute list, and call Mutate on them,
+                                    //TODO: maybe have a probability for adding/removing a random effect from the list.
+                                    
+                                }
+                            }
+                        }
+                        
+                        for (var i = 0; i < group.EffectsToExecute.Count; i++)
+                        {
+                            if (group.EffectsToExecute[i] == null) continue;
+                        
+                            index++;
+                            GenerateSimpleInterface(group.EffectsToExecute[i], ref index, indent + 1,
+                                propertyPath + ".EffectsToExecute", i);
+                        }
                         // }
                     }
 
@@ -913,25 +959,25 @@ namespace GameFeelDescriptions
                                     propertyPath + ".ExecuteAfterCompletion", i);
                             }
 
-                            if (effect is TrailEffect trail)
+                            if (effect is SpawningGameFeelEffect spawner)
                             {
-                                if (trail.CustomFadeEffects.Count > 0)
+                                if (spawner.ExecuteOnOffspring.Count > 0)
                                 {
-                                    EditorGUI.indentLevel = indent + 1;
-                                    var subClickArea = ClickAreaWithContextMenu(trail, false);
-
-                                    showAttach = EditorGUI.Foldout(subClickArea, showAttach, "Custom Fade Effect");
-
-                                    if (showAttach)
+                                    EditorGUI.indentLevel = indent - 1;
+                                    
+                                    var subClickArea = ClickAreaWithContextMenu(spawner, false);
+                                
+                                    EditorGUI.LabelField(subClickArea, "Executed on "+spawner.GetType().Name+" Offspring:", EditorStyles.miniBoldLabel);
+                                
+                                    for (var i = 0; i < spawner.ExecuteOnOffspring.Count; i++)
                                     {
-                                        for (var i = 0; i < trail.CustomFadeEffects.Count; i++)
-                                        {
-                                            if (trail.CustomFadeEffects[i] == null) continue;
-                                            index++;
-                                            GenerateSimpleInterface(trail.CustomFadeEffects[i], ref index, indent + 2,
-                                                propertyPath + ".CustomFadeEffects", i);
-                                        }    
-                                    }
+                                        if (spawner.ExecuteOnOffspring[i] == null) continue;
+                                        index++;
+                                        GenerateSimpleInterface(spawner.ExecuteOnOffspring[i], ref index, indent + 1,
+                                            propertyPath + ".ExecuteOnOffspring", i);
+                                    }    
+                                
+                                    EditorGUI.indentLevel = indent;
                                 }
                             }
                         // }
@@ -954,14 +1000,14 @@ namespace GameFeelDescriptions
 
                     EditorGUI.indentLevel = 1;
                     var rect = EditorGUILayout.GetControlRect(true,
-                        EditorGUI.GetPropertyHeight(serializedObject.FindProperty(path), true) +
+                        EditorGUI.GetPropertyHeight(serializedObject.FindProperty(path)) + //, true
                         EditorGUIUtility.standardVerticalSpacing);
                     if (highlight)
                     {
                         EditorHelpers.DrawColoredRect(rect, separatorColor.withA(highlightAlpha));
                     }
 
-                    EditorGUI.PropertyField(rect, serializedObject.FindProperty(path), true);
+                    EditorGUI.PropertyField(rect, serializedObject.FindProperty(path));//, true
                     serializedObject.ApplyModifiedProperties();
 
 
@@ -1183,9 +1229,19 @@ namespace GameFeelDescriptions
                                             (GameFeelEffect) JsonUtility.FromJson(JsonUtility.ToJson(other),
                                                 other.GetType()));
                                     });
+                                    
+                                    if (effect is SpawningGameFeelEffect spawner)
+                                    {
+                                        menu.AddItem(new GUIContent("Copy to OnOffspring"), false, () =>
+                                        {
+                                            //Copy it to the new location
+                                            spawner.ExecuteOnOffspring.Add(
+                                                (GameFeelEffect) JsonUtility.FromJson(JsonUtility.ToJson(other),
+                                                    other.GetType()));
+                                        });
+                                    }
                                 }
                                 break;
-                            //TODO: handle TrailEffect here as well!
                         }
                         
                         menu.AddItem(new GUIContent("Cancel"), false, DragAndDrop.PrepareStartDrag);
@@ -1331,14 +1387,14 @@ namespace GameFeelDescriptions
                                             AddPropertyCallback, data);
                                     }
 
-                                    if (effect is TrailEffect trail)
+                                    if (effect is SpawningGameFeelEffect spawner)
                                     {
                                         var data = new addCallbackStruct
                                         {
-                                            context = trail.CustomFadeEffects,
+                                            context = spawner.ExecuteOnOffspring,
                                             instance = () => Activator.CreateInstance(type)
                                         };
-                                        menu.AddItem(new GUIContent("Add CustomFade Effect/" + type.Name), false,
+                                        menu.AddItem(new GUIContent("Add OnOffspring Effect/" + type.Name), false,
                                             AddPropertyCallback, data);
                                     }
                                 }
@@ -1358,16 +1414,16 @@ namespace GameFeelDescriptions
                                             AddPropertyCallback, pasteData);
                                     }
 
-                                    if (effect is TrailEffect trail)
+                                    if (effect is SpawningGameFeelEffect spawner)
                                     {
                                         var pasteData = new addCallbackStruct
                                         {
                                             isPaste = true,
-                                            context = trail.CustomFadeEffects,
+                                            context = spawner.ExecuteOnOffspring,
                                             instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
                                                 copiedObject.GetType()),
                                         };
-                                        menu.AddItem(new GUIContent("Paste as CustomFade Effect"), false,
+                                        menu.AddItem(new GUIContent("Paste as OnOffspring Effect"), false,
                                             AddPropertyCallback, pasteData);
                                     }
                                 }

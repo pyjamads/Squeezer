@@ -1,11 +1,22 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
     public static class RandomExtensions
     {
+        public static bool Boolean(float trueProp = 0.5f)
+        {
+            return Random.value <= trueProp;
+        }
+
+        public static int Sign(float posProp = 0.5f)
+        {
+            return Boolean(posProp) ? 1 : -1;
+        }
+
         /// <summary>
         /// Get a random element from a list.
         /// </summary>

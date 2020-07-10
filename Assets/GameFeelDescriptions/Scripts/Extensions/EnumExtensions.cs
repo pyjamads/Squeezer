@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace GameFeelDescriptions
 {
@@ -20,8 +21,18 @@ namespace GameFeelDescriptions
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GetRandomValue<T>() where T : Enum
+        public static T GetRandomValue<T>(List<T> except = null) where T : Enum
         {
+            if (except != null)
+            {
+                var val = Enum.GetValues(typeof(T)).GetRandomElement<T>();
+                while (except.Contains(val))
+                {
+                    val = Enum.GetValues(typeof(T)).GetRandomElement<T>();
+                }
+                return val;
+            }
+            
             return Enum.GetValues(typeof(T)).GetRandomElement<T>();
         }
     }
