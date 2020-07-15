@@ -1,0 +1,914 @@
+{
+    "GroupName": "Block Destruction",
+    "Disabled": false,
+    "UnscaledTime": true,
+    "StepThroughMode": false,
+    "AppliesTo": 0,
+    "TargetTag": "",
+    "TargetComponentType": {
+        "instanceID": 0
+    },
+    "TargetList": [],
+    "ExecuteOnTargetCopy": true,
+    "DisableRendererAndFollowOriginal": false,
+    "FollowEasing": 0,
+    "EffectsToExecute": [
+        {
+            "id": 0
+        },
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        },
+        {
+            "id": 4
+        },
+        {
+            "id": 5
+        },
+        {
+            "id": 6
+        },
+        {
+            "id": 7
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "ScaleEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Scale Effect allows you to scale an object using easing.",
+                "Delay": 0.009999999776482582,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 8
+                    }
+                ],
+                "Duration": 0.5,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "x": 0.5,
+                    "y": 0.5,
+                    "z": 0.5
+                },
+                "easing": 2,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.0,
+                            "value": 0.0,
+                            "inSlope": 2.0,
+                            "outSlope": 2.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.5014254450798035,
+                            "value": 0.4999597668647766,
+                            "inSlope": -3.0514440536499025,
+                            "outSlope": -3.0514440536499025,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.23149040341377259
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 1.0,
+                            "value": 1.0,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        }
+                    ],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "TranslateEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Translate Effect allows you to move an object using easing.",
+                "Delay": 0.009999999776482582,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 9
+                    }
+                ],
+                "Duration": 1.5,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "x": 0.0,
+                    "y": -10.0,
+                    "z": -5.0
+                },
+                "easing": 10,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "useGlobalPosition": false
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "AudioClipPlayEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Play Audio clip Effect allows you to a sound clip and adjust volume using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "createAudioSource": true,
+                "volume": 0.0,
+                "source": {
+                    "instanceID": -2534268
+                },
+                "clip": {
+                    "instanceID": 75200
+                },
+                "playOneShot": true,
+                "pitchShiftAmount": 0.10000000149011612,
+                "pitchResetDelay": 1.0,
+                "playLoop": false,
+                "currentPitch": 1.0,
+                "lastPitchChangeTime": 9.402952194213868
+            }
+        },
+        "00000003": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 0.5,
+                "setFromValue": false,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.22846154868602754,
+                    "g": 0.33000001311302187,
+                    "b": 0.24115386605262757,
+                    "a": 1.0
+                },
+                "easing": 6,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000004": {
+            "type": {
+                "class": "RotateEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Rotate Effect allows you to rotate an object using easing.",
+                "Delay": 0.20000000298023225,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 1.5,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 70.0
+                },
+                "easing": 7,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.0,
+                            "value": 0.0,
+                            "inSlope": 0.01953125,
+                            "outSlope": 0.01953125,
+                            "tangentMode": 35,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.10000000149011612,
+                            "value": 0.001953125,
+                            "inSlope": 0.01953125,
+                            "outSlope": 0.01953125,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.20000000298023225,
+                            "value": 0.00390625,
+                            "inSlope": 0.02929687313735485,
+                            "outSlope": 0.02929687313735485,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.30000001192092898,
+                            "value": 0.0078125,
+                            "inSlope": 0.05859375,
+                            "outSlope": 0.05859375,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.4000000059604645,
+                            "value": 0.015625,
+                            "inSlope": 0.2828025817871094,
+                            "outSlope": 0.2828025817871094,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.4105011224746704,
+                            "value": 0.34381103515625,
+                            "inSlope": 3.5901718139648439,
+                            "outSlope": 3.5901718139648439,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.5502169132232666,
+                            "value": 0.5549294948577881,
+                            "inSlope": -0.23293021321296693,
+                            "outSlope": -0.23293021321296693,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 1.0
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.631518542766571,
+                            "value": 0.3701171875,
+                            "inSlope": -1.2207770347595215,
+                            "outSlope": -1.2207770347595215,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.800000011920929,
+                            "value": 0.2500000298023224,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 1.0,
+                            "value": 1.0,
+                            "inSlope": 3.750000238418579,
+                            "outSlope": 3.750000238418579,
+                            "tangentMode": 35,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.0
+                        }
+                    ],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 3,
+                "repeat": 10,
+                "useGlobalRotation": false
+            }
+        },
+        "00000005": {
+            "type": {
+                "class": "InvokeUnityEvent",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Invokes a Unity Event, letting you callback or set arbitrary functions/values in your own code",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "action": {
+                    "m_PersistentCalls": {
+                        "m_Calls": [
+                            {
+                                "m_Target": {
+                                    "instanceID": 62298
+                                },
+                                "m_MethodName": "IncreaseScore",
+                                "m_Mode": 1,
+                                "m_Arguments": {
+                                    "m_ObjectArgument": {
+                                        "instanceID": 0
+                                    },
+                                    "m_ObjectArgumentAssemblyTypeName": "UnityEngine.Object, UnityEngine",
+                                    "m_IntArgument": 0,
+                                    "m_FloatArgument": 0.0,
+                                    "m_StringArgument": "",
+                                    "m_BoolArgument": false
+                                },
+                                "m_CallState": 2
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "00000006": {
+            "type": {
+                "class": "ShatterEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Shatter an object into pieces and add a the Ragdoll effect to the pieces.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 10
+                    }
+                ],
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 11
+                    },
+                    {
+                        "id": 12
+                    },
+                    {
+                        "id": 13
+                    },
+                    {
+                        "id": 14
+                    }
+                ],
+                "AmountOfPieces": 6,
+                "PrefabPieces": []
+            }
+        },
+        "00000007": {
+            "type": {
+                "class": "AudioSynthPlayEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Audio Synth Effect, use for finding the sound you want, generate actual sound clips using the Editor window.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "soundGeneratorBase": 7,
+                "synthParameters": "3,.101,.085,.182,.103,.434,.609,.08,,.0191,.0722,.296,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,,,.0035,.1778,.87",
+                "mutateOnExecution": true,
+                "latestSynthParameters": [
+                    "3,.2,.0518,.2162,.1677,.9075,.3634,.1155,,.0191,.0722,.8345,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,-.798,,.0035,.1778,.87",
+                    "8,.2,.0361,.3839,.4928,.3761,1,.0213,,.0118,.7475,.2198,.8204,.9146,.8489,.6406,-.1941,,-.7102,.8994,.1536,.3413,,-.0501,.2328,.3435,.3421,,.9295,,.1947,.4548",
+                    "8,.2,.0667,.3732,.5118,.4252,1,.0244,,.0118,.7475,.2198,.7906,.9141,.8572,.6406,-.1599,,-.664,.8994,.2113,.3797,,.0128,.2757,.3674,.3421,,.9295,-.0341,.1947,.4179",
+                    "8,.2,.0667,.3732,.5118,.3986,1,.0189,,.0118,.7475,.2198,.7906,.9222,.8572,.6406,-.1644,,-.664,.8994,.1661,.3386,,-.0119,.2757,.3435,.3421,,.9295,,.1947,.4238",
+                    "8,.2,.0667,.3706,.4857,.394,.9991,.0384,.0253,.0024,.7475,.185,.7906,.9222,.8688,.6406,-.1691,,-.6199,.8994,.1661,.3014,,-.0483,.2948,.3435,.3241,,.9498,,.1906,.416",
+                    "8,.2,.0434,.3706,.4857,.4169,1,.0035,.0219,-.0346,.7495,.1416,.7752,.9507,.8757,.6666,-.1298,,-.6199,.9099,.1661,.3386,,.002,.2892,.302,.3388,,.9295,.0153,.2312,.3999",
+                    "8,.2,.0667,.3706,.4418,.4231,.9277,.0085,,-.004,.7475,.185,.8051,.8993,.867,.6586,-.1414,.0257,-.6199,.9444,.1661,.3386,,-.0119,.2757,.3925,.3119,.0485,.9139,.0354,.2312,.4238",
+                    "8,.2,.0333,.4142,.4857,.4169,.9594,.0035,,.0555,.7858,.2012,.839,.9222,.8572,.6317,-.1691,,-.6199,.8994,.1416,.3729,.0047,-.0451,.3122,.3435,.3119,.0086,.9294,-.0254,.2312,.4369",
+                    "8,.2,.0505,.3862,.5244,.4169,.994,.0369,,.0078,.7475,.1593,.7906,.9222,.8572,.6347,-.1544,.0107,-.6375,.8606,.1661,.3386,,.0334,.2757,.336,.3119,.0492,.9295,,.2312,.4238",
+                    "8,.2,.0667,.336,.4468,.4169,.9802,.0035,.0265,.0325,.7475,.2171,.7906,.9225,.8572,.6406,-.1691,,-.5998,.8994,.1316,.3386,.0133,-.0198,.3007,.3332,.3023,,.9295,.0228,.2701,.4238",
+                    "8,.2,.0571,.3829,.4857,.4346,1,.0035,,.0272,.7475,.1866,.7773,.9394,.8572,.6406,-.1287,,-.6199,.8994,.1189,.3386,,.0047,.2922,.3435,.3307,,.9118,,.2782,.4645",
+                    "8,.2,.0929,.3864,.4857,.4341,.9594,.0041,,.0078,.7475,.185,.7906,.9222,.8572,.6406,-.2118,.0489,-.5711,.8994,.1661,.3586,,.0012,.2757,.3435,.3119,,.9295,,.2312,.4426",
+                    "8,.2,.0667,.3706,.4857,.4222,.9594,.0035,,.0078,.7716,.1845,.7906,.8943,.9071,.6406,-.1564,,-.5859,.9263,.1661,.3386,,-.0119,.2657,.3435,.3119,,.9295,-.0066,.2284,.4238",
+                    "8,.2,.0667,.4122,.4652,.4603,.9382,.0035,,.0437,.7475,.2312,.7906,.9222,.864,.5954,-.1266,,-.6199,.8564,.1661,.3413,,-.0119,.2757,.3435,.3119,,.9484,,.2384,.3852",
+                    "7,.5,.4331,.3451,.0563,.9003,.5754,.7126,,.0016,.0118,-.5016,.9537,.904,.5568,.1416,.8472,.5045,-.1532,.7165,.6286,.0008,-.1767,,,.2767,,.0411,.0027,.4381,.4546,-.2814",
+                    "1,.5,.8517,,.5895,.4967,.0409,.5989,,.0019,,-.0298,-.9452,.285,.2657,.7893,.5457,.5656,.9905,.7029,.9218,-.3679,-.5998,-.604,.3489,.9909,.804,-.2317,,.0065,.3471,-.141",
+                    "8,.5,.0667,.3706,.4857,.4169,.9594,.0035,,.0078,.7475,.185,.7906,.9222,.8572,.6406,-.1691,-.7917,-.6199,.8994,.1661,.3386,-.4786,-.0119,.2757,.3435,.3119,-.9635,.9295,,.2312,.4238",
+                    "2,.5,.0305,.4847,.311,.394,.1213,.5437,,.9883,.092,-.3881,-.9334,.6059,.7946,.1621,.8497,.2039,.4754,.9992,.8986,-.0383,.8072,.2419,-.0118,.9999,,.2078,.0002,.1051,.5761,-.2424",
+                    "6,.5,.0001,.9617,.3707,.5615,.3668,.5963,,.0383,.572,-.4828,-.887,.0773,.8137,.3637,.1678,-.4867,.9896,.9789,-.8606,.1741,-.6781,.9989,-.7894,.8392,-.0669,.7,.0102,.5249,.7061,.6105",
+                    "7,.5,.1433,.5121,.2348,.242,.3126,.4179,,-.1145,.3104,.0761,-.5115,.2213,.8974,.1857,-.0652,.9412,-.3486,.7996,-.4429,-.0894,.9539,-.088,.5338,.9945,.0004,-.3063,.0076,-.066,.9352,-.979",
+                    "7,.5,.0082,.3776,.0543,.2096,.3658,.7533,,-.7309,-.0037,.0024,.7579,.5614,.9032,.5942,.9022,.2204,.3099,.4387,-.9236,-.0468,.8303,-.0599,-.2072,.5843,-.3151,.9224,.1427,,.6713,.0013",
+                    "4,.5,.002,.3502,.1342,.5215,.7878,.5808,,-.0217,-.0024,-.3979,-.8951,.2831,.0753,.2478,-.8524,-.5372,-.3256,.5264,-.4955,.5718,.8785,.0115,.0196,.5503,-.9806,-.5485,.2586,-.1194,.0694,.2892",
+                    "0,.5,,.1371,,.2791,.3,.5992,,.2113,,,,,,,,,,,.0725,,,,,.8254,,,.2395,,,",
+                    "0,.5,,.1734,,.1555,.3,.4288,,.1368,,,,,,,,,,,.5672,,,,,1,,,,,,",
+                    "0,.5,,.2961,,.2147,.3,.3009,,.2994,,,,,,,,,,,.1876,,,,,1,,,.1378,,,",
+                    "0,.5,,.3779,,.2289,.3,.5534,,.1134,,,,,,,,,,,.2246,,,,,1,,,.2732,,,",
+                    "0,.5,,.2748,,.2715,.3,.5295,,.164,,,,,,,,,,,.3595,,,,,.4591,,,,,,",
+                    "0,.5,,.2834,,.2032,.3,.5661,,.222,,,,,,,,,,,.5147,,,,,1,,,,,,",
+                    "0,.5,,.3519,,.1518,.3,.5799,,.1504,,,,,,,,,,,.3752,,,,,.9556,,,,,,",
+                    "0,.5,,.1111,,.172,.3,.5771,,.1313,,,,,,,,,,,.186,,,,,1,,,.0209,,,",
+                    "0,.5,,.2272,,.2519,.3,.4575,,.119,,,,,,,,,,,.475,,,,,1,,,,,,",
+                    "0,.5,,.3259,,.1016,.3,.4194,,.289,,,,,,,,,,,.5397,,,,,1,,,.0102,,,",
+                    "0,.5,,.1679,,.1316,.3,.4704,,.185,,,,,,,,,,,.2111,,,,,1,,,,,,",
+                    "1,.5,,.0665,,.1374,.3,.6839,,-.4362,,,,,,,,,,,,,,,,1,,,.2531,,,",
+                    "3,.5,,.0438,,.2631,.3,.4369,,-.6758,,,,,,,,,,,,,,,,1,,,,,,",
+                    "0,.5,,.0321,,.145,.3,.3881,,-.4371,,,,,,,,,,,.0753,,,,,1,,,.1582,,,"
+                ]
+            }
+        },
+        "00000008": {
+            "type": {
+                "class": "ScaleEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Scale Effect allows you to scale an object using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 1.0,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "easing": 5,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0
+            }
+        },
+        "00000009": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Simple destruction effect.",
+                "Delay": 0.10000000149011612,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": []
+            }
+        },
+        "0000000A": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Simple destruction effect.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": []
+            }
+        },
+        "0000000B": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 2.0,
+                "setFromValue": false,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.0963866114616394,
+                    "g": 0.35849058628082278,
+                    "b": 0.25841450691223147,
+                    "a": 0.0
+                },
+                "easing": 2,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 1,
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "0000000C": {
+            "type": {
+                "class": "RotateEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Rotate Effect allows you to rotate an object using easing.",
+                "Delay": 0.5,
+                "RandomizeDelay": true,
+                "ExecuteAfterCompletion": [],
+                "Duration": 1.5,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 70.0
+                },
+                "easing": 7,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.0,
+                            "value": 0.0,
+                            "inSlope": 0.01953125,
+                            "outSlope": 0.01953125,
+                            "tangentMode": 35,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.10000000149011612,
+                            "value": 0.001953125,
+                            "inSlope": 0.01953125,
+                            "outSlope": 0.01953125,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.20000000298023225,
+                            "value": 0.00390625,
+                            "inSlope": 0.02929687313735485,
+                            "outSlope": 0.02929687313735485,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.30000001192092898,
+                            "value": 0.0078125,
+                            "inSlope": 0.05859375,
+                            "outSlope": 0.05859375,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.4000000059604645,
+                            "value": 0.015625,
+                            "inSlope": 0.2828025817871094,
+                            "outSlope": 0.2828025817871094,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.4105011224746704,
+                            "value": 0.34381103515625,
+                            "inSlope": 3.5901718139648439,
+                            "outSlope": 3.5901718139648439,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.5502169132232666,
+                            "value": 0.5549294948577881,
+                            "inSlope": -0.23293021321296693,
+                            "outSlope": -0.23293021321296693,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 1.0
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.631518542766571,
+                            "value": 0.3701171875,
+                            "inSlope": -1.2207770347595215,
+                            "outSlope": -1.2207770347595215,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.800000011920929,
+                            "value": 0.2500000298023224,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 137,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.3333333432674408
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 1.0,
+                            "value": 1.0,
+                            "inSlope": 3.750000238418579,
+                            "outSlope": 3.750000238418579,
+                            "tangentMode": 35,
+                            "weightedMode": 0,
+                            "inWeight": 0.3333333432674408,
+                            "outWeight": 0.0
+                        }
+                    ],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 3,
+                "repeat": 10,
+                "useGlobalRotation": false
+            }
+        },
+        "0000000D": {
+            "type": {
+                "class": "RagdollEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Add a Rigidbody that's affected by gravity to the target, and set an initial velocity based on the interaction.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 15
+                    }
+                ],
+                "RagdollPrefab": {
+                    "instanceID": 0
+                },
+                "ForceMultiplier": 10.0,
+                "RandomizeAdditionalForce": true,
+                "AdditionalForce": {
+                    "x": 2.0,
+                    "y": 4.0,
+                    "z": 1.0
+                },
+                "ApplyGravity": true
+            }
+        },
+        "0000000E": {
+            "type": {
+                "class": "TranslateEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": true,
+                "Description": "Translate Effect allows you to move an object using easing.",
+                "Delay": 0.5,
+                "RandomizeDelay": true,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 16
+                    }
+                ],
+                "Duration": 1.0,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "x": -5.5,
+                    "y": 4.0,
+                    "z": 0.0
+                },
+                "easing": 2,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 1,
+                "useGlobalPosition": true
+            }
+        },
+        "0000000F": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Simple destruction effect.",
+                "Delay": 2.0,
+                "RandomizeDelay": true,
+                "ExecuteAfterCompletion": []
+            }
+        },
+        "00000010": {
+            "type": {
+                "class": "InvokeUnityEvent",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Invokes a Unity Event, letting you callback or set arbitrary functions/values in your own code",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "action": {
+                    "m_PersistentCalls": {
+                        "m_Calls": [
+                            {
+                                "m_Target": {
+                                    "instanceID": 62298
+                                },
+                                "m_MethodName": "IncreaseScore",
+                                "m_Mode": 1,
+                                "m_Arguments": {
+                                    "m_ObjectArgument": {
+                                        "instanceID": 0
+                                    },
+                                    "m_ObjectArgumentAssemblyTypeName": "UnityEngine.Object, UnityEngine",
+                                    "m_IntArgument": 0,
+                                    "m_FloatArgument": 0.0,
+                                    "m_StringArgument": "",
+                                    "m_BoolArgument": false
+                                },
+                                "m_CallState": 2
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "00000011": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

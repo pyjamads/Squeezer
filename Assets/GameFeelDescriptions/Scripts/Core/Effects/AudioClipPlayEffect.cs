@@ -12,6 +12,9 @@ namespace GameFeelDescriptions
 
         [Header("Create an AudioSource on the target.")]
         public bool createAudioSource;
+
+        [HideFieldIf("createAudioSource", false)]
+        public float volume = 0.5f;
         
         [Header("AudioSource to use, otherwise it will be located on target, or origin.")]
         public AudioSource source;
@@ -50,6 +53,7 @@ namespace GameFeelDescriptions
                 source = source, 
                 clip = clip, 
                 playOneShot = playOneShot, 
+                volume = volume,
                 playLoop = playLoop,
                 pitchShiftAmount = pitchShiftAmount,
                 pitchResetDelay = pitchResetDelay
@@ -80,6 +84,7 @@ namespace GameFeelDescriptions
                 if (createAudioSource)
                 {
                     source = target.AddComponent<AudioSource>();
+                    source.volume = volume;
                 }
                 else
                 {

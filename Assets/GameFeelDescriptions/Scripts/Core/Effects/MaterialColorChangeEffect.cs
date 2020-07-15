@@ -60,6 +60,8 @@ namespace GameFeelDescriptions
 
             if (renderer == null)
             {
+                if (target == null) return;
+                
                 renderer = target.GetComponentInChildren<Renderer>();
                 if (renderer == null)
                 {
@@ -87,6 +89,8 @@ namespace GameFeelDescriptions
             
             if (renderer == null)
             {
+                if (target == null) return Color.magenta;
+                
                 renderer = target.GetComponentInChildren<Renderer>();
                 if (renderer == null)
                 {

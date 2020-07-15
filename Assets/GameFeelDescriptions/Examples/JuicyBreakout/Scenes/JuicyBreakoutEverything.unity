@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 26173080}
   m_Layer: 0
   m_Name: block (10)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -422,7 +422,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -977,6 +977,8 @@ MonoBehaviour:
           EffectsToExecute:
           - id: 1
           - id: 2
+          - id: 3
+          - id: 4
         ReactTo:
         - ball
         type: 0
@@ -989,7 +991,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 3
+        - id: 5
         Duration: 0.05
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -1008,14 +1010,15 @@ MonoBehaviour:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 0
+        Disabled: 1
         Description: Play Audio clip Effect allows you to a sound clip and adjust
           volume using easing.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         createAudioSource: 0
-        source: {fileID: 1499500742}
+        volume: 0
+        source: {fileID: 0}
         clip: {fileID: 8300000, guid: 0e266c9aad8b74b848633388de70e124, type: 3}
         playOneShot: 1
         pitchShiftAmount: 0
@@ -1024,6 +1027,117 @@ MonoBehaviour:
         currentPitch: 0
         lastPitchChangeTime: 0
     00000003:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        soundGeneratorBase: 2
+        synthParameters: 3,.5,,.3339,.5521,.2041,.3,.0753,,-.3856,,,,,,,.5475,.7794,,,,,,,,1,,,,,,
+        mutateOnExecution: 0
+        latestSynthParameters:
+        - 3,.5,,.3339,.5521,.2041,.3,.0753,,-.3856,,,,,,,.5475,.7794,,,,,,,,1,,,,,,
+        - 3,.5,,.1693,.5347,.1922,.3,.0161,,.1351,,,,,,,.3999,.7465,,,,,.5604,,,1,,,,,,
+        - 3,.5,,.1403,.4713,.4727,.3,.1167,,-.0126,,,,,,,,,,,,,,-.2605,-.0928,1,,,,,,
+        - 3,.5,,.2889,.5718,.3613,.3,.5849,,-.2418,,,,,,,,,,,,,,.0657,-.2365,1,,,,,,
+        - 3,.5,,.1494,.6245,.3339,.3,.2357,,-.2321,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.5,,.2455,.706,.0444,.3,.0287,,.2188,,,,,,,,,,,,,.5225,.1246,-.2906,1,,,,,,
+        - 3,.5,,.2119,.6874,.0824,.3,.0963,,,,,,,,,-.7151,.8348,,,,,,,,1,,,,,,
+        - 3,.5,,.3082,.3346,.1517,.3,.2181,,.2914,,,,,,,,,,,,,.6525,.2587,-.0459,1,,,,,,
+        - 0,.5,,.1099,,.0079,.3,.3578,,,,,,,,,,,,,.0717,,,,,1,,,.1,,,
+        - 0,.5,,.1719,,.1754,.3,.2507,,,,,,,,,,,,,.5551,,,,,1,,,.1,,,
+        - 1,.5,,.1895,,.1787,.3,.258,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 1,.5,,.1843,,.1615,.3,.597,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 1,.5,,.1922,,.0726,.3,.4798,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 0,.5,,.1993,,.0425,.3,.4426,,,,,,,,,,,,,.2797,,,,,1,,,.1,,,
+        - 0,.5,,.179,,.1711,.3,.4528,,,,,,,,,,,,,.2126,,,,,1,,,.1,,,
+        - 1,.5,,.1991,,.0816,.3,.3842,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 1,.5,,.152,,.0631,.3,.4345,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 1,.5,,.1596,,.1306,.3,.4808,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 0,.5,,.1427,,.1164,.3,.4515,,,,,,,,,,,,,.4268,,,,,1,,,.1,,,
+        - 0,.5,,.199,,.0024,.3,.4027,,,,,,,,,,,,,.5647,,,,,1,,,.1,,,
+        - 0,.5,,.12,,.1797,.3,.2645,,,,,,,,,,,,,.4286,,,,,1,,,.1,,,
+        - 1,.5,,.1118,,.1462,.3,.3653,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 1,.5,,.1985,,.1133,.3,.5255,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 0,.5,,.1044,,.0238,.3,.4858,,,,,,,,,,,,,.3936,,,,,1,,,.1,,,
+        - 1,.5,,.1053,,.0025,.3,.3871,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 0,.5,,.1289,,.019,.3,.3706,,,,,,,,,,,,,.0038,,,,,1,,,.1,,,
+        - 0,.5,,.0645,.3669,.344,.3,.608,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0326,.5358,.3016,.3,.8038,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0749,.5329,.431,.3,.6131,,,,,,,,,.4615,.6621,,,,,,,,1,,,,,,
+        - 0,.5,,.0388,.4156,.33,.3,.5828,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0091,.3898,.4152,.3,.6534,,,,,,,,,.3333,.6341,,,,,,,,1,,,,,,
+        - 0,.5,,.0913,.3808,.3106,.3,.6404,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0678,.4273,.4503,.3,.6738,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0697,.5751,.4834,.3,.4637,,,,,,,,,.2727,.5816,,,,,,,,1,,,,,,
+        - 0,.5,,.0757,.418,.4891,.3,.7401,,,,,,,,,.3846,.6241,,,,,,,,1,,,,,,
+        - 0,.5,,.0143,.3529,.4242,.3,.593,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0249,.4845,.2117,.3,.4033,,,,,,,,,.3636,.6232,,,,,,,,1,,,,,,
+        - 0,.5,,.0325,.5511,.4608,.3,.8033,,,,,,,,,.1111,.6575,,,,,,,,1,,,,,,
+        - 0,.5,,.2189,.2781,.385,.3,.647,.3931,-.2248,,,,,,,,,,,.6825,-.3011,,,,1,,,,,,
+        - 1,.5,,.2494,.0394,.0047,.3,.5112,.2,-.2051,,,,,,,,,,,.6806,-.1955,,,,1,,,,,,
+        - 0,.5,,.1811,.1425,.3942,.3,.557,.008,-.3815,,,,,,,,,,,.8237,-.045,,,,1,,,,,,
+        - 0,.5,,.2417,.2046,.3573,.3,.5627,.2904,-.1573,,,,,,,,,,,.3933,.1358,,.0945,-.1425,1,,,.1741,,,
+        - 1,.5,,.1367,,.2521,.3,.7306,.0458,-.6495,,,,,,,,,,,.3914,.1469,,,,1,,,,,,
+        - 1,.5,,.0186,,.2489,.3,.3418,,-.517,,,,,,,,,,,,,,,,1,,,.2085,,,
+        - 1,.5,,.0003,,.2784,.3,.7461,,-.3372,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.5,,.0277,,.1314,.3,.7236,,-.3281,,,,,,,,,,,,,,,,1,,,.1056,,,
+        - 0,.5,,.0793,,.2097,.3,.2438,,-.4588,,,,,,,,,,,.5627,,,,,1,,,.2425,,,
+        - 3,.5,,.006,,.2875,.3,.4704,,-.5834,,,,,,,,,,,,,,,,1,,,.0963,,,
+        - 1,.5,,.0435,,.2481,.3,.2005,,-.4001,,,,,,,,,,,,,,,,1,,,.2484,,,
+        - 1,.5,,.0418,,.1848,.3,.6282,,-.5223,,,,,,,,,,,,,,,,1,,,.0948,,,
+        - 3,.5,,.059,,.2942,.3,.3847,,-.3017,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0222,,.1173,.3,.4899,,-.6556,,,,,,,,,,,.5506,,,,,1,,,,,,
+        - 3,.5,,.2279,.7694,.2378,.3,.1031,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.5,,.2321,.225,.0443,.3,.2428,,.1564,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.5,,.2384,.678,.4654,.3,.1281,,.209,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.5,,.1891,.2483,.4189,.3,.2961,,-.2625,,,,,,,,,,,,,.5767,,,1,,,,,,
+        - 0,.5,,.188,,.122,.3,.2233,,,,,,,,,,,,,.5228,,,,,1,,,.1,,,
+        - 0,.5,,.1084,,.1971,.3,.4287,,,,,,,,,,,,,.0007,,,,,1,,,.1,,,
+        - 0,.5,,.1674,,.1293,.3,.4879,,,,,,,,,,,,,.1578,,,,,1,,,.1,,,
+        - 1,.5,,.1767,,.045,.3,.3087,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 0,.5,,.1564,,.0412,.3,.5619,,,,,,,,,,,,,.4154,,,,,1,,,.1,,,
+        - 1,.5,,.1553,,.0509,.3,.3423,,,,,,,,,,,,,,,,,,1,,,.1,,,
+        - 0,.5,,.3066,,.1811,.3,.3409,,.2585,,,,,,,,,,,.5733,,,,,1,,,.2311,,,
+        - 0,.5,,.3118,,.2468,.3,.3565,,.1119,,,,,,,,,,,.0653,,,,,.5945,,,.2838,,,
+        - 0,.5,,.0907,,.1413,.3,.5542,,-.6697,,,,,,,,,,,.5072,,,,,1,,,,,,
+        - 3,.5,,.0426,,.2522,.3,.3597,,-.3787,,,,,,,,,,,,,,,,1,,,,,,
+        - 1,.5,,.0009,,.1051,.3,.4199,,-.4376,,,,,,,,,,,,,,,,1,,,.2453,,,
+        - 0,.5,,.0353,,.2305,.3,.3119,,-.3128,,,,,,,,,,,.0921,,,,,1,,,,,,
+        - 1,.5,,.0399,,.1486,.3,.7148,,-.4091,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.5,,.0971,,.2585,.3,.7212,,-.632,,,,,,,,,,,,,,,,1,,,.0351,,,
+        - 0,.5,,.0022,,.1314,.3,.6511,,-.4782,,,,,,,,,,,.077,,,,,1,,,,,,
+    00000004:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 0.05
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 1, a: 0.21960784}
+        easing: 3
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000005:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -1405,7 +1519,7 @@ GameObject:
   - component: {fileID: 203915140}
   m_Layer: 0
   m_Name: block (2)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1468,7 +1582,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1576,6 +1690,7 @@ MonoBehaviour:
           - id: 5
           - id: 6
           - id: 7
+          - id: 8
     00000001:
       type: {class: CameraBackgroundColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -1713,13 +1828,14 @@ MonoBehaviour:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 1
+        Disabled: 0
         Description: Play Audio clip Effect allows you to a sound clip and adjust
           volume using easing.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         createAudioSource: 1
+        volume: 0.2
         source: {fileID: 0}
         clip: {fileID: 8300000, guid: 45e277d40b3624b49b5f91c34281ef10, type: 3}
         playOneShot: 0
@@ -1755,6 +1871,33 @@ MonoBehaviour:
         materialToModify: {fileID: 2100000, guid: 0e5d404ce26464e36bf101cf0fc93a4f,
           type: 2}
         applyToAllInstances: 0
+    00000008:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 2
+        setFromValue: 1
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.58431375, g: 0.31764707, b: 0, a: 1}
+        easing: 3
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944,
+          type: 2}
+        applyToAllInstances: 0
 --- !u!1 &231350199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1769,7 +1912,7 @@ GameObject:
   - component: {fileID: 231350201}
   m_Layer: 0
   m_Name: block (8)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1832,7 +1975,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1897,6 +2040,7 @@ Transform:
   - {fileID: 1976367359}
   - {fileID: 209534553}
   - {fileID: 832887846}
+  - {fileID: 912936687}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2381,7 +2525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 1.01
   velocity: {x: 0, y: 0}
-  maxSpeed: 4
+  maxSpeed: 10
   something: 0
   ballReady: 1
 --- !u!61 &356199985
@@ -2824,7 +2968,7 @@ GameObject:
   - component: {fileID: 456201436}
   m_Layer: 0
   m_Name: block
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2887,7 +3031,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3036,7 +3180,7 @@ GameObject:
   - component: {fileID: 482469177}
   m_Layer: 0
   m_Name: block (4)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3099,7 +3243,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3142,7 +3286,7 @@ GameObject:
   - component: {fileID: 483305392}
   m_Layer: 0
   m_Name: block (9)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3205,7 +3349,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3447,7 +3591,7 @@ GameObject:
   - component: {fileID: 534568737}
   m_Layer: 0
   m_Name: block (5)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3510,7 +3654,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4040,11 +4184,12 @@ MonoBehaviour:
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         createAudioSource: 0
-        source: {fileID: 1499500742}
+        volume: 0.5
+        source: {fileID: 1499500743}
         clip: {fileID: 8300000, guid: b6a27581d03324e20a3b911079487f65, type: 3}
         playOneShot: 1
-        pitchShiftAmount: 0
-        pitchResetDelay: 0
+        pitchShiftAmount: 0.5
+        pitchResetDelay: 1
         playLoop: 0
         currentPitch: 1
         lastPitchChangeTime: 8.240052
@@ -4060,7 +4205,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         Duration: 0.2
         setFromValue: 1
-        from: {r: 0, g: 0, b: 0, a: 1}
+        from: {r: 1, g: 0.7877358, b: 0.7877358, a: 1}
         relative: 0
         to: {r: 1, g: 1, b: 1, a: 1}
         easing: 1
@@ -4089,7 +4234,7 @@ MonoBehaviour:
         - id: 15
         - id: 16
         TrailPrefab: {fileID: 0}
-        TrailPositionOffset: {x: 0, y: 0, z: 0}
+        TrailPositionOffset: {x: 0, y: 0, z: 1}
         DelayBetweenCopies: 0
     00000009:
       type: {class: TimeScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -4248,7 +4393,7 @@ MonoBehaviour:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 0
+        Disabled: 1
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -4257,7 +4402,7 @@ MonoBehaviour:
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
-        to: {x: 0, y: 0, z: 1}
+        to: {x: 0, y: 0, z: -1}
         easing: 0
         curve:
           serializedVersion: 2
@@ -5633,7 +5778,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
-        Duration: 0.05
+        Duration: 0.1
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 1
@@ -5871,7 +6016,7 @@ MonoBehaviour:
         Duration: 0.4
         useInteractionDirection: 1
         interactionDirectionMultiplier: 1
-        amount: 0.05
+        amount: 0
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -5998,7 +6143,7 @@ MonoBehaviour:
         - id: 11
         Duration: 0.6
         setFromValue: 1
-        from: {r: 0, g: 0, b: 0, a: 1}
+        from: {r: 0.38679248, g: 0.30149746, b: 0.0054734685, a: 1}
         relative: 0
         to: {r: 0.8018868, g: 0.6705757, b: 0.28368637, a: 0}
         easing: 5
@@ -6026,7 +6171,7 @@ MonoBehaviour:
         RagdollPrefab: {fileID: 0}
         ForceMultiplier: 4.681726
         RandomizeAdditionalForce: 1
-        AdditionalForce: {x: 5, y: 10, z: 0}
+        AdditionalForce: {x: 3, y: 4, z: 0}
         ApplyGravity: 0
     0000000A:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -6061,8 +6206,8 @@ MonoBehaviour:
         StackingType: 0
         Disabled: 0
         Description: Simple destruction effect.
-        Delay: 0
-        RandomizeDelay: 0
+        Delay: 0.4
+        RandomizeDelay: 1
         ExecuteAfterCompletion: []
     0000000C:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -6090,7 +6235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &853609166
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6472,6 +6617,802 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 895679850}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &912936686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 912936687}
+  - component: {fileID: 912936688}
+  m_Layer: 0
+  m_Name: EnemyEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &912936687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912936686}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 233506802}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &912936688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912936686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: EnemyEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [Enemy]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: Enemy
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        EffectGroups:
+        - GroupName: 
+          Disabled: 0
+          UnscaledTime: 0
+          StepThroughMode: 0
+          AppliesTo: 3
+          TargetTag: block
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          ExecuteOnTargetCopy: 0
+          DisableRendererAndFollowOriginal: 0
+          FollowEasing: 0
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+        - GroupName: 
+          Disabled: 0
+          UnscaledTime: 0
+          StepThroughMode: 0
+          AppliesTo: 3
+          TargetTag: Enemy
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          ExecuteOnTargetCopy: 0
+          DisableRendererAndFollowOriginal: 0
+          FollowEasing: 0
+          EffectsToExecute:
+          - id: 3
+        - GroupName: Block Destruction
+          Disabled: 0
+          UnscaledTime: 1
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          ExecuteOnTargetCopy: 0
+          DisableRendererAndFollowOriginal: 0
+          FollowEasing: 0
+          EffectsToExecute:
+          - id: 4
+          - id: 5
+          - id: 6
+          - id: 7
+          - id: 8
+          - id: 9
+          - id: 10
+          - id: 11
+        ReactTo:
+        - ball
+        type: 0
+    00000001:
+      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 3
+        Disabled: 0
+        Description: Rotate Effect allows you to rotate an object using easing.
+        Delay: 0.3
+        RandomizeDelay: 1
+        ExecuteAfterCompletion:
+        - id: 12
+        Duration: 1
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 45}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 3
+        repeat: 3
+        useGlobalRotation: 0
+    00000002:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 4
+        Disabled: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0.3
+        RandomizeDelay: 1
+        ExecuteAfterCompletion: []
+        Duration: 0.1
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.6416322, g: 0.6509434, b: 0.18115878, a: 1}
+        easing: 8
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000003:
+      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Rotate Effect allows you to rotate an object using easing.
+        Delay: 0.1
+        RandomizeDelay: 1
+        ExecuteAfterCompletion: []
+        Duration: 0.5
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 180}
+        easing: 12
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        useGlobalRotation: 0
+    00000004:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Scale Effect allows you to scale an object using easing.
+        Delay: 0.01
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 13
+        Duration: 0.5
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.5, y: 0.5, z: 0.5}
+        easing: 2
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 2
+            outSlope: 2
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.50142545
+            value: 0.49995977
+            inSlope: -3.051444
+            outSlope: -3.051444
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.2314904
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 0
+    00000005:
+      type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Translate Effect allows you to move an object using easing.
+        Delay: 0.01
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 14
+        Duration: 1.5
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: -10, z: -5}
+        easing: 10
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 0
+        useGlobalPosition: 0
+    00000006:
+      type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Play Audio clip Effect allows you to a sound clip and adjust
+          volume using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        createAudioSource: 1
+        volume: 0
+        source: {fileID: 1499500743}
+        clip: {fileID: 8300000, guid: 3733ea7d142a44d50b8d2ce7c54528f1, type: 3}
+        playOneShot: 1
+        pitchShiftAmount: 0.1
+        pitchResetDelay: 1
+        playLoop: 0
+        currentPitch: 1
+        lastPitchChangeTime: 9.402952
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 0.5
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.22846155, g: 0.33, b: 0.24115387, a: 1}
+        easing: 6
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 0
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
+      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Rotate Effect allows you to rotate an object using easing.
+        Delay: 0.2
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 1.5
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 70}
+        easing: 7
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0.01953125
+            outSlope: 0.01953125
+            tangentMode: 35
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.1
+            value: 0.001953125
+            inSlope: 0.01953125
+            outSlope: 0.01953125
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.2
+            value: 0.00390625
+            inSlope: 0.029296873
+            outSlope: 0.029296873
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.3
+            value: 0.0078125
+            inSlope: 0.05859375
+            outSlope: 0.05859375
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.4
+            value: 0.015625
+            inSlope: 0.28280258
+            outSlope: 0.28280258
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.41050112
+            value: 0.34381104
+            inSlope: 3.5901718
+            outSlope: 3.5901718
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5502169
+            value: 0.5549295
+            inSlope: -0.23293021
+            outSlope: -0.23293021
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 1
+          - serializedVersion: 3
+            time: 0.63151854
+            value: 0.3701172
+            inSlope: -1.220777
+            outSlope: -1.220777
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.8
+            value: 0.25000003
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 3.7500002
+            outSlope: 3.7500002
+            tangentMode: 35
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 3
+        repeat: 10
+        useGlobalRotation: 0
+    00000009:
+      type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Invokes a Unity Event, letting you callback or set arbitrary
+          functions/values in your own code
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        action:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 1241599621}
+              m_MethodName: IncreaseScore
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+    0000000A:
+      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Shatter an object into pieces and add a the Ragdoll effect to
+          the pieces.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 15
+        ExecuteOnOffspring:
+        - id: 16
+        - id: 17
+        - id: 18
+        - id: 19
+        AmountOfPieces: 6
+        PrefabPieces: []
+    0000000B:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        soundGeneratorBase: 7
+        synthParameters: 3,.101,.085,.182,.103,.434,.609,.08,,.0191,.0722,.296,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,,,.0035,.1778,.87
+        mutateOnExecution: 1
+        latestSynthParameters:
+        - 3,.2,.0518,.2162,.1677,.9075,.3634,.1155,,.0191,.0722,.8345,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,-.798,,.0035,.1778,.87
+        - 8,.2,.0361,.3839,.4928,.3761,1,.0213,,.0118,.7475,.2198,.8204,.9146,.8489,.6406,-.1941,,-.7102,.8994,.1536,.3413,,-.0501,.2328,.3435,.3421,,.9295,,.1947,.4548
+        - 8,.2,.0667,.3732,.5118,.4252,1,.0244,,.0118,.7475,.2198,.7906,.9141,.8572,.6406,-.1599,,-.664,.8994,.2113,.3797,,.0128,.2757,.3674,.3421,,.9295,-.0341,.1947,.4179
+        - 8,.2,.0667,.3732,.5118,.3986,1,.0189,,.0118,.7475,.2198,.7906,.9222,.8572,.6406,-.1644,,-.664,.8994,.1661,.3386,,-.0119,.2757,.3435,.3421,,.9295,,.1947,.4238
+        - 8,.2,.0667,.3706,.4857,.394,.9991,.0384,.0253,.0024,.7475,.185,.7906,.9222,.8688,.6406,-.1691,,-.6199,.8994,.1661,.3014,,-.0483,.2948,.3435,.3241,,.9498,,.1906,.416
+        - 8,.2,.0434,.3706,.4857,.4169,1,.0035,.0219,-.0346,.7495,.1416,.7752,.9507,.8757,.6666,-.1298,,-.6199,.9099,.1661,.3386,,.002,.2892,.302,.3388,,.9295,.0153,.2312,.3999
+        - 8,.2,.0667,.3706,.4418,.4231,.9277,.0085,,-.004,.7475,.185,.8051,.8993,.867,.6586,-.1414,.0257,-.6199,.9444,.1661,.3386,,-.0119,.2757,.3925,.3119,.0485,.9139,.0354,.2312,.4238
+        - 8,.2,.0333,.4142,.4857,.4169,.9594,.0035,,.0555,.7858,.2012,.839,.9222,.8572,.6317,-.1691,,-.6199,.8994,.1416,.3729,.0047,-.0451,.3122,.3435,.3119,.0086,.9294,-.0254,.2312,.4369
+        - 8,.2,.0505,.3862,.5244,.4169,.994,.0369,,.0078,.7475,.1593,.7906,.9222,.8572,.6347,-.1544,.0107,-.6375,.8606,.1661,.3386,,.0334,.2757,.336,.3119,.0492,.9295,,.2312,.4238
+        - 8,.2,.0667,.336,.4468,.4169,.9802,.0035,.0265,.0325,.7475,.2171,.7906,.9225,.8572,.6406,-.1691,,-.5998,.8994,.1316,.3386,.0133,-.0198,.3007,.3332,.3023,,.9295,.0228,.2701,.4238
+        - 8,.2,.0571,.3829,.4857,.4346,1,.0035,,.0272,.7475,.1866,.7773,.9394,.8572,.6406,-.1287,,-.6199,.8994,.1189,.3386,,.0047,.2922,.3435,.3307,,.9118,,.2782,.4645
+        - 8,.2,.0929,.3864,.4857,.4341,.9594,.0041,,.0078,.7475,.185,.7906,.9222,.8572,.6406,-.2118,.0489,-.5711,.8994,.1661,.3586,,.0012,.2757,.3435,.3119,,.9295,,.2312,.4426
+        - 8,.2,.0667,.3706,.4857,.4222,.9594,.0035,,.0078,.7716,.1845,.7906,.8943,.9071,.6406,-.1564,,-.5859,.9263,.1661,.3386,,-.0119,.2657,.3435,.3119,,.9295,-.0066,.2284,.4238
+        - 8,.2,.0667,.4122,.4652,.4603,.9382,.0035,,.0437,.7475,.2312,.7906,.9222,.864,.5954,-.1266,,-.6199,.8564,.1661,.3413,,-.0119,.2757,.3435,.3119,,.9484,,.2384,.3852
+        - 7,.5,.4331,.3451,.0563,.9003,.5754,.7126,,.0016,.0118,-.5016,.9537,.904,.5568,.1416,.8472,.5045,-.1532,.7165,.6286,.0008,-.1767,,,.2767,,.0411,.0027,.4381,.4546,-.2814
+        - 1,.5,.8517,,.5895,.4967,.0409,.5989,,.0019,,-.0298,-.9452,.285,.2657,.7893,.5457,.5656,.9905,.7029,.9218,-.3679,-.5998,-.604,.3489,.9909,.804,-.2317,,.0065,.3471,-.141
+        - 8,.5,.0667,.3706,.4857,.4169,.9594,.0035,,.0078,.7475,.185,.7906,.9222,.8572,.6406,-.1691,-.7917,-.6199,.8994,.1661,.3386,-.4786,-.0119,.2757,.3435,.3119,-.9635,.9295,,.2312,.4238
+        - 2,.5,.0305,.4847,.311,.394,.1213,.5437,,.9883,.092,-.3881,-.9334,.6059,.7946,.1621,.8497,.2039,.4754,.9992,.8986,-.0383,.8072,.2419,-.0118,.9999,,.2078,.0002,.1051,.5761,-.2424
+        - 6,.5,.0001,.9617,.3707,.5615,.3668,.5963,,.0383,.572,-.4828,-.887,.0773,.8137,.3637,.1678,-.4867,.9896,.9789,-.8606,.1741,-.6781,.9989,-.7894,.8392,-.0669,.7,.0102,.5249,.7061,.6105
+        - 7,.5,.1433,.5121,.2348,.242,.3126,.4179,,-.1145,.3104,.0761,-.5115,.2213,.8974,.1857,-.0652,.9412,-.3486,.7996,-.4429,-.0894,.9539,-.088,.5338,.9945,.0004,-.3063,.0076,-.066,.9352,-.979
+        - 7,.5,.0082,.3776,.0543,.2096,.3658,.7533,,-.7309,-.0037,.0024,.7579,.5614,.9032,.5942,.9022,.2204,.3099,.4387,-.9236,-.0468,.8303,-.0599,-.2072,.5843,-.3151,.9224,.1427,,.6713,.0013
+        - 4,.5,.002,.3502,.1342,.5215,.7878,.5808,,-.0217,-.0024,-.3979,-.8951,.2831,.0753,.2478,-.8524,-.5372,-.3256,.5264,-.4955,.5718,.8785,.0115,.0196,.5503,-.9806,-.5485,.2586,-.1194,.0694,.2892
+        - 0,.5,,.1371,,.2791,.3,.5992,,.2113,,,,,,,,,,,.0725,,,,,.8254,,,.2395,,,
+        - 0,.5,,.1734,,.1555,.3,.4288,,.1368,,,,,,,,,,,.5672,,,,,1,,,,,,
+        - 0,.5,,.2961,,.2147,.3,.3009,,.2994,,,,,,,,,,,.1876,,,,,1,,,.1378,,,
+        - 0,.5,,.3779,,.2289,.3,.5534,,.1134,,,,,,,,,,,.2246,,,,,1,,,.2732,,,
+        - 0,.5,,.2748,,.2715,.3,.5295,,.164,,,,,,,,,,,.3595,,,,,.4591,,,,,,
+        - 0,.5,,.2834,,.2032,.3,.5661,,.222,,,,,,,,,,,.5147,,,,,1,,,,,,
+        - 0,.5,,.3519,,.1518,.3,.5799,,.1504,,,,,,,,,,,.3752,,,,,.9556,,,,,,
+        - 0,.5,,.1111,,.172,.3,.5771,,.1313,,,,,,,,,,,.186,,,,,1,,,.0209,,,
+        - 0,.5,,.2272,,.2519,.3,.4575,,.119,,,,,,,,,,,.475,,,,,1,,,,,,
+        - 0,.5,,.3259,,.1016,.3,.4194,,.289,,,,,,,,,,,.5397,,,,,1,,,.0102,,,
+        - 0,.5,,.1679,,.1316,.3,.4704,,.185,,,,,,,,,,,.2111,,,,,1,,,,,,
+        - 1,.5,,.0665,,.1374,.3,.6839,,-.4362,,,,,,,,,,,,,,,,1,,,.2531,,,
+        - 3,.5,,.0438,,.2631,.3,.4369,,-.6758,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0321,,.145,.3,.3881,,-.4371,,,,,,,,,,,.0753,,,,,1,,,.1582,,,
+    0000000C:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0.3
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 0.1
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.3529412, g: 1, b: 0.75294125, a: 1}
+        easing: 6
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    0000000D:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 1
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 0
+        to: {x: 0, y: 0, z: 0}
+        easing: 5
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 0
+    0000000E:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Simple destruction effect.
+        Delay: 0.1
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+    0000000F:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Simple destruction effect.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+    00000010:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 2
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.3301887, g: 0.17949855, b: 0, a: 0}
+        easing: 2
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000011:
+      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Rotate Effect allows you to rotate an object using easing.
+        Delay: 0.5
+        RandomizeDelay: 1
+        ExecuteAfterCompletion: []
+        Duration: 1.5
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 70}
+        easing: 7
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0.01953125
+            outSlope: 0.01953125
+            tangentMode: 35
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.1
+            value: 0.001953125
+            inSlope: 0.01953125
+            outSlope: 0.01953125
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.2
+            value: 0.00390625
+            inSlope: 0.029296873
+            outSlope: 0.029296873
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.3
+            value: 0.0078125
+            inSlope: 0.05859375
+            outSlope: 0.05859375
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.4
+            value: 0.015625
+            inSlope: 0.28280258
+            outSlope: 0.28280258
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.41050112
+            value: 0.34381104
+            inSlope: 3.5901718
+            outSlope: 3.5901718
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5502169
+            value: 0.5549295
+            inSlope: -0.23293021
+            outSlope: -0.23293021
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 1
+          - serializedVersion: 3
+            time: 0.63151854
+            value: 0.3701172
+            inSlope: -1.220777
+            outSlope: -1.220777
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.8
+            value: 0.25000003
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 3.7500002
+            outSlope: 3.7500002
+            tangentMode: 35
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 3
+        repeat: 10
+        useGlobalRotation: 0
+    00000012:
+      type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Add a Rigidbody that's affected by gravity to the target, and
+          set an initial velocity based on the interaction.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        ExecuteOnOffspring:
+        - id: 20
+        RagdollPrefab: {fileID: 0}
+        ForceMultiplier: 10
+        RandomizeAdditionalForce: 1
+        AdditionalForce: {x: 2, y: 4, z: 1}
+        ApplyGravity: 1
+    00000013:
+      type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Translate Effect allows you to move an object using easing.
+        Delay: 0.5
+        RandomizeDelay: 1
+        ExecuteAfterCompletion:
+        - id: 21
+        Duration: 1
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 0
+        to: {x: -5.5, y: 4, z: 0}
+        easing: 2
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        useGlobalPosition: 1
+    00000014:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Simple destruction effect.
+        Delay: 2
+        RandomizeDelay: 1
+        ExecuteAfterCompletion: []
+    00000015:
+      type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Invokes a Unity Event, letting you callback or set arbitrary
+          functions/values in your own code
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        action:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 1241599621}
+              m_MethodName: IncreaseScore
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!1 &916993034
 GameObject:
   m_ObjectHideFlags: 0
@@ -6992,6 +7933,19 @@ MonoBehaviour:
           EffectsToExecute:
           - id: 1
           - id: 2
+        - GroupName: 
+          Disabled: 0
+          UnscaledTime: 0
+          StepThroughMode: 0
+          AppliesTo: 3
+          TargetTag: Enemy
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          ExecuteOnTargetCopy: 0
+          DisableRendererAndFollowOriginal: 0
+          FollowEasing: 0
+          EffectsToExecute:
+          - id: 3
     00000001:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -7001,7 +7955,7 @@ MonoBehaviour:
         Delay: 0.25
         RandomizeDelay: 1
         ExecuteAfterCompletion:
-        - id: 3
+        - id: 4
         Duration: 1
         setFromValue: 1
         from: {x: 0, y: 10, z: 0}
@@ -7041,6 +7995,30 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
     00000003:
+      type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Translate Effect allows you to move an object using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 0.8
+        setFromValue: 1
+        from: {x: 0, y: 10, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 0}
+        easing: 11
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 0
+        useGlobalPosition: 0
+    00000004:
       type: {class: TimeScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -8269,7 +9247,7 @@ GameObject:
   - component: {fileID: 1287639862}
   m_Layer: 0
   m_Name: block (6)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8332,7 +9310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8375,7 +9353,7 @@ GameObject:
   - component: {fileID: 1293486844}
   m_Layer: 0
   m_Name: block (3)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8438,7 +9416,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8759,7 +9737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58552d9e00cf149c8a566f1e8df79519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballFollow: 0
+  ballFollow: 1
   ball: {fileID: 356199984}
 --- !u!23 &1301803690
 MeshRenderer:
@@ -9154,7 +10132,7 @@ GameObject:
   - component: {fileID: 1352994640}
   m_Layer: 0
   m_Name: block (10)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9217,7 +10195,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9260,7 +10238,7 @@ GameObject:
   - component: {fileID: 1361191014}
   m_Layer: 0
   m_Name: block
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9323,7 +10301,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9657,7 +10635,7 @@ GameObject:
   - component: {fileID: 1430109181}
   m_Layer: 0
   m_Name: block (7)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9720,7 +10698,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10172,7 +11150,7 @@ GameObject:
   - component: {fileID: 1499500741}
   - component: {fileID: 1499500740}
   - component: {fileID: 1499500739}
-  - component: {fileID: 1499500742}
+  - component: {fileID: 1499500743}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10245,7 +11223,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1499500742
+--- !u!82 &1499500743
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10256,8 +11234,8 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_PlayOnAwake: 1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -10567,7 +11545,7 @@ GameObject:
   - component: {fileID: 1589070752}
   m_Layer: 0
   m_Name: block
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10630,7 +11608,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10824,7 +11802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1629653478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11026,7 +12004,7 @@ GameObject:
   - component: {fileID: 1690288188}
   m_Layer: 0
   m_Name: block (3)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11089,7 +12067,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11238,7 +12216,7 @@ GameObject:
   - component: {fileID: 1732196173}
   m_Layer: 0
   m_Name: block (7)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11301,7 +12279,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11450,7 +12428,7 @@ GameObject:
   - component: {fileID: 1806265990}
   m_Layer: 0
   m_Name: block (1)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11513,7 +12491,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11768,7 +12746,7 @@ GameObject:
   - component: {fileID: 1863806341}
   m_Layer: 0
   m_Name: block (10)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11831,7 +12809,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11980,7 +12958,7 @@ GameObject:
   - component: {fileID: 1921883363}
   m_Layer: 0
   m_Name: block (10)
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12043,7 +13021,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12418,6 +13396,7 @@ MonoBehaviour:
           - id: 5
           - id: 6
           - id: 7
+          - id: 8
         - GroupName: Custom Property test
           Disabled: 1
           UnscaledTime: 0
@@ -12430,7 +13409,7 @@ MonoBehaviour:
           DisableRendererAndFollowOriginal: 0
           FollowEasing: 0
           EffectsToExecute:
-          - id: 8
+          - id: 9
         - GroupName: Happy Rotations
           Disabled: 0
           UnscaledTime: 0
@@ -12444,7 +13423,20 @@ MonoBehaviour:
           DisableRendererAndFollowOriginal: 0
           FollowEasing: 0
           EffectsToExecute:
-          - id: 9
+          - id: 10
+        - GroupName: block wiggle
+          Disabled: 1
+          UnscaledTime: 0
+          StepThroughMode: 0
+          AppliesTo: 3
+          TargetTag: block
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          ExecuteOnTargetCopy: 0
+          DisableRendererAndFollowOriginal: 0
+          FollowEasing: 0
+          EffectsToExecute:
+          - id: 11
         ReactTo:
         - ball
         type: 0
@@ -12452,12 +13444,12 @@ MonoBehaviour:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 0
+        Disabled: 1
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0.01
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 10
+        - id: 12
         Duration: 0.5
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -12508,7 +13500,7 @@ MonoBehaviour:
         Delay: 0.01
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 11
+        - id: 13
         Duration: 1.5
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -12535,8 +13527,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         createAudioSource: 1
-        source: {fileID: 1499500742}
-        clip: {fileID: 8300000, guid: 0e266c9aad8b74b848633388de70e124, type: 3}
+        volume: 0
+        source: {fileID: 1499500743}
+        clip: {fileID: 8300000, guid: 3733ea7d142a44d50b8d2ce7c54528f1, type: 3}
         playOneShot: 1
         pitchShiftAmount: 0.1
         pitchResetDelay: 1
@@ -12547,7 +13540,7 @@ MonoBehaviour:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 0
+        Disabled: 1
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -12573,7 +13566,7 @@ MonoBehaviour:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 0
+        Disabled: 1
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 0.2
         RandomizeDelay: 0
@@ -12717,14 +13710,65 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 12
-        ExecuteOnOffspring:
-        - id: 13
         - id: 14
+        ExecuteOnOffspring:
         - id: 15
+        - id: 16
+        - id: 17
+        - id: 18
         AmountOfPieces: 6
         PrefabPieces: []
     00000008:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        soundGeneratorBase: 7
+        synthParameters: 3,.101,.085,.182,.103,.434,.609,.08,,.0191,.0722,.296,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,,,.0035,.1778,.87
+        mutateOnExecution: 1
+        latestSynthParameters:
+        - 3,.2,.0518,.2162,.1677,.9075,.3634,.1155,,.0191,.0722,.8345,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,-.798,,.0035,.1778,.87
+        - 8,.2,.0361,.3839,.4928,.3761,1,.0213,,.0118,.7475,.2198,.8204,.9146,.8489,.6406,-.1941,,-.7102,.8994,.1536,.3413,,-.0501,.2328,.3435,.3421,,.9295,,.1947,.4548
+        - 8,.2,.0667,.3732,.5118,.4252,1,.0244,,.0118,.7475,.2198,.7906,.9141,.8572,.6406,-.1599,,-.664,.8994,.2113,.3797,,.0128,.2757,.3674,.3421,,.9295,-.0341,.1947,.4179
+        - 8,.2,.0667,.3732,.5118,.3986,1,.0189,,.0118,.7475,.2198,.7906,.9222,.8572,.6406,-.1644,,-.664,.8994,.1661,.3386,,-.0119,.2757,.3435,.3421,,.9295,,.1947,.4238
+        - 8,.2,.0667,.3706,.4857,.394,.9991,.0384,.0253,.0024,.7475,.185,.7906,.9222,.8688,.6406,-.1691,,-.6199,.8994,.1661,.3014,,-.0483,.2948,.3435,.3241,,.9498,,.1906,.416
+        - 8,.2,.0434,.3706,.4857,.4169,1,.0035,.0219,-.0346,.7495,.1416,.7752,.9507,.8757,.6666,-.1298,,-.6199,.9099,.1661,.3386,,.002,.2892,.302,.3388,,.9295,.0153,.2312,.3999
+        - 8,.2,.0667,.3706,.4418,.4231,.9277,.0085,,-.004,.7475,.185,.8051,.8993,.867,.6586,-.1414,.0257,-.6199,.9444,.1661,.3386,,-.0119,.2757,.3925,.3119,.0485,.9139,.0354,.2312,.4238
+        - 8,.2,.0333,.4142,.4857,.4169,.9594,.0035,,.0555,.7858,.2012,.839,.9222,.8572,.6317,-.1691,,-.6199,.8994,.1416,.3729,.0047,-.0451,.3122,.3435,.3119,.0086,.9294,-.0254,.2312,.4369
+        - 8,.2,.0505,.3862,.5244,.4169,.994,.0369,,.0078,.7475,.1593,.7906,.9222,.8572,.6347,-.1544,.0107,-.6375,.8606,.1661,.3386,,.0334,.2757,.336,.3119,.0492,.9295,,.2312,.4238
+        - 8,.2,.0667,.336,.4468,.4169,.9802,.0035,.0265,.0325,.7475,.2171,.7906,.9225,.8572,.6406,-.1691,,-.5998,.8994,.1316,.3386,.0133,-.0198,.3007,.3332,.3023,,.9295,.0228,.2701,.4238
+        - 8,.2,.0571,.3829,.4857,.4346,1,.0035,,.0272,.7475,.1866,.7773,.9394,.8572,.6406,-.1287,,-.6199,.8994,.1189,.3386,,.0047,.2922,.3435,.3307,,.9118,,.2782,.4645
+        - 8,.2,.0929,.3864,.4857,.4341,.9594,.0041,,.0078,.7475,.185,.7906,.9222,.8572,.6406,-.2118,.0489,-.5711,.8994,.1661,.3586,,.0012,.2757,.3435,.3119,,.9295,,.2312,.4426
+        - 8,.2,.0667,.3706,.4857,.4222,.9594,.0035,,.0078,.7716,.1845,.7906,.8943,.9071,.6406,-.1564,,-.5859,.9263,.1661,.3386,,-.0119,.2657,.3435,.3119,,.9295,-.0066,.2284,.4238
+        - 8,.2,.0667,.4122,.4652,.4603,.9382,.0035,,.0437,.7475,.2312,.7906,.9222,.864,.5954,-.1266,,-.6199,.8564,.1661,.3413,,-.0119,.2757,.3435,.3119,,.9484,,.2384,.3852
+        - 7,.5,.4331,.3451,.0563,.9003,.5754,.7126,,.0016,.0118,-.5016,.9537,.904,.5568,.1416,.8472,.5045,-.1532,.7165,.6286,.0008,-.1767,,,.2767,,.0411,.0027,.4381,.4546,-.2814
+        - 1,.5,.8517,,.5895,.4967,.0409,.5989,,.0019,,-.0298,-.9452,.285,.2657,.7893,.5457,.5656,.9905,.7029,.9218,-.3679,-.5998,-.604,.3489,.9909,.804,-.2317,,.0065,.3471,-.141
+        - 8,.5,.0667,.3706,.4857,.4169,.9594,.0035,,.0078,.7475,.185,.7906,.9222,.8572,.6406,-.1691,-.7917,-.6199,.8994,.1661,.3386,-.4786,-.0119,.2757,.3435,.3119,-.9635,.9295,,.2312,.4238
+        - 2,.5,.0305,.4847,.311,.394,.1213,.5437,,.9883,.092,-.3881,-.9334,.6059,.7946,.1621,.8497,.2039,.4754,.9992,.8986,-.0383,.8072,.2419,-.0118,.9999,,.2078,.0002,.1051,.5761,-.2424
+        - 6,.5,.0001,.9617,.3707,.5615,.3668,.5963,,.0383,.572,-.4828,-.887,.0773,.8137,.3637,.1678,-.4867,.9896,.9789,-.8606,.1741,-.6781,.9989,-.7894,.8392,-.0669,.7,.0102,.5249,.7061,.6105
+        - 7,.5,.1433,.5121,.2348,.242,.3126,.4179,,-.1145,.3104,.0761,-.5115,.2213,.8974,.1857,-.0652,.9412,-.3486,.7996,-.4429,-.0894,.9539,-.088,.5338,.9945,.0004,-.3063,.0076,-.066,.9352,-.979
+        - 7,.5,.0082,.3776,.0543,.2096,.3658,.7533,,-.7309,-.0037,.0024,.7579,.5614,.9032,.5942,.9022,.2204,.3099,.4387,-.9236,-.0468,.8303,-.0599,-.2072,.5843,-.3151,.9224,.1427,,.6713,.0013
+        - 4,.5,.002,.3502,.1342,.5215,.7878,.5808,,-.0217,-.0024,-.3979,-.8951,.2831,.0753,.2478,-.8524,-.5372,-.3256,.5264,-.4955,.5718,.8785,.0115,.0196,.5503,-.9806,-.5485,.2586,-.1194,.0694,.2892
+        - 0,.5,,.1371,,.2791,.3,.5992,,.2113,,,,,,,,,,,.0725,,,,,.8254,,,.2395,,,
+        - 0,.5,,.1734,,.1555,.3,.4288,,.1368,,,,,,,,,,,.5672,,,,,1,,,,,,
+        - 0,.5,,.2961,,.2147,.3,.3009,,.2994,,,,,,,,,,,.1876,,,,,1,,,.1378,,,
+        - 0,.5,,.3779,,.2289,.3,.5534,,.1134,,,,,,,,,,,.2246,,,,,1,,,.2732,,,
+        - 0,.5,,.2748,,.2715,.3,.5295,,.164,,,,,,,,,,,.3595,,,,,.4591,,,,,,
+        - 0,.5,,.2834,,.2032,.3,.5661,,.222,,,,,,,,,,,.5147,,,,,1,,,,,,
+        - 0,.5,,.3519,,.1518,.3,.5799,,.1504,,,,,,,,,,,.3752,,,,,.9556,,,,,,
+        - 0,.5,,.1111,,.172,.3,.5771,,.1313,,,,,,,,,,,.186,,,,,1,,,.0209,,,
+        - 0,.5,,.2272,,.2519,.3,.4575,,.119,,,,,,,,,,,.475,,,,,1,,,,,,
+        - 0,.5,,.3259,,.1016,.3,.4194,,.289,,,,,,,,,,,.5397,,,,,1,,,.0102,,,
+        - 0,.5,,.1679,,.1316,.3,.4704,,.185,,,,,,,,,,,.2111,,,,,1,,,,,,
+        - 1,.5,,.0665,,.1374,.3,.6839,,-.4362,,,,,,,,,,,,,,,,1,,,.2531,,,
+        - 3,.5,,.0438,,.2631,.3,.4369,,-.6758,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.5,,.0321,,.145,.3,.3881,,-.4371,,,,,,,,,,,.0753,,,,,1,,,.1582,,,
+    00000009:
       type: {class: PropertyTweenEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12749,7 +13793,7 @@ MonoBehaviour:
         Field: localScale
         from: 
         to: '{"x":0.20000000298023225,"y":0.20000000298023225,"z":0.20000000298023225}'
-    00000009:
+    0000000A:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 1
@@ -12758,7 +13802,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 16
+        - id: 19
         Duration: 0.2
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -12774,7 +13818,31 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalRotation: 0
-    0000000A:
+    0000000B:
+      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 1
+        Disabled: 0
+        Description: Rotate Effect allows you to rotate an object using easing.
+        Delay: 1
+        RandomizeDelay: 1
+        ExecuteAfterCompletion: []
+        Duration: 0.1
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 15}
+        easing: 0
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 3
+        repeat: 2
+        useGlobalRotation: 0
+    0000000C:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12797,7 +13865,7 @@ MonoBehaviour:
           m_RotationOrder: 4
         loopType: 0
         repeat: 0
-    0000000B:
+    0000000D:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12806,7 +13874,7 @@ MonoBehaviour:
         Delay: 0.1
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
-    0000000C:
+    0000000E:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12815,7 +13883,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
-    0000000D:
+    0000000F:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12841,7 +13909,121 @@ MonoBehaviour:
         repeat: 1
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    0000000E:
+    00000010:
+      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Rotate Effect allows you to rotate an object using easing.
+        Delay: 0.5
+        RandomizeDelay: 1
+        ExecuteAfterCompletion: []
+        Duration: 1.5
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 70}
+        easing: 7
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0.01953125
+            outSlope: 0.01953125
+            tangentMode: 35
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.1
+            value: 0.001953125
+            inSlope: 0.01953125
+            outSlope: 0.01953125
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.2
+            value: 0.00390625
+            inSlope: 0.029296873
+            outSlope: 0.029296873
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.3
+            value: 0.0078125
+            inSlope: 0.05859375
+            outSlope: 0.05859375
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.4
+            value: 0.015625
+            inSlope: 0.28280258
+            outSlope: 0.28280258
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.41050112
+            value: 0.34381104
+            inSlope: 3.5901718
+            outSlope: 3.5901718
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.5502169
+            value: 0.5549295
+            inSlope: -0.23293021
+            outSlope: -0.23293021
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 1
+          - serializedVersion: 3
+            time: 0.63151854
+            value: 0.3701172
+            inSlope: -1.220777
+            outSlope: -1.220777
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.8
+            value: 0.25000003
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 137
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 3.7500002
+            outSlope: 3.7500002
+            tangentMode: 35
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 3
+        repeat: 10
+        useGlobalRotation: 0
+    00000011:
       type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12852,22 +14034,22 @@ MonoBehaviour:
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         ExecuteOnOffspring:
-        - id: 17
+        - id: 20
         RagdollPrefab: {fileID: 0}
-        ForceMultiplier: 2.996422
-        RandomizeAdditionalForce: 0
-        AdditionalForce: {x: 0, y: 0, z: 0}
+        ForceMultiplier: 10
+        RandomizeAdditionalForce: 1
+        AdditionalForce: {x: 2, y: 4, z: 1}
         ApplyGravity: 1
-    0000000F:
+    00000012:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 0
+        Disabled: 1
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0.5
         RandomizeDelay: 1
         ExecuteAfterCompletion:
-        - id: 18
+        - id: 21
         Duration: 1
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -12883,7 +14065,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalPosition: 1
-    00000010:
+    00000013:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12892,7 +14074,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 19
+        - id: 22
         Duration: 0.15
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -12908,16 +14090,16 @@ MonoBehaviour:
         loopType: 3
         repeat: 3
         useGlobalRotation: 0
-    00000011:
+    00000014:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
         Description: Simple destruction effect.
-        Delay: 1.4498209
+        Delay: 2
         RandomizeDelay: 1
         ExecuteAfterCompletion: []
-    00000012:
+    00000015:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12941,7 +14123,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    00000013:
+    00000016:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -13085,7 +14267,7 @@ GameObject:
   - component: {fileID: 2011620625}
   m_Layer: 0
   m_Name: block
-  m_TagString: block
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13148,7 +14330,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a61b01dee370b48da81ba223cdb84ee7, type: 2}
+  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

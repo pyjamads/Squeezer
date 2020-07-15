@@ -159,7 +159,7 @@ namespace GameFeelDescriptions
                 var scripts = targetCopy.GetComponentsInChildren<MonoBehaviour>();
                 foreach (var script in scripts)
                 {
-                    Object.Destroy(script);
+                    Object.DestroyImmediate(script);
                 }
 
                 //NOTE: the ragdoll effect adds these again back, unless they already exist.
@@ -170,10 +170,10 @@ namespace GameFeelDescriptions
 //                Object.Destroy(rigid2D);
 //                
                 var col = targetCopy.GetComponent<Collider>();
-                Object.Destroy(col);
+                Object.DestroyImmediate(col);
                 
                 var col2D = targetCopy.GetComponent<Collider2D>();
-                Object.Destroy(col2D);
+                Object.DestroyImmediate(col2D);
                 
                 //Scale the pieces, so approximate the same total size comes out (using the Cubic root: pieces^(1/3)).
                 var qbrt = Mathf.Pow(AmountOfPieces, 1f / 3f);
