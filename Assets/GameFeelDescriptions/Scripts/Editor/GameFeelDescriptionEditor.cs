@@ -714,13 +714,18 @@ namespace GameFeelDescriptions
                             ? (string.IsNullOrEmpty(seperator) ? "list" : " and list")
                             : "";
 
-                        EditorGUI.LabelField(clickArea, "Trigger List [Attaching "
-                                                        + desc.TriggerList.Count + " trigger(s) to " +
-                                                        desc.AttachToTag +
-                                                        seperator +
-                                                        desc.AttachToComponentType +
-                                                        andList + "]");
+                        EditorGUI.LabelField(new Rect(clickArea.x, clickArea.y, clickArea.width - 50f, clickArea.height), "Trigger List [Attaching "
+                                                                                                                          + desc.TriggerList.Count + " trigger(s) to " +
+                                                                                                                          desc.AttachToTag +
+                                                                                                                          seperator +
+                                                                                                                          desc.AttachToComponentType +
+                                                                                                                          andList + "]");
 
+                        if (GUI.Button(new Rect(clickArea.x + clickArea.width - 50f, clickArea.y, 50f, clickArea.height),"+"))
+                        {
+                            PlusMenuDropdown(desc);
+                        }
+                        
                         for (var i = 0; i < desc.TriggerList.Count; i++)
                         {
                             if (desc.TriggerList[i] == null) continue;
@@ -766,6 +771,8 @@ namespace GameFeelDescriptions
                     }
                     
                     var clickArea = ClickAreaWithContextMenu(trigger);
+                    var indented = EditorGUI.IndentedRect(clickArea);
+                    
                     if (doHighlight)
                     {
                         //DO COLORING, if highlight is enabled, for highlightTime seconds!
@@ -776,8 +783,10 @@ namespace GameFeelDescriptions
                             ExpandedDescriptionNames[target.GetInstanceID()][index] = true;    
                         }
                     }
-                
-                    ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea, ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel);    
+
+                    ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
+                        new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                        ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel);    
                 
                     if (ExpandedDescriptionNames[target.GetInstanceID()][index])
                     {
@@ -791,6 +800,16 @@ namespace GameFeelDescriptions
                     }
                     // else
                     // {
+                    
+                        // if (GUILayout.Button("x"))
+                        // {
+                        //     RemovePropertyCallback();
+                        // }
+                    
+                        if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),"+"))
+                        {
+                            PlusMenuDropdown(trigger);
+                        }
 
                         for (var i = 0; i < trigger.EffectGroups.Count; i++)
                         {
@@ -799,7 +818,8 @@ namespace GameFeelDescriptions
                             index++;
                             GenerateSimpleInterface(trigger.EffectGroups[i], ref index, indent+1, 
                                 propertyPath+".EffectGroups", i, doHighlight); 
-                        }    
+                        }   
+                        
                     // }
                     
                     break;
@@ -816,6 +836,7 @@ namespace GameFeelDescriptions
                     }
                     
                     var clickArea = ClickAreaWithContextMenu(group);
+                    var indented = EditorGUI.IndentedRect(clickArea);
                     
                     var prefix = group.Disabled ? "[DISABLED] " : "";
                     var groupLabel = prefix+"EffectGroup "+(string.IsNullOrWhiteSpace(group.GroupName) ? "" : "'"+group.GroupName+"'") 
@@ -829,13 +850,18 @@ namespace GameFeelDescriptions
                         
                         // ExpandedDescriptionNames[target.GetInstanceID()][index] = true;
                     }
-
+                    
                     using (new EditorGUI.DisabledScope(group.Disabled))
                     {
-                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea, ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel);    
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
+                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel);
                     }
-
-                    group.Disabled = !EditorGUI.ToggleLeft(new Rect(clickArea.x - 28f, clickArea.y, clickArea.width, clickArea.height), GUIContent.none, !group.Disabled);
+                    
+                    group.Disabled =
+                        !EditorGUI.ToggleLeft(
+                            new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f, clickArea.height),
+                            GUIContent.none, !group.Disabled);
                     
                     if(!group.Disabled)
                     {
@@ -894,6 +920,11 @@ namespace GameFeelDescriptions
                             }
                         }
                         
+                        if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),"+"))
+                        {
+                            PlusMenuDropdown(group);
+                        }
+                        
                         for (var i = 0; i < group.EffectsToExecute.Count; i++)
                         {
                             if (group.EffectsToExecute[i] == null) continue;
@@ -902,6 +933,7 @@ namespace GameFeelDescriptions
                             GenerateSimpleInterface(group.EffectsToExecute[i], ref index, indent + 1,
                                 propertyPath + ".EffectsToExecute", i);
                         }
+                        
                         // }
                     }
 
@@ -920,6 +952,8 @@ namespace GameFeelDescriptions
                     
                     var clickArea = ClickAreaWithContextMenu(effect);
                     
+                    var indented = EditorGUI.IndentedRect(clickArea);
+                    
                     var prefix = effect.Disabled ? "[DISABLED] " : "";
                     var effectLabel = prefix + effect.GetType().Name;
 
@@ -934,11 +968,15 @@ namespace GameFeelDescriptions
                         //             showAttach, "Custom Fade Effect");
                         // }
                         
-                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(clickArea,
-                            ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel, false);
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
+                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel);
                     }
 
-                    effect.Disabled = !EditorGUI.ToggleLeft(new Rect(clickArea.x - 28f, clickArea.y, clickArea.width, clickArea.height), GUIContent.none, !effect.Disabled);
+                    effect.Disabled =
+                        !EditorGUI.ToggleLeft(
+                            new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f, clickArea.height),
+                            GUIContent.none, !effect.Disabled);
                     
                     EditorGUILayout.EndHorizontal();
                     
@@ -950,6 +988,11 @@ namespace GameFeelDescriptions
                         }
                         // else
                         // {
+                            if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),"+"))
+                            {
+                                PlusMenuDropdown(effect);
+                            }
+                        
                             for (var i = 0; i < effect.ExecuteAfterCompletion.Count; i++)
                             {
                                 if (effect.ExecuteAfterCompletion[i] == null) continue;
@@ -958,7 +1001,7 @@ namespace GameFeelDescriptions
                                 GenerateSimpleInterface(effect.ExecuteAfterCompletion[i], ref index, indent + 1,
                                     propertyPath + ".ExecuteAfterCompletion", i);
                             }
-
+                           
                             if (effect is SpawningGameFeelEffect spawner)
                             {
                                 if (spawner.ExecuteOnOffspring.Count > 0)
@@ -975,8 +1018,8 @@ namespace GameFeelDescriptions
                                         index++;
                                         GenerateSimpleInterface(spawner.ExecuteOnOffspring[i], ref index, indent + 1,
                                             propertyPath + ".ExecuteOnOffspring", i);
-                                    }    
-                                
+                                    }   
+                                    
                                     EditorGUI.indentLevel = indent;
                                 }
                             }
@@ -1450,6 +1493,196 @@ namespace GameFeelDescriptions
                 // }
 
                 return clickArea;
+            }
+
+            void PlusMenuDropdown(object context)
+            {
+                //Do a thing, in this case a drop down menu
+                var menu = new GenericMenu();
+
+                //TODO: cache this menu, so we don't need to rebuild it all the time. 12/05/2020
+                //Add items from context.
+                switch (context)
+                {
+                    case GameFeelDescription desc:
+                    {
+                        for (var i = 0; i < Enum.GetNames(typeof(GameFeelTriggerType)).Length; i++)
+                        {
+                            var type = (GameFeelTriggerType) i;
+                            var typeName = type.GetName();
+                            var data = new addCallbackStruct
+                            {
+                                context = desc,
+                                instance = () =>
+                                {
+                                    var trigger = GameFeelTrigger.CreateTrigger(type);
+                                    //Add a default Effect Group!
+                                    var group = new GameFeelEffectGroup();
+                                    //group.GroupName = "List of effects applied to Self "+typeName;
+                                    trigger.EffectGroups.Add(group);
+
+                                    return trigger;
+                                },
+                            };
+                            menu.AddItem(new GUIContent("Add " + typeName), false,
+                                AddPropertyCallback, data);
+                        }
+
+                        if (canPaste)
+                        {
+                            var data = new addCallbackStruct
+                            {
+                                isPaste = true,
+                                context = desc,
+                                instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                    copiedObject.GetType()),
+                            };
+                            menu.AddItem(new GUIContent("Paste Trigger"), false,
+                                AddPropertyCallback, data);
+                        }
+                    }
+                        break;
+                    case GameFeelTrigger trigger:
+                    {
+                        var data = new addCallbackStruct
+                        {
+                            context = trigger,
+                            instance = () => new GameFeelEffectGroup()
+                        };
+                        menu.AddItem(new GUIContent("Add EffectGroup"), false,
+                            AddPropertyCallback, data);
+
+                        if (canPaste)
+                        {
+                            var pasteData = new addCallbackStruct
+                            {
+                                isPaste = true,
+                                context = trigger,
+                                instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                    copiedObject.GetType()),
+                            };
+                            menu.AddItem(new GUIContent("Paste EffectGroup"), false,
+                                AddPropertyCallback, pasteData);
+                        }
+
+                        // menu.AddItem(new GUIContent("Copy Trigger"), false, CopyPropertyCallback, trigger);
+                        // if (removeItem)
+                        // {
+                        //     menu.AddItem(new GUIContent("Remove Trigger"), false, RemovePropertyCallback);
+                        // }
+                    }
+                        break;
+
+                    case GameFeelEffectGroup group:
+                    {
+                        var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
+                        foreach (var type in types)
+                        {
+                            // Skip abstract classes because they should not be instantiated
+                            if (type.IsAbstract)
+                                continue;
+
+                            var data = new addCallbackStruct
+                            {
+                                context = group.EffectsToExecute,
+                                instance = () => Activator.CreateInstance(type)
+                            };
+                            menu.AddItem(new GUIContent("Add Effect/" + type.Name), false,
+                                AddPropertyCallback, data);
+                        }
+
+                        if (canPaste)
+                        {
+                            var pasteData = new addCallbackStruct
+                            {
+                                isPaste = true,
+                                context = group.EffectsToExecute,
+                                instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                    copiedObject.GetType()),
+                            };
+                            menu.AddItem(new GUIContent("Paste Effect"), false,
+                                AddPropertyCallback, pasteData);
+                        }
+
+                        // menu.AddItem(new GUIContent("Copy EffectGroup"), false, CopyPropertyCallback, group);
+                        // if (removeItem)
+                        // {
+                        //     menu.AddItem(new GUIContent("Remove EffectGroup"), false, RemovePropertyCallback);
+                        // }
+                    }
+                        break;
+                    case GameFeelEffect effect:
+                    {
+                        var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
+                        foreach (var type in types)
+                        {
+                            // Skip abstract classes because they should not be instantiated
+                            if (type.IsAbstract)
+                                continue;
+
+                            //Block to separate variable names
+                            {
+                                var data = new addCallbackStruct
+                                {
+                                    context = effect.ExecuteAfterCompletion,
+                                    instance = () => Activator.CreateInstance(type)
+                                };
+                                menu.AddItem(new GUIContent("Add OnComplete Effect/" + type.Name), false,
+                                    AddPropertyCallback, data);
+                            }
+
+                            if (effect is SpawningGameFeelEffect spawner)
+                            {
+                                var data = new addCallbackStruct
+                                {
+                                    context = spawner.ExecuteOnOffspring,
+                                    instance = () => Activator.CreateInstance(type)
+                                };
+                                menu.AddItem(new GUIContent("Add OnOffspring Effect/" + type.Name), false,
+                                    AddPropertyCallback, data);
+                            }
+                        }
+
+                        if (canPaste)
+                        {
+                            //Regular paste block
+                            {
+                                var pasteData = new addCallbackStruct
+                                {
+                                    isPaste = true,
+                                    context = effect.ExecuteAfterCompletion,
+                                    instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                        copiedObject.GetType()),
+                                };
+                                menu.AddItem(new GUIContent("Paste as OnComplete Effect"), false,
+                                    AddPropertyCallback, pasteData);
+                            }
+
+                            if (effect is SpawningGameFeelEffect spawner)
+                            {
+                                var pasteData = new addCallbackStruct
+                                {
+                                    isPaste = true,
+                                    context = spawner.ExecuteOnOffspring,
+                                    instance = () => JsonUtility.FromJson(JsonUtility.ToJson(copiedObject),
+                                        copiedObject.GetType()),
+                                };
+                                menu.AddItem(new GUIContent("Paste as OnOffspring Effect"), false,
+                                    AddPropertyCallback, pasteData);
+                            }
+                        }
+
+                        // menu.AddItem(new GUIContent("Copy Effect"), false, CopyPropertyCallback, effect);
+                        //
+                        // if (removeItem)
+                        // {
+                        //     menu.AddItem(new GUIContent("Remove Effect"), false, RemovePropertyCallback);
+                        // }
+                    }
+                        break;
+                }
+
+                menu.ShowAsContext();
             }
 
             void AddPropertyCallback(object input)
