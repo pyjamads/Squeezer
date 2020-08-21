@@ -37,6 +37,49 @@ namespace GameFeelDescriptions
          return shallow;
       }
       
+      public virtual void Mutate(float amount = 0.05f)
+      {
+         //Add or remove the amount [-amount, amount] from the delay, but never goes below 0.
+         var delayAmount = Random.value * 2f * amount - amount;
+         Delay = Mathf.Max(0,Delay + delayAmount * Delay);
+         
+         //XOR with a amount probability to flip the bool.
+         RandomizeDelay ^= RandomExtensions.Boolean(amount);
+         
+         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for mutation. 2020-08-20
+         // //Flip stacking type with prop = amount.
+         // if (RandomExtensions.Boolean(trueProp: amount))
+         // {
+         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
+         // }
+         
+         //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
+         SetElapsed();
+      }
+
+      /// <summary>
+      /// Randomize the parameters of the Game Feel Effect.
+      /// </summary>
+      public virtual void Randomize()
+      {
+         //Generate a random delay between [0 and 1] in steps of 0.05f, with a 50% chance of 0.
+         Delay = Mathf.Max(0, (Random.Range(0,41) / 20f) - 1f);
+
+         //25% chance to tick the RandomizeDelay.
+         RandomizeDelay = RandomExtensions.Boolean(0.25f);
+         
+         StackingType = StackEffectType.Discard;
+         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for randomization. 2020-08-20
+         // //50% chance of getting a random stacking type.  
+         // if (RandomExtensions.Boolean(0.5f))
+         // {
+         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
+         // }
+         
+         //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
+         SetElapsed();
+      }
+      
       /// <summary>
       /// Stacking effect types:
       /// <para>- Discard discards this, if there's currently an active copy of this effect running.</para> 
@@ -72,6 +115,12 @@ namespace GameFeelDescriptions
       /// If the effect is disabled, then it just won't be executed.
       /// </summary>
       public bool Disabled;
+
+      /// <summary>
+      /// Lock the effect, meaning it won't be removed when the regenerate button is pressed.
+      /// </summary>
+      [HideInInspector]
+      public bool Lock;
       
       /// <summary>
       /// Description of what the effect does and what to use it for.
@@ -94,6 +143,64 @@ namespace GameFeelDescriptions
       [Space(-10)]
       public bool RandomizeDelay;
       
+      /*
+      //TODO: Remove effect groups 1: move appliesTo, unscaledTime, executeOnCopy, (alter follow to just nest the copy under the original) to effects.
+         /// <summary>
+        /// What is the target this effect is applied to. 
+        /// </summary>
+        [EnableFieldIf("TargetTag", GameFeelTarget.Tag)]
+        [EnableFieldIf("TargetComponentType", GameFeelTarget.ComponentType)] 
+        [EnableFieldIf("TargetList", GameFeelTarget.List)]
+        [Header("Controls which targets the effects apply to.")]
+        [ShowTypeAttribute]
+        public GameFeelTarget AppliesTo;
+        
+        /// <summary>
+        /// Used when <see cref="GameFeelEffect.AppliesTo"/> is set to <see cref="GameFeelTarget.Tag"/>.
+        /// Applies to objects with the given Tag, or Name.
+        /// </summary>
+        [HideInInspector] //Visibility handled by AppliesTo Attributes.
+        public string TargetTag;
+
+        //TODO: Make this assignable without an actual instance or remove it. 04/02/2020
+        /// <summary>
+        /// Used when <see cref="GameFeelEffect.AppliesTo"/> is set to <see cref="GameFeelTarget.ComponentType"/>.
+        /// Applies to all game objects with a Component of the type attached.
+        /// </summary>
+        [HideInInspector] //Visibility handled by AppliesTo Attributes.
+        public Component TargetComponentType;
+
+        /// <summary>
+        /// Used when <see cref="GameFeelEffect.AppliesTo"/> is set to <see cref="GameFeelTarget.List"/>.
+        /// Applies to all game objects in the list.
+        /// </summary>
+        //[HideInInspector] //Visibility handled by AppliesTo Attributes.
+        //[HideFieldIf("AppliesTo", GameFeelTarget.List, true)]
+        [HideInInspector]
+        public List<GameObject> TargetList;
+
+        /// <summary>
+        /// Whether to use a copy for executing the effects (to avoid altering game logic)
+        /// </summary>
+        [HideFieldIf("AppliesTo", GameFeelTarget.EditorValue)]
+        [EnableFieldIf("DisableRendererAndFollowOriginal", true)]
+        [Tooltip("Controls whether targets get copied and applied to the copies instead.")]
+        public bool ExecuteOnTargetCopy;
+//TODO: figure out if this should be a maintained visual copy ex. have a ref to original, and make sure it lerps to original transform, whenever some property is not "tweening".
+//TODO: And once the original game object is destroyed, the maintained object should be removed once no "effects" are operating on it. 11/4/2020
+
+        /// <summary>
+        /// Disable the original renderer, and set the copy to follow the transform.
+        /// </summary>
+        [HideInInspector]
+        [EnableFieldIf("FollowEasing", true)]
+        public bool DisableRendererAndFollowOriginal;
+
+        [HideInInspector]
+        public EasingHelper.EaseType FollowEasing;
+    
+        */
+      
       /// <summary>
       /// List of effects to execute after completion of this effect.
       /// </summary>
@@ -101,13 +208,12 @@ namespace GameFeelDescriptions
       //[SerializeReferenceButton(readOnly: true)] //NOTE: active SerializeReferenceButton on GameFeelEffects are broken.
 //      [HideInInspector]
       //[Space]
-      
       [SerializeReference]
       [ShowType]
       //[Header("List of effects to execute after this effect finishes.")]
       public List<GameFeelEffect> ExecuteAfterCompletion = new List<GameFeelEffect>();
       
-      //TODO: INSTEAD OF THE ABOVE LIST: make a GameFeelEffect ref, that's called ExecuteAfter,
+      //TODO: Consider INSTEAD OF THE ABOVE LIST: make a GameFeelEffect ref, that's called ExecuteAfter,
       //TODO: and it'll just calculate the added delay on execution by traversing that tree backwards. 04/07/2020
       
       // Progression tracker
@@ -249,6 +355,7 @@ namespace GameFeelDescriptions
       protected virtual void ExecuteComplete()
       {
          isComplete = true;
+         ExecuteCleanUp();
          foreach (var effect in ExecuteAfterCompletion)
          {
             //If the effect is disabled, skip it.
@@ -269,9 +376,11 @@ namespace GameFeelDescriptions
             //Queue the effect
             if (queueCopy)
             {
-               copy.QueueExecution();   
+               copy.QueueExecution(forceQueue: false);   
             }
          }
       }
+
+      public virtual void ExecuteCleanUp() { /* CLEAN UP STUFF CREATED IN THE SETUP */ }
    }
 }

@@ -1,0 +1,179 @@
+{
+    "Name": "",
+    "Description": "test",
+    "effects": [
+        {
+            "id": 0
+        },
+        {
+            "id": 1
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "ShatterEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Shatter an object into pieces and add a the Ragdoll effect to the pieces.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 2
+                    }
+                ],
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 3
+                    }
+                ],
+                "AmountOfPieces": 7,
+                "PrefabPieces": []
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "ScaleEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Scale Effect allows you to scale an object using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 0.3700000047683716,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "x": 0.37396928668022158,
+                    "y": 1.6501373052597047,
+                    "z": -0.9713783860206604
+                },
+                "easing": 7,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 1
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "RagdollEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Add a Rigidbody that's affected by gravity to the target, and set an initial velocity based on the interaction.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 4
+                    }
+                ],
+                "RagdollPrefab": {
+                    "instanceID": 0
+                },
+                "ForceMultiplier": 2.763756513595581,
+                "RandomizeAdditionalForce": false,
+                "AdditionalForce": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "ApplyGravity": true
+            }
+        },
+        "00000003": {
+            "type": {
+                "class": "RagdollEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Add a Rigidbody that's affected by gravity to the target, and set an initial velocity based on the interaction.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 5
+                    }
+                ],
+                "RagdollPrefab": {
+                    "instanceID": 0
+                },
+                "ForceMultiplier": 2.0774571895599367,
+                "RandomizeAdditionalForce": false,
+                "AdditionalForce": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "ApplyGravity": true
+            }
+        },
+        "00000004": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Simple destruction effect.",
+                "Delay": 0.6888096928596497,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": []
+            }
+        },
+        "00000005": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Description": "Simple destruction effect.",
+                "Delay": 0.2805001139640808,
+                "RandomizeDelay": true,
+                "ExecuteAfterCompletion": []
+            }
+        },
+        "00000006": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

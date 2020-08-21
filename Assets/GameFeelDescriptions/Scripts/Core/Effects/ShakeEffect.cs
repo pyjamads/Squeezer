@@ -25,13 +25,21 @@ namespace GameFeelDescriptions
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
             Vector3? interactionDirection = null)
         {
-            var cp = new ShakeEffect {useInteractionDirection = useInteractionDirection, amount = amount, useResetPositionAfterShake = useResetPositionAfterShake, resetPosition = resetPosition};
+            var cp = new ShakeEffect
+            {
+                useInteractionDirection = useInteractionDirection, 
+                amount = amount,
+                useResetPositionAfterShake = useResetPositionAfterShake, 
+                resetPosition = resetPosition
+            };
             cp.Init(origin, target, unscaledTime, interactionDirection);
             return DeepCopy(cp);
         }
         
         protected override void ExecuteSetup()
         {
+            if (target == null) return;
+            
             var position = target.transform.position;
             initialPosition = new Vector3(position.x, position.y, position.z);
             base.ExecuteSetup();
@@ -81,14 +89,5 @@ namespace GameFeelDescriptions
             
             base.ExecuteComplete();
         }
-
-        //TODO: make sure initialPosition is transferred in an override situation 21/03/2020
-        //TODO: this is the best testcase for override effects, because if one shake is added after another, the "initialPosition" becomes wrong.
-//        public override void OverrideEffect(GameFeelEffect next)
-//        {
-//            throw new System.NotImplementedException();
-//        }
-        
-        
     }
 }

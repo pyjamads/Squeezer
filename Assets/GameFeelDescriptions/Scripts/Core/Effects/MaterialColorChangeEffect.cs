@@ -9,6 +9,7 @@ namespace GameFeelDescriptions
         public MaterialColorChangeEffect()
         {
             Description = "Material Color change Effect allows you to change the color of a material using easing.";
+            relative = false;
         }
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
@@ -22,6 +23,8 @@ namespace GameFeelDescriptions
             cp.Init(origin, target, unscaledTime, interactionDirection);
             return DeepCopy(cp);
         }
+        
+        
         
         [Header("Finds the first material on the target, and changes the color.", order = 0)]
         [Header("Or use a material reference", order = 1)]

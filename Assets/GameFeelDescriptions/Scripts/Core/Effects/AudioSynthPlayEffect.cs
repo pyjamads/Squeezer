@@ -7,7 +7,7 @@ namespace GameFeelDescriptions
 {
     // NOTE: To use this effect, download usfxr from https://github.com/zeh/usfxr and uncomment the class.
     //TODO: implement a proper interface + fix the AudioListener issue 25/05/2020
-    public class AudioSynthPlayEffect : GameFeelEffect
+    public class AudioSynthPlayEffect : DurationalGameFeelEffect //Maybe use durational here instead !!!
     {
         #region Attribute Definitions
         // Attribute Classes is defined here, so people don't accidentally use them for other stuff!
@@ -51,7 +51,7 @@ namespace GameFeelDescriptions
         [Header("The base sound style type, for generating sound when ")]
         //[HideFieldIf("synthParameters", "", negate = true)]
         [SynthGenerateFromBaseButton]
-        public SynthBaseSounds soundGeneratorBase;
+        public SynthBaseSounds soundGeneratorBase = EnumExtensions.GetRandomValue<SynthBaseSounds>();
 	
         [Space(-5, order = 0), 
          Header ("While undefined, the synth will generate a random sound with the given base.", order = 1), 
@@ -68,6 +68,36 @@ namespace GameFeelDescriptions
         public List<string> latestSynthParameters;
 
         private SfxrSynth synth;
+
+        public float GetSoundLength()
+        {
+            if (synth == null || synth.parameters == null) return -1f;
+            
+            //Envelope length
+            // _envelopeLength0 = p.attackTime * p.attackTime * 100000.0f;
+            // _envelopeLength1 = p.sustainTime * p.sustainTime * 100000.0f;
+            // _envelopeLength2 = p.decayTime * p.decayTime * 100000.0f + 10f;
+            // _envelopeLength = _envelopeLength0;
+            // _envelopeFullLength = (uint)(_envelopeLength0 + _envelopeLength1 + _envelopeLength2);
+            var length = synth.parameters.attackTime * synth.parameters.attackTime * 100000.0f;
+            length += synth.parameters.sustainTime * synth.parameters.sustainTime * 100000.0f;
+            length += synth.parameters.decayTime * synth.parameters.decayTime * 100000.0f + 10f;
+            
+            //We use bit depth 16 and sampleRate 44100 
+            // uint soundLength = _envelopeFullLength;
+            // if (__bitDepth == 16) soundLength *= 2;
+            // if (__sampleRate == 22050) soundLength /= 2;
+            length *= 2;
+            
+            //Block alignment and bytes per second
+            // uint blockAlign = __bitDepth / 8;
+            // uint bytesPerSec = __sampleRate * blockAlign;
+            var bytesPerSec = 44100f * 2f;
+            
+            //length [0 - 300010] / bytesPerSecond 88200 => 0s-3,40s
+            //Convert to seconds!
+            return length / bytesPerSec;
+        }
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
             Vector3? interactionDirection = null)
@@ -112,15 +142,27 @@ namespace GameFeelDescriptions
             }
             
             synth.parameters.SetSettingsString(synthParameters);
-		
+            Duration = GetSoundLength();
+
             if (playSound)
             {
                 PlaySound();
             }
         }
 
-        public string GenerateSynthParameters(bool playSound = false)
+        public override void Randomize()
         {
+            base.Randomize();
+            
+            soundGeneratorBase = EnumExtensions.GetRandomValue<SynthBaseSounds>();
+
+            //TODO: maybe include the severity/intensity as a passed in parameter!
+            synthParameters = GenerateSynthParameters(true, 5);
+        }
+
+        public string GenerateSynthParameters(bool playSound = false, int intensity = 1)
+        {
+            intensity = Mathf.Clamp(intensity, 1, 10);
             if (synth == null)
             {
                 synth = new SfxrSynth();
@@ -156,6 +198,14 @@ namespace GameFeelDescriptions
                     throw new ArgumentOutOfRangeException();
             }
 		
+            //Adjust for severity
+            synth.parameters.masterVolume = 0.1f * intensity;
+            
+            //TODO: adjust more parameters for severity 2020-08-13
+            //synth.parameters. = 0.1f * severity;
+            
+            Duration = GetSoundLength();
+            
             var synthParams = synth.parameters.GetSettingsString();
 
             if (latestSynthParameters == null || latestSynthParameters.Count == 0)
@@ -175,6 +225,14 @@ namespace GameFeelDescriptions
             return synthParams;
         }
 
+        public override void Mutate(float amount = 0.05f)
+        {
+            base.Mutate(amount);
+
+            //This also fixes the duration!
+            synthParameters = MutateSynthParameters(true, amount);
+        }
+
         public string MutateSynthParameters(bool playSound = false, float mutationAmount = 0.05f)
         {
             if (string.IsNullOrEmpty(synthParameters)) return "";
@@ -186,6 +244,7 @@ namespace GameFeelDescriptions
 
             synth.parameters.SetSettingsString(synthParameters);
             synth.parameters.Mutate(mutationAmount);
+            Duration = GetSoundLength();
             
             var synthParams = synth.parameters.GetSettingsString();
 
@@ -257,12 +316,17 @@ namespace GameFeelDescriptions
 //            }
 
             base.ExecuteSetup();
+            
+            //NOTE: Play on Setup means Play on first tick, because we're not actually executing during the duration.
+            PlaySound();
         }
 
         protected override bool ExecuteTick()
         {
-            PlaySound();
-
+            
+            //NOTE: AudioSynthPlayEffect is Durational, in order to be able to queue effects after the sound finishes.
+            //We're just doing nothing here, because the sounds if not played by our system.
+            //PlaySound(); //PlaySound is executed in the Setup function, ie. on first tick.
             return false;
         }
 

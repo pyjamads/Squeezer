@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -11,6 +12,7 @@ namespace GameFeelDescriptions
         public RotateEffect()
         {
             Description = "Rotate Effect allows you to rotate an object using easing.";
+            relative = false;
         }
         
         [Tooltip("Use global rotation instead of local rotation.")]
@@ -67,6 +69,63 @@ namespace GameFeelDescriptions
             var cp = new RotateEffect{useGlobalRotation = useGlobalRotation};
             cp.Init(origin, target, unscaledTime, interactionDirection);
             return DeepCopy(cp);
+        }
+        
+        public override void Randomize()
+        {
+            base.Randomize();
+            
+            setFromValue = false;
+
+            @from = Vector3.zero;
+
+            relative = true;
+            
+            useGlobalRotation = RandomExtensions.Boolean(0.25f);
+
+            //Just point somewhere! and scale it between 0-5x
+            to = Random.onUnitSphere * Random.Range(0f, 5f);
+        }
+
+        public override void Mutate(float amount = 0.05f)
+        {
+            if (RandomExtensions.Boolean(amount))
+            {
+                setFromValue = !setFromValue;
+            }
+            
+            if(RandomExtensions.Boolean(amount))
+            {
+                useGlobalRotation = RandomExtensions.Boolean(0.25f);
+            }
+
+            //Make a random color, and add/subtract a proportional amount here.
+            var rndAmount = Random.value * amount * 2 - amount;
+            @from += Random.onUnitSphere * rndAmount;
+        
+            //Make a random color, and add/subtract a proportional amount here.
+            rndAmount = Random.value * amount * 2 - amount;
+            to += Random.onUnitSphere * rndAmount;
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                loopType = EnumExtensions.GetRandomValue<LoopType>();
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                repeat = Random.Range(-1, 3);
+            }
+
+            base.Mutate(amount);
+            
+            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
+            SetupLooping();
         }
     }
 }

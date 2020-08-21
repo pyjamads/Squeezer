@@ -71,9 +71,6 @@ namespace GameFeelDescriptions
             //If there's a ragdoll prefab, Destroy the passed "target" and instantiate the ragdoll instead.
             if (RagdollPrefab != null)
             {
-                // //NOTE: this destruction is questionable, as it is implicit, it should either be explicit or not here!! 
-                // Object.Destroy(target);
-
                 ragdoll = Object.Instantiate(RagdollPrefab, targetPos, Quaternion.identity, GameFeelEffectExecutor.Instance.transform);
             }
             
@@ -96,11 +93,14 @@ namespace GameFeelDescriptions
                 if (body)
                 {
                     body.useGravity = ApplyGravity;
+                    body.isKinematic = false;
                     body.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
                 }
                 else
                 {
                     var body2D = target.GetComponent<Rigidbody2D>();
+                    body2D.isKinematic = false;
+                    body2D.bodyType = RigidbodyType2D.Dynamic;
                     body2D.gravityScale = ApplyGravity ? 1f : 0f;
                     body2D.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
                 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ namespace GameFeelDescriptions
     {
         [Tooltip("Use global position instead of local position.")]
         public bool useGlobalPosition;
+
+        public bool useInteractionDirection;
+        public float interactionDirectionMultiplier = 1f;
         
         public TranslateEffect()
         {
@@ -18,9 +22,85 @@ namespace GameFeelDescriptions
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
             Vector3? interactionDirection = null)
         {
-            var cp = new TranslateEffect {useGlobalPosition = useGlobalPosition};
+            var cp = new TranslateEffect
+            {
+                useGlobalPosition = useGlobalPosition, 
+                useInteractionDirection = useInteractionDirection,
+                interactionDirectionMultiplier = interactionDirectionMultiplier,
+            };
+            
             cp.Init(origin, target, unscaledTime, interactionDirection);
             return DeepCopy(cp);
+        }
+        
+        public override void Randomize()
+        {
+            base.Randomize();
+            
+            setFromValue = false;
+
+            useGlobalPosition = RandomExtensions.Boolean(0.25f);
+            useInteractionDirection = RandomExtensions.Boolean(0.25f);
+            interactionDirectionMultiplier = Random.Range(0f, 5f);
+
+            @from = Vector3.zero;
+
+            relative = true;
+            
+            //Just point somewhere! and scale it between 0-5x
+            to = Random.onUnitSphere * Random.Range(0f, 5f);
+        }
+
+        public override void Mutate(float amount = 0.05f)
+        {
+            if (RandomExtensions.Boolean(amount))
+            {
+                setFromValue = !setFromValue;
+            }
+            
+            if(RandomExtensions.Boolean(amount))
+            {
+                useGlobalPosition = !useGlobalPosition;
+            }
+            
+            if(RandomExtensions.Boolean(amount))
+            {
+                useInteractionDirection = !useInteractionDirection;
+            }
+            
+            if(RandomExtensions.Boolean(amount))
+            {
+                var multiplierAmount = Random.value * amount * 2 - amount;
+                interactionDirectionMultiplier += multiplierAmount;
+            }
+
+            //Make a random color, and add/subtract a proportional amount here.
+            var rndAmount = Random.value * amount * 2 - amount;
+            @from += Random.onUnitSphere * rndAmount;
+        
+            //Make a random color, and add/subtract a proportional amount here.
+            rndAmount = Random.value * amount * 2 - amount;
+            to += Random.onUnitSphere * rndAmount;
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                loopType = EnumExtensions.GetRandomValue<LoopType>();
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                repeat = Random.Range(-1, 3);
+            }
+
+            base.Mutate(amount);
+            
+            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
+            SetupLooping();
         }
 
         protected override void SetValue(GameObject target, Vector3 value)
@@ -55,7 +135,17 @@ namespace GameFeelDescriptions
         }
 
         //TODO: implement interactionDirection in effects. 07/02/2020
-        
+
+        protected override void ExecuteSetup()
+        {
+            base.ExecuteSetup();
+            
+            if (interactionDirection.HasValue && useInteractionDirection)
+            {
+                end += interactionDirection.Value * interactionDirectionMultiplier;
+            }
+        }
+
         protected override bool TickTween()
         {
             if (target == null) return true;

@@ -1885,7 +1885,7 @@ MonoBehaviour:
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
-        to: {r: 0.58431375, g: 0.31764707, b: 0, a: 1}
+        to: {r: 1, g: 0.25943398, b: 0.81241167, a: 1}
         easing: 3
         curve:
           serializedVersion: 2
@@ -4413,6 +4413,8 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     00000010:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -6767,7 +6769,7 @@ MonoBehaviour:
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
-        to: {r: 0.6416322, g: 0.6509434, b: 0.18115878, a: 1}
+        to: {r: 0.33045566, g: 0.8577906, b: 0.8867924, a: 1}
         easing: 8
         curve:
           serializedVersion: 2
@@ -6879,6 +6881,8 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     00000006:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -7380,6 +7384,8 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalPosition: 1
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     00000014:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -7971,6 +7977,8 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     00000002:
       type: {class: TimeScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -8018,6 +8026,8 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     00000004:
       type: {class: TimeScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -13397,6 +13407,7 @@ MonoBehaviour:
           - id: 6
           - id: 7
           - id: 8
+          - id: 9
         - GroupName: Custom Property test
           Disabled: 1
           UnscaledTime: 0
@@ -13409,7 +13420,7 @@ MonoBehaviour:
           DisableRendererAndFollowOriginal: 0
           FollowEasing: 0
           EffectsToExecute:
-          - id: 9
+          - id: 10
         - GroupName: Happy Rotations
           Disabled: 0
           UnscaledTime: 0
@@ -13423,7 +13434,7 @@ MonoBehaviour:
           DisableRendererAndFollowOriginal: 0
           FollowEasing: 0
           EffectsToExecute:
-          - id: 10
+          - id: 11
         - GroupName: block wiggle
           Disabled: 1
           UnscaledTime: 0
@@ -13436,7 +13447,7 @@ MonoBehaviour:
           DisableRendererAndFollowOriginal: 0
           FollowEasing: 0
           EffectsToExecute:
-          - id: 11
+          - id: 12
         ReactTo:
         - ball
         type: 0
@@ -13449,7 +13460,7 @@ MonoBehaviour:
         Delay: 0.01
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 12
+        - id: 13
         Duration: 0.5
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -13500,7 +13511,7 @@ MonoBehaviour:
         Delay: 0.01
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 13
+        - id: 14
         Duration: 1.5
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -13516,6 +13527,8 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     00000003:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -13677,6 +13690,20 @@ MonoBehaviour:
         repeat: 10
         useGlobalRotation: 0
     00000006:
+      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Make a positional flash which quickly fades away.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        ExecuteOnOffspring:
+        - id: 15
+        FlashPrefab: {fileID: 0}
+        FlashPrimitive: 0
+        PositionOffset: {x: 0, y: 0, z: 0}
+    00000007:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -13700,24 +13727,6 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    00000007:
-      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Shatter an object into pieces and add a the Ragdoll effect to
-          the pieces.
-        Delay: 0
-        RandomizeDelay: 0
-        ExecuteAfterCompletion:
-        - id: 14
-        ExecuteOnOffspring:
-        - id: 15
-        - id: 16
-        - id: 17
-        - id: 18
-        AmountOfPieces: 6
-        PrefabPieces: []
     00000008:
       type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -13769,6 +13778,24 @@ MonoBehaviour:
         - 3,.5,,.0438,,.2631,.3,.4369,,-.6758,,,,,,,,,,,,,,,,1,,,,,,
         - 0,.5,,.0321,,.145,.3,.3881,,-.4371,,,,,,,,,,,.0753,,,,,1,,,.1582,,,
     00000009:
+      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Shatter an object into pieces and add a the Ragdoll effect to
+          the pieces.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 16
+        ExecuteOnOffspring:
+        - id: 17
+        - id: 18
+        - id: 19
+        - id: 20
+        AmountOfPieces: 6
+        PrefabPieces: []
+    0000000A:
       type: {class: PropertyTweenEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -13793,7 +13820,7 @@ MonoBehaviour:
         Field: localScale
         from: 
         to: '{"x":0.20000000298023225,"y":0.20000000298023225,"z":0.20000000298023225}'
-    0000000A:
+    0000000B:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 1
@@ -13802,7 +13829,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 19
+        - id: 21
         Duration: 0.2
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -13818,7 +13845,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalRotation: 0
-    0000000B:
+    0000000C:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 1
@@ -13842,7 +13869,7 @@ MonoBehaviour:
         loopType: 3
         repeat: 2
         useGlobalRotation: 0
-    0000000C:
+    0000000D:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -13865,7 +13892,7 @@ MonoBehaviour:
           m_RotationOrder: 4
         loopType: 0
         repeat: 0
-    0000000D:
+    0000000E:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -13874,7 +13901,34 @@ MonoBehaviour:
         Delay: 0.1
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
-    0000000E:
+    0000000F:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 22
+        Duration: 0.104040146
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000010:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -13883,7 +13937,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
-    0000000F:
+    00000011:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -13909,7 +13963,7 @@ MonoBehaviour:
         repeat: 1
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000010:
+    00000012:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14023,7 +14077,7 @@ MonoBehaviour:
         loopType: 3
         repeat: 10
         useGlobalRotation: 0
-    00000011:
+    00000013:
       type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14034,13 +14088,13 @@ MonoBehaviour:
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         ExecuteOnOffspring:
-        - id: 20
+        - id: 23
         RagdollPrefab: {fileID: 0}
         ForceMultiplier: 10
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 2, y: 4, z: 1}
         ApplyGravity: 1
-    00000012:
+    00000014:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14049,7 +14103,7 @@ MonoBehaviour:
         Delay: 0.5
         RandomizeDelay: 1
         ExecuteAfterCompletion:
-        - id: 21
+        - id: 24
         Duration: 1
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -14065,7 +14119,9 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalPosition: 1
-    00000013:
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
+    00000015:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14074,7 +14130,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 22
+        - id: 25
         Duration: 0.15
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -14090,7 +14146,16 @@ MonoBehaviour:
         loopType: 3
         repeat: 3
         useGlobalRotation: 0
-    00000014:
+    00000016:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Description: Simple destruction effect.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+    00000017:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14099,7 +14164,7 @@ MonoBehaviour:
         Delay: 2
         RandomizeDelay: 1
         ExecuteAfterCompletion: []
-    00000015:
+    00000018:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14123,7 +14188,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    00000016:
+    00000019:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0

@@ -75,9 +75,9 @@ namespace GameFeelDescriptions
             waitFor.ExecuteAfterCompletion.AddRange(effects);
         }
         
-        public static void QueueExecution(this GameFeelEffect effect)
+        public static void QueueExecution(this GameFeelEffect effect, bool forceQueue = true)
         {
-            GameFeelEffectExecutor.Instance.QueueEffect(effect);
+            GameFeelEffectExecutor.Instance.QueueEffect(effect, forceQueue);
         }
 
         public static GameFeelEffect CurrentActiveEffect(this GameFeelEffect effect)
@@ -92,6 +92,8 @@ namespace GameFeelDescriptions
         
         public static void StopExecution(this GameFeelEffect effect)
         {
+            //Make sure to clean up any residue, created by the effect, before removing the effect.
+            effect.ExecuteCleanUp();
             GameFeelEffectExecutor.Instance.RemoveEffect(effect);
         }
     }

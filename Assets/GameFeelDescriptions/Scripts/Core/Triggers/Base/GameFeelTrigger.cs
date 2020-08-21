@@ -35,6 +35,30 @@ namespace GameFeelDescriptions
         [ReadOnly]
         public GameFeelTriggerType TriggerType;
         
+        
+        /* 
+        //TODO: Remove effect groups 2: move stepthroughmode and disabled up to triggers, and rename it to pause on trigger or something.
+        /// <summary>
+        /// Whether the whole group of effects is disabled.
+        /// </summary>
+        [Header("Controls if the effects are executed, and adhere to current timeScale.")]
+        public bool Disabled;
+
+       
+        [Header("This mode allows you to add effects as events happen while playing.")]
+        public bool StepThroughMode;
+
+        
+        /// <summary>
+        /// The list of effects to execute
+        /// </summary>
+        [SerializeReference] 
+        [ShowTypeAttribute]
+        [Space]
+        public List<GameFeelEffect> EffectsToExecute = new List<GameFeelEffect>();
+        */
+        
+
         public List<GameFeelEffectGroup> EffectGroups = new List<GameFeelEffectGroup>();
         
         public abstract void Attach(GameFeelDescription description, List<GameObject> attachTo, int triggerIndex);
@@ -58,7 +82,7 @@ namespace GameFeelDescriptions
                 case GameFeelTriggerType.OnCustomEvent:
                     return new OnCustomEventTrigger();
 //                case GameFeelTriggerType.OnCreate:
-//                    //TODO: implement these last one...
+//                    //TODO: implement this last one...
 //                    //TODO: If OnCreate seems difficult through standard unity, make a "register change" for a tag/object/etc
 //                    //TODO, that the user calls through code, or with an attribute, or using a UnityEvent!
 //                    //For now, the DynamicReattachRate + previouslyAttached is a slow but functional hack!

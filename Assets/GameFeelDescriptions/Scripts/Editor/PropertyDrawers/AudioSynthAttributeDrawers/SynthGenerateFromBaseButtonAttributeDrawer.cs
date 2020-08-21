@@ -50,7 +50,11 @@ namespace GameFeelDescriptions
         
         public static AudioSynthPlayEffect FindAudioSynthPlayEffectObject(SerializedProperty property)
         {
-            //TriggerList.Array.data[0].EffectGroups.Array.data[1].EffectsToExecute.Array.data[0].soundGeneratorBase
+            //TriggerList.Array.data[0].EffectGroups.Array.data[1].EffectsToExecute.Array.data[0].soundGeneratorBase //property.depth = 6
+            //TriggerList.Array.data[0].EffectGroups.Array.data[1].EffectsToExecute.Array.data[0].latestSynthParameters.Array.data[0] //property.depth = 7
+            //TriggerList.Array.data[0].EffectGroups.Array.data[1].EffectsToExecute.Array.data[2].ExecuteAfterCompletion.Array.data[0].soundGeneratorBase //property.depth = 8
+            //TriggerList.Array.data[0].EffectGroups.Array.data[1].EffectsToExecute.Array.data[2].ExecuteAfterCompletion.Array.data[0].ExecuteOnOffspring.Array.data[1].soundGeneratorBase //property.depth = 10
+            //TriggerList.Array.data[0].EffectGroups.Array.data[1].EffectsToExecute.Array.data[2].ExecuteAfterCompletion.Array.data[0].ExecuteOnOffspring.Array.data[1].latestSynthParameters.Array.data[0] //property.depth = 11
             var path = property.propertyPath.Split('.');
             int position = 0;
             int layer = 1;
@@ -72,7 +76,7 @@ namespace GameFeelDescriptions
                 else if (obj is GameFeelTrigger trigger)
                 {
                     position = 5;
-                    layer++;
+                    layer += 2;
                     var before = path[position].IndexOf('[');
                     var after = path[position].IndexOf(']');
                     var index = int.Parse(path[position].Substring(before+1, after-before-1));
@@ -82,7 +86,7 @@ namespace GameFeelDescriptions
                 else if (obj is GameFeelEffectGroup group)
                 {
                     position = 8;
-                    layer++;
+                    layer += 2;
                     var before = path[position].IndexOf('[');
                     var after = path[position].IndexOf(']');
                     var index = int.Parse(path[position].Substring(before+1, after-before-1));
@@ -91,10 +95,9 @@ namespace GameFeelDescriptions
                 }
                 else if (obj is GameFeelEffect effect)
                 {
-                    layer++;
+                    layer += 2;
                     //We got to the bottom of this path!
-                    if (property.depth - 1 == layer ||
-                        string.Equals(property.name, "data") && property.depth - 2 == layer)
+                    if (string.Equals(property.name, "data") && property.depth == layer - 1)
                     {
                         break;
                     }
@@ -104,8 +107,15 @@ namespace GameFeelDescriptions
                     var after = path[position].IndexOf(']');
                     var index = int.Parse(path[position].Substring(before+1, after-before-1));
                     
-                    //TODO: deal with CustomTrail?...
-                    obj = effect.ExecuteAfterCompletion[index];
+                    //Check if this is a spawner effect and whether the we're on the offspring path.
+                    if (effect is SpawningGameFeelEffect spawner && string.Compare(path[position - 2], "ExecuteOnOffspring") == 0)
+                    {    
+                        obj = spawner.ExecuteOnOffspring[index];
+                    }
+                    else
+                    {
+                        obj = effect.ExecuteAfterCompletion[index];
+                    }
                 }
             }
 

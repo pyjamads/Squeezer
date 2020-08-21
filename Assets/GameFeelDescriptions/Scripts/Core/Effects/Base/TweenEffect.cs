@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
@@ -39,7 +38,7 @@ namespace GameFeelDescriptions
         public LoopType loopType;
         
         [HideInInspector]
-        [Tooltip("Determines the number of times the effect should repeat. Duration is subdivided by repetition count.")]
+        [Tooltip("Determines the number of times the effect should repeat (-1 for infinite). Duration is subdivided by repetition count.")]
         public int repeat = 1;
         
         protected TTween start;
@@ -71,6 +70,39 @@ namespace GameFeelDescriptions
             return base.DeepCopy(shallow);
         }
         
+        public override void Randomize()
+        {
+            //10% chance to setFromValue 
+            setFromValue = RandomExtensions.Boolean(0.1f);
+
+            if (setFromValue)
+            {
+                @from = (TTween)TweenHelper.GetRandomValue(typeof(TTween), Random.Range(0f, 5f));
+            }
+            else
+            {
+                @from = default;
+            }
+
+            //No chance to set the relative value to true, because it's kinda weird with colors.
+            //relative = RandomExtensions.Boolean(0.05f);
+            relative = false;
+            
+            to = (TTween)TweenHelper.GetRandomValue(typeof(TTween), Random.Range(0f, 5f));
+            
+            
+            easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
+            //NOTE: curve is excluded here.
+            
+            loopType = EnumExtensions.GetRandomValue<LoopType>();
+            repeat = Random.Range(-1, 3);
+
+            base.Randomize();
+            
+            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
+            SetupLooping();
+        }
+
         public override bool CompareTo(GameFeelEffect other)
         {
             return other is TweenEffect<TTween> && base.CompareTo(other);
@@ -109,7 +141,7 @@ namespace GameFeelDescriptions
             }
             
             // if we have a loopType and we are complete (meaning we reached 0 or duration) handle the loop.
-            if (complete && repeat > 0)
+            if (complete && (repeat > 0 || repeat == -1))
             {
                 complete = HandleLooping( elapsedTimeExcess );
 
@@ -143,7 +175,12 @@ namespace GameFeelDescriptions
 
         private bool HandleLooping(float excessTime)
         {
-            repeat--;
+            //If repeat is -1, we repeat infinitely.
+            if (repeat != -1)
+            {
+                repeat--;
+            }
+            
             switch (loopType)
             {
                 case LoopType.Yoyo:
@@ -167,7 +204,7 @@ namespace GameFeelDescriptions
             }
 
             // if we have loops left to process reset our state back to Running so we can continue processing them
-            if(loopType != LoopType.None && repeat >= 0)
+            if(loopType != LoopType.None && (repeat >= 0 || repeat == -1))
             {
                 // now we need to set our elapsed time and factor in our elapsedTimeExcess
                 if (reverse)
@@ -199,6 +236,10 @@ namespace GameFeelDescriptions
             if (repeat > 0)
             {
                 total += repeat * duration;
+            }
+            else if (repeat == -1)
+            {
+                total = float.PositiveInfinity;
             }
 
             return total;
@@ -245,7 +286,7 @@ namespace GameFeelDescriptions
         
         protected override void ExecuteSetup()
         {
-            //TODO: handle the issue of tweening a target list with relative start points. ie. slide in many blocks from different positions.
+            //TODO: handle the issue of tweening a target list with relative start points. ie. slide in many blocks from different positions. 07/02/2020
             
             //Setup start and end values.
             start = GetStartValue();

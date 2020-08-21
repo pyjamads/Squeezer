@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -32,20 +33,50 @@ namespace GameFeelDescriptions
         }
         
         /// <summary>
-        /// Get a random element from the list and remove it from the list.
+        /// Get a random element from a list.
         /// </summary>
         /// <param name="list"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T TakeRandomElement<T>(this List<T> list)
+        public static T GetRandomElement<T>(this IEnumerable<T> list)
         {
-            if ((list?.Count > 0) == false) return default;
+            if (list != null && !list.Any()) return default;
             
-            var index = Random.Range(0, list.Count);
-            var element = list[index];
-            list.RemoveAt(index);
-            return element;
+            var index = Random.Range(0, list.Count());
+            return list.ElementAt(index);
         }
+        
+        // /// <summary>
+        // /// Get a random element from the list and remove it from the list.
+        // /// </summary>
+        // /// <param name="list"></param>
+        // /// <typeparam name="T"></typeparam>
+        // /// <returns></returns>
+        // public static T TakeRandomElement<T>(this List<T> list)
+        // {
+        //     if ((list?.Count > 0) == false) return default;
+        //     
+        //     var index = Random.Range(0, list.Count);
+        //     var element = list[index];
+        //     list.RemoveAt(index);
+        //     return element;
+        // }
+        //
+        // /// <summary>
+        // /// Get a random element from the list and remove it from the list.
+        // /// </summary>
+        // /// <param name="list"></param>
+        // /// <typeparam name="T"></typeparam>
+        // /// <returns></returns>
+        // public static T TakeRandomElement<T>(this IEnumerable<T> list)
+        // {
+        //     if (list != null && !list.Any()) return default;
+        //     
+        //     var index = Random.Range(0, list.Count());
+        //     var element = list.ElementAt(index);
+        //     return list.Except(new []{element});
+        //     return element;
+        // }
         
         /// <summary>
         /// Get a random element from the array

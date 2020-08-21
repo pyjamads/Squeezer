@@ -326,6 +326,11 @@ namespace GameFeelDescriptions
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
 //                            type == typeof(AudioSynthPlayEffect) ||
                             type == typeof(PropertyTweenEffect) ||
@@ -340,6 +345,11 @@ namespace GameFeelDescriptions
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
 //                            type == typeof(AudioSynthPlayEffect) ||
                             type == typeof(PropertyTweenEffect) ||
@@ -354,6 +364,11 @@ namespace GameFeelDescriptions
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
                             //type == typeof(AudioSynthPlayEffect) ||
                             type == typeof(PropertyTweenEffect) ||
@@ -368,6 +383,11 @@ namespace GameFeelDescriptions
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
                             type == typeof(PropertyTweenEffect):// ||
 //                            type == typeof(AudioSynthPlayEffect):// ||
@@ -381,9 +401,14 @@ namespace GameFeelDescriptions
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
 //                            type == typeof(AudioSynthPlayEffect) ||
                             type == typeof(PropertyTweenEffect) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
                             //type == typeof(FollowOriginEffect) ||
                             type == typeof(RotateTowardsDirectionEffect):// ||
                             //type == typeof(SquashAndStretchEffect):
@@ -399,8 +424,13 @@ namespace GameFeelDescriptions
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
                             type == typeof(PropertyTweenEffect) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
                             type == typeof(RotateTowardsDirectionEffect) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
                             type == typeof(SquashAndStretchEffect):
                         {
                             break;
@@ -409,6 +439,12 @@ namespace GameFeelDescriptions
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
+                            type == typeof(RotateTowardsDirectionEffect) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
                             type == typeof(PropertyTweenEffect):// ||
 //                            type == typeof(AudioSynthPlayEffect):
                         {
@@ -447,6 +483,7 @@ namespace GameFeelDescriptions
             for (int i = 0; i < elements; i++)
             {
                 //TODO: consider making a factory function on GameFeelEffects that returns a randomized instance. 30/04/2020
+                //TODO: consider making sure random elements don't repeat, such as multiple destroy / disables. 2020-08-13 
                 var instance = effectTypes.GetRandomElement().Invoke();
                 
                 if (list.Count > 0 &&  Random.value < queueProp)

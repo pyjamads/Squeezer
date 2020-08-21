@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameFeelDescriptions
@@ -8,6 +9,62 @@ namespace GameFeelDescriptions
         public ScaleEffect()
         {
             Description = "Scale Effect allows you to scale an object using easing.";
+            relative = false;
+            to = Vector3.one * Random.Range(0, 101) / 20f;
+        }
+        
+        public override void Randomize()
+        {
+            base.Randomize();
+            
+            if (setFromValue)
+            {
+                @from = Vector3.one * Random.Range(0, 101) / 20f;
+            }
+            else
+            {
+                @from = Vector3.one;
+            }
+
+            relative = RandomExtensions.Boolean(0.5f);
+            
+            to = Vector3.one * Random.Range(0, 101) / 20f;
+        }
+        
+        public override void Mutate(float amount = 0.05f)
+        {
+            if (RandomExtensions.Boolean(amount))
+            {
+                setFromValue = !setFromValue;
+            }
+
+            //Make a random color, and add/subtract a proportional amount here.
+            var rndAmount = Random.value * amount * 2 - amount;
+            @from += Vector3.one * rndAmount;
+        
+            //Make a random color, and add/subtract a proportional amount here.
+            rndAmount = Random.value * amount * 2 - amount;
+            to += Vector3.one * rndAmount; 
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                loopType = EnumExtensions.GetRandomValue<LoopType>();
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                repeat = Random.Range(-1, 3);
+            }
+
+            base.Mutate(amount);
+            
+            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
+            SetupLooping();
         }
 
         protected override void SetValue(GameObject target, Vector3 value)
@@ -34,8 +91,6 @@ namespace GameFeelDescriptions
             return TweenHelper.GetDifference(fromValue, toValue);
         }
 
-        //TODO: implement interactionDirection in effects. 07/02/2020
-        
         protected override bool TickTween()
         {
             if (target == null) return true;

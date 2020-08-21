@@ -52,14 +52,14 @@ namespace GameFeelDescriptions
         
         protected override void SetValue(GameObject target, Color value)
         {
-            if (cameraToModify == null) return;
+            if (flash == null) return;
             
             flash.GetComponent<Renderer>().material.color = value;
         }
 
         protected override Color GetValue(GameObject target)
         {
-            if(cameraToModify == null) return Color.magenta;
+            if(flash == null) return Color.magenta;
             
             return flash.GetComponent<Renderer>().material.color;
         }
@@ -71,6 +71,7 @@ namespace GameFeelDescriptions
 
         protected override void ExecuteSetup()
         {
+            //Flash is cleaned up in the ExecuteCleanUp function!
             flash = GameObject.CreatePrimitive(PrimitiveType.Quad);
             flash.name = "Flash";
             flash.transform.parent = GameFeelEffectExecutor.Instance.transform;
@@ -88,19 +89,24 @@ namespace GameFeelDescriptions
             rend.material.mainTexture = flashTexture;
             rend.material.color = Color.clear;
 
-            target = flash;
-            this.OnComplete(new DestroyEffect());
-            
             base.ExecuteSetup();
         }
 
         protected override bool TickTween()
         {
-            if(cameraToModify == null) return true;
+            if(flash == null) return true;
             
-            SetValue(target, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(flash, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
 
             return false;
+        }
+
+        public override void ExecuteCleanUp()
+        {
+            if (flash)
+            {
+                GameObject.Destroy(flash);
+            }
         }
     }
 }

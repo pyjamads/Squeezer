@@ -19,6 +19,7 @@ namespace GameFeelDescriptions
         public TimeScaleEffect()
         {
             Description = "TimeScale Effect allows you to change timeScale using easing.";
+            relative = false;
         }
 
         protected override void SetValue(GameObject target, float value)

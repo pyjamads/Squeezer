@@ -311,7 +311,7 @@ namespace GameFeelDescriptions
                         //Queue the effect
                         if (queueCopy)
                         {
-                            copy.QueueExecution();   
+                            copy.QueueExecution();
                         }
                     }
                 }

@@ -8,6 +8,7 @@ using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -73,6 +74,7 @@ namespace GameFeelDescriptions
         private GameFeelTriggerType selectedTriggerType;
         private int selectedEffectIndex;
         private StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
+        private int selectedIntensity = 1;
         
         private int attachToIndex = -1;
         
@@ -883,14 +885,37 @@ namespace GameFeelDescriptions
                             //GUILayout.Label("Select what type of reaction you'd like here:", EditorStyles.largeLabel);
                             using (new EditorGUILayout.HorizontalScope())
                             {
-                                selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup(selectedCategory);
-                                if (GUILayout.Button("Generate!"))
+                                using (new EditorGUILayout.VerticalScope())
                                 {
-                                    Undo.RecordObject(target, "Generate "+selectedCategory.GetName());
-                                    var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory);
+                                    selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup("Category",selectedCategory);
+                                    selectedIntensity = EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
+                                }
+
+                                using (new EditorGUILayout.VerticalScope())
+                                {
+                                    if (GUILayout.Button("Generate!"))
+                                    {
+                                        Undo.RecordObject(target, "Generate " + selectedCategory.GetName());
+                                        var recipe =
+                                            StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity);
+
+                                        group.EffectsToExecute.AddRange(recipe);
+                                        
+                                        //Take the handcrafted tree, and mutate it!
+                                        MutateGroup(group, 0.25f, 0.25f, 0.10f);
+                                        
+                                        serializedObject.ApplyModifiedProperties();
+                                    }
                                     
-                                    group.EffectsToExecute.AddRange(recipe);
-                                    serializedObject.ApplyModifiedProperties();
+                                    if (GUILayout.Button("Handcrafted!"))
+                                    {
+                                        Undo.RecordObject(target, "Handcrafted " + selectedCategory.GetName());
+                                        var recipe =
+                                            StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity);
+
+                                        group.EffectsToExecute.AddRange(recipe);
+                                        serializedObject.ApplyModifiedProperties();
+                                    }
                                 }
                             }
                         }
@@ -898,24 +923,49 @@ namespace GameFeelDescriptions
                         {
                             using (new EditorGUILayout.HorizontalScope())
                             {
-                                selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup(selectedCategory);
-                                if (GUILayout.Button("Regenerate"))
+                                using (new EditorGUILayout.VerticalScope())
                                 {
-                                    Undo.RecordObject(target, "Regenerate "+selectedCategory.GetName());
-                                    group.EffectsToExecute.Clear();
-                                    var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory);
+                                    selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup("Category",selectedCategory);
+                                    selectedIntensity = EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
+                                }
+
+                                using (new EditorGUILayout.VerticalScope())
+                                {
+                                    if (GUILayout.Button("Mutate"))
+                                    {
+                                        Undo.RecordObject(target, "Mutate "+ (string.IsNullOrEmpty(group.GroupName) ? "EffectGroup" : group.GroupName));
+
+                                        MutateGroup(group);
+                                    }
+                                    
+                                    if (GUILayout.Button("Regenerate"))
+                                    {
+                                        Undo.RecordObject(target, "Regenerate "+selectedCategory.GetName());
+                                        //group.EffectsToExecute.Clear();
+                                        group.EffectsToExecute.RemoveAll(item => item.Lock == false);
+                                        var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity, group.EffectsToExecute);
+                                    
+                                        group.EffectsToExecute.AddRange(recipe);
+                                        
+                                        //Take the handcrafted tree, and mutate it!
+                                        MutateGroup(group, 0.25f, 0.25f, 0.10f);
+                                    
+                                        serializedObject.ApplyModifiedProperties();
+                                    }
+                                }
+                            }
+
+                            using (new EditorGUILayout.HorizontalScope())
+                            {
+                                if (GUILayout.Button("Regenerate using handcrafted tree"))
+                                {
+                                    Undo.RecordObject(target, "Re-Handcraft "+selectedCategory.GetName());
+                                    group.EffectsToExecute.RemoveAll(item => item.Lock == false);
+                                    var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity, group.EffectsToExecute);
                                     
                                     group.EffectsToExecute.AddRange(recipe);
                                     
                                     serializedObject.ApplyModifiedProperties();
-                                }
-                                
-                                if (GUILayout.Button("Mutate"))
-                                {
-                                    Undo.RecordObject(target, "Mutate "+ (string.IsNullOrEmpty(group.GroupName) ? "EffectGroup" : group.GroupName));
-                                    //TODO: go through all effects in EffectsToExecute list, and call Mutate on them,
-                                    //TODO: maybe have a probability for adding/removing a random effect from the list.
-                                    
                                 }
                             }
                         }
@@ -933,8 +983,6 @@ namespace GameFeelDescriptions
                             GenerateSimpleInterface(group.EffectsToExecute[i], ref index, indent + 1,
                                 propertyPath + ".EffectsToExecute", i);
                         }
-                        
-                        // }
                     }
 
                     break;
@@ -978,6 +1026,37 @@ namespace GameFeelDescriptions
                             new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f, clickArea.height),
                             GUIContent.none, !effect.Disabled);
                     
+                    EditorGUI.BeginChangeCheck();
+                    effect.Lock =
+                        EditorGUI.Toggle(
+                            new Rect(clickArea.x - 46f, clickArea.y, clickArea.width - indented.width + 15f, clickArea.height),
+                            GUIContent.none, effect.Lock, GUI.skin.FindStyle("IN LockButton"));
+                    
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        LockChildrenRecursive(effect);
+
+                        void LockChildrenRecursive(GameFeelEffect outerEffect)
+                        {
+                            //Apply the lock/unlock to children.
+                            foreach (var innerEffect in outerEffect.ExecuteAfterCompletion)
+                            {
+                                innerEffect.Lock = outerEffect.Lock;
+                                LockChildrenRecursive(innerEffect);
+                            }
+
+                            if (outerEffect is SpawningGameFeelEffect spawnerEffect)
+                            {
+                                //Apply the lock/unlock to children.
+                                foreach (var innerEffect in spawnerEffect.ExecuteOnOffspring)
+                                {
+                                    innerEffect.Lock = outerEffect.Lock;
+                                    LockChildrenRecursive(innerEffect);
+                                }
+                            }
+                        }
+                    }
+
                     EditorGUILayout.EndHorizontal();
                     
                     if(!effect.Disabled)
@@ -1028,8 +1107,101 @@ namespace GameFeelDescriptions
                     break;
                 }
             }
-            
+
             #region local functions
+
+            void MutateGroup(GameFeelEffectGroup gameFeelEffectGroup, float mutateAmount = 0.05f, float addProbability = 0.05f, float removeProbability = 0.05f)
+            {
+                var constructors = GameFeelBehaviorBase.GetGameFeelEffects();
+
+                //Group level remove, then mutate, then add!
+                var unlockedEffects = gameFeelEffectGroup.EffectsToExecute.Where(item => !item.Lock);
+                if (RandomExtensions.Boolean(removeProbability))
+                {
+                    var effectToRemove = unlockedEffects.GetRandomElement();
+                    gameFeelEffectGroup.EffectsToExecute.Remove(effectToRemove);
+                    //TODO: Consider whether this should be a "replace",
+                    //TODO: because currently it's addProb * removeProb that a replace happens. 
+                }
+
+                //Mutate all effects in the list recursively.
+                gameFeelEffectGroup.EffectsToExecute.ForEach(item =>
+                    MutateEffectsRecursive(constructors, item, mutateAmount, addProbability, removeProbability));
+
+                //Add new effect to group...
+                if (RandomExtensions.Boolean(addProbability))
+                {
+                    var instance = constructors.GetRandomElement().Invoke();
+                    gameFeelEffectGroup.EffectsToExecute.Add(instance);
+                }
+            }
+            
+            void MutateEffectsRecursive(List<Func<GameFeelEffect>> effectConstructors, GameFeelEffect outerEffect,
+                float amount = 0.05f, float addProb = 0.05f, float removeProb = 0.05f)
+            {
+                //Remove an unlocked child
+                if (RandomExtensions.Boolean(removeProb))
+                {
+                    //If it's a spawner effect, add it to the offspring effects instead.
+                    if (outerEffect is SpawningGameFeelEffect spawner)
+                    {
+                        var element = spawner.ExecuteOnOffspring.Where(item => !item.Lock).GetRandomElement();
+                        spawner.ExecuteOnOffspring.Remove(element);
+                    }
+                    else
+                    {
+                        var element = outerEffect.ExecuteAfterCompletion.Where(item => !item.Lock).GetRandomElement();
+                        outerEffect.ExecuteAfterCompletion.Remove(element);
+                    }
+                }
+
+                //Run mutate on the children.
+                foreach (var innerEffect in outerEffect.ExecuteAfterCompletion)
+                {
+                    if (!innerEffect.Lock)
+                    {
+                        innerEffect.Mutate(amount);
+                    }
+
+                    MutateEffectsRecursive(effectConstructors, innerEffect, amount, addProb, removeProb);
+                }
+
+                if (outerEffect is SpawningGameFeelEffect spawnerEffect)
+                {
+                    //Run mutate on the children.
+                    foreach (var innerEffect in spawnerEffect.ExecuteOnOffspring)
+                    {
+                        if (!innerEffect.Lock)
+                        {
+                            innerEffect.Mutate(amount);
+                        }
+
+                        MutateEffectsRecursive(effectConstructors, innerEffect, amount, addProb, removeProb);
+                    }
+                }
+
+                //TODO: Consider moving this to only unlocked effects 2020-08-20
+                //Always allow a small probability for adding an extra effect?
+                if (RandomExtensions.Boolean(addProb))
+                {
+                    var instance = effectConstructors.GetRandomElement().Invoke();
+
+                    //If it's a spawner effect, add it to the offspring effects instead.
+                    if (outerEffect is SpawningGameFeelEffect spawner)
+                    {
+                        spawner.ExecuteOnOffspring.Add(instance);
+                    }
+                    else
+                    {
+                        outerEffect.ExecuteAfterCompletion.Add(instance);
+                    }
+                }
+
+                if (!outerEffect.Lock)
+                {
+                    outerEffect.Mutate(amount);
+                }
+            }
 
             void DrawPropertyWithColor(string path, Color separatorColor, bool highlight = false, float highlightAlpha = 1f)
             {
@@ -1065,7 +1237,7 @@ namespace GameFeelDescriptions
                 var clickArea = EditorGUILayout.GetControlRect();
                 var current = Event.current;
                 
-                if (clickArea.Contains(Event.current.mousePosition))
+                if (clickArea.Contains(current.mousePosition))
                 {
                     if (current.type == EventType.Repaint)
                     {
@@ -1075,7 +1247,7 @@ namespace GameFeelDescriptions
                             EditorGUI.DrawRect(clickArea, Color.grey);
                         }
                     }
-                    else if (Event.current.type == EventType.MouseDrag)
+                    else if (current.type == EventType.MouseDrag)
                     {
                         // Clear out drag data
                         DragAndDrop.PrepareStartDrag();
@@ -1090,9 +1262,9 @@ namespace GameFeelDescriptions
                         
                         //NOTE: this bit of code makes it extremely hard to click the foldouts! So don't do that!
                         // Make sure no one uses the event after us
-                        //Event.current.Use();
+                        //current.Use();
                     }
-                    else if (Event.current.type == EventType.DragUpdated)
+                    else if (current.type == EventType.DragUpdated)
                     {
                         switch (context)
                         {
@@ -1137,10 +1309,10 @@ namespace GameFeelDescriptions
                             DragAndDrop.visualMode = DragAndDropVisualMode.Rejected;
                         }
                         
-                        Event.current.Use();
+                        current.Use();
                         
                     }
-                    else if (Event.current.type == EventType.DragPerform) //IE. DROP !!
+                    else if (current.type == EventType.DragPerform) //IE. DROP !!
                     {
                         DragAndDrop.AcceptDrag();
                         
@@ -1291,7 +1463,7 @@ namespace GameFeelDescriptions
                         
                         menu.ShowAsContext();
                         
-                        Event.current.Use();
+                        current.Use();
                     }
                     
                     if (current.type == EventType.ContextClick)

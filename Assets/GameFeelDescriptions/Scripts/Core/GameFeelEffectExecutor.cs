@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
-using Packages.Rider.Editor.UnitTesting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -119,9 +117,37 @@ namespace GameFeelDescriptions
 
         #endregion
 
-        public void QueueEffect(GameFeelEffect effect)
+        public void QueueEffect(GameFeelEffect effect, bool forceQueue = true)
         {
-            activeEffects.Add(effect);
+            if (forceQueue)
+            {
+                activeEffects.Add(effect);
+                return;
+            }
+            
+            //If Delay (and Duration) is Zero, execute the Effect immediately to avoid one frame of lag. 
+            if (effect is DurationalGameFeelEffect durational)
+            {
+                if (durational.Delay == 0 && durational.Duration == 0)
+                {
+                    effect.Tick();
+                }
+                else
+                {
+                    activeEffects.Add(effect);
+                }
+            }
+            else
+            {
+                if (effect.Delay == 0)
+                {
+                    effect.Tick();
+                }
+                else
+                {
+                    activeEffects.Add(effect);    
+                }
+            }
         }
 
         public void RemoveEffect(GameFeelEffect effect)

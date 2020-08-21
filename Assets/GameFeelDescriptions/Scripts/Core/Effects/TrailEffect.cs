@@ -18,12 +18,6 @@ namespace GameFeelDescriptions
             var fadeTime = Random.Range(0.1f,2f);
             var fadeDelay = 0.1f;
             
-            //Add a translate effect, to move towards the offset.
-            var translate = new TranslateEffect();
-            //translate.to = FadeCopyOffset; //Allow a random offset to be generated, or uncomment this, for default of (0,0,0) offset
-            translate.relative = true;
-            translate.Duration = fadeDelay + fadeTime;
-            
             var fade = new MaterialColorChangeEffect();
             fade.to = Color.clear;
             fade.relative = false;
@@ -35,7 +29,6 @@ namespace GameFeelDescriptions
             
             ExecuteOnOffspring = new List<GameFeelEffect>
             {
-                translate,
                 fade
             };
         }
@@ -80,48 +73,24 @@ namespace GameFeelDescriptions
 
         protected override bool ExecuteTick()
         {
-            if (target == null) return true;
-
-//            var isSprite = true; 
-//            if (!target.GetComponent<SpriteRenderer>())
-//            {
-//                isSprite = false;
-            if (!target.GetComponent<Renderer>())
-            {
-                Debug.LogError("No renderer attached to object: " + target.name);
-                return true;
-            }
-//            }
-
             GameObject trailObject;
             if (TrailPrefab != null)
             {
                 trailObject = Object.Instantiate(TrailPrefab, GameFeelEffectExecutor.Instance.transform);
-                trailObject.transform.position = target.transform.position;
+                trailObject.transform.position = targetPos;
             }
             else
             {
-                //Get a copy and remove all scripts, rigidbodies and colliders.
-                trailObject = Object.Instantiate(target, GameFeelEffectExecutor.Instance.transform, true);
-                trailObject.tag = "Untagged";
-                
-                var scripts = trailObject.GetComponentsInChildren<MonoBehaviour>();
-                foreach (var script in scripts)
+                if (target == null) return true;
+            
+                if (!target.GetComponent<Renderer>())
                 {
-                    Object.Destroy(script);
+                    Debug.LogError("No renderer attached to object: " + target.name);
+                    return true;
                 }
-
-                var rigid = trailObject.GetComponent<Rigidbody>();
-                Object.Destroy(rigid);
                 
-                var rigid2D = trailObject.GetComponent<Rigidbody2D>();
-                Object.Destroy(rigid2D);
-                
-                var col = trailObject.GetComponent<Collider>();
-                Object.Destroy(col);
-                
-                var col2D = trailObject.GetComponent<Collider2D>();
-                Object.Destroy(col2D);
+                //Get a copy and remove all scripts, rigidbodies and colliders.
+                trailObject = CopyAndStripTarget(target);
             }
 
             trailObject.transform.position += TrailPositionOffset;
@@ -131,67 +100,6 @@ namespace GameFeelDescriptions
             //TODO: could just set it's own target to the trailObject, and allow which ever effects exists,
             //TODO: in the ExecuteOnCompletion list to be executed on the trailObject. (See Ragdoll and Shatter) 13/05/2020   
             
-            //if (CustomFadeEffects == null || CustomFadeEffects.Count > 0)
-//             if (CustomFadeEffects.Count > 0)
-//             {
-//                 for (var i = 0; i < CustomFadeEffects.Count; i++)
-//                 {
-//                     //If the effect is disabled, skip it.
-//                     if(CustomFadeEffects[i].Disabled) continue;
-//             
-//                     var effectCopy = CustomFadeEffects[i].CopyAndSetElapsed(origin, trailObject, unscaledTime);
-//             
-//                     if(effectCopy == null) continue;
-//                     
-//                     //We don't need to handle effect copies, because it's a new target.
-//                     effectCopy.QueueExecution();   
-//                 }
-//             }
-//             else
-//             {
-//                 //Add a translate effect, to move towards the offset.
-//                 var translate = new TranslateEffect();
-//                 translate.to = FadeCopyOffset;
-//                 translate.easing = EasingHelper.EaseType.Linear;
-//                 translate.relative = true;
-//                 translate.Duration = FadeDelay + FadeTime;
-//                 
-//                 translate.Init(origin, trailObject, unscaledTime);
-//                 translate.SetupLooping();
-//                 translate.SetElapsed();
-//                 
-//                 translate.QueueExecution();
-//                 
-//                 //NOTE: this is a really neat use of our effect system, to queue a fade out and a destroy effect.
-//                 TweenEffect<Color> fade;
-//
-// //                if (isSprite)
-// //                {
-// //                    fade = new SpriteColorChangeEffect();
-// //                }
-// //                else
-// //                {
-//                     fade = new MaterialColorChangeEffect();
-// //                }
-//                 
-//                 fade.to = Color.clear;
-//                 fade.relative = false;
-//                 fade.Delay = FadeDelay;
-//                 fade.Duration = FadeTime;
-//                 fade.easing = FadeEase;
-//                 
-//                 //TODO: maybe just add the fade to this.OnComplete, and set target = trailObject. 13/05/2020
-//                 fade.Init(origin, trailObject, unscaledTime);
-//                 fade.SetupLooping();
-//                 fade.SetElapsed();
-//             
-//                 //Make sure to destroy the copy after the fade!
-//                 fade.OnComplete(new DestroyEffect());
-//                 
-//                 //We don't need to handle effect copies, because it's a new target.
-//                 fade.QueueExecution();
-//             }
-
             QueueOffspringEffects(trailObject);
             
             return false;
