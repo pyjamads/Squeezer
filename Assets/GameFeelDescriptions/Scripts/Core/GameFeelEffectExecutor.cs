@@ -119,35 +119,37 @@ namespace GameFeelDescriptions
 
         public void QueueEffect(GameFeelEffect effect, bool forceQueue = true)
         {
-            if (forceQueue)
+            // if (forceQueue)
+            // {
+            //     activeEffects.Add(effect);
+            //     return;
+            // }
+            
+            //Destruction effects cannot occur during collision updates, so we delay it until next update
+            //TODO: instead of passing this "forceQueue" flag, pass a isCollisionUpdate flag 2020-08-27
+            //TODO: handle the whole DestroyImmediate issue as well (when copying objects) 2020-08-27
+            if (forceQueue && (effect is DestroyEffect || effect is SpawningGameFeelEffect))
             {
                 activeEffects.Add(effect);
                 return;
             }
             
-            //If Delay (and Duration) is Zero, execute the Effect immediately to avoid one frame of lag. 
-            if (effect is DurationalGameFeelEffect durational)
+            //If Delay is Zero, execute the Effect immediately to avoid one frame of lag.
+            if (effect.Delay == 0)
             {
-                if (durational.Delay == 0 && durational.Duration == 0)
-                {
-                    effect.Tick();
-                }
-                else
+                effect.Tick();
+
+                //If Duration > 0, queue the "rest" of the effect.
+                if (effect is DurationalGameFeelEffect durational && durational.Duration > 0)
                 {
                     activeEffects.Add(effect);
                 }
             }
             else
             {
-                if (effect.Delay == 0)
-                {
-                    effect.Tick();
-                }
-                else
-                {
-                    activeEffects.Add(effect);    
-                }
+                activeEffects.Add(effect);    
             }
+            
         }
 
         public void RemoveEffect(GameFeelEffect effect)

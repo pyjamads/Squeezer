@@ -9,8 +9,7 @@ namespace GameFeelDescriptions.Examples
         public float acceleration = 1f;
         public Vector2 velocity;
         public float maxSpeed;
-
-        public int something;
+        
         private Rigidbody2D body;
 
         public bool ballReady = true;
@@ -19,7 +18,7 @@ namespace GameFeelDescriptions.Examples
         void Start()
         {
             body = GetComponent<Rigidbody2D>();
-            velocity = Vector2.up * 5 + (Vector2) Random.onUnitSphere;
+            velocity = Vector2.up * 5 + Random.onUnitSphere.AsVector2();
         }
 
 
@@ -92,7 +91,7 @@ namespace GameFeelDescriptions.Examples
                 velocity = Vector2.Reflect(velocity, contact.normal) * acceleration;
 //            }
 
-                if (other.gameObject.CompareTag("block"))
+                if (other.gameObject.CompareTag("block") || other.gameObject.CompareTag("Enemy"))
                 {
                     Destroy(other.gameObject);
                 }

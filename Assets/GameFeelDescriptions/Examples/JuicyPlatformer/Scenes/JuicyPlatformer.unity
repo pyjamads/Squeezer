@@ -2185,7 +2185,7 @@ GameObject:
   - component: {fileID: 266216728}
   - component: {fileID: 266216727}
   m_Layer: 0
-  m_Name: bird
+  m_Name: box
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2275,7 +2275,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266216726}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.39, y: 5.15, z: 11.798189}
+  m_LocalPosition: {x: 2.39, y: 5.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2614,6 +2614,7 @@ MonoBehaviour:
   Name: PlayerEffects
   Description: Description of all effects triggered by game objects with the tag
     [Player]
+  DontDestroyOnLoad: 0
   DynamicReattachRate: 0
   AttachToTag: Player
   AttachToObjects: []
@@ -2718,6 +2719,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Squash and Stretch Effect allows you to scale an object using
           easing.
         Delay: 0
@@ -2735,11 +2737,13 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Audio Synth Effect, use for finding the sound you want, generate
           actual sound clips using the Editor window.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        Duration: 0
         soundGeneratorBase: 5
         synthParameters: 0,.5,,.1172,,.1282,.3,.304,,.2611,,,,,,,,,,,.173,,,,,.8405,,,,,,
         mutateOnExecution: 0
@@ -2749,6 +2753,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Squash and Stretch Effect allows you to scale an object using
           easing.
         Delay: 0
@@ -2766,11 +2771,13 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Audio Synth Effect, use for finding the sound you want, generate
           actual sound clips using the Editor window.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        Duration: 0
         soundGeneratorBase: 2
         synthParameters: 3,.254,,.3036,.291,.1487,.3,.0233,,.1111,,,,,,,,,,,,,,,,1,,,,,,
         mutateOnExecution: 0
@@ -2782,22 +2789,21 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Make a trail of copies of the game object, which slowly fades.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        ExecuteOnOffspring: []
         TrailPrefab: {fileID: 0}
-        FadeTime: 0.14561142
-        FadeDelay: 0.1
-        FadeEase: 0
-        FadeCopyOffset: {x: 0, y: 0, z: 0}
-        CustomFadeEffects: []
+        TrailPositionOffset: {x: 0, y: 0, z: 0}
         DelayBetweenCopies: 0
     00000009:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -2817,11 +2823,14 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     0000000A:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -2916,6 +2925,7 @@ MonoBehaviour:
   Name: PickupEffects
   Description: Description of all effects triggered by game objects with the tag
     [Pickup]
+  DontDestroyOnLoad: 0
   DynamicReattachRate: 0
   AttachToTag: Pickup
   AttachToObjects: []
@@ -2974,6 +2984,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -2993,22 +3004,25 @@ MonoBehaviour:
         loopType: 1
         repeat: 1
         useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
     00000003:
       type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Add a Rigidbody that's affected by gravity to the target, and
           set an initial velocity based on the interaction.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        ExecuteOnOffspring: []
         RagdollPrefab: {fileID: 0}
         ForceMultiplier: 4.44564
+        RandomizeAdditionalForce: 0
         AdditionalForce: {x: 0, y: 0, z: 0}
         ApplyGravity: 1
-        DestroyRagdoll: 1
-        DestroyDelay: 1.3043443
 --- !u!1 &1786580097
 GameObject:
   m_ObjectHideFlags: 0

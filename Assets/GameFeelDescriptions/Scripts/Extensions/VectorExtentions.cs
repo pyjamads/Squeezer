@@ -46,6 +46,16 @@ namespace GameFeelDescriptions
             return new Vector3(vec.x * scaleBy.x, vec.y * scaleBy.y, vec.z * scaleBy.z);
         }
 
+        public static float Dot(this Vector3 lhs, Vector3 rhs)
+        {
+            return Vector3.Dot(lhs, rhs);
+        }
+        
+        public static Vector3 Cross(this Vector3 lhs, Vector3 rhs)
+        {
+            return Vector3.Cross(lhs, rhs);
+        }
+
         public static Vector2 AsVector2(this Vector3 vec)
         {
             return new Vector2(vec.x, vec.y);

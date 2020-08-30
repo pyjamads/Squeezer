@@ -1788,7 +1788,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!23 &356199987
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7355,6 +7355,7 @@ MonoBehaviour:
   Name: ballEffects
   Description: Description of all effects triggered by game objects with the tag
     [ball]
+  DontDestroyOnLoad: 0
   DynamicReattachRate: 0
   AttachToTag: ball
   AttachToObjects: []
@@ -7384,30 +7385,31 @@ MonoBehaviour:
           - id: 1
           - id: 2
           - id: 3
+          - id: 4
         ReactTo:
-        - ball
+        - '*'
         type: 0
     00000001:
       type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 1
         Description: Make a trail of copies of the game object, which slowly fades.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        ExecuteOnOffspring:
+        - id: 5
         TrailPrefab: {fileID: 0}
-        FadeTime: 1.667139
-        FadeDelay: 0.1
-        FadeEase: 0
-        FadeCopyOffset: {x: 0, y: 0, z: 0}
-        CustomFadeEffects: []
+        TrailPositionOffset: {x: 0, y: 0, z: 0}
         DelayBetweenCopies: 0
     00000002:
       type: {class: CameraBackgroundColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 1
         Description: Camera Background Color change Effect allows you to change a
           camera background color field using easing.
         Delay: 0
@@ -7433,42 +7435,107 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Audio Synth Effect, use for finding the sound you want, generate
           actual sound clips using the Editor window.
         Delay: 0
         RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        soundGeneratorBase: 0
-        synthParameters: 
+        ExecuteAfterCompletion:
+        - id: 6
+        Duration: 0.7339826
+        soundGeneratorBase: 7
+        synthParameters: 5,.1,.0082,.568,.3188,.0299,.3281,.0032,,.1934,.0849,,.3808,.0525,.6646,.2561,-.3955,1,.4999,.466,.8313,.1414,,-.3367,.0122,.9742,-.1342,,,-.196,.5714,.1569
         mutateOnExecution: 0
         latestSynthParameters:
-        - 0,.5,,.0402,.4507,.4496,.3,.4203,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0096,.5504,.1255,.3,.6622,,,,,,,,,.7778,.696,,,,,,,,1,,,,,,
-        - 0,.5,,.0946,.4541,.2256,.3,.5768,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0386,.5131,.356,.3,.6344,,,,,,,,,.2222,.6619,,,,,,,,1,,,,,,
-        - 0,.5,,.0349,.4368,.3725,.3,.6146,,,,,,,,,.3846,.5537,,,,,,,,1,,,,,,
-        - 0,.5,,.0392,.4548,.1116,.3,.5206,,,,,,,,,.25,.6018,,,,,,,,1,,,,,,
-        - 0,.5,,.0146,.3453,.3007,.3,.5397,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0291,.5162,.386,.3,.4733,,,,,,,,,.2,.6979,,,,,,,,1,,,,,,
-        - 0,.5,,.0117,.4174,.1703,.3,.7985,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0401,.5597,.2156,.3,.5943,,,,,,,,,.5,.6568,,,,,,,,1,,,,,,
-        - 0,.5,,.0458,.3621,.468,.3,.5995,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0929,.5279,.3159,.3,.8839,,,,,,,,,.4167,.5786,,,,,,,,1,,,,,,
-        - 0,.5,,.0642,.4361,.4534,.3,.4632,,,,,,,,,.4667,.5278,,,,,,,,1,,,,,,
-        - 0,.5,,.0196,.5659,.4348,.3,.6018,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.06,.5668,.2748,.3,.8835,,,,,,,,,.5385,.6514,,,,,,,,1,,,,,,
-        - 0,.5,,.0077,.5845,.4481,.3,.5327,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0862,.3077,.2621,.3,.6411,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0477,.5824,.1142,.3,.4148,,,,,,,,,.5,.581,,,,,,,,1,,,,,,
-        - 0,.5,,.0665,.3348,.3212,.3,.8151,,,,,,,,,.5,.5558,,,,,,,,1,,,,,,
-        - 0,.5,,.0065,.5938,.2161,.3,.8935,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0058,.3468,.248,.3,.6582,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0014,.5218,.1744,.3,.8344,,,,,,,,,.3846,.5502,,,,,,,,1,,,,,,
-        - 0,.5,,.0674,.5921,.1847,.3,.4706,,,,,,,,,.4444,.6005,,,,,,,,1,,,,,,
-        - 0,.5,,.0049,.3792,.1338,.3,.7287,,,,,,,,,.5,.6641,,,,,,,,1,,,,,,
-        - 0,.5,,.0134,.584,.2116,.3,.4526,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0371,.3354,.1882,.3,.5529,,,,,,,,,,,,,,,,,,1,,,,,,
-        - 0,.5,,.0714,.3191,.2152,.3,.6746,,,,,,,,,,,,,,,,,,1,,,,,,
+        - 5,.1,.0082,.568,.3188,.0299,.3281,.0032,,.1934,.0849,,.3808,.0525,.6646,.2561,-.3955,1,.4999,.466,.8313,.1414,,-.3367,.0122,.9742,-.1342,,,-.196,.5714,.1569
+        - 5,.1,.0082,.6637,.4547,.0299,.3995,.0032,,.1934,.0849,-.1766,.2274,.0525,.6646,.2561,-.5122,.938,.4999,.466,.8313,.0237,-.2787,-.3367,-.1152,.9742,.0712,-.7278,.001,,.4509,.2556
+    00000004:
+      type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a trail of copies of the game object, which slowly fades.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        ExecuteOnOffspring:
+        - id: 7
+        TrailPrefab: {fileID: 0}
+        TrailPositionOffset: {x: 0, y: 0, z: 0}
+        DelayBetweenCopies: 0
+    00000005:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 1
+        Description: Simple destruction effect.
+        Delay: 2
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+    00000006:
+      type: {class: TimeScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: TimeScale Effect allows you to change timeScale using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 0.96
+        setFromValue: 0
+        from: 0
+        relative: 0
+        to: 2.4818783
+        easing: 10
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 1
+        repeat: 1
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0.1
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 8
+        Duration: 0.87349886
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 10
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
 --- !u!1 &1430109179
 GameObject:
   m_ObjectHideFlags: 0

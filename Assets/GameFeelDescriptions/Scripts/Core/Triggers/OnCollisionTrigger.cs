@@ -31,6 +31,16 @@ namespace GameFeelDescriptions
             OnTriggerStay2D,
         }
         
+        public enum CollisionContextType
+        {
+            RelativeVelocity,
+            CollisionNormal, //The first contact.normal
+            SeparationImpulse,
+            FirstPoint, //The first contact.point
+            LastPoint, //The last contact.point
+            LastPointNormal, //The last contact.normal
+        }
+        
         /// <summary>
         /// The tag for other objects, used in OnCollision triggers.
         /// </summary>
@@ -43,6 +53,9 @@ namespace GameFeelDescriptions
         /// Which type of collider activation do you want.
         /// </summary>
         public CollisionActivationType type;
+        
+        
+        public CollisionContextType ContextType;
         
         public override void Attach(GameFeelDescription description, List<GameObject> attachTo, int triggerIndex)
         {            
@@ -66,6 +79,7 @@ namespace GameFeelDescriptions
                 component.Description = description;
                 component.TriggerIndex = triggerIndex;
                 component.ReactTo = ReactTo;
+                component.ContextType = ContextType;
                 component.type = type;
                 description.attachedTriggers.Add(component);
             }

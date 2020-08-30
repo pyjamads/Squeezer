@@ -982,11 +982,13 @@ MonoBehaviour:
         ReactTo:
         - ball
         type: 0
+        ContextType: 0
     00000001:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -1011,6 +1013,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Play Audio clip Effect allows you to a sound clip and adjust
           volume using easing.
         Delay: 0
@@ -1031,11 +1034,13 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Audio Synth Effect, use for finding the sound you want, generate
           actual sound clips using the Editor window.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        Duration: 0
         soundGeneratorBase: 2
         synthParameters: 3,.5,,.3339,.5521,.2041,.3,.0753,,-.3856,,,,,,,.5475,.7794,,,,,,,,1,,,,,,
         mutateOnExecution: 0
@@ -1116,6 +1121,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -1142,6 +1148,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0
         RandomizeDelay: 0
@@ -1696,6 +1703,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Camera Background Color change Effect allows you to change a
           camera background color field using easing.
         Delay: 0
@@ -1721,6 +1729,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -1748,6 +1757,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -1775,6 +1785,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -1802,6 +1813,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -1829,6 +1841,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Play Audio clip Effect allows you to a sound clip and adjust
           volume using easing.
         Delay: 0
@@ -1849,6 +1862,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -1876,6 +1890,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -2526,7 +2541,6 @@ MonoBehaviour:
   acceleration: 1.01
   velocity: {x: 0, y: 0}
   maxSpeed: 10
-  something: 0
   ballReady: 1
 --- !u!61 &356199985
 BoxCollider2D:
@@ -4073,6 +4087,7 @@ MonoBehaviour:
         - wall
         - paddle
         type: 0
+        ContextType: 0
     00000001:
       type: {class: OnMoveTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -4113,6 +4128,7 @@ MonoBehaviour:
         ReactTo:
         - highspeed
         type: 12
+        ContextType: 0
     00000003:
       type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -4134,6 +4150,7 @@ MonoBehaviour:
         ReactTo:
         - highspeed
         type: 13
+        ContextType: 0
     00000004:
       type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -4156,11 +4173,13 @@ MonoBehaviour:
         - block
         - paddle
         type: 0
+        ContextType: 0
     00000005:
       type: {class: SquashAndStretchEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Effect allows you to scale an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -4171,6 +4190,7 @@ MonoBehaviour:
         Amount: 0.5
         easeIn: 3
         easeOut: 12
+        lockLocalPosition: 0
         resetSizeAfterEffect: 0
         resetSize: {x: 0, y: 0, z: 0}
     00000006:
@@ -4178,6 +4198,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Play Audio clip Effect allows you to a sound clip and adjust
           volume using easing.
         Delay: 0
@@ -4198,6 +4219,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -4224,6 +4246,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Make a trail of copies of the game object, which slowly fades.
         Delay: 0
         RandomizeDelay: 0
@@ -4241,6 +4264,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: TimeScale Effect allows you to change timeScale using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -4264,6 +4288,7 @@ MonoBehaviour:
       data:
         StackingType: 1
         Disabled: 0
+        Lock: 0
         Description: TimeScale Effect allows you to change timeScale using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -4287,6 +4312,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: TimeScale Effect allows you to change timeScale using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -4310,6 +4336,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Squash and Stretch Effect allows you to scale an object using
           easing.
         Delay: 0
@@ -4320,6 +4347,7 @@ MonoBehaviour:
         Amount: 0.5
         easeIn: 12
         easeOut: 3
+        lockLocalPosition: 0
         resetSizeAfterEffect: 1
         resetSize: {x: 0.2, y: 0.2, z: 0.2}
     0000000D:
@@ -4327,6 +4355,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple shake effect. Can be used for shaking camera or other
           things.
         Delay: 0
@@ -4367,6 +4396,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -4378,7 +4408,7 @@ MonoBehaviour:
         from: {r: 0.7830189, g: 0, b: 0.7830189, a: 1}
         relative: 0
         to: {r: 0, g: 0.98, b: 1, a: 0}
-        easing: 0
+        easing: 3
         curve:
           serializedVersion: 2
           m_Curve: []
@@ -4394,6 +4424,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -4420,6 +4451,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -4443,6 +4475,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0
         RandomizeDelay: 0
@@ -5771,11 +5804,13 @@ MonoBehaviour:
         - wall
         - paddle
         type: 0
+        ContextType: 0
     00000001:
       type: {class: FullscreenFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: A fullscreen Camera flash.
         Delay: 0
         RandomizeDelay: 0
@@ -5983,6 +6018,7 @@ MonoBehaviour:
         ReactTo:
         - ball
         type: 0
+        ContextType: 0
     00000001:
       type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -6004,11 +6040,13 @@ MonoBehaviour:
         ReactTo:
         - wall
         type: 0
+        ContextType: 0
     00000002:
       type: {class: ShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple shake effect. Can be used for shaking camera or other
           things.
         Delay: 0
@@ -6050,6 +6088,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -6073,6 +6112,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -6099,6 +6139,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Shatter an object into pieces and add a the Ragdoll effect to
           the pieces.
         Delay: 0
@@ -6109,11 +6150,14 @@ MonoBehaviour:
         - id: 9
         AmountOfPieces: 6
         PrefabPieces: []
+        usePrimitivePieces: 0
+        PiecePrimitive: 0
     00000006:
       type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Make a trail of copies of the game object, which slowly fades.
         Delay: 0
         RandomizeDelay: 0
@@ -6128,6 +6172,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0
         RandomizeDelay: 0
@@ -6137,6 +6182,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -6164,6 +6210,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Add a Rigidbody that's affected by gravity to the target, and
           set an initial velocity based on the interaction.
         Delay: 0
@@ -6180,6 +6227,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -6207,6 +6255,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0.4
         RandomizeDelay: 1
@@ -6216,6 +6265,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0
         RandomizeDelay: 0
@@ -6693,9 +6743,8 @@ MonoBehaviour:
           FollowEasing: 0
           EffectsToExecute:
           - id: 1
-          - id: 2
         - GroupName: 
-          Disabled: 0
+          Disabled: 1
           UnscaledTime: 0
           StepThroughMode: 0
           AppliesTo: 3
@@ -6706,7 +6755,7 @@ MonoBehaviour:
           DisableRendererAndFollowOriginal: 0
           FollowEasing: 0
           EffectsToExecute:
-          - id: 3
+          - id: 2
         - GroupName: Block Destruction
           Disabled: 0
           UnscaledTime: 1
@@ -6719,6 +6768,7 @@ MonoBehaviour:
           DisableRendererAndFollowOriginal: 0
           FollowEasing: 0
           EffectsToExecute:
+          - id: 3
           - id: 4
           - id: 5
           - id: 6
@@ -6730,41 +6780,19 @@ MonoBehaviour:
         ReactTo:
         - ball
         type: 0
+        ContextType: 0
     00000001:
-      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 3
-        Disabled: 0
-        Description: Rotate Effect allows you to rotate an object using easing.
-        Delay: 0.3
-        RandomizeDelay: 1
-        ExecuteAfterCompletion:
-        - id: 12
-        Duration: 1
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 0, y: 0, z: 45}
-        easing: 9
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        loopType: 3
-        repeat: 3
-        useGlobalRotation: 0
-    00000002:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 4
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0.3
         RandomizeDelay: 1
-        ExecuteAfterCompletion: []
+        ExecuteAfterCompletion:
+        - id: 12
         Duration: 0.1
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
@@ -6781,11 +6809,12 @@ MonoBehaviour:
         repeat: 1
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000003:
+    00000002:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 0.1
         RandomizeDelay: 1
@@ -6805,11 +6834,12 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalRotation: 0
-    00000004:
+    00000003:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0.01
         RandomizeDelay: 0
@@ -6856,11 +6886,12 @@ MonoBehaviour:
           m_RotationOrder: 4
         loopType: 0
         repeat: 0
-    00000005:
+    00000004:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0.01
         RandomizeDelay: 0
@@ -6883,11 +6914,12 @@ MonoBehaviour:
         useGlobalPosition: 0
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
-    00000006:
+    00000005:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Play Audio clip Effect allows you to a sound clip and adjust
           volume using easing.
         Delay: 0
@@ -6903,11 +6935,12 @@ MonoBehaviour:
         playLoop: 0
         currentPitch: 1
         lastPitchChangeTime: 9.402952
-    00000007:
+    00000006:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -6929,11 +6962,12 @@ MonoBehaviour:
         repeat: 0
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000008:
+    00000007:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 0.2
         RandomizeDelay: 0
@@ -7043,11 +7077,12 @@ MonoBehaviour:
         loopType: 3
         repeat: 10
         useGlobalRotation: 0
-    00000009:
+    00000008:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Invokes a Unity Event, letting you callback or set arbitrary
           functions/values in your own code
         Delay: 0
@@ -7067,11 +7102,12 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    0000000A:
+    00000009:
       type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Shatter an object into pieces and add a the Ragdoll effect to
           the pieces.
         Delay: 0
@@ -7082,19 +7118,22 @@ MonoBehaviour:
         - id: 16
         - id: 17
         - id: 18
-        - id: 19
-        AmountOfPieces: 6
+        AmountOfPieces: 10
         PrefabPieces: []
-    0000000B:
+        usePrimitivePieces: 1
+        PiecePrimitive: 0
+    0000000A:
       type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Audio Synth Effect, use for finding the sound you want, generate
           actual sound clips using the Editor window.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        Duration: 0
         soundGeneratorBase: 7
         synthParameters: 3,.101,.085,.182,.103,.434,.609,.08,,.0191,.0722,.296,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,,,.0035,.1778,.87
         mutateOnExecution: 1
@@ -7135,15 +7174,34 @@ MonoBehaviour:
         - 1,.5,,.0665,,.1374,.3,.6839,,-.4362,,,,,,,,,,,,,,,,1,,,.2531,,,
         - 3,.5,,.0438,,.2631,.3,.4369,,-.6758,,,,,,,,,,,,,,,,1,,,,,,
         - 0,.5,,.0321,,.145,.3,.3881,,-.4371,,,,,,,,,,,.0753,,,,,1,,,.1582,,,
+    0000000B:
+      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a positional flash which quickly fades away.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        ExecuteOnOffspring:
+        - id: 19
+        - id: 20
+        FlashColor: {r: 1, g: 0.25882354, b: 0.8117648, a: 1}
+        FlashTransparency: 0
+        FlashPrefab: {fileID: 0}
+        FlashPrimitive: 0
+        PositionOffset: {x: 0, y: 0, z: 0}
     0000000C:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0.3
-        RandomizeDelay: 0
+        RandomizeDelay: 1
         ExecuteAfterCompletion: []
         Duration: 0.1
         setFromValue: 0
@@ -7166,6 +7224,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -7189,6 +7248,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0.1
         RandomizeDelay: 0
@@ -7198,6 +7258,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0
         RandomizeDelay: 0
@@ -7207,17 +7268,19 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
         RandomizeDelay: 0
-        ExecuteAfterCompletion: []
-        Duration: 2
+        ExecuteAfterCompletion:
+        - id: 21
+        Duration: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
-        to: {r: 0.3301887, g: 0.17949855, b: 0, a: 0}
-        easing: 2
+        to: {r: 1, g: 0.25882354, b: 0.8117648, a: 1}
+        easing: 5
         curve:
           serializedVersion: 2
           m_Curve: []
@@ -7229,146 +7292,34 @@ MonoBehaviour:
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
     00000011:
-      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Rotate Effect allows you to rotate an object using easing.
-        Delay: 0.5
-        RandomizeDelay: 1
-        ExecuteAfterCompletion: []
-        Duration: 1.5
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 0, y: 0, z: 70}
-        easing: 7
-        curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0.01953125
-            outSlope: 0.01953125
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.1
-            value: 0.001953125
-            inSlope: 0.01953125
-            outSlope: 0.01953125
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.2
-            value: 0.00390625
-            inSlope: 0.029296873
-            outSlope: 0.029296873
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.3
-            value: 0.0078125
-            inSlope: 0.05859375
-            outSlope: 0.05859375
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.4
-            value: 0.015625
-            inSlope: 0.28280258
-            outSlope: 0.28280258
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.41050112
-            value: 0.34381104
-            inSlope: 3.5901718
-            outSlope: 3.5901718
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.5502169
-            value: 0.5549295
-            inSlope: -0.23293021
-            outSlope: -0.23293021
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 1
-          - serializedVersion: 3
-            time: 0.63151854
-            value: 0.3701172
-            inSlope: -1.220777
-            outSlope: -1.220777
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.8
-            value: 0.25000003
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 3.7500002
-            outSlope: 3.7500002
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        loopType: 3
-        repeat: 10
-        useGlobalRotation: 0
-    00000012:
       type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Add a Rigidbody that's affected by gravity to the target, and
           set an initial velocity based on the interaction.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         ExecuteOnOffspring:
-        - id: 20
+        - id: 22
         RagdollPrefab: {fileID: 0}
-        ForceMultiplier: 10
+        ForceMultiplier: 3
         RandomizeAdditionalForce: 1
-        AdditionalForce: {x: 2, y: 4, z: 1}
+        AdditionalForce: {x: 0.5, y: 2, z: 0.5}
         ApplyGravity: 1
-    00000013:
+    00000012:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0.5
         RandomizeDelay: 1
         ExecuteAfterCompletion:
-        - id: 21
+        - id: 23
         Duration: 1
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -7386,20 +7337,102 @@ MonoBehaviour:
         useGlobalPosition: 1
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
+    00000013:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 0.4
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 3
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
     00000014:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 24
+        Duration: 0.26
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 3.35, y: 3.35, z: 3.35}
+        easing: 4
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+    00000015:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 2
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.383, g: 0.0991294, b: 0.31090587, a: 0}
+        easing: 2
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000016:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
-        Delay: 2
+        Delay: 0.5
         RandomizeDelay: 1
-        ExecuteAfterCompletion: []
-    00000015:
+        ExecuteAfterCompletion:
+        - id: 25
+    00000017:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Invokes a Unity Event, letting you callback or set arbitrary
           functions/values in your own code
         Delay: 0
@@ -7419,6 +7452,96 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+    00000018:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 26
+        Duration: 0.1
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 0
+        to: {x: 0, y: 0, z: 0}
+        easing: 10
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+    00000019:
+      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a positional flash which quickly fades away.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        ExecuteOnOffspring:
+        - id: 27
+        FlashColor: {r: 0.20754719, g: 0, b: 0.15483679, a: 0.9019608}
+        FlashTransparency: 1
+        FlashPrefab: {fileID: 0}
+        FlashPrimitive: 0
+        PositionOffset: {x: 0, y: 0, z: 0}
+    0000001A:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+    0000001B:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 28
+        Duration: 0.10802267
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 11
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    0000001C:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
 --- !u!1 &916993034
 GameObject:
   m_ObjectHideFlags: 0
@@ -7499,11 +7622,13 @@ MonoBehaviour:
         - block
         - paddle
         type: 0
+        ContextType: 0
     00000001:
       type: {class: ShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple shake effect. Can be used for shaking camera or other
           things.
         Delay: 0
@@ -7526,6 +7651,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Camera Background Color change Effect allows you to change a
           camera background color field using easing.
         Delay: 0
@@ -7957,6 +8083,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0.25
         RandomizeDelay: 1
@@ -7984,6 +8111,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: TimeScale Effect allows you to change timeScale using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -8007,6 +8135,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -8033,6 +8162,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: TimeScale Effect allows you to change timeScale using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -13319,6 +13449,7 @@ MonoBehaviour:
       data:
         StackingType: 1
         Disabled: 0
+        Lock: 0
         Description: Allows you to rotate an object some amount towards a target
           direction.
         Delay: 0.1
@@ -13451,11 +13582,13 @@ MonoBehaviour:
         ReactTo:
         - ball
         type: 0
+        ContextType: 0
     00000001:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0.01
         RandomizeDelay: 0
@@ -13507,6 +13640,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0.01
         RandomizeDelay: 0
@@ -13534,6 +13668,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Play Audio clip Effect allows you to a sound clip and adjust
           volume using easing.
         Delay: 0
@@ -13554,6 +13689,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -13580,6 +13716,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 0.2
         RandomizeDelay: 0
@@ -13694,12 +13831,16 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Make a positional flash which quickly fades away.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         ExecuteOnOffspring:
         - id: 15
+        - id: 16
+        FlashColor: {r: 0, g: 0, b: 0, a: 1}
+        FlashTransparency: 0
         FlashPrefab: {fileID: 0}
         FlashPrimitive: 0
         PositionOffset: {x: 0, y: 0, z: 0}
@@ -13708,6 +13849,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Invokes a Unity Event, letting you callback or set arbitrary
           functions/values in your own code
         Delay: 0
@@ -13732,11 +13874,13 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Audio Synth Effect, use for finding the sound you want, generate
           actual sound clips using the Editor window.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
+        Duration: 0
         soundGeneratorBase: 7
         synthParameters: 3,.101,.085,.182,.103,.434,.609,.08,,.0191,.0722,.296,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,,,.0035,.1778,.87
         mutateOnExecution: 1
@@ -13782,24 +13926,27 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Shatter an object into pieces and add a the Ragdoll effect to
           the pieces.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 16
-        ExecuteOnOffspring:
         - id: 17
+        ExecuteOnOffspring:
         - id: 18
         - id: 19
         - id: 20
-        AmountOfPieces: 6
+        AmountOfPieces: 15
         PrefabPieces: []
+        usePrimitivePieces: 1
+        PiecePrimitive: 3
     0000000A:
       type: {class: PropertyTweenEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Tween a property on a component.
         Delay: 0
         RandomizeDelay: 1
@@ -13825,6 +13972,7 @@ MonoBehaviour:
       data:
         StackingType: 1
         Disabled: 0
+        Lock: 0
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -13850,6 +13998,7 @@ MonoBehaviour:
       data:
         StackingType: 1
         Disabled: 0
+        Lock: 0
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 1
         RandomizeDelay: 1
@@ -13874,6 +14023,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -13897,6 +14047,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0.1
         RandomizeDelay: 0
@@ -13906,6 +14057,7 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -13929,19 +14081,39 @@ MonoBehaviour:
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
     00000010:
+      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a positional flash which quickly fades away.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        ExecuteOnOffspring:
+        - id: 23
+        - id: 24
+        FlashColor: {r: 1, g: 1, b: 1, a: 1}
+        FlashTransparency: 1
+        FlashPrefab: {fileID: 0}
+        FlashPrimitive: 0
+        PositionOffset: {x: 0, y: 0, z: 0}
+    00000011:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
-    00000011:
+    00000012:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Material Color change Effect allows you to change the color
           of a material using easing.
         Delay: 0
@@ -13963,132 +14135,19 @@ MonoBehaviour:
         repeat: 1
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000012:
-      type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Description: Rotate Effect allows you to rotate an object using easing.
-        Delay: 0.5
-        RandomizeDelay: 1
-        ExecuteAfterCompletion: []
-        Duration: 1.5
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 0, y: 0, z: 70}
-        easing: 7
-        curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 0.01953125
-            outSlope: 0.01953125
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.1
-            value: 0.001953125
-            inSlope: 0.01953125
-            outSlope: 0.01953125
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.2
-            value: 0.00390625
-            inSlope: 0.029296873
-            outSlope: 0.029296873
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.3
-            value: 0.0078125
-            inSlope: 0.05859375
-            outSlope: 0.05859375
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.4
-            value: 0.015625
-            inSlope: 0.28280258
-            outSlope: 0.28280258
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.41050112
-            value: 0.34381104
-            inSlope: 3.5901718
-            outSlope: 3.5901718
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.5502169
-            value: 0.5549295
-            inSlope: -0.23293021
-            outSlope: -0.23293021
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 1
-          - serializedVersion: 3
-            time: 0.63151854
-            value: 0.3701172
-            inSlope: -1.220777
-            outSlope: -1.220777
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.8
-            value: 0.25000003
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 137
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 3.7500002
-            outSlope: 3.7500002
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        loopType: 3
-        repeat: 10
-        useGlobalRotation: 0
     00000013:
       type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Add a Rigidbody that's affected by gravity to the target, and
           set an initial velocity based on the interaction.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
         ExecuteOnOffspring:
-        - id: 23
+        - id: 25
         RagdollPrefab: {fileID: 0}
         ForceMultiplier: 10
         RandomizeAdditionalForce: 1
@@ -14099,11 +14158,12 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 1
+        Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         Delay: 0.5
         RandomizeDelay: 1
         ExecuteAfterCompletion:
-        - id: 24
+        - id: 26
         Duration: 1
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -14126,11 +14186,12 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion:
-        - id: 25
+        - id: 27
         Duration: 0.15
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
@@ -14151,24 +14212,79 @@ MonoBehaviour:
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 0
         RandomizeDelay: 0
         ExecuteAfterCompletion: []
     00000017:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion:
+        - id: 28
+        Duration: 0.3308709
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 2
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000018:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
+        Duration: 0.23
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 2, y: 2, z: 2}
+        easing: 8
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        loopType: 0
+        repeat: 1
+    00000019:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Simple destruction effect.
         Delay: 2
         RandomizeDelay: 1
         ExecuteAfterCompletion: []
-    00000018:
+    0000001A:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Invokes a Unity Event, letting you callback or set arbitrary
           functions/values in your own code
         Delay: 0
@@ -14188,11 +14304,12 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    00000019:
+    0000001B:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
+        Lock: 0
         Description: Rotate Effect allows you to rotate an object using easing.
         Delay: 0
         RandomizeDelay: 0
@@ -14212,6 +14329,16 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         useGlobalRotation: 0
+    0000001C:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        Delay: 0
+        RandomizeDelay: 0
+        ExecuteAfterCompletion: []
 --- !u!1 &2009092097
 GameObject:
   m_ObjectHideFlags: 0

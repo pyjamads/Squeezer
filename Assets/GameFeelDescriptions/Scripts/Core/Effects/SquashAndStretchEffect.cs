@@ -25,12 +25,19 @@ namespace GameFeelDescriptions
         public EasingHelper.EaseType easeIn;
         
         public EasingHelper.EaseType easeOut;
+
+        public bool lockLocalPosition;
         
         public bool resetSizeAfterEffect;
         public Vector3 resetSize;
         
         private Vector3 modified;
         private Vector3 original;
+
+        private Vector3 maxOffset;
+        private Vector3 currentOffset;
+
+        private Vector3 collisionPos;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
             Vector3? interactionDirection = null)
@@ -41,9 +48,15 @@ namespace GameFeelDescriptions
             cp.easeIn = easeIn;
             cp.easeOut = easeOut;
             cp.resetSizeAfterEffect = resetSizeAfterEffect;
+            cp.lockLocalPosition = lockLocalPosition;
             cp.resetSize = resetSize;
             cp.Init(origin, target, unscaledTime, interactionDirection);
             return DeepCopy(cp);
+        }
+
+        public override bool CompareTo(GameFeelEffect other)
+        {
+            return other is SquashAndStretchEffect && base.CompareTo(other);
         }
 
         protected void SetValue(GameObject target, Vector3 value)
@@ -131,6 +144,14 @@ namespace GameFeelDescriptions
             //Get squashed scale and original scale. (Why do we use the lossy scale here, because of the general direction of things??)
             modified = GetSquashedValue(target.transform.lossyScale, maxDir, Stretch);
             original = target.transform.localScale;
+            
+            //Position offset, should be a little less than half the distance of the scale amount.
+            var localOffsetAmount = 0.49f;
+            var offsetAmount = (Mathf.Abs(maxDir.Dot(original) - maxDir.Dot(modified)) * localOffsetAmount);
+            maxOffset = Stretch ? maxDir * offsetAmount : maxDir * (-1f * offsetAmount);
+            currentOffset = Vector3.zero;
+            //Offset the collider slightly, because we just collided
+            collisionPos = target.transform.localPosition - maxOffset * 0.1f;
         }
         
         protected override bool ExecuteTick()
@@ -144,19 +165,40 @@ namespace GameFeelDescriptions
             }
 
             //For squash effect, spend a 5th of the time on "squashing", and the rest on recovering.
-            if (elapsed < Duration / 5f)
+            if (elapsed <= Duration / 5f)
             {
-                SetValue(target, TweenHelper.Interpolate(original, elapsed / (Duration / 5f), modified, EasingHelper.Ease(easeIn)));
+                SetValue(target, TweenHelper.Interpolate(original, Mathf.Clamp01(elapsed / (Duration / 5f)), modified, EasingHelper.Ease(easeIn)));
+
+                if (lockLocalPosition)
+                {
+                    //Remove the current offset, calculate the new offset, and add that.
+                    //target.transform.localPosition -= currentOffset;
+                    currentOffset = TweenHelper.Interpolate(Vector3.zero, Mathf.Clamp01(elapsed / (Duration / 5f)), maxOffset, EasingHelper.Ease(easeIn));
+                    //target.transform.localPosition += currentOffset;
+                    target.transform.localPosition = collisionPos + currentOffset;   
+                }
             }
             else
             {
-                SetValue(target, TweenHelper.Interpolate(modified, elapsed / (Duration * (4/5f)), original, EasingHelper.Ease(easeOut)));
+                SetValue(target, TweenHelper.Interpolate(modified, Mathf.Clamp01((elapsed - (Duration / 5f)) / (Duration * (4/5f))), original, EasingHelper.Ease(easeOut)));
+
+                if (lockLocalPosition)
+                {
+                    //Remove the current offset, calculate the new offset, and add that.
+                    //target.transform.localPosition -= currentOffset;
+                    currentOffset = TweenHelper.Interpolate(maxOffset,
+                        Mathf.Clamp01((elapsed - (Duration / 5f)) / (Duration * (4 / 5f))), Vector3.zero,
+                        EasingHelper.Ease(easeOut));
+                    //target.transform.localPosition += currentOffset;
+                    //On our way out, just add a tiny bit extra separation.
+                    target.transform.localPosition = collisionPos + currentOffset;
+                }
             }
 
             return false;
         }
 
-        protected override void ExecuteComplete()
+        public override void ExecuteCleanUp()
         {
             if (target == null) return;
             
@@ -164,8 +206,12 @@ namespace GameFeelDescriptions
             {
                 SetValue(target, resetSize);
             }
+            else
+            {
+                SetValue(target, original);
+            }
             
-            base.ExecuteComplete();
+            base.ExecuteCleanUp();
         }
     }
 }

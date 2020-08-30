@@ -1,0 +1,310 @@
+{
+    "Name": "",
+    "Description": "test",
+    "effects": [
+        {
+            "id": 0
+        },
+        {
+            "id": 1
+        },
+        {
+            "id": 2
+        },
+        {
+            "id": 3
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "ShakeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple shake effect. Can be used for shaking camera or other things.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 4
+                    }
+                ],
+                "Duration": 0.4000000059604645,
+                "useInteractionDirection": true,
+                "interactionDirectionMultiplier": 1.0,
+                "amount": 0.0,
+                "easeAmountInOut": {
+                    "serializedVersion": "2",
+                    "m_Curve": [
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.0,
+                            "value": 0.49859619140625,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 1.0,
+                            "value": 1.0,
+                            "inSlope": 2.0,
+                            "outSlope": 2.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        }
+                    ],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "useResetPositionAfterShake": false,
+                "resetPosition": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "ScaleEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Scale Effect allows you to scale an object using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 0.4000000059604645,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "x": 6.0,
+                    "y": 6.0,
+                    "z": 6.0
+                },
+                "easing": 3,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 1
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 0.4000000059604645,
+                "setFromValue": false,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 0.0
+                },
+                "easing": 5,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 1,
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000003": {
+            "type": {
+                "class": "ShatterEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Shatter an object into pieces and add a the Ragdoll effect to the pieces.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 5
+                    },
+                    {
+                        "id": 6
+                    }
+                ],
+                "AmountOfPieces": 6,
+                "PrefabPieces": [],
+                "usePrimitivePieces": false,
+                "PiecePrimitive": 0
+            }
+        },
+        "00000004": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple destruction effect.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": []
+            }
+        },
+        "00000005": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 7
+                    }
+                ],
+                "Duration": 0.6000000238418579,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.38679248094558718,
+                    "g": 0.3014974594116211,
+                    "b": 0.005473468452692032,
+                    "a": 1.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.801886796951294,
+                    "g": 0.6705756783485413,
+                    "b": 0.2836863696575165,
+                    "a": 0.0
+                },
+                "easing": 5,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 1,
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000006": {
+            "type": {
+                "class": "RagdollEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Add a Rigidbody that's affected by gravity to the target, and set an initial velocity based on the interaction.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "ExecuteOnOffspring": [],
+                "RagdollPrefab": {
+                    "instanceID": 0
+                },
+                "ForceMultiplier": 4.681725978851318,
+                "RandomizeAdditionalForce": true,
+                "AdditionalForce": {
+                    "x": 3.0,
+                    "y": 4.0,
+                    "z": 0.0
+                },
+                "ApplyGravity": false
+            }
+        },
+        "00000007": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple destruction effect.",
+                "Delay": 0.4000000059604645,
+                "RandomizeDelay": true,
+                "ExecuteAfterCompletion": []
+            }
+        },
+        "00000008": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

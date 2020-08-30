@@ -836,36 +836,48 @@ namespace GameFeelDescriptions
                     {
                         canPaste = false;
                     }
+
                     
                     var clickArea = ClickAreaWithContextMenu(group);
                     var indented = EditorGUI.IndentedRect(clickArea);
+
+                    // if (GUI.Button(
+                    //     new Rect(indented.x - 60f, indented.y, indented.width - indented.width + 25f,
+                    //         indented.height),
+                    //     EditorGUIUtility.IconContent("RotateTool")))
+                    // {
+                    //     Undo.PerformUndo();
+                    // }
                     
                     var prefix = group.Disabled ? "[DISABLED] " : "";
-                    var groupLabel = prefix+"EffectGroup "+(string.IsNullOrWhiteSpace(group.GroupName) ? "" : "'"+group.GroupName+"'") 
-                                     +" [Applies to "+ (group.ExecuteOnTargetCopy ? "a copy of " : "")
+                    var groupLabel = prefix + "EffectGroup " + (string.IsNullOrWhiteSpace(group.GroupName)
+                                         ? ""
+                                         : "'" + group.GroupName + "'")
+                                     + " [Applies to " + (group.ExecuteOnTargetCopy ? "a copy of " : "")
                                      + group.AppliesTo.GetName() + "]";
 
                     if (doHighlight && EditorHelpers.HighlightedEffectGroupIndex == dataIndex)
                     {
                         //DO COLORING, if highlight is enabled, for highlightTime seconds!
                         EditorHelpers.DrawColoredRect(clickArea, highlightColor.withA(alpha));
-                        
+
                         // ExpandedDescriptionNames[target.GetInstanceID()][index] = true;
                     }
-                    
+
                     using (new EditorGUI.DisabledScope(group.Disabled))
                     {
                         ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
                             new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
                             ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel);
                     }
-                    
+
                     group.Disabled =
                         !EditorGUI.ToggleLeft(
-                            new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f, clickArea.height),
+                            new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f,
+                                clickArea.height),
                             GUIContent.none, !group.Disabled);
-                    
-                    if(!group.Disabled)
+
+                    if (!group.Disabled)
                     {
                         if (ExpandedDescriptionNames[target.GetInstanceID()][index])
                         {
@@ -874,21 +886,24 @@ namespace GameFeelDescriptions
                             //
                             // if (ExpandedDescriptionNames[target.GetInstanceID()][index][1])
                             // {
-                                DrawPropertyWithColor(propertyPath, highlightColor);    
+                            DrawPropertyWithColor(propertyPath, highlightColor);
                             // }
                         }
                         // else
                         // {   
-                        
+
                         if (group.EffectsToExecute.Count == 0)
                         {
                             //GUILayout.Label("Select what type of reaction you'd like here:", EditorStyles.largeLabel);
-                            using (new EditorGUILayout.HorizontalScope())
+                            using (new EditorGUILayout.HorizontalScope()) //EditorStyles.helpBox
                             {
                                 using (new EditorGUILayout.VerticalScope())
                                 {
-                                    selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup("Category",selectedCategory);
-                                    selectedIntensity = EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
+                                    selectedCategory =
+                                        (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
+                                            "Category", selectedCategory);
+                                    selectedIntensity =
+                                        EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
                                 }
 
                                 using (new EditorGUILayout.VerticalScope())
@@ -897,21 +912,23 @@ namespace GameFeelDescriptions
                                     {
                                         Undo.RecordObject(target, "Generate " + selectedCategory.GetName());
                                         var recipe =
-                                            StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity);
+                                            StepThroughModeWindow.GenerateRecipe(selectedCategory,
+                                                selectedIntensity);
 
                                         group.EffectsToExecute.AddRange(recipe);
-                                        
+
                                         //Take the handcrafted tree, and mutate it!
                                         MutateGroup(group, 0.25f, 0.25f, 0.10f);
-                                        
+
                                         serializedObject.ApplyModifiedProperties();
                                     }
-                                    
+
                                     if (GUILayout.Button("Handcrafted!"))
                                     {
                                         Undo.RecordObject(target, "Handcrafted " + selectedCategory.GetName());
                                         var recipe =
-                                            StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity);
+                                            StepThroughModeWindow.GenerateRecipe(selectedCategory,
+                                                selectedIntensity);
 
                                         group.EffectsToExecute.AddRange(recipe);
                                         serializedObject.ApplyModifiedProperties();
@@ -921,69 +938,80 @@ namespace GameFeelDescriptions
                         }
                         else
                         {
-                            using (new EditorGUILayout.HorizontalScope())
+                            using (new EditorGUILayout.HorizontalScope()) //EditorStyles.helpBox
                             {
                                 using (new EditorGUILayout.VerticalScope())
                                 {
-                                    selectedCategory = (StepThroughModeWindow.EffectGeneratorCategories)EditorGUILayout.EnumPopup("Category",selectedCategory);
-                                    selectedIntensity = EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
+                                    selectedCategory =
+                                        (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
+                                            "Category", selectedCategory);
+                                    selectedIntensity =
+                                        EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
                                 }
 
                                 using (new EditorGUILayout.VerticalScope())
                                 {
                                     if (GUILayout.Button("Mutate"))
                                     {
-                                        Undo.RecordObject(target, "Mutate "+ (string.IsNullOrEmpty(group.GroupName) ? "EffectGroup" : group.GroupName));
+                                        Undo.RecordObject(target,
+                                            "Mutate " + (string.IsNullOrEmpty(group.GroupName)
+                                                ? "EffectGroup"
+                                                : group.GroupName));
 
                                         MutateGroup(group);
                                     }
-                                    
+
                                     if (GUILayout.Button("Regenerate"))
                                     {
-                                        Undo.RecordObject(target, "Regenerate "+selectedCategory.GetName());
+                                        Undo.RecordObject(target, "Regenerate " + selectedCategory.GetName());
                                         //group.EffectsToExecute.Clear();
                                         group.EffectsToExecute.RemoveAll(item => item.Lock == false);
-                                        var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity, group.EffectsToExecute);
-                                    
+                                        var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory,
+                                            selectedIntensity, group.EffectsToExecute);
+
                                         group.EffectsToExecute.AddRange(recipe);
-                                        
+
                                         //Take the handcrafted tree, and mutate it!
                                         MutateGroup(group, 0.25f, 0.25f, 0.10f);
-                                    
+
                                         serializedObject.ApplyModifiedProperties();
                                     }
                                 }
                             }
 
-                            using (new EditorGUILayout.HorizontalScope())
-                            {
-                                if (GUILayout.Button("Regenerate using handcrafted tree"))
-                                {
-                                    Undo.RecordObject(target, "Re-Handcraft "+selectedCategory.GetName());
-                                    group.EffectsToExecute.RemoveAll(item => item.Lock == false);
-                                    var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity, group.EffectsToExecute);
-                                    
-                                    group.EffectsToExecute.AddRange(recipe);
-                                    
-                                    serializedObject.ApplyModifiedProperties();
-                                }
-                            }
+                            // using (new EditorGUILayout.HorizontalScope())
+                            // {
+                            //     if (GUILayout.Button("Regenerate using handcrafted tree"))
+                            //     {
+                            //         Undo.RecordObject(target, "Re-Handcraft "+selectedCategory.GetName());
+                            //         group.EffectsToExecute.RemoveAll(item => item.Lock == false);
+                            //         var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory, selectedIntensity, group.EffectsToExecute);
+                            //         
+                            //         group.EffectsToExecute.AddRange(recipe);
+                            //         
+                            //         serializedObject.ApplyModifiedProperties();
+                            //     }
+                            // }
                         }
-                        
-                        if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),"+"))
+
+                        if (GUI.Button(
+                            new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),
+                            "+"))
                         {
                             PlusMenuDropdown(group);
                         }
-                        
+
+
                         for (var i = 0; i < group.EffectsToExecute.Count; i++)
                         {
                             if (group.EffectsToExecute[i] == null) continue;
-                        
+
                             index++;
                             GenerateSimpleInterface(group.EffectsToExecute[i], ref index, indent + 1,
                                 propertyPath + ".EffectsToExecute", i);
                         }
                     }
+
 
                     break;
                 }

@@ -1,0 +1,423 @@
+{
+    "Name": "StartColorFadeInEffect",
+    "Description": "",
+    "DontDestroyOnLoad": false,
+    "DynamicReattachRate": 0.0,
+    "AttachToTag": "MainCamera",
+    "AttachToObjects": [],
+    "AttachToComponentType": "",
+    "StepThroughMode": false,
+    "TriggerList": [
+        {
+            "id": 0
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "OnStartTrigger",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "TriggerType": 0,
+                "EffectGroups": [
+                    {
+                        "GroupName": "",
+                        "Disabled": false,
+                        "UnscaledTime": true,
+                        "StepThroughMode": false,
+                        "AppliesTo": 0,
+                        "TargetTag": "",
+                        "TargetComponentType": {
+                            "instanceID": 0
+                        },
+                        "TargetList": [],
+                        "ExecuteOnTargetCopy": false,
+                        "DisableRendererAndFollowOriginal": false,
+                        "FollowEasing": 0,
+                        "EffectsToExecute": [
+                            {
+                                "id": 1
+                            },
+                            {
+                                "id": 2
+                            },
+                            {
+                                "id": 3
+                            },
+                            {
+                                "id": 4
+                            },
+                            {
+                                "id": 5
+                            },
+                            {
+                                "id": 6
+                            },
+                            {
+                                "id": 7
+                            },
+                            {
+                                "id": 8
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "CameraBackgroundColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Camera Background Color change Effect allows you to change a camera background color field using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 2.0,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.12941177189350129,
+                    "g": 0.12941177189350129,
+                    "b": 0.12941177189350129,
+                    "a": 1.0
+                },
+                "easing": 6,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "cameraToModify": {
+                    "instanceID": 0
+                }
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 2.0,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.3537735939025879,
+                    "g": 1.0,
+                    "b": 0.7529411911964417,
+                    "a": 1.0
+                },
+                "easing": 6,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "materialToModify": {
+                    "instanceID": 15492
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000003": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 2.0,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 1.0,
+                    "g": 1.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "easing": 6,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "materialToModify": {
+                    "instanceID": 15498
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000004": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 2.0,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.5,
+                    "g": 0.875,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "easing": 6,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "materialToModify": {
+                    "instanceID": 15500
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000005": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 2.0,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.8705882430076599,
+                    "g": 0.8705882430076599,
+                    "b": 0.8705882430076599,
+                    "a": 1.0
+                },
+                "easing": 6,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "materialToModify": {
+                    "instanceID": 15502
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000006": {
+            "type": {
+                "class": "AudioClipPlayEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Play Audio clip Effect allows you to a sound clip and adjust volume using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "createAudioSource": true,
+                "volume": 0.20000000298023225,
+                "source": {
+                    "instanceID": 0
+                },
+                "clip": {
+                    "instanceID": 15504
+                },
+                "playOneShot": false,
+                "pitchShiftAmount": 0.0,
+                "pitchResetDelay": 0.0,
+                "playLoop": true,
+                "currentPitch": 0.0,
+                "lastPitchChangeTime": 0.0
+            }
+        },
+        "00000007": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 1.2000000476837159,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 0.6470588445663452,
+                    "a": 0.21960784494876862
+                },
+                "easing": 4,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 0,
+                "materialToModify": {
+                    "instanceID": 15506
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000008": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "ExecuteAfterCompletion": [],
+                "Duration": 2.0,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 1.0,
+                    "g": 0.2594339847564697,
+                    "b": 0.8124116659164429,
+                    "a": 1.0
+                },
+                "easing": 3,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "loopType": 0,
+                "repeat": 1,
+                "materialToModify": {
+                    "instanceID": 15494
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000009": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

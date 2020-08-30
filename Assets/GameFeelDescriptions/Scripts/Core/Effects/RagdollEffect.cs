@@ -73,7 +73,7 @@ namespace GameFeelDescriptions
             {
                 ragdoll = Object.Instantiate(RagdollPrefab, targetPos, Quaternion.identity, GameFeelEffectExecutor.Instance.transform);
             }
-            
+
             var additionalForce = AdditionalForce;
             if (RandomizeAdditionalForce)
             {

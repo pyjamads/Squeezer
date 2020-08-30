@@ -15,6 +15,8 @@ namespace GameFeelDescriptions
 
         private List<bool> isTag;
         
+        public OnCollisionTrigger.CollisionContextType ContextType;
+        
         private void Start()
         {
             SetupInitialTargets(true);
@@ -31,7 +33,7 @@ namespace GameFeelDescriptions
         }
 
         private void CheckForActivation(OnCollisionTrigger.CollisionActivationType activationType, GameObject other,
-            Vector3 direction)
+            Vector3 context)
         {
             if (ReactTo.Count != isTag.Count)
             {
@@ -159,7 +161,7 @@ namespace GameFeelDescriptions
             if (Description.StepThroughMode)
             {
                 /* Trigger StepThroughMode Popup! */
-                HandleStepThroughMode(activationType, other, direction);
+                HandleStepThroughMode(activationType, other, context);
             }
 #endif
             
@@ -178,11 +180,11 @@ namespace GameFeelDescriptions
 #if UNITY_EDITOR
                 //Handle StepThroughMode for this specific group, if enabled.
                 HandleStepThroughMode(Description.TriggerList[TriggerIndex].EffectGroups[i], 
-                    activationType, other, direction);
+                    activationType, other, context);
 #endif
 
                 //We pass a normalized direction vector.
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], direction, true);
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], context, true);
             }
         }
         
@@ -199,22 +201,108 @@ namespace GameFeelDescriptions
             {
                 Debug.DrawRay(contact.point, other.relativeVelocity, Color.white);
             }
-            
+            foreach (ContactPoint contact in other.contacts)
+            {
+                Debug.DrawRay(contact.point, contact.normal, Color.red);
+            }
+            Vector3 context = Vector3.zero;
+
+            switch (ContextType)
+            {
+                case OnCollisionTrigger.CollisionContextType.RelativeVelocity:
+                    context = other.relativeVelocity;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.CollisionNormal:
+                    context = other.GetContact(0).normal;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.SeparationImpulse:
+                    context = other.impulse;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.FirstPoint:
+                    context = other.GetContact(0).point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPoint:
+                    context = other.GetContact(other.contactCount-1).point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPointNormal:
+                    context = other.GetContact(other.contactCount-1).normal;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionEnter, other.gameObject,
-                other.relativeVelocity);
+                context);
         }
 
         private void OnCollisionStay(Collision other)
         {
+            Vector3 context = Vector3.zero;
+
+            switch (ContextType)
+            {
+                case OnCollisionTrigger.CollisionContextType.RelativeVelocity:
+                    context = other.relativeVelocity;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.CollisionNormal:
+                    context = other.GetContact(0).normal;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.SeparationImpulse:
+                    context = other.impulse;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.FirstPoint:
+                    context = other.GetContact(0).point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPoint:
+                    context = other.GetContact(other.contactCount-1).point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPointNormal:
+                    context = other.GetContact(other.contactCount-1).normal;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionStay, other.gameObject,
-                other.relativeVelocity);
+                context);
         }
 
         private void OnCollisionExit(Collision other)
         {
+            Vector3 context = other.relativeVelocity;
+
+            if (other.contactCount > 0)
+            {
+                var contactPoint2D = other.GetContact(0);
+                var lastContactPoint2D = other.GetContact(other.contactCount-1);
+                switch (ContextType)
+                {
+                    case OnCollisionTrigger.CollisionContextType.RelativeVelocity:
+                        context = other.relativeVelocity;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.CollisionNormal:
+                        context = contactPoint2D.normal;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.SeparationImpulse:
+                        context = other.impulse;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.FirstPoint:
+                        context = contactPoint2D.point;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.LastPoint:
+                        context = lastContactPoint2D.point;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.LastPointNormal:
+                        context = lastContactPoint2D.normal;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionExit, other.gameObject,
-                other.relativeVelocity);
+                context);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -224,59 +312,161 @@ namespace GameFeelDescriptions
             {
                 Debug.DrawRay(contact.point, contact.relativeVelocity, Color.white);
             }
+            foreach (ContactPoint2D contact in other.contacts)
+            {
+                Debug.DrawRay(contact.point, contact.normal, Color.red);
+            }
+            
+            Vector3 context = Vector3.zero;
+
+            var contactPoint2D = other.GetContact(0);
+            var lastContactPoint2D = other.GetContact(other.contactCount-1);
+            switch (ContextType)
+            {
+                case OnCollisionTrigger.CollisionContextType.RelativeVelocity:
+                    context = other.relativeVelocity;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.CollisionNormal:
+                    context = contactPoint2D.normal;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.SeparationImpulse:
+                    context = contactPoint2D.normalImpulse * contactPoint2D.normal + Vector2.Perpendicular(contactPoint2D.normal) * contactPoint2D.tangentImpulse;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.FirstPoint:
+                    context = contactPoint2D.point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPoint:
+                    context = lastContactPoint2D.point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPointNormal:
+                    context = lastContactPoint2D.normal;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionEnter2D, other.gameObject,
-                other.relativeVelocity);
+                context);
         }
 
         private void OnCollisionStay2D(Collision2D other)
         {
+            Vector3 context = Vector3.zero;
+
+            var contactPoint2D = other.GetContact(0);
+            var lastContactPoint2D = other.GetContact(other.contactCount-1);
+            switch (ContextType)
+            {
+                case OnCollisionTrigger.CollisionContextType.RelativeVelocity:
+                    context = other.relativeVelocity;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.CollisionNormal:
+                    context = contactPoint2D.normal;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.SeparationImpulse:
+                    context = contactPoint2D.normalImpulse * contactPoint2D.normal + Vector2.Perpendicular(contactPoint2D.normal) * contactPoint2D.tangentImpulse;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.FirstPoint:
+                    context = contactPoint2D.point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPoint:
+                    context = lastContactPoint2D.point;
+                    break;
+                case OnCollisionTrigger.CollisionContextType.LastPointNormal:
+                    context = lastContactPoint2D.normal;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionStay2D, other.gameObject,
-                other.relativeVelocity);
+                context);
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
+            Vector3 context = other.relativeVelocity;
+
+            if (other.contactCount > 0)
+            {
+                var contactPoint2D = other.GetContact(0);
+                var lastContactPoint2D = other.GetContact(other.contactCount-1);
+                switch (ContextType)
+                {
+                    case OnCollisionTrigger.CollisionContextType.RelativeVelocity:
+                        context = other.relativeVelocity;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.CollisionNormal:
+                        context = contactPoint2D.normal;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.SeparationImpulse:
+                        context = contactPoint2D.normalImpulse * contactPoint2D.normal + Vector2.Perpendicular(contactPoint2D.normal) * contactPoint2D.tangentImpulse;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.FirstPoint:
+                        context = contactPoint2D.point;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.LastPoint:
+                        context = lastContactPoint2D.point;
+                        break;
+                    case OnCollisionTrigger.CollisionContextType.LastPointNormal:
+                        context = lastContactPoint2D.normal;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionExit2D, other.gameObject,
-                other.relativeVelocity);
+                context);
         }
 
-        //TODO: Get rigidbody and figure out "relativeVelocity" on our own here!
+        //TODO: Get rigidbody and figure out trigger collision contexts like relativeVelocity, etc on our own here! 2020-08-27
         
         private void OnTriggerEnter(Collider other)
         {
+            Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position);
+
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerEnter, other.gameObject,
-                gameObject.transform.position - other.ClosestPoint(gameObject.transform.position));
+            context);
         }
 
         private void OnTriggerStay(Collider other)
         {
+            Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position);
+            
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerStay, other.gameObject,
-                gameObject.transform.position - other.ClosestPoint(gameObject.transform.position));
+                context);
         }
 
         private void OnTriggerExit(Collider other)
         {
+            Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position);
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerExit, other.gameObject,
-                gameObject.transform.position - other.ClosestPoint(gameObject.transform.position));
+                context);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3();
+            
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerEnter2D, other.gameObject,
-                gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3());
+                context);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
+            Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3();
+            
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerStay2D, other.gameObject,
-                gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3());
+                context);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
+            Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3();
+            
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerExit2D, other.gameObject,
-                gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3());
+                context);
         }
 
         #endregion
