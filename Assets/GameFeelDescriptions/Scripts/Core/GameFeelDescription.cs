@@ -91,6 +91,7 @@ namespace GameFeelDescriptions
         [Header("This mode allows you to add effects as events happen while playing in the editor.")]
         public bool StepThroughMode;
         
+        
         [SerializeReference]
         [ShowTypeAttribute]
         public List<GameFeelTrigger> TriggerList = new List<GameFeelTrigger>();

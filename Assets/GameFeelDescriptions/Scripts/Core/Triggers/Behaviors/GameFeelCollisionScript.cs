@@ -199,7 +199,7 @@ namespace GameFeelDescriptions
         {
             foreach (ContactPoint contact in other.contacts)
             {
-                Debug.DrawRay(contact.point, other.relativeVelocity, Color.white);
+                Debug.DrawRay(contact.point, other.relativeVelocity.normalized, Color.white);
             }
             foreach (ContactPoint contact in other.contacts)
             {
@@ -310,7 +310,7 @@ namespace GameFeelDescriptions
             
             foreach (ContactPoint2D contact in other.contacts)
             {
-                Debug.DrawRay(contact.point, contact.relativeVelocity, Color.white);
+                Debug.DrawRay(contact.point, contact.relativeVelocity.normalized, Color.white);
             }
             foreach (ContactPoint2D contact in other.contacts)
             {

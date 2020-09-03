@@ -389,7 +389,7 @@ namespace GameFeelDescriptions
         {
             ShowWindow(null, null, null);
         }
-        
+
         /*
          * STEP THROUGH MODE REIMAGINED!
          *

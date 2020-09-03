@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace GameFeelDescriptions.Examples
+namespace GameFeelDescriptions
 {
-
-    public class CameraFollow : MonoBehaviour
+    public class SmoothDampFollow : MonoBehaviour
     {
         public GameObject follow;
         public Vector3 offset;
 
-        public float lerpAmount = 0.1f;
+        public float SmoothTime = 0.1f;
 
         private Vector3 lastPos;
 
@@ -34,7 +31,7 @@ namespace GameFeelDescriptions.Examples
 
             //var diffPos = follow.transform.position + currentOffset - transform.position;
 
-            transform.position = Vector3.SmoothDamp(transform.position, follow.transform.position + currentOffset, ref currentVelocity, 0.2f);
+            transform.position = Vector3.SmoothDamp(transform.position, follow.transform.position + currentOffset, ref currentVelocity, SmoothTime);
             //transform.position += diffPos * lerpAmount * Time.deltaTime;
 
             // lastPos = follow.transform.position;

@@ -67,7 +67,7 @@ public class CharacterController2D : MonoBehaviour
 			{
 				m_Grounded = true;
 				if (!wasGrounded)
-					OnLandEvent.Invoke(gameObject, "OnLand", Vector3.down);
+					OnLandEvent.Invoke(gameObject, "OnLand", Vector3.up);
 			}
 		}
 	}

@@ -35,7 +35,8 @@ namespace GameFeelDescriptions
         public GameObject FlashPrefab;
 
         public PrimitiveType FlashPrimitive;
-        
+
+        public Vector3 Scale = Vector3.one * (Random.Range(1, 200) / 100f);
         public Vector3 PositionOffset;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
@@ -48,6 +49,7 @@ namespace GameFeelDescriptions
             cp.PositionOffset = PositionOffset;
             cp.FlashColor = FlashColor;
             cp.FlashTransparency = FlashTransparency;
+            cp.Scale = Scale;
             cp.Init(origin, target, unscaledTime, interactionDirection);
             
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
@@ -82,6 +84,7 @@ namespace GameFeelDescriptions
             }
 
             flashObject.transform.position += PositionOffset;
+            flashObject.transform.localScale = Scale;
 
             //TODO: Note that it probably doesn't make sense to have an ExecuteOnCompletion list in addition
             //TODO: to the CustomFadeEffect list, and as such effects such as the trail here,

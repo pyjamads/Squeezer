@@ -85,12 +85,12 @@ namespace GameFeelDescriptions
         /// <summary>
         /// Disable the original renderer, and set the copy to follow the transform.
         /// </summary>
-        [HideInInspector]
-        [EnableFieldIf("FollowEasing", true)]
-        public bool DisableRendererAndFollowOriginal;
-
-        [HideInInspector]
-        public EasingHelper.EaseType FollowEasing;
+        // [HideInInspector]
+        // [EnableFieldIf("FollowEasing", true)]
+        // public bool DisableRendererAndFollowOriginal;
+        //
+        // [HideInInspector]
+        // public EasingHelper.EaseType FollowEasing;
 
         /// <summary>
         /// The list of effects to execute
@@ -163,75 +163,75 @@ namespace GameFeelDescriptions
             return targets;
         }
 
-        public GameObject GetActualTarget(GameObject target, bool dontDestroyImmediate = false)
-        {
-            if (ExecuteOnTargetCopy)
-            {
-                //Get a copy and remove all scripts, rigidbodies and colliders.
-                var copy = Object.Instantiate(target, GameFeelEffectExecutor.Instance.transform, true);
-                copy.tag = "Untagged";
-                
-                //If the object was deactivated, activate our copy.
-                copy.SetActive(true);
-
-                var scripts = copy.GetComponentsInChildren<MonoBehaviour>();
-                foreach (var script in scripts)
-                {
-                    if (dontDestroyImmediate)
-                    {
-                        Object.Destroy(script);
-                    }
-                    else
-                    {
-                        Object.DestroyImmediate(script);
-                    }
-                }
-
-                var rigid = copy.GetComponent<Rigidbody>();
-                if (dontDestroyImmediate)
-                {
-                    Object.Destroy(rigid);
-                }
-                else
-                {
-                    Object.DestroyImmediate(rigid);
-                }
-
-                var rigid2D = copy.GetComponent<Rigidbody2D>();
-                if (dontDestroyImmediate)
-                {
-                    Object.Destroy(rigid2D);
-                }
-                else
-                {
-                    Object.DestroyImmediate(rigid2D);
-                }
-
-                var col = copy.GetComponent<Collider>();
-                if (dontDestroyImmediate)
-                {
-                    Object.Destroy(col);
-                }
-                else
-                {
-                    Object.DestroyImmediate(col);
-                }
-
-                var col2D = copy.GetComponent<Collider2D>();
-                if (dontDestroyImmediate)
-                {
-                    Object.Destroy(col2D);
-                }
-                else
-                {
-                    Object.DestroyImmediate(col2D);
-                }
-
-                return copy;
-            }
-
-            return target;
-        }
+        // public GameObject GetActualTarget(GameObject target, bool dontDestroyImmediate = false)
+        // {
+        //     if (ExecuteOnTargetCopy)
+        //     {
+        //         //Get a copy and remove all scripts, rigidbodies and colliders.
+        //         var copy = Object.Instantiate(target, GameFeelEffectExecutor.Instance.transform, true);
+        //         copy.tag = "Untagged";
+        //         
+        //         //If the object was deactivated, activate our copy.
+        //         copy.SetActive(true);
+        //
+        //         var scripts = copy.GetComponentsInChildren<MonoBehaviour>();
+        //         foreach (var script in scripts)
+        //         {
+        //             if (dontDestroyImmediate)
+        //             {
+        //                 Object.Destroy(script);
+        //             }
+        //             else
+        //             {
+        //                 Object.DestroyImmediate(script);
+        //             }
+        //         }
+        //
+        //         var rigid = copy.GetComponent<Rigidbody>();
+        //         if (dontDestroyImmediate)
+        //         {
+        //             Object.Destroy(rigid);
+        //         }
+        //         else
+        //         {
+        //             Object.DestroyImmediate(rigid);
+        //         }
+        //
+        //         var rigid2D = copy.GetComponent<Rigidbody2D>();
+        //         if (dontDestroyImmediate)
+        //         {
+        //             Object.Destroy(rigid2D);
+        //         }
+        //         else
+        //         {
+        //             Object.DestroyImmediate(rigid2D);
+        //         }
+        //
+        //         var col = copy.GetComponent<Collider>();
+        //         if (dontDestroyImmediate)
+        //         {
+        //             Object.Destroy(col);
+        //         }
+        //         else
+        //         {
+        //             Object.DestroyImmediate(col);
+        //         }
+        //
+        //         var col2D = copy.GetComponent<Collider2D>();
+        //         if (dontDestroyImmediate)
+        //         {
+        //             Object.Destroy(col2D);
+        //         }
+        //         else
+        //         {
+        //             Object.DestroyImmediate(col2D);
+        //         }
+        //
+        //         return copy;
+        //     }
+        //
+        //     return target;
+        // }
 
         #endregion
 
@@ -250,11 +250,11 @@ namespace GameFeelDescriptions
 
             //TODO: Override currently running effect on origin + target (unless target is singleton, such as Time.timeScale, then override always?) 20/02/2020
 
-            var actualTargets = new GameObject[targets.Count];
-            for (int i = 0; i < actualTargets.Length; i++)
-            {
-                actualTargets[i] = GetActualTarget(targets[i], dontDestroyImmediate);
-            }
+            // var actualTargets = new GameObject[targets.Count];
+            // for (int i = 0; i < actualTargets.Length; i++)
+            // {
+            //     actualTargets[i] = GetActualTarget(targets[i], dontDestroyImmediate);
+            // }
 
             //Setup effects on each of the targets.
             for (int outer = 0; outer < EffectsToExecute.Count; outer++)
@@ -282,23 +282,28 @@ namespace GameFeelDescriptions
                 }
                 else
                 {
-                    if (actualTargets.Length == 0)
+                    if (targets.Count == 0)
                     {
-                        Debug.Log(EffectsToExecute[outer].GetType().Name +
-                                  ": No targets defined at execution time. \nSet AppliesTo to None, if no target is needed for the effect.");
+                        //There might not be any objects with a certain Tag or with a certain component
+                        if (AppliesTo != GameFeelTarget.Tag && AppliesTo != GameFeelTarget.ComponentType)
+                        {
+                            Debug.Log(EffectsToExecute[outer].GetType().Name +
+                                      ": No targets defined at execution time. \nSet AppliesTo to None, if no target is needed for the effect.");    
+                        }
+                        
                         return;
                     }
 
-                    if (AppliesTo.IsRelative() && actualTargets.Length > 1)
+                    if (AppliesTo.IsRelative() && targets.Count > 1)
                     {
                         Debug.LogError(EffectsToExecute[outer].GetType().Name +
                                        ": Too many targets at execution time.");
                     }
 
                     //Copy for each target and setup each effect, then Queue them in the executor.
-                    for (var inner = 0; inner < actualTargets.Length; inner++)
+                    for (var inner = 0; inner < targets.Count; inner++)
                     {
-                        var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, actualTargets[inner], UnscaledTime, direction);
+                        var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, targets[inner], UnscaledTime, direction);
 
                         if (copy == null) break;
 
@@ -375,8 +380,8 @@ namespace GameFeelDescriptions
             TargetList = recipe.TargetList;
             TargetComponentType = recipe.TargetComponentType;
             ExecuteOnTargetCopy = recipe.ExecuteOnTargetCopy;
-            DisableRendererAndFollowOriginal = recipe.DisableRendererAndFollowOriginal;
-            FollowEasing = recipe.FollowEasing;
+            // DisableRendererAndFollowOriginal = recipe.DisableRendererAndFollowOriginal;
+            // FollowEasing = recipe.FollowEasing;
             
             //Override effects with the ones from recipe
             EffectsToExecute = new List<GameFeelEffect>(recipe.EffectsToExecute);

@@ -12,7 +12,9 @@ namespace GameFeelDescriptions
 {
     public class GameFeelBehaviorBase : MonoBehaviour
     {
-        private const bool showRecipeDebug = false; 
+        private const bool showRecipeDebug = false;
+        private static bool disableStepThroughModeHandling = true;
+        
         
         //public bool StepThroughMode;
 
@@ -109,6 +111,8 @@ namespace GameFeelDescriptions
 #if UNITY_EDITOR
         protected void HandleStepThroughMode(params object[] context)
         {
+            if (disableStepThroughModeHandling) return;
+            
             //Step Through Mode
             if (Description.StepThroughMode 
                 && (EffectGroups.Count == 0 || 
@@ -121,6 +125,8 @@ namespace GameFeelDescriptions
         
         protected void HandleStepThroughMode(GameFeelEffectGroup effectGroup, params object[] context)
         {
+            if (disableStepThroughModeHandling) return;
+            
             //Step Through Mode
             if (effectGroup.StepThroughMode && !Description.StepThroughMode)
             {

@@ -17,9 +17,13 @@ namespace GameFeelDescriptions
 
         public AnimationCurve easeAmountInOut = AnimationCurve.Constant(0, 1, 1f);
 
+        
         public bool useResetPositionAfterShake;
         public Vector3 resetPosition;
-        
+
+        [HideFieldIf("useResetPositionAfterShake", true)]
+        public bool doNotResetPosition;
+            
         private Vector3 initialPosition;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
@@ -76,15 +80,18 @@ namespace GameFeelDescriptions
         protected override void ExecuteComplete()
         {
             if (target == null) return;
-            
-            //Guarantee we end up at initialPosition.
-            if (useResetPositionAfterShake)
+
+            if (doNotResetPosition == false)
             {
-                target.transform.position = resetPosition;
-            }
-            else
-            {
-                target.transform.position = initialPosition;
+                //Guarantee we end up at initialPosition.
+                if (useResetPositionAfterShake)
+                {
+                    target.transform.position = resetPosition;
+                }
+                else
+                {
+                    target.transform.position = initialPosition;
+                }
             }
             
             base.ExecuteComplete();

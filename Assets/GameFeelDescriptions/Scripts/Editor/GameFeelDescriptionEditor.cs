@@ -895,7 +895,7 @@ namespace GameFeelDescriptions
                         if (group.EffectsToExecute.Count == 0)
                         {
                             //GUILayout.Label("Select what type of reaction you'd like here:", EditorStyles.largeLabel);
-                            using (new EditorGUILayout.HorizontalScope()) //EditorStyles.helpBox
+                            using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox)) 
                             {
                                 using (new EditorGUILayout.VerticalScope())
                                 {
@@ -929,7 +929,7 @@ namespace GameFeelDescriptions
                                         var recipe =
                                             StepThroughModeWindow.GenerateRecipe(selectedCategory,
                                                 selectedIntensity);
-
+                                    
                                         group.EffectsToExecute.AddRange(recipe);
                                         serializedObject.ApplyModifiedProperties();
                                     }
@@ -938,7 +938,7 @@ namespace GameFeelDescriptions
                         }
                         else
                         {
-                            using (new EditorGUILayout.HorizontalScope()) //EditorStyles.helpBox
+                            using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
                             {
                                 using (new EditorGUILayout.VerticalScope())
                                 {
