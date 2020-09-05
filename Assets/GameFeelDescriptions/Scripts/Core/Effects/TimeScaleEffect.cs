@@ -44,7 +44,7 @@ namespace GameFeelDescriptions
 
         protected override bool TickTween()
         {   
-            SetValue(target, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
             
             //We never need to breakout early here.
             return false;
@@ -67,10 +67,11 @@ namespace GameFeelDescriptions
             return other is TimeScaleEffect;
         }
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime, Vector3? interactionDirection = null)
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
+            Vector3? interactionDirection = null)
         {
             var cp = new TimeScaleEffect();
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             cp = DeepCopy(cp);
 
             var (queueCopy, isOverlapping) = cp.HandleEffectOverlapping(singletonCopy);

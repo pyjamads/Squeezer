@@ -43,7 +43,7 @@ namespace GameFeelDescriptions
         [HideInInspector]
         public float lastPitchChangeTime;
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             
@@ -71,7 +71,7 @@ namespace GameFeelDescriptions
             
             lastPitchChangeTime = Time.unscaledTime;
             
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             
             
             return DeepCopy(cp);
@@ -128,7 +128,8 @@ namespace GameFeelDescriptions
                 source.Play();
             }
 
-            return false;
+            //We're done
+            return true;
         }
 
 //        public override void OverrideEffect(GameFeelEffect next)

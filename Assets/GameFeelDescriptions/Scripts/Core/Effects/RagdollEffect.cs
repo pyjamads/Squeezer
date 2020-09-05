@@ -13,19 +13,19 @@ namespace GameFeelDescriptions
         {
             Description = "Add a Rigidbody that's affected by gravity to the target, and set an initial velocity based on the interaction.";
             
-            //NOTE 2020-07-09: this should be handled in the ExecuteOnOffspring list,
-            //and maybe we should even handle the addition of forces and toggling of gravity the same way.   
-            
-            var destroy = new DestroyEffect();
-            destroy.Delay = Random.Range(0.2f, 1.5f);
-            
-            ExecuteOnOffspring = new List<GameFeelEffect>
-            {
-                destroy
-            };
+            // //NOTE 2020-07-09: this should be handled in the ExecuteOnOffspring list,
+            // //and maybe we should even handle the addition of forces and toggling of gravity the same way.   
+            //
+            // var destroy = new DestroyEffect();
+            // destroy.Delay = Random.Range(0.2f, 1.5f);
+            //
+            // ExecuteOnOffspring = new List<GameFeelEffect>
+            // {
+            //     destroy
+            // };
         }
         
-        [Tooltip("Add a custom prefab to spawn instead of the target (warning: this will call Destroy(target)).")]
+        [Tooltip("Add a custom prefab to spawn instead of changing the target.")]
         public GameObject RagdollPrefab;
 
         [Tooltip("Initial velocity force multiplier (Can be negative)")]
@@ -44,7 +44,7 @@ namespace GameFeelDescriptions
         // [HideFieldIf("DestroyRagdoll", false)]
         // public float DestroyDelay = Random.Range(0.2f, 1.5f);
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new RagdollEffect();
@@ -56,7 +56,7 @@ namespace GameFeelDescriptions
             cp.RandomizeAdditionalForce = RandomizeAdditionalForce;
             // cp.DestroyRagdoll = DestroyRagdoll;
             // cp.DestroyDelay = DestroyDelay;
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
@@ -117,6 +117,7 @@ namespace GameFeelDescriptions
             
             QueueOffspringEffects(ragdoll);
             
+            //We're done!
             return true;
         }
     }

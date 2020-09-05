@@ -24,11 +24,11 @@ namespace GameFeelDescriptions
 
         private GameObject flash;
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new FullscreenFlashEffect{cameraToModify = cameraToModify};
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
 
             //Handling the cameraToModify setup here, to be able to a better use CompareTo
             if(cp.cameraToModify == null)
@@ -96,7 +96,7 @@ namespace GameFeelDescriptions
         {
             if(flash == null) return true;
             
-            SetValue(flash, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(flash, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
         }

@@ -10,6 +10,8 @@ namespace GameFeelDescriptions
     {
         private void Start()
         {
+            if (Disabled) return;
+            
             SetupInitialTargets(false);
             
 #if UNITY_EDITOR

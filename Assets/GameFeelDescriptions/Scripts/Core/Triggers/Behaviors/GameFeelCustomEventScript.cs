@@ -46,6 +46,8 @@ namespace GameFeelDescriptions
 
         private void QueueExecution(GameObject origin, string eventName, Vector3? direction = null)
         {
+            if (Disabled) return;
+            
             if (EffectGroups.Count != targets.Count)
             {
                 SetupInitialTargets(true);

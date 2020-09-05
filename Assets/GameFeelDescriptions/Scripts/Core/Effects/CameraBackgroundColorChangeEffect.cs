@@ -15,11 +15,11 @@ namespace GameFeelDescriptions
         [Tooltip("No reference, makes the effect lookup a camera on the target or the main camera.")]
         public Camera cameraToModify;   
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new CameraBackgroundColorChangeEffect{cameraToModify = cameraToModify};
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
 
             //Handling the cameraToModify setup here, to be able to a better use CompareTo
             if(cp.cameraToModify == null)
@@ -66,7 +66,7 @@ namespace GameFeelDescriptions
         {
             if(cameraToModify == null) return true;
             
-            SetValue(target, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
         }

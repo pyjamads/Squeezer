@@ -712,7 +712,7 @@ namespace GameFeelDescriptions
                     
                     var prefix = group.Disabled ? "[DISABLED] " : "";
                     var groupLabel = prefix+"EffectGroup "+(string.IsNullOrWhiteSpace(group.GroupName) ? "" : "'"+group.GroupName+"'") 
-                                     +" [Applies to "+ (group.ExecuteOnTargetCopy ? "a copy of " : "")
+                                     +" [Applies to "
                                      + group.AppliesTo.GetName() + "]";
 
                     if (doHighlight && EditorHelpers.HighlightedEffectGroupIndex == dataIndex)

@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,75 +10,6 @@ namespace GameFeelDescriptions
    [Serializable]
    public abstract class GameFeelEffect
    {
-      /// <summary>
-      /// Returns a Copy of the effect.
-      /// </summary>
-      /// <param name="origin"></param>
-      /// <param name="target"></param>
-      /// <param name="unscaledTime"></param>
-      /// <param name="interactionDirection"></param>
-      /// <returns>A copy of the effect or null if copies are suspended.</returns>
-      public abstract GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime, Vector3? interactionDirection = null);
-
-      protected virtual T DeepCopy<T>(T shallow) where T : GameFeelEffect
-      {
-         shallow.Description = Description;
-         shallow.Disabled = Disabled;
-         shallow.Delay = Delay;
-         shallow.RandomizeDelay = RandomizeDelay;
-         shallow.StackingType = StackingType;
-         shallow.ExecuteAfterCompletion = new List<GameFeelEffect>(ExecuteAfterCompletion);
-         
-         //Initialize elapsed
-         shallow.SetElapsed();
-         
-         //Copy is now "deeper"
-         return shallow;
-      }
-      
-      public virtual void Mutate(float amount = 0.05f)
-      {
-         //Add or remove the amount [-amount, amount] from the delay, but never goes below 0.
-         var delayAmount = Random.value * 2f * amount - amount;
-         Delay = Mathf.Max(0,Delay + delayAmount * Delay);
-         
-         //XOR with a amount probability to flip the bool.
-         RandomizeDelay ^= RandomExtensions.Boolean(amount);
-         
-         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for mutation. 2020-08-20
-         // //Flip stacking type with prop = amount.
-         // if (RandomExtensions.Boolean(trueProp: amount))
-         // {
-         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
-         // }
-         
-         //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
-         SetElapsed();
-      }
-
-      /// <summary>
-      /// Randomize the parameters of the Game Feel Effect.
-      /// </summary>
-      public virtual void Randomize()
-      {
-         //Generate a random delay between [0 and 1] in steps of 0.05f, with a 50% chance of 0.
-         Delay = Mathf.Max(0, (Random.Range(0,41) / 20f) - 1f);
-
-         //25% chance to tick the RandomizeDelay.
-         RandomizeDelay = RandomExtensions.Boolean(0.25f);
-         
-         StackingType = StackEffectType.Discard;
-         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for randomization. 2020-08-20
-         // //50% chance of getting a random stacking type.  
-         // if (RandomExtensions.Boolean(0.5f))
-         // {
-         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
-         // }
-         
-         //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
-         SetElapsed();
-      }
-      
       /// <summary>
       /// Stacking effect types:
       /// <para>- Discard discards this, if there's currently an active copy of this effect running.</para> 
@@ -129,6 +59,11 @@ namespace GameFeelDescriptions
       public string Description;
 
       /// <summary>
+      /// Whether the updates will occur on unscaled or regular <see cref="Time.timeScale"/>.
+      /// </summary>
+      public bool UnscaledTime;
+
+      /// <summary>
       /// Delay in seconds from call to execution.
       /// Can be used to 'jumpstart' the effect, by setting a negative delay (Only works for <see cref="DurationalGameFeelEffect"/>).
       /// </summary>
@@ -143,64 +78,11 @@ namespace GameFeelDescriptions
       [Space(-10)]
       public bool RandomizeDelay;
       
-      /*
-      //TODO: Remove effect groups 1: move appliesTo, unscaledTime, executeOnCopy, (alter follow to just nest the copy under the original) to effects.
-         /// <summary>
-        /// What is the target this effect is applied to. 
-        /// </summary>
-        [EnableFieldIf("TargetTag", GameFeelTarget.Tag)]
-        [EnableFieldIf("TargetComponentType", GameFeelTarget.ComponentType)] 
-        [EnableFieldIf("TargetList", GameFeelTarget.List)]
-        [Header("Controls which targets the effects apply to.")]
-        [ShowTypeAttribute]
-        public GameFeelTarget AppliesTo;
-        
-        /// <summary>
-        /// Used when <see cref="GameFeelEffect.AppliesTo"/> is set to <see cref="GameFeelTarget.Tag"/>.
-        /// Applies to objects with the given Tag, or Name.
-        /// </summary>
-        [HideInInspector] //Visibility handled by AppliesTo Attributes.
-        public string TargetTag;
+      [Header("Cooldown in seconds before another instance of this effect can be executed!")]
+      [Min(0f)]
+      public float Cooldown;
+      private float lastCopyTime = float.NegativeInfinity;
 
-        //TODO: Make this assignable without an actual instance or remove it. 04/02/2020
-        /// <summary>
-        /// Used when <see cref="GameFeelEffect.AppliesTo"/> is set to <see cref="GameFeelTarget.ComponentType"/>.
-        /// Applies to all game objects with a Component of the type attached.
-        /// </summary>
-        [HideInInspector] //Visibility handled by AppliesTo Attributes.
-        public Component TargetComponentType;
-
-        /// <summary>
-        /// Used when <see cref="GameFeelEffect.AppliesTo"/> is set to <see cref="GameFeelTarget.List"/>.
-        /// Applies to all game objects in the list.
-        /// </summary>
-        //[HideInInspector] //Visibility handled by AppliesTo Attributes.
-        //[HideFieldIf("AppliesTo", GameFeelTarget.List, true)]
-        [HideInInspector]
-        public List<GameObject> TargetList;
-
-        /// <summary>
-        /// Whether to use a copy for executing the effects (to avoid altering game logic)
-        /// </summary>
-        [HideFieldIf("AppliesTo", GameFeelTarget.EditorValue)]
-        [EnableFieldIf("DisableRendererAndFollowOriginal", true)]
-        [Tooltip("Controls whether targets get copied and applied to the copies instead.")]
-        public bool ExecuteOnTargetCopy;
-//TODO: figure out if this should be a maintained visual copy ex. have a ref to original, and make sure it lerps to original transform, whenever some property is not "tweening".
-//TODO: And once the original game object is destroyed, the maintained object should be removed once no "effects" are operating on it. 11/4/2020
-
-        /// <summary>
-        /// Disable the original renderer, and set the copy to follow the transform.
-        /// </summary>
-        [HideInInspector]
-        [EnableFieldIf("FollowEasing", true)]
-        public bool DisableRendererAndFollowOriginal;
-
-        [HideInInspector]
-        public EasingHelper.EaseType FollowEasing;
-    
-        */
-      
       /// <summary>
       /// List of effects to execute after completion of this effect.
       /// </summary>
@@ -218,21 +100,104 @@ namespace GameFeelDescriptions
       
       // Progression tracker
       protected float elapsed;
-      
-      /// <summary>
-      /// Whether the updates will occur on unscaled or regular <see cref="Time.timeScale"/>.
-      /// </summary>
-      protected bool unscaledTime;
 
       protected GameObject origin;
       protected internal GameObject target;
       protected Vector3? interactionDirection;
 
       protected bool firstTick = true;
-      protected bool isComplete;
+      public bool isComplete;
 
-      public virtual float GetRemainingTime()
+      /// <summary>
+      /// Returns a Copy of the effect.
+      /// </summary>
+      /// <param name="origin"></param>
+      /// <param name="target"></param>
+      /// <param name="interactionDirection"></param>
+      /// <returns>A copy of the effect or null if copies are suspended.</returns>
+      public abstract GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
+         Vector3? interactionDirection = null);
+
+      protected virtual T DeepCopy<T>(T shallow) where T : GameFeelEffect
       {
+         //If the cooldown is not over, disallow the copy.
+         if (Time.unscaledTime < lastCopyTime + Cooldown)
+         {
+            return null;
+         }
+         
+         shallow.Description = Description;
+         shallow.Disabled = Disabled;
+         shallow.UnscaledTime = UnscaledTime;
+         shallow.Delay = Delay;
+         shallow.RandomizeDelay = RandomizeDelay;
+         
+         //NOTE: we don't actually need to pass this parameter, as the cooldown is handled here, but we might as well. 2020-09-04
+         shallow.Cooldown = Cooldown;
+         
+         shallow.StackingType = StackingType;
+         shallow.ExecuteAfterCompletion = new List<GameFeelEffect>(ExecuteAfterCompletion);
+         
+         //Initialize elapsed
+         shallow.SetElapsed();
+         
+         //Set the latest time this effect was copied.
+         lastCopyTime = Time.unscaledTime;
+         
+         //Copy is now complete!
+         return shallow;
+      }
+      
+      public virtual void Mutate(float amount = 0.05f)
+      {
+         //Add or remove the amount [-amount, amount] from the delay, but never goes below 0.
+         var delayAmount = Random.value * 2f * amount - amount;
+         Delay = Mathf.Max(0,Delay + delayAmount * Delay);
+         
+         //XOR with a amount probability to flip the bool.
+         RandomizeDelay ^= RandomExtensions.Boolean(amount);
+         
+         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for mutation. 2020-08-20
+         // //Flip stacking type with prop = amount.
+         // if (RandomExtensions.Boolean(trueProp: amount))
+         // {
+         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
+         // }
+         
+         //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
+         SetElapsed();
+      }
+
+      /// <summary>
+      /// Randomize the parameters of the Game Feel Effect.
+      /// </summary>
+      public virtual void Randomize()
+      {
+         //Generate a random delay between [0 and 1] in steps of 0.05f, with a 50% chance of 0.
+         Delay = Mathf.Max(0, (Random.Range(0,41) / 20f) - 1f);
+
+         //25% chance to tick the RandomizeDelay.
+         RandomizeDelay = RandomExtensions.Boolean(0.25f);
+         
+         StackingType = StackEffectType.Discard;
+         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for randomization. 2020-08-20
+         // //50% chance of getting a random stacking type.  
+         // if (RandomExtensions.Boolean(0.5f))
+         // {
+         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
+         // }
+         
+         //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
+         SetElapsed();
+      }
+      
+      public virtual float GetRemainingTime(bool includeDelay = false)
+      {
+         if (includeDelay)
+         {
+            return Delay;
+         }
+         
          return -elapsed;
       }
 
@@ -284,7 +249,7 @@ namespace GameFeelDescriptions
                throw new ArgumentOutOfRangeException();
          }
       }
-      
+
       /// <summary>
       /// Initialize origin, target and direction of interaction.
       /// Direction is provided in some cases (OnCollision, OnMove, OnRotate, OnCustomEvent)
@@ -292,14 +257,8 @@ namespace GameFeelDescriptions
       /// <param name="origin"></param>
       /// <param name="target"></param>
       /// <param name="interactionDirection"></param>
-      public void Init(GameObject origin, GameObject target, bool unscaledTime, Vector3? interactionDirection = null) => (this.origin, this.target, this.unscaledTime, this.interactionDirection) = (origin, target, unscaledTime, interactionDirection);
-     
-      /// <summary>
-      /// Set whether to use scaled or unscaled deltaTime.
-      /// </summary>
-      /// <param name="unscaledTime"></param>
-      public void SetTimeScaling(bool unscaledTime) => this.unscaledTime = unscaledTime;
-
+      public void Init(GameObject origin, GameObject target, Vector3? interactionDirection = null) => (this.origin, this.target, this.interactionDirection) = (origin, target, interactionDirection);
+      
       /// <summary>
       /// Set the delay before the effect begins.
       /// </summary>
@@ -322,15 +281,19 @@ namespace GameFeelDescriptions
          //negative elapsed, is used for setting delays.
          if (elapsed >= 0)
          {
-            //Make sure we always get to the end (ie. when elapsed == Duration)
-            ExecuteTick(); //Ignore output, in single execution setting
-            //Queue effects in the ExecuteAfterCompletion list
-            ExecuteComplete();
+            //Check effect is complete
+            var complete = ExecuteTick(); 
 
-            return true;
+            if (complete)
+            {
+               //Queue effects in the ExecuteAfterCompletion list
+               ExecuteComplete();
+               
+               return true;
+            }
          }
          
-         elapsed += unscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+         elapsed += UnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
 
          return false;
       }
@@ -346,7 +309,7 @@ namespace GameFeelDescriptions
       /// <summary>
       /// Executes the effect, on the target. 
       /// </summary>
-      /// <returns>True if effect finishes early. False otherwise</returns>
+      /// <returns>True when an effect finishes and false otherwise.</returns>
       protected abstract bool ExecuteTick();
 
       /// <summary>
@@ -356,13 +319,16 @@ namespace GameFeelDescriptions
       {
          isComplete = true;
          ExecuteCleanUp();
+         
+         var queuedEffects = new List<GameFeelEffect>();
+         
          foreach (var effect in ExecuteAfterCompletion)
          {
             //If the effect is disabled, skip it.
             if(effect.Disabled) continue;
             
             //Copy and initialize effect.
-            var copy = effect.CopyAndSetElapsed(origin, target, unscaledTime, interactionDirection);
+            var copy = effect.CopyAndSetElapsed(origin, target, interactionDirection);
             
             //Singleton Effects might return null, to avoid copies.
             if(copy == null) continue;
@@ -376,7 +342,14 @@ namespace GameFeelDescriptions
             //Queue the effect
             if (queueCopy)
             {
-               copy.QueueExecution(forceQueue: false);   
+               if (copy is WaitForAboveEffect waitForAboveEffect)
+               {
+                  waitForAboveEffect.WaitFor(queuedEffects.ToList());
+               }
+
+               copy.QueueExecution(forceQueue: false);
+               
+               queuedEffects.Add(copy);
             }
          }
       }

@@ -15,7 +15,6 @@ namespace GameFeelDescriptions
         private const bool showRecipeDebug = false;
         private static bool disableStepThroughModeHandling = true;
         
-        
         //public bool StepThroughMode;
 
         [ReadOnly]
@@ -25,6 +24,8 @@ namespace GameFeelDescriptions
         [ReadOnly]
         public GameFeelTriggerType TriggerType;
         
+        public bool Disabled => Description.TriggerList[TriggerIndex].Disabled;
+
         public List<GameFeelEffectGroup> EffectGroups
         {
             get
@@ -201,115 +202,6 @@ namespace GameFeelDescriptions
             SceneView.lastActiveSceneView.Focus();
             
             StepThroughModeWindow.ShowWindow(message, this, effectGroup, context);
-
-            
-            //Debug.Break();
-            
-//             var serializedObject = new SerializedObject(Description);
-//             //dialogResult values 2: alt, 1: cancel, 0: ok 
-//             if (dialogResult != 2)
-//             {
-//                 //TODO: Maybe context + trigger type to setup trigger automatically?!? (Maybe not) 
-//                 
-//                 if (dialogResult == 0)
-//                 {
-//                     var desc = (GameFeelDescription)serializedObject.targetObject;
-//                     Undo.RecordObject(desc, "Generate feedback effects!");
-//                     
-//                     for (int i = 0; i < recipe.Count; i++)
-//                     {
-//                         if (effectGroup != null)
-//                         {
-//                             effectGroup.EffectsToExecute.Add(recipe[i]);
-//                         }
-//                         else
-//                         {
-//                             if (desc.TriggerList[TriggerIndex].EffectGroups.Count == 0)
-//                             {
-//                                 desc.TriggerList[TriggerIndex].EffectGroups.Add(new GameFeelEffectGroup
-//                                     {EffectsToExecute = new List<GameFeelEffect> {recipe[i]}});
-//                             }
-//                             else
-//                             {
-//                                 desc.TriggerList[TriggerIndex].EffectGroups[0].EffectsToExecute.Add(recipe[i]);
-//                                 
-//                             }
-//                         }    
-//                     }
-//                     serializedObject.ApplyModifiedProperties();
-//
-//                     if (GameFeelDescription.saveDataForUserStudy)
-//                     {
-//                         var name = DateTime.Now.ToString("s").Replace(':', '.')+
-//                                    "_"+ Description.name + ".txt";
-//
-//                         GameFeelDescription.SaveToFile(Description, name, GameFeelDescription.userStudyPath);
-//                     }
-//                     
-//                     //Unpause!
-//                     EditorApplication.isPaused = false;
-//                     return;
-//                 }
-//                 
-//                 EditorGUIUtility.PingObject(Description.gameObject);
-//                 Selection.SetActiveObjectWithContext(Description.gameObject, this);
-//
-//                 //TODO: highlight Effect group if it's not Null.
-//                 EditorHelpers.HighlightedTriggerIndex = TriggerIndex;
-//                 EditorHelpers.LastHighlightTime = EditorApplication.timeSinceStartup;
-//                 
-//
-//                 //TODO: figure out how to highlight this using the GameFeelDescriptionEditor maybe?
-//                 //Highlighter.Highlight("Game Feel Description (Script)", "TriggerList");
-// //                if (effectGroup != null)
-// //                {
-// //                    Debug.Log(gameObject.name + " triggered " + typeName + ": add effects to be executed on " +
-// //                              effectGroup.AppliesTo.GetName() + ".");
-// //                }
-// //                else
-// //                {
-// //                    Debug.Log(gameObject.name + " " + typeName +
-// //                              " triggered, add an effect group, select what it AppliesTo and add effects to be executed.");
-// //                }     
-//
-//                 EditorApplication.isPaused = true;
-//                 Debug.Break();
-//             }
-//             else
-//             {
-//                 if (effectGroup != null && effectGroup.StepThroughMode)
-//                 {
-//                     effectGroup.StepThroughMode = false;
-//                 }
-//
-//                 if (Description.StepThroughMode && EffectGroups.Count == 0)
-//                 {
-//                     switch (TriggerType)
-//                     {
-//                         case GameFeelTriggerType.OnCollision:
-//                         {
-//                             var col = (OnCollisionTrigger) Description.TriggerList[TriggerIndex];
-//                             var other = (GameObject) context[1];
-//
-//                             col.ReactTo.Remove("*");
-//                             col.ReactTo.Add("!" + other.tag);
-//                             serializedObject.ApplyModifiedProperties();
-//
-//                             break;
-//                         }
-//                         default:
-//                         //For all the other trigger types, just remove them.
-//                         {
-//                             var sp = serializedObject.FindProperty("TriggerList");
-//                             sp.DeleteArrayElementAtIndex(TriggerIndex);
-//                             serializedObject.ApplyModifiedProperties();
-//
-//                             Destroy(this);
-//                             break;
-//                         }
-//                     }
-//                 }
-//             }
         }
 
         public static List<Func<GameFeelEffect>> GetGameFeelEffects(GameFeelTriggerType triggerType = GameFeelTriggerType.OnCollision, params object[] context)

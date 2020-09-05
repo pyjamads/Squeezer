@@ -128,7 +128,8 @@ namespace GameFeelDescriptions
             //Destruction effects cannot occur during collision updates, so we delay it until next update
             //TODO: instead of passing this "forceQueue" flag, pass a isCollisionUpdate flag 2020-08-27
             //TODO: handle the whole DestroyImmediate issue as well (when copying objects) 2020-08-27
-            if (forceQueue && (effect is DestroyEffect || effect is SpawningGameFeelEffect))
+            //TODO: another issue is Disabling the renderer when making a copy that is following the original...2020-09-04
+            if (forceQueue && (effect is DestroyEffect || effect is DisableEffect || effect is DisableRendererEffect || effect is SpawningGameFeelEffect))
             {
                 activeEffects.Add(effect);
                 return;
@@ -137,7 +138,11 @@ namespace GameFeelDescriptions
             //If Delay is Zero, execute the Effect immediately to avoid one frame of lag.
             if (effect.Delay == 0)
             {
-                effect.Tick();
+                //Tick it, but if it's not done, then add it to active effects.
+                if (!effect.Tick())
+                {
+                    activeEffects.Add(effect);
+                }
 
                 //If Duration > 0, queue the "rest" of the effect.
                 if (effect is DurationalGameFeelEffect durational && durational.Duration > 0)

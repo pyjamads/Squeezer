@@ -35,6 +35,8 @@ namespace GameFeelDescriptions
         private void CheckForActivation(OnCollisionTrigger.CollisionActivationType activationType, GameObject other,
             Vector3 context)
         {
+            if (Disabled) return;
+            
             if (ReactTo.Count != isTag.Count)
             {
                 //Just redo the check, if someone is modifying the list in the editor.

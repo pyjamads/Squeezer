@@ -44,21 +44,18 @@ namespace GameFeelDescriptions
         
         protected override T DeepCopy<T>(T shallow)
         {
-            if (shallow is TweenEffect<TTween> cp)
-            {
-                cp.setFromValue = setFromValue;
-                cp.@from = @from;
-                cp.relative = relative;
-                cp.to = to;
-                cp.easing = easing;
-                cp.curve = curve;
-
-                cp = base.DeepCopy(cp);
-
-                return cp as T;
-            }
+            //If the shallow is not TweenEffect, return null instead. 
+            if (!(shallow is TweenEffect<TTween> cp)) return null;
             
-            return base.DeepCopy(shallow);
+            cp.setFromValue = setFromValue;
+            cp.@from = @from;
+            cp.relative = relative;
+            cp.to = to;
+            cp.easing = easing;
+            cp.curve = curve;
+                
+            return base.DeepCopy(cp as T);
+
         }
         
         public override void Randomize()
@@ -90,9 +87,6 @@ namespace GameFeelDescriptions
             DelayBetweenLoops = Random.value;
 
             base.Randomize();
-            
-            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
-            SetupLooping();
         }
 
         public override bool CompareTo(GameFeelEffect other)
@@ -309,7 +303,7 @@ namespace GameFeelDescriptions
 
         protected override bool ExecuteTick()
         {
-            if (duration > 0)
+            if (Duration > 0)
             {
                 return TickTween();
             }

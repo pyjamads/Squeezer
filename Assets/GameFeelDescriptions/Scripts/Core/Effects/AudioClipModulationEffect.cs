@@ -16,11 +16,11 @@ namespace GameFeelDescriptions
         [Tooltip("Use to modulate pitch instead of the volume.")]
         public bool modulatePitch;
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new AudioClipModulationEffect{source = source, modulatePitch = modulatePitch};
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
         
@@ -76,7 +76,7 @@ namespace GameFeelDescriptions
         {
             if (source == null) return true;
             
-            SetValue(target, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
         }

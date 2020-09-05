@@ -11,14 +11,6 @@ namespace GameFeelDescriptions
         private void Start()
         {
             SetupInitialTargets(false);
-            
-            foreach (var item in EffectGroups)
-            {
-                if (item.AppliesTo == GameFeelTarget.Self && !item.ExecuteOnTargetCopy)
-                {
-                    Debug.LogWarning("Effect group: "+item.GroupName +" applies to Self which is being disabled, did you want to execute it on a copy?");
-                }
-            }
         }
 
         private void OnEnable()
@@ -29,6 +21,8 @@ namespace GameFeelDescriptions
         
         private void OnDisable()
         {
+            if (Disabled) return;
+            
             //This is to make sure we don't react to the destruction of this script.
             if (!shouldReact)
             {

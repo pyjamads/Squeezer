@@ -77,10 +77,7 @@ namespace GameFeelDescriptions
             destroy.RandomizeDelay = true;
             ragdoll.ExecuteOnOffspring.Add(destroy);
 
-            ExecuteOnOffspring = new List<GameFeelEffect>
-            {
-                ragdoll //destroy is queued on ragdoll.OnComplete
-            };
+            this.OnOffspring(ragdoll);
         }
 
         [Tooltip("Number of Pieces to spawn, if amount is different from the items in the list, they will be randomly chosen.")]
@@ -96,7 +93,7 @@ namespace GameFeelDescriptions
         
         //TODO: Add 2D option, and maybe a camera reference?, so we can make quad/sprite instead. 2020-08-13
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new ShatterEffect();
@@ -106,7 +103,7 @@ namespace GameFeelDescriptions
             cp.usePrimitivePieces = usePrimitivePieces;
             cp.PiecePrimitive = PiecePrimitive;
             
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
 
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
 
@@ -191,6 +188,7 @@ namespace GameFeelDescriptions
             
             QueueOffspringEffects(shatteredPieces);
             
+            //We're done!
             return true;
         }
     }

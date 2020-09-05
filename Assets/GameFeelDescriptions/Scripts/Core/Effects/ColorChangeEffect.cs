@@ -34,9 +34,6 @@ namespace GameFeelDescriptions
             repeat = Random.Range(-1, 3);
 
             base.Randomize();
-            
-            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
-            SetupLooping();
         }
 
         public override void Mutate(float amount = 0.05f)
@@ -68,9 +65,6 @@ namespace GameFeelDescriptions
             }
 
             base.Mutate(amount);
-            
-            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
-            SetupLooping();
         }
 
         protected override Color GetRelativeValue(Color fromValue, Color addValue)
@@ -118,6 +112,12 @@ namespace GameFeelDescriptions
             // var alpha = (toValue.a - fromValue.a);
             //
             // return new Color(r,g,b,alpha);
+        }
+
+        protected override void UpdateRelativeValues()
+        {
+            //TODO: Change this and the above so colors can do relative values properly... 2020-09-04
+            base.UpdateRelativeValues();
         }
 
         public override bool CompareTo(GameFeelEffect other)

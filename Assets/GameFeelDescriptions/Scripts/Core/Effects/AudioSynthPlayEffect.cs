@@ -99,7 +99,7 @@ namespace GameFeelDescriptions
             return length / bytesPerSec;
         }
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var nextParameterSet = synthParameters;
@@ -119,7 +119,7 @@ namespace GameFeelDescriptions
                 //latestSynthParameters = latestSynthParameters
             };
             
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
         
@@ -327,7 +327,9 @@ namespace GameFeelDescriptions
             //NOTE: AudioSynthPlayEffect is Durational, in order to be able to queue effects after the sound finishes.
             //We're just doing nothing here, because the sounds if not played by our system.
             //PlaySound(); //PlaySound is executed in the Setup function, ie. on first tick.
-            return false;
+            
+            //We're done
+            return true;
         }
 
 //        public override IEnumerator ExecuteTween(GameObject target, float start, float duration, float end, Vector3? interactionDirection, bool unscaledTime)

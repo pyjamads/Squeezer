@@ -1,5 +1,4 @@
 using System;
-using GameFeelDescriptions.Examples;
 using UnityEngine;
 
 namespace GameFeelDescriptions
@@ -11,8 +10,8 @@ namespace GameFeelDescriptions
         {
             Description = "Make a copy of the target.";
             
-            // //Make sure to destroy the copy after a bit!
-            // this.OnComplete(new DestroyEffect{Delay = 2f, RandomizeDelay = true});
+            // NOTE: Consider destroying the copy after a bit!
+            // this.OnOffspring(new DestroyEffect{Delay = 2f, RandomizeDelay = true});
         }
 
         public string SetTag = "Untagged";
@@ -26,7 +25,7 @@ namespace GameFeelDescriptions
         public float ScaleFactor = 1f;
         public Vector3 PositionOffset;
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new SpawnCopyEffect();
@@ -41,7 +40,7 @@ namespace GameFeelDescriptions
             
             cp.ScaleFactor = ScaleFactor;
             cp.PositionOffset = PositionOffset;
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
@@ -66,7 +65,8 @@ namespace GameFeelDescriptions
 
             QueueOffspringEffects(copy);
             
-            return false;
+            //We're done!
+            return true;
         }
     }
 }

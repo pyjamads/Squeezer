@@ -12,7 +12,7 @@ namespace GameFeelDescriptions
             relative = false;
         }
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new MaterialColorChangeEffect
@@ -20,7 +20,7 @@ namespace GameFeelDescriptions
                     materialToModify = materialToModify,
                     applyToAllInstances = applyToAllInstances,
                 };
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
         
@@ -123,7 +123,7 @@ namespace GameFeelDescriptions
         {
             if (target == null) return true;
             
-            SetValue(target, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
         }

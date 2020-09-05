@@ -13,7 +13,7 @@ using Object = UnityEngine.Object;
 
 namespace GameFeelDescriptions
 {
-    //TODO: Remove effect groups 1: move appliesTo, unscaledTime, executeOnCopy, (alter follow to just nest the copy under the original) to effects.
+    //TODO: Remove effect groups 1: move appliesTo, to effects??? maybe make en effect that allows you to target other things...
     //TODO: Remove effect groups 2: move stepthroughmode and disabled up to triggers, and rename it to pause on trigger or something.
     
     [Serializable]
@@ -30,10 +30,10 @@ namespace GameFeelDescriptions
         [Header("Controls if the effects are executed, and adhere to current timeScale.")]
         public bool Disabled;
 
-        /// <summary>
-        /// Use unscaledTime when executing this effect, this allows effects to follow game play time scale or not. 
-        /// </summary>
-        public bool UnscaledTime;
+        // /// <summary>
+        // /// Use unscaledTime when executing this effect, this allows effects to follow game play time scale or not. 
+        // /// </summary>
+        // public bool UnscaledTime;
         
         [Header("This mode allows you to add effects as events happen while playing.")]
         public bool StepThroughMode;
@@ -71,27 +71,7 @@ namespace GameFeelDescriptions
         //[HideFieldIf("AppliesTo", GameFeelTarget.List, true)]
         [HideInInspector]
         public List<GameObject> TargetList;
-
-        /// <summary>
-        /// Whether to use a copy for executing the effects (to avoid altering game logic)
-        /// </summary>
-        [HideFieldIf("AppliesTo", GameFeelTarget.EditorValue)]
-        [EnableFieldIf("DisableRendererAndFollowOriginal", true)]
-        [Tooltip("Controls whether targets get copied and applied to the copies instead.")]
-        public bool ExecuteOnTargetCopy;
-//TODO: figure out if this should be a maintained visual copy ex. have a ref to original, and make sure it lerps to original transform, whenever some property is not "tweening".
-//TODO: And once the original game object is destroyed, the maintained object should be removed once no "effects" are operating on it. 11/4/2020
-
-        /// <summary>
-        /// Disable the original renderer, and set the copy to follow the transform.
-        /// </summary>
-        // [HideInInspector]
-        // [EnableFieldIf("FollowEasing", true)]
-        // public bool DisableRendererAndFollowOriginal;
-        //
-        // [HideInInspector]
-        // public EasingHelper.EaseType FollowEasing;
-
+        
         /// <summary>
         /// The list of effects to execute
         /// </summary>
@@ -256,6 +236,8 @@ namespace GameFeelDescriptions
             //     actualTargets[i] = GetActualTarget(targets[i], dontDestroyImmediate);
             // }
 
+            var queuedEffects = new List<GameFeelEffect>();
+            
             //Setup effects on each of the targets.
             for (int outer = 0; outer < EffectsToExecute.Count; outer++)
             {
@@ -264,7 +246,7 @@ namespace GameFeelDescriptions
 
                 if (AppliesTo == GameFeelTarget.EditorValue)
                 {
-                    var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, null, UnscaledTime, direction);
+                    var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, null, direction);
 
                     if (copy == null) continue;
 
@@ -273,11 +255,18 @@ namespace GameFeelDescriptions
 
                     //Handle overlapping
                     var (queueCopy, _) = copy.HandleEffectOverlapping(previous);
-
+                    
                     //Queue the effect
                     if (queueCopy)
                     {
-                        copy.QueueExecution();   
+                        if (copy is WaitForAboveEffect waitForAboveEffect)
+                        {
+                            waitForAboveEffect.WaitFor(queuedEffects.ToList());
+                        }
+                        
+                        copy.QueueExecution();
+
+                        queuedEffects.Add(copy);
                     }
                 }
                 else
@@ -303,8 +292,9 @@ namespace GameFeelDescriptions
                     //Copy for each target and setup each effect, then Queue them in the executor.
                     for (var inner = 0; inner < targets.Count; inner++)
                     {
-                        var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, targets[inner], UnscaledTime, direction);
+                        var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, targets[inner], direction);
 
+                        //TODO: figure out if this break for all targets, should be a continue instead 2020-09-04
                         if (copy == null) break;
 
                         //Find previously active copy
@@ -316,7 +306,22 @@ namespace GameFeelDescriptions
                         //Queue the effect
                         if (queueCopy)
                         {
-                            copy.QueueExecution();
+                            if (copy is WaitForAboveEffect waitForAboveEffect)
+                            {
+                                waitForAboveEffect.WaitFor(queuedEffects.ToList());
+
+                                //For multiple targets, only queue the wait once!
+                                if (inner == targets.Count - 1)
+                                {
+                                    waitForAboveEffect.QueueExecution();
+                                    queuedEffects.Add(waitForAboveEffect);
+                                }
+                            }
+                            else
+                            {
+                                copy.QueueExecution();
+                                queuedEffects.Add(copy);
+                            }
                         }
                     }
                 }
@@ -373,16 +378,12 @@ namespace GameFeelDescriptions
             //Copy values
             GroupName = recipe.GroupName;
             Disabled = recipe.Disabled;
-            UnscaledTime = recipe.UnscaledTime;
             StepThroughMode = recipe.StepThroughMode;
             AppliesTo = recipe.AppliesTo;
             TargetTag = recipe.TargetTag;
             TargetList = recipe.TargetList;
             TargetComponentType = recipe.TargetComponentType;
-            ExecuteOnTargetCopy = recipe.ExecuteOnTargetCopy;
-            // DisableRendererAndFollowOriginal = recipe.DisableRendererAndFollowOriginal;
-            // FollowEasing = recipe.FollowEasing;
-            
+                        
             //Override effects with the ones from recipe
             EffectsToExecute = new List<GameFeelEffect>(recipe.EffectsToExecute);
         }

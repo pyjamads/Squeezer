@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GameFeelDescriptions
@@ -15,14 +16,13 @@ namespace GameFeelDescriptions
         
         protected override T DeepCopy<T>(T shallow) 
         {
-            if (shallow is SpawningGameFeelEffect cp)
-            {
-                cp.ExecuteOnOffspring = new List<GameFeelEffect>(ExecuteOnOffspring);
-                    
-                return base.DeepCopy(cp as T);
-            }
+            //If the shallow is not SpawningGameFeelEffect, return null instead. 
+            if (!(shallow is SpawningGameFeelEffect cp)) return null;
             
-            return base.DeepCopy(shallow);
+            cp.ExecuteOnOffspring = new List<GameFeelEffect>(ExecuteOnOffspring);
+                    
+            return base.DeepCopy(cp as T);
+
         }
 
         public override bool CompareTo(GameFeelEffect other)
@@ -32,12 +32,14 @@ namespace GameFeelDescriptions
 
         protected void QueueOffspringEffects(GameObject offspring)
         {
+            var queuedEffects = new List<GameFeelEffect>();
+            
             for (var i = 0; i < ExecuteOnOffspring.Count; i++)
             {
                 //If the effect is disabled, skip it.
                 if(ExecuteOnOffspring[i].Disabled) continue;
             
-                var copy = ExecuteOnOffspring[i].CopyAndSetElapsed(origin, offspring, unscaledTime);
+                var copy = ExecuteOnOffspring[i].CopyAndSetElapsed(origin, offspring, interactionDirection);
             
                 if(copy == null) continue;
                     
@@ -50,7 +52,14 @@ namespace GameFeelDescriptions
                 //Queue the effect
                 if (queueCopy)
                 {
-                    copy.QueueExecution(forceQueue: false);   
+                    if (copy is WaitForAboveEffect waitForAboveEffect)
+                    {
+                        waitForAboveEffect.WaitFor(queuedEffects.ToList());
+                    }
+
+                    copy.QueueExecution(forceQueue: false);
+                    
+                    queuedEffects.Add(copy);
                 }
             }
         }

@@ -30,11 +30,11 @@ namespace GameFeelDescriptions
 
         //private Quaternion forwardCorrection;
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new RotateTowardsDirectionEffect{useGlobalRotation = useGlobalRotation, relativeAmount = relativeAmount, only2D = only2D};
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
 
@@ -94,7 +94,8 @@ namespace GameFeelDescriptions
             var nextRotation = TweenHelper.Interpolate(start, relativeAmount, end, EasingHelper.Linear);
             SetValue(target, nextRotation);
 
-            return false;
+            //We're done
+            return true;
         }
     }
 }

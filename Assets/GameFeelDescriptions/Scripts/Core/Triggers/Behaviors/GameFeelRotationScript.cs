@@ -15,6 +15,8 @@ namespace GameFeelDescriptions
 
         private void Update()
         {
+            if (Disabled) return;
+            
             if (transform.rotation == lastRotation) return;
 
             if (EffectGroups.Count != targets.Count)

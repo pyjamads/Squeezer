@@ -23,10 +23,7 @@ namespace GameFeelDescriptions
             //Make sure to destroy the copy after the fade!
             fade.OnComplete(new DestroyEffect());
             
-            ExecuteOnOffspring = new List<GameFeelEffect>
-            {
-                fade
-            };
+            this.OnOffspring(fade);
         }
 
         public Color FlashColor = Random.ColorHSV();
@@ -39,7 +36,7 @@ namespace GameFeelDescriptions
         public Vector3 Scale = Vector3.one * (Random.Range(1, 200) / 100f);
         public Vector3 PositionOffset;
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new PositionalFlashEffect();
@@ -50,7 +47,7 @@ namespace GameFeelDescriptions
             cp.FlashColor = FlashColor;
             cp.FlashTransparency = FlashTransparency;
             cp.Scale = Scale;
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
@@ -93,7 +90,8 @@ namespace GameFeelDescriptions
             
             QueueOffspringEffects(flashObject);
             
-            return false;
+            //We're done!
+            return true;
         }
     }
 }

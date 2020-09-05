@@ -31,47 +31,7 @@ namespace GameFeelDescriptions
         public float DelayBetweenLoops = 0f;
         
         protected bool reverse;
-        protected float duration;
-        
-        // public override float GetRemainingTime()
-        // {
-        //     return Duration - elapsed;
-        // }
 
-        // public override bool Tick()
-        // {
-        //     //If this is the first Tick, after the delay, run setup
-        //     if (firstTick && elapsed >= 0)
-        //     {
-        //         ExecuteSetup();
-        //         firstTick = false;
-        //     }
-        //     
-        //     var complete = false;
-        //  
-        //     if(elapsed >= Duration)
-        //     {   
-        //         elapsed = Duration;
-        //         complete = true;
-        //     }
-        //  
-        //     //negative elapsed, is used for setting delays.
-        //     if(elapsed >= 0 && elapsed <= Duration)
-        //     {
-        //         //ExecuteTick can finish early, due to missing targets or other settings.
-        //         complete = ExecuteTick() || complete;
-        //     }
-        //  
-        //     elapsed += unscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-        //
-        //     if (!complete) return false;
-        //  
-        //     //Queue effects in the ExecuteAfterCompletion list
-        //     ExecuteComplete();
-        //     
-        //     return true;
-        // }
-        
         public override bool Tick()
         {
             //If this is the first Tick, after the delay, run setup
@@ -84,10 +44,10 @@ namespace GameFeelDescriptions
             var complete = false;
          
             var elapsedTimeExcess = 0f;
-            if(!reverse && elapsed >= duration)
+            if(!reverse && elapsed >= Duration)
             {
-                elapsedTimeExcess = elapsed - duration;
-                elapsed = duration;
+                elapsedTimeExcess = elapsed - Duration;
+                elapsed = Duration;
                 complete = true;
             }
             else if(reverse && elapsed <= 0)
@@ -98,7 +58,7 @@ namespace GameFeelDescriptions
             }
             
             //negative elapsed, is used for setting delays.
-            if(elapsed >= 0 && elapsed <= duration)
+            if(elapsed >= 0 && elapsed <= Duration)
             {
                 //ExecuteTick can finish early, due to missing targets or other settings.
                 complete = ExecuteTick() || complete;
@@ -117,7 +77,7 @@ namespace GameFeelDescriptions
                 }
             }
             
-            var deltaTime = unscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+            var deltaTime = UnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
         
             // running in reverse? then we need to subtract deltaTime
             if (reverse)
@@ -199,15 +159,23 @@ namespace GameFeelDescriptions
             return true;
         }
 
+        /// <summary>
+        /// Implement this to control how relative values are updated in a looping context.
+        /// </summary>
         protected virtual void UpdateRelativeValues()
         {
-            //NOTE: Handle updating relative values.
+            //NOTE: Handle updating relative values between loops.
         }
         
-        public override float GetRemainingTime()
+        public override float GetRemainingTime(bool includeDelay = false)
         {
-            var total = duration - elapsed;
+            var total = Duration - elapsed;
             
+            if (includeDelay)
+            {
+                total = Duration + Delay;
+            }
+
             if (loopType == LoopType.None)
             {
                 return total;
@@ -215,7 +183,7 @@ namespace GameFeelDescriptions
             
             if (repeat > 0)
             {
-                total += repeat * duration + repeat * DelayBetweenLoops;
+                total += repeat * Duration + repeat * DelayBetweenLoops;
             }
             else if (repeat == -1)
             {
@@ -225,41 +193,19 @@ namespace GameFeelDescriptions
             return total;
         }
 
-        public void SetupLooping()
-        {
-            //TODO: Does this still make sense? (this was mostly to handle yoyo duration) 2020-09-03
-            //NOTE: also doesn't include DelayBetweenLoops here.
-            //Setup looping.
-            if (loopType != LoopType.None && repeat > 0)
-            {
-                duration = Duration / (repeat + 1);
-            }
-            else
-            {
-                //No loops, means use Duration directly.
-                duration = Duration;
-            }
-        }
-
         protected override T DeepCopy<T>(T shallow) 
         {
-            if (shallow is DurationalGameFeelEffect cp)
-            {
-                cp.Duration = Duration;
-
-                cp.loopType = loopType;
-                cp.repeat = repeat;
-                cp.DelayBetweenLoops = DelayBetweenLoops;
-                
-                cp = base.DeepCopy(cp);
-
-                //NOTE: Need that SetElapsed to be run first.
-                cp.SetupLooping();
-                
-                return cp as T;
-            }
+            //If the shallow is not DurationalGameFeelEffect, return null instead. 
+            if (!(shallow is DurationalGameFeelEffect cp)) return null;
             
-            return base.DeepCopy(shallow);
+            cp.Duration = Duration;
+
+            cp.loopType = loopType;
+            cp.repeat = repeat;
+            cp.DelayBetweenLoops = DelayBetweenLoops;
+                
+            return base.DeepCopy(cp as T);
+
         }
 
         public override void Mutate(float amount = 0.05f)

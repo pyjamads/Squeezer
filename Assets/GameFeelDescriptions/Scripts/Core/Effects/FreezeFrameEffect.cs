@@ -53,12 +53,12 @@ namespace GameFeelDescriptions
             return other is FreezeFrameEffect;
         }
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new FreezeFrameEffect();
             //Always uses unscaled time, because this sets Time.timeScale to 0.
-            cp.Init(origin, target, true, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             cp = DeepCopy(cp);
 
             var (queueCopy, isOverlapping) = cp.HandleEffectOverlapping(singletonCopy);

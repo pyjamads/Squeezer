@@ -22,6 +22,8 @@ namespace GameFeelDescriptions
 
         private void Update()
         {
+            if (Disabled) return;
+            
             var justStoppedMoving = false;
             var justChangedDirection = false;
             var justBeganMoving = false;
@@ -114,6 +116,8 @@ namespace GameFeelDescriptions
 
         public void ExecuteEffectGroups(OnMoveTrigger.MovementActivationType activationType)
         {
+            if (Disabled) return;
+            
             if (EffectGroups.Count != targets.Count)
             {
                 SetupInitialTargets(false);

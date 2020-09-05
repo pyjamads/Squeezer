@@ -1,33 +1,28 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace GameFeelDescriptions
 {
-    public class InvokeUnityEvent : GameFeelEffect
+    public class DelayEffect : GameFeelEffect
     {
-        public InvokeUnityEvent()
+        public DelayEffect()
         {
-            Description = "Invokes a Unity Event, letting you callback or set arbitrary functions/values in your own code";
+            Description = "Delay any subsequent effect.";
+            Delay = Random.Range(1, 100) / 100f;
+            
+            //10% chance of random
+            RandomizeDelay = RandomExtensions.Boolean(0.1f);
         }
-
-        public UnityEvent action;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
-            var cp = new InvokeUnityEvent
-            {
-                action = action,
-            };
-            
+            var cp = new DelayEffect();
             cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
 
         protected override bool ExecuteTick()
         {
-            action?.Invoke();
-
             //We're done
             return true;
         }

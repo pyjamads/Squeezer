@@ -26,7 +26,7 @@ namespace GameFeelDescriptions
             
         private Vector3 initialPosition;
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new ShakeEffect
@@ -36,7 +36,7 @@ namespace GameFeelDescriptions
                 useResetPositionAfterShake = useResetPositionAfterShake, 
                 resetPosition = resetPosition
             };
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
         

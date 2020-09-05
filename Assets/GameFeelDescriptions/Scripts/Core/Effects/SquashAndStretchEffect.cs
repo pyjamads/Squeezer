@@ -39,7 +39,7 @@ namespace GameFeelDescriptions
 
         private Vector3 collisionPos;
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new SquashAndStretchEffect();
@@ -50,7 +50,7 @@ namespace GameFeelDescriptions
             cp.resetSizeAfterEffect = resetSizeAfterEffect;
             cp.lockLocalPosition = lockLocalPosition;
             cp.resetSize = resetSize;
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
 

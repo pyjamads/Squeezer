@@ -58,16 +58,16 @@ namespace GameFeelDescriptions
         {
             if (target == null) return true;
             
-            SetValue(target, TweenHelper.Interpolate(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
         }
 
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new RotateEffect{useGlobalRotation = useGlobalRotation};
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             return DeepCopy(cp);
         }
         
@@ -123,9 +123,6 @@ namespace GameFeelDescriptions
             }
 
             base.Mutate(amount);
-            
-            //NOTE: Need that SetElapsed in DurationalGameFeelEffect to be run first.
-            SetupLooping();
         }
     }
 }

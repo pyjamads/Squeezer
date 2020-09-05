@@ -36,11 +36,11 @@ namespace GameFeelDescriptions
         [HideInInspector]
         public new string to;
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
             var cp = new PropertyTweenEffect();
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             cp.Component = Component;
             cp.Field = Field;
 
@@ -156,7 +156,7 @@ namespace GameFeelDescriptions
 
         protected override bool TickTween()
         {
-            SetValue(target, TweenHelper.Interpolate<object>(start, elapsed / duration, end, GetEaseFunc()));
+            SetValue(target, TweenHelper.Interpolate<object>(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
         }

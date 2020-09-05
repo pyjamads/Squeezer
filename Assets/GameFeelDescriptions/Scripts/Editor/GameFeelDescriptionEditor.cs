@@ -609,7 +609,7 @@ namespace GameFeelDescriptions
             return (list, objs);
         }
         
-        private void GenerateSimpleInterface(object container, ref int index, int indent = 0, string parentProperty = null, int dataIndex = 0, bool doHighlight = false)
+        private void GenerateSimpleInterface(object container, ref int index, int indent = 0, string parentProperty = null, int dataIndex = 0, bool doHighlight = false, float totalExecutionTime = 0f)
         {
             var propertyPath = "";
             if (parentProperty != null)
@@ -742,7 +742,8 @@ namespace GameFeelDescriptions
             }
                 case GameFeelTrigger trigger:
                 {
-                    var triggerLabel = trigger.GetType().Name;
+                    var prefix = trigger.Disabled ? "[DISABLED] " : "";
+                    var triggerLabel = prefix + trigger.GetType().Name;
 
                     if (trigger is OnCollisionTrigger col)
                     {
@@ -786,44 +787,57 @@ namespace GameFeelDescriptions
                         }
                     }
 
-                    ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
-                        new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
-                        ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel);    
-                
-                    if (ExpandedDescriptionNames[target.GetInstanceID()][index])
+                    using (new EditorGUI.DisabledScope(trigger.Disabled))
                     {
-                        // EditorGUI.indentLevel += 1;
-                        // ExpandedDescriptionNames[target.GetInstanceID()][index][1] = EditorGUILayout.Foldout(ExpandedDescriptionNames[target.GetInstanceID()][index][1], "Trigger Properties");
-                        // EditorGUI.indentLevel -= 1;
-                        // if (ExpandedDescriptionNames[target.GetInstanceID()][index][1])
-                        // {
-                            DrawPropertyWithColor(propertyPath, highlightColor, doHighlight, alpha);
-                        // }
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
+                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel);
                     }
-                    // else
-                    // {
-                    
+
+                    trigger.Disabled =
+                        !EditorGUI.ToggleLeft(
+                            new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f,
+                                clickArea.height),
+                            GUIContent.none, !trigger.Disabled);
+
+                    if (!trigger.Disabled)
+                    {
+                        if (ExpandedDescriptionNames[target.GetInstanceID()][index])
+                        {
+                            // EditorGUI.indentLevel += 1;
+                            // ExpandedDescriptionNames[target.GetInstanceID()][index][1] = EditorGUILayout.Foldout(ExpandedDescriptionNames[target.GetInstanceID()][index][1], "Trigger Properties");
+                            // EditorGUI.indentLevel -= 1;
+                            // if (ExpandedDescriptionNames[target.GetInstanceID()][index][1])
+                            // {
+                            DrawPropertyWithColor(propertyPath, highlightColor, doHighlight, alpha);
+                            // }
+                        }
+                        // else
+                        // {
+
                         // if (GUILayout.Button("x"))
                         // {
                         //     RemovePropertyCallback();
                         // }
-                    
-                        if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),"+"))
+
+                        if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),
+                            "+"))
                         {
                             PlusMenuDropdown(trigger);
                         }
 
                         for (var i = 0; i < trigger.EffectGroups.Count; i++)
                         {
-                            if(trigger.EffectGroups[i] == null) continue;
-                        
+                            if (trigger.EffectGroups[i] == null) continue;
+
                             index++;
-                            GenerateSimpleInterface(trigger.EffectGroups[i], ref index, indent+1, 
-                                propertyPath+".EffectGroups", i, doHighlight); 
-                        }   
-                        
-                    // }
-                    
+                            GenerateSimpleInterface(trigger.EffectGroups[i], ref index, indent + 1,
+                                propertyPath + ".EffectGroups", i, doHighlight);
+                        }
+
+                        // }
+                    }
+
                     break;
                 }
                 case GameFeelEffectGroup group:
@@ -853,8 +867,10 @@ namespace GameFeelDescriptions
                     var groupLabel = prefix + "EffectGroup " + (string.IsNullOrWhiteSpace(group.GroupName)
                                          ? ""
                                          : "'" + group.GroupName + "'")
-                                     + " [Applies to " + (group.ExecuteOnTargetCopy ? "a copy of " : "")
-                                     + group.AppliesTo.GetName() + "]";
+                                     + " [Applies to "
+                                     + group.AppliesTo.GetName()
+                                     + (group.AppliesTo == GameFeelTarget.Tag ? " ("+group.TargetTag+")" : "")  
+                                     + "]";
 
                     if (doHighlight && EditorHelpers.HighlightedEffectGroupIndex == dataIndex)
                     {
@@ -1030,8 +1046,24 @@ namespace GameFeelDescriptions
                     
                     var indented = EditorGUI.IndentedRect(clickArea);
                     
+                    
                     var prefix = effect.Disabled ? "[DISABLED] " : "";
-                    var effectLabel = prefix + effect.GetType().Name;
+                    
+                    var remainingTime = effect.GetRemainingTime(true);
+                    var suffix = " [" + remainingTime+ "s]";
+
+                    if (effect.RandomizeDelay)
+                    {
+                        suffix = " ["+(remainingTime-effect.Delay)+"-" + remainingTime+ "s]";
+                    }
+                    
+                    totalExecutionTime += remainingTime;
+                    if (totalExecutionTime != remainingTime)
+                    {
+                        suffix += " (Total: "+totalExecutionTime+"s)";
+                    }
+                    
+                    var effectLabel = prefix + effect.GetType().Name + suffix;
 
                     EditorGUILayout.BeginHorizontal();
 
@@ -1106,7 +1138,7 @@ namespace GameFeelDescriptions
 
                                 index++;
                                 GenerateSimpleInterface(effect.ExecuteAfterCompletion[i], ref index, indent + 1,
-                                    propertyPath + ".ExecuteAfterCompletion", i);
+                                    propertyPath + ".ExecuteAfterCompletion", i,false, totalExecutionTime);
                             }
                            
                             if (effect is SpawningGameFeelEffect spawner)
@@ -1124,7 +1156,7 @@ namespace GameFeelDescriptions
                                         if (spawner.ExecuteOnOffspring[i] == null) continue;
                                         index++;
                                         GenerateSimpleInterface(spawner.ExecuteOnOffspring[i], ref index, indent + 1,
-                                            propertyPath + ".ExecuteOnOffspring", i);
+                                            propertyPath + ".ExecuteOnOffspring", i, false, totalExecutionTime);
                                     }   
                                     
                                     EditorGUI.indentLevel = indent;

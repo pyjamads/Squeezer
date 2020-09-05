@@ -35,20 +35,18 @@ namespace GameFeelDescriptions
         [ReadOnly]
         public GameFeelTriggerType TriggerType;
         
-        
-        /* 
-        //TODO: Remove effect groups 2: move stepthroughmode and disabled up to triggers, and rename it to pause on trigger or something.
         /// <summary>
         /// Whether the whole group of effects is disabled.
         /// </summary>
         [Header("Controls if the effects are executed, and adhere to current timeScale.")]
         public bool Disabled;
-
+        
+        /* 
+        //TODO: Remove effect groups 2: move stepthroughmode and disabled up to triggers, and rename it to pause on trigger or something.
        
         [Header("This mode allows you to add effects as events happen while playing.")]
         public bool StepThroughMode;
 
-        
         /// <summary>
         /// The list of effects to execute
         /// </summary>

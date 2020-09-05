@@ -27,10 +27,7 @@ namespace GameFeelDescriptions
             //Make sure to destroy the copy after the fade!
             fade.OnComplete(new DestroyEffect());
             
-            ExecuteOnOffspring = new List<GameFeelEffect>
-            {
-                fade
-            };
+            this.OnOffspring(fade);
         }
 
         public GameObject TrailPrefab;
@@ -42,18 +39,10 @@ namespace GameFeelDescriptions
         // [Tooltip("This list will replace the standard fade effect of the trail. Remember add a DestroyEffect to the list.")]
         // public List<GameFeelEffect> CustomFadeEffects = new List<GameFeelEffect>();
         
-        public float DelayBetweenCopies;
-
-        private float LastCopyTime = 0;
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             Vector3? interactionDirection = null)
         {
-            if (Time.time - LastCopyTime < DelayBetweenCopies)
-            {
-                return null;
-            }
-            
             var cp = new TrailEffect();
 
             cp.TrailPrefab = TrailPrefab;
@@ -61,11 +50,9 @@ namespace GameFeelDescriptions
             // cp.FadeDelay = FadeDelay;
             // cp.FadeEase = FadeEase;
             cp.TrailPositionOffset = TrailPositionOffset;
-            cp.DelayBetweenCopies = DelayBetweenCopies;
             // cp.CustomFadeEffects = CustomFadeEffects;
-            cp.Init(origin, target, unscaledTime, interactionDirection);
+            cp.Init(origin, target, interactionDirection);
             
-            LastCopyTime = Time.time;
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
             return DeepCopy(cp);
@@ -94,15 +81,11 @@ namespace GameFeelDescriptions
             }
 
             trailObject.transform.position += TrailPositionOffset;
-
-            //TODO: Note that it probably doesn't make sense to have an ExecuteOnCompletion list in addition
-            //TODO: to the CustomFadeEffect list, and as such effects such as the trail here,
-            //TODO: could just set it's own target to the trailObject, and allow which ever effects exists,
-            //TODO: in the ExecuteOnCompletion list to be executed on the trailObject. (See Ragdoll and Shatter) 13/05/2020   
             
             QueueOffspringEffects(trailObject);
             
-            return false;
+            //We're done!
+            return true;
         }
     }
 }
