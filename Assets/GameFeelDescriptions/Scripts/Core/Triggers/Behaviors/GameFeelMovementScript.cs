@@ -17,7 +17,7 @@ namespace GameFeelDescriptions
             lastPosition = transform.position;
             lastDirection = Vector3.zero;
             
-            SetupInitialTargets(false);
+            SetupInitialTargets();
         }
 
         private void Update()
@@ -120,7 +120,7 @@ namespace GameFeelDescriptions
             
             if (EffectGroups.Count != targets.Count)
             {
-                SetupInitialTargets(false);
+                SetupInitialTargets();
             }
 
             //TODO: Get rigidbody and figure out "relativeVelocity" on our own here, if there is one?

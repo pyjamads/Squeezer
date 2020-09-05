@@ -93,7 +93,7 @@ namespace GameFeelDescriptions
 
         private bool canPaste = false;
 
-        private object copiedObject;
+        private static object copiedObject;
         
         public static Dictionary<int, List<bool>> ExpandedDescriptionNames = new Dictionary<int, List<bool>>();
 

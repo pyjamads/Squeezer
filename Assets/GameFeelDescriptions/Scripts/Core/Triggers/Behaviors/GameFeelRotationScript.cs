@@ -10,7 +10,7 @@ namespace GameFeelDescriptions
         {
             lastRotation = transform.rotation;
             
-            SetupInitialTargets(false);
+            SetupInitialTargets();
         }
 
         private void Update()
@@ -21,7 +21,7 @@ namespace GameFeelDescriptions
 
             if (EffectGroups.Count != targets.Count)
             {
-                SetupInitialTargets(false);
+                SetupInitialTargets();
             }
             
             var rotation = transform.rotation * Quaternion.Inverse(lastRotation);

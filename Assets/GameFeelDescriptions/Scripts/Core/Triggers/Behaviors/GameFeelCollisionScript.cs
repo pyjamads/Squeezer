@@ -19,7 +19,7 @@ namespace GameFeelDescriptions
         
         private void Start()
         {
-            SetupInitialTargets(true);
+            SetupInitialTargets();
             CheckReactTo();
         }
 
@@ -45,7 +45,7 @@ namespace GameFeelDescriptions
             
             if (EffectGroups.Count != targets.Count)
             {
-                SetupInitialTargets(true);
+                SetupInitialTargets();
             }
 
             //Match activationType to trigger type 
@@ -173,12 +173,6 @@ namespace GameFeelDescriptions
             //other.impulse
             for (var i = 0; i < EffectGroups.Count; i++)
             {
-                //var direction = other.transform.position - transform.position;
-                if (EffectGroups[i].AppliesTo == GameFeelTarget.Other)
-                {
-                    targets[i].Clear();
-                    targets[i].Add(other);
-                }
 #if UNITY_EDITOR
                 //Handle StepThroughMode for this specific group, if enabled.
                 HandleStepThroughMode(Description.TriggerList[TriggerIndex].EffectGroups[i], 

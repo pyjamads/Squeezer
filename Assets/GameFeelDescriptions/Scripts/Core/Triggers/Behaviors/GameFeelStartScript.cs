@@ -12,7 +12,7 @@ namespace GameFeelDescriptions
         {
             if (Disabled) return;
             
-            SetupInitialTargets(false);
+            SetupInitialTargets();
             
 #if UNITY_EDITOR
             if (Description.StepThroughMode)

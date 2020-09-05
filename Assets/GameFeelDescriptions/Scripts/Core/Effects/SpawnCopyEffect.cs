@@ -49,6 +49,8 @@ namespace GameFeelDescriptions
 
         protected override bool ExecuteTick()
         {
+            if (target == null) return true;
+
             var copy = CopyAndStripTarget(target, RemoveRigidbodies, RemoveColliders, RemoveScripts);
             copy.tag = SetTag;
             

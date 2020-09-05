@@ -11,7 +11,7 @@ namespace GameFeelDescriptions
         
         private void Start()
         {
-            SetupInitialTargets(false);
+            SetupInitialTargets();
         }
 
         private void OnDestroy()
@@ -27,7 +27,7 @@ namespace GameFeelDescriptions
             
             if (EffectGroups.Count != targets.Count)
             {
-                SetupInitialTargets(false);
+                SetupInitialTargets();
             }
             
 #if UNITY_EDITOR

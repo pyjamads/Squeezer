@@ -60,7 +60,7 @@ namespace GameFeelDescriptions
     //     }
     // }
     
-    public class ShatterEffect : SpawningGameFeelEffect //TODO: use SpawningGameFeelEffect instead, and fix effect trees!
+    public class ShatterEffect : SpawningGameFeelEffect
     {
         public ShatterEffect()
         {
@@ -115,7 +115,7 @@ namespace GameFeelDescriptions
             var shatteredPieces = new List<GameObject>();
             
             //If there's any prefabs instantiate them instead of copies of the target.
-            if (PrefabPieces?.Count > 0)
+            if (!usePrimitivePieces && PrefabPieces?.Count > 0)
             {
                 for (int i = 0; i < AmountOfPieces; i++)
                 {
@@ -151,7 +151,19 @@ namespace GameFeelDescriptions
                     if (target != null)
                     {
                         scale = target.transform.localScale / qbrt;
-                        renderer.material.color = target.GetComponent<Renderer>().material.color;
+
+                        var targetRenderer = target.GetComponent<Renderer>();
+                        if (targetRenderer.HasPropertyBlock())
+                        {
+                            var materialPropertyBlock = new MaterialPropertyBlock();
+                            targetRenderer.GetPropertyBlock(materialPropertyBlock);   
+                            
+                            renderer.SetPropertyBlock(materialPropertyBlock);
+                        }
+                        else
+                        {
+                            renderer.material.color = targetRenderer.material.color;
+                        }
                     }
                     
                     mold.transform.localScale = scale;

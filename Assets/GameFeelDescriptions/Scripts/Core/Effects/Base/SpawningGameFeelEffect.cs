@@ -54,9 +54,10 @@ namespace GameFeelDescriptions
                 {
                     if (copy is WaitForAboveEffect waitForAboveEffect)
                     {
+                        //TODO: figure out if we should handle shatterEffect pieces like we do multiple targets from ApplyTo == Tag 2020-09-05
                         waitForAboveEffect.WaitFor(queuedEffects.ToList());
                     }
-
+                    
                     copy.QueueExecution(forceQueue: false);
                     
                     queuedEffects.Add(copy);

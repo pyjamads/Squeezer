@@ -20,7 +20,7 @@ namespace GameFeelDescriptions
         public List<bool> isTag;
         private void Start()
         {
-            SetupInitialTargets(true);
+            SetupInitialTargets();
             CheckSources();
             //TODO: figure out if there are side effects on enter/exit playmode. 7/4/2020
             GameFeelEffectExecutor.Instance.OnCustomEventTriggered += QueueExecution;
@@ -50,7 +50,7 @@ namespace GameFeelDescriptions
             
             if (EffectGroups.Count != targets.Count)
             {
-                SetupInitialTargets(true);
+                SetupInitialTargets();
             }
 
             if (AllowFrom == OnCustomEventTrigger.EventTriggerSources.Sources && Sources.Length != isTag.Count)
@@ -86,12 +86,6 @@ namespace GameFeelDescriptions
             //When a custom event triggers, Other is the origin of the event.
             for (var i = 0; i < EffectGroups.Count; i++)
             {
-                if (EffectGroups[i].AppliesTo == GameFeelTarget.Other)
-                {
-                    targets[i].Clear();
-                    targets[i].Add(origin);
-                }
-                
 #if UNITY_EDITOR
                 //Handle StepThroughMode for this specific group, if enabled.
                 HandleStepThroughMode(EffectGroups[i], eventName, origin, direction);

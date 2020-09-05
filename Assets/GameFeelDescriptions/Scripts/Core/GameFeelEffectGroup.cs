@@ -94,7 +94,6 @@ namespace GameFeelDescriptions
             switch (AppliesTo)
             {
                 case GameFeelTarget.Self:
-                case GameFeelTarget.Other:
                 case GameFeelTarget.EditorValue:
                     //No target pre-fetching needed with Relative targets.
                     break;

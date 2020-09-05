@@ -10,7 +10,7 @@ namespace GameFeelDescriptions
         
         private void Start()
         {
-            SetupInitialTargets(false);
+            SetupInitialTargets();
         }
 
         private void OnEnable()
@@ -32,7 +32,7 @@ namespace GameFeelDescriptions
             
             if (EffectGroups.Count != targets.Count)
             {
-                SetupInitialTargets(false);
+                SetupInitialTargets();
             }
             
 #if UNITY_EDITOR

@@ -13,6 +13,7 @@ namespace GameFeelDescriptions
         public TrailEffect()
         {
             //TODO: Consider renaming to 'copy and fade effect', making a trail is just a side-effect of calling this continuously. 18/4/2020
+            
             Description = "Make a trail of copies of the game object, which slowly fades.";
             
             var fadeTime = Random.Range(0.1f,2f);

@@ -86,20 +86,12 @@ namespace GameFeelDescriptions
         /// </summary>
         public List<List<GameObject>> targets = new List<List<GameObject>>();
 
-        protected void SetupInitialTargets(bool handlesOther)
+        protected void SetupInitialTargets()
         {
             targets.Clear();
             
             for (int i = 0; i < EffectGroups.Count; i++)
             {
-                if (!handlesOther && EffectGroups[i].AppliesTo == GameFeelTarget.Other)
-                {
-                    var name = GetType().Name;
-                    Debug.Log(name + ": EffectGroup " + i + " targets could not be found!");
-                    Debug.LogException(new Exception("GameFeelTarget.Other cannot be used with " + name + "."));
-                    continue;
-                }
-
                 targets.Add(EffectGroups[i].FindTargets());
                     
                 if (EffectGroups[i].AppliesTo == GameFeelTarget.Self)

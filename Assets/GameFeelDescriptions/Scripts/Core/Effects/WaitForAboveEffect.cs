@@ -8,7 +8,7 @@ namespace GameFeelDescriptions
     {
         public WaitForAboveEffect()
         {
-            Description = "Delay any subsequent effect, until all effects at the same layer are complete.";
+            Description = "Delay any subsequent effect by an amount, or until all effects above it are complete. NB does not include nested effects";
             Delay = Random.Range(1, 100) / 100f;
         }
 
@@ -34,6 +34,8 @@ namespace GameFeelDescriptions
 
         protected override bool ExecuteTick()
         {
+            //TODO: might need a version that waits for every child effect as well. 2020-09-05
+            
             //While any of the effects in this list is still running, returns false.
             return waitingFor.All(item => item.isComplete);
         }

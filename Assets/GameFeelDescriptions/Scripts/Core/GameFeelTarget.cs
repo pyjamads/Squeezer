@@ -9,7 +9,7 @@ namespace GameFeelDescriptions
     {
         //Relative
         Self, //Executed on the caller
-        Other, //Executed on the opposing collider in a collision
+        //Other, //Executed on the opposing collider in a collision
         EditorValue, //No target (eg. TimeScaleEffect, and effects with direct references in Editor CameraBackgroundColorChangeEffect, MaterialColorChangeEffect)  
 
         //Tag
@@ -29,7 +29,7 @@ namespace GameFeelDescriptions
             switch (target)
             {
                 case GameFeelTarget.Self:
-                case GameFeelTarget.Other:
+                //case GameFeelTarget.Other:
                 case GameFeelTarget.EditorValue:
                     return true;
             }
