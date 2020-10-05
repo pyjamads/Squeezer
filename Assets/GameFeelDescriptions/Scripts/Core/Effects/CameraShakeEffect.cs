@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -26,7 +28,7 @@ namespace GameFeelDescriptions
         private Vector3 initialPosition;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new CameraShakeEffect
             {
@@ -36,7 +38,7 @@ namespace GameFeelDescriptions
                 // useResetPositionAfterShake = useResetPositionAfterShake, 
                 // resetPosition = resetPosition
             };
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             
             //Handling the cameraToModify setup here, to be able to a better use CompareTo
             if(cp.cameraToModify == null)
@@ -78,14 +80,29 @@ namespace GameFeelDescriptions
             
             var direction = Random.onUnitSphere;
             
-            if(useInteractionDirection && interactionDirection != null)
+            if(useInteractionDirection)
             {
+                var interactionDirection = Vector3.zero;
+                
+                switch (triggerData)
+                {
+                    case CollisionData collisionEvent:
+                        interactionDirection = collisionEvent.GetInteractionDirection();
+                        break;
+                    //case MovementEvent movementEvent: //NOTE:MovementEvent is handled as PositionalEvent here!
+                    case PositionalData positionalEvent:
+                        interactionDirection = positionalEvent.DirectionDelta;
+                        break;
+                    // default:
+                    //     throw new ArgumentOutOfRangeException(nameof(eventData), "EventType and useInteractionDirection not handled by CameraShakeEffect");
+                }
+
                 direction *= 0.5f;
-                direction += interactionDirection.Value * interactionDirectionMultiplier * 0.5f;
+                direction += interactionDirection * interactionDirectionMultiplier * 0.5f;
             }
 
-            var deltaTime = 1;//Time.deltaTime;
-            //if (unscaledTime) deltaTime = Time.unscaledDeltaTime;
+            var deltaTime = Time.deltaTime;
+            if (UnscaledTime) deltaTime = Time.unscaledDeltaTime;
             
             var easedAmount = amount * deltaTime;
             if (Duration > 0)
@@ -93,7 +110,7 @@ namespace GameFeelDescriptions
                 easedAmount = easeAmountInOut.Evaluate(elapsed / Duration) * easedAmount;
             }
 
-            direction *= easedAmount; //* Random.value 
+            direction *= easedAmount;
             
             cameraToModify.transform.position = cameraToModify.transform.position + direction;
 

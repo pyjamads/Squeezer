@@ -18,6 +18,7 @@ namespace GameFeelDescriptions
         //OnEnable? //Should there be an OnEnable, when OnDisable exists?
         OnDisable,   //When an object is disabled
         OnCustomEvent,//When some object sends this event, usually triggered by player eg. OnShoot, OnUsePowerUp etc.
+        OnStateChanged, //When a specified value on a component on the attached object is changed.
         /* More might be necessary. */
         //OnLevelLoad, //When a level is loaded?
     }
@@ -79,6 +80,8 @@ namespace GameFeelDescriptions
                     return new OnDisableTrigger();
                 case GameFeelTriggerType.OnCustomEvent:
                     return new OnCustomEventTrigger();
+                case GameFeelTriggerType.OnStateChanged:
+                    return new OnStateChangeTrigger();
 //                case GameFeelTriggerType.OnCreate:
 //                    //TODO: implement this last one...
 //                    //TODO: If OnCreate seems difficult through standard unity, make a "register change" for a tag/object/etc

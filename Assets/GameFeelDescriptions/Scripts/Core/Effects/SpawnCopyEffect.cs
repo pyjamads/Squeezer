@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -11,7 +12,9 @@ namespace GameFeelDescriptions
             Description = "Make a copy of the target.";
             
             // NOTE: Consider destroying the copy after a bit!
-            // this.OnOffspring(new DestroyEffect{Delay = 2f, RandomizeDelay = true});
+            var duration = Random.Range(0.1f, 2f);
+            this.OnOffspring(new DestroyEffect{Delay = duration});
+            this.OnComplete(new DisableRendererEffect {enableAfterDuration = true, Duration = duration});
         }
 
         public string SetTag = "Untagged";
@@ -20,13 +23,13 @@ namespace GameFeelDescriptions
         public bool RemoveScripts = true;
 
         public bool FollowTarget;
-        public float SmoothTime = 0.01f;
+        public float SmoothTime = Random.Range(0.01f, 0.5f);
 
         public float ScaleFactor = 1f;
         public Vector3 PositionOffset;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new SpawnCopyEffect();
 
@@ -40,9 +43,11 @@ namespace GameFeelDescriptions
             
             cp.ScaleFactor = ScaleFactor;
             cp.PositionOffset = PositionOffset;
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
+
+            if (target == null) return null;
             
-            cp.targetPos = target != null ? target.transform.position : origin.transform.position;
+            cp.targetPos = target.transform.position;
             
             return DeepCopy(cp);
         }

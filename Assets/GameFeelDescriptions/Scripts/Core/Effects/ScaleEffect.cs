@@ -39,13 +39,19 @@ namespace GameFeelDescriptions
             }
 
             //Make a random color, and add/subtract a proportional amount here.
-            var rndAmount = Random.value * amount * 2 - amount;
-            @from += Vector3.one * rndAmount;
-        
-            //Make a random color, and add/subtract a proportional amount here.
-            rndAmount = Random.value * amount * 2 - amount;
-            to += Vector3.one * rndAmount; 
+            @from += Vector3.one * RandomExtensions.MutationAmount(amount);
+            if (@from.x < 0)
+            {
+                @from = Vector3.zero;
+            }
 
+            //Make a random color, and add/subtract a proportional amount here.
+            to += Vector3.one * RandomExtensions.MutationAmount(amount); 
+            if (to.x < 0)
+            {
+                to = Vector3.zero;
+            }
+            
             if (RandomExtensions.Boolean(amount))
             {
                 easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
@@ -67,7 +73,12 @@ namespace GameFeelDescriptions
         protected override void SetValue(GameObject target, Vector3 value)
         {
             if (target == null) return;
-            
+
+            //Clamp the scale value min to 0.
+            if (value.x < 0) value.x = 0;
+            if (value.y < 0) value.y = 0;
+            if (value.z < 0) value.z = 0;
+
             target.transform.localScale = value;
         }
 
@@ -98,10 +109,10 @@ namespace GameFeelDescriptions
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new ScaleEffect();
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
     }

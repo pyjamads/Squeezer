@@ -50,7 +50,7 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i]);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i]);   
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], null);   
             }
         }
     }

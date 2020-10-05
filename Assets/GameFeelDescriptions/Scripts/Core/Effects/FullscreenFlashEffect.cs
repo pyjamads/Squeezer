@@ -25,10 +25,10 @@ namespace GameFeelDescriptions
         private GameObject flash;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new FullscreenFlashEffect{cameraToModify = cameraToModify};
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
 
             //Handling the cameraToModify setup here, to be able to a better use CompareTo
             if(cp.cameraToModify == null)

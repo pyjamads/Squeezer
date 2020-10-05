@@ -101,7 +101,7 @@ namespace GameFeelDescriptions
                     }
                     else
                     {
-                        //TODO: cleanup this ugly nesting 26/04/2020
+                        //TODO: cleanup this ugly nesting 26/04/2020, haha remember when nesting was a concern 2020-09-30
                         for (var triggerIndex = 0; triggerIndex < description.TriggerList.Count; triggerIndex++)
                         {
                             var trigger = description.TriggerList[triggerIndex];

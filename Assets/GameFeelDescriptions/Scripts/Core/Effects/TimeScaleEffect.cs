@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Messaging;
 using JetBrains.Annotations;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -12,14 +8,31 @@ namespace GameFeelDescriptions
     public class TimeScaleEffect : TweenEffect<float>
     {
         private static TimeScaleEffect singletonCopy;
-
-//        [EnableFieldIf("ExecuteAfterCompletion", true)]
-//        public bool showOnCompleteEffects = true;
         
         public TimeScaleEffect()
         {
             Description = "TimeScale Effect allows you to change timeScale using easing.";
             relative = false;
+
+            to = Random.Range(0.01f, 2f);
+            loopType = LoopType.Yoyo;
+            repeat = 1;
+
+            UnscaledTime = true;
+            
+            Duration = Random.Range(1, 30) / 100f;
+        }
+
+        public override void Mutate(float amount = 0.05f)
+        {
+            base.Mutate(amount);
+
+            //Make sure to stays above 0.
+            to = Mathf.Max(0.01f, to + RandomExtensions.MutationAmount(amount, to));
+            loopType = LoopType.Yoyo;
+            repeat = 1;
+            
+            UnscaledTime = true;
         }
 
         protected override void SetValue(GameObject target, float value)
@@ -68,10 +81,10 @@ namespace GameFeelDescriptions
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new TimeScaleEffect();
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             cp = DeepCopy(cp);
 
             var (queueCopy, isOverlapping) = cp.HandleEffectOverlapping(singletonCopy);
@@ -89,36 +102,6 @@ namespace GameFeelDescriptions
             }
             
             return null;
-
-//            if (singletonCopy != null)
-//            {
-//                switch (StackingType)
-//                {
-//                    case StackEffectType.Discard:
-//                        return null;
-//                    case StackEffectType.Replace:
-//                        GameFeelEffectExecutor.Instance.RemoveEffect(singletonCopy);
-//                        singletonCopy = cp;
-//                        break;
-//                    case StackEffectType.OverrideGoal:
-//                        //Update end value.
-//                        singletonCopy.end = GetEndValue();
-//                        //Update time to match relative progression (linearly).
-//                        singletonCopy.elapsed = GameFeelTween.InverseLerp(singletonCopy.start, singletonCopy.end, singletonCopy.GetValue(singletonCopy.target));
-//                        return null;
-//                    case StackEffectType.Queue:
-//                        singletonCopy.ExecuteAfterCompletion.Add(cp);
-//                        return null;
-//                    default:
-//                        throw new ArgumentOutOfRangeException();
-//                }
-//            }
-//            else
-//            {
-//                singletonCopy = cp;
-//            }
-//
-//            return cp;
         }
     }
 }

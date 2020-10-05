@@ -13,12 +13,16 @@ namespace GameFeelDescriptions
         public FreezeFrameEffect()
         {
             Description = "Freeze Frame Effect allows you to pause time for a duration.";
+            UnscaledTime = true;
+
+            Duration = Random.Range(1, 30) / 100f;
         }
 
         protected override void ExecuteSetup()
         {
             base.ExecuteSetup();
 
+            UnscaledTime = true;
             initialTimeScale = Time.timeScale;
             Time.timeScale = 0;
         }
@@ -54,11 +58,11 @@ namespace GameFeelDescriptions
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new FreezeFrameEffect();
             //Always uses unscaled time, because this sets Time.timeScale to 0.
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             cp = DeepCopy(cp);
 
             var (queueCopy, isOverlapping) = cp.HandleEffectOverlapping(singletonCopy);

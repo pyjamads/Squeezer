@@ -20,7 +20,7 @@ namespace GameFeelDescriptions
         }
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new TranslateEffect
             {
@@ -29,7 +29,7 @@ namespace GameFeelDescriptions
                 interactionDirectionMultiplier = interactionDirectionMultiplier,
             };
             
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
         
@@ -131,15 +131,25 @@ namespace GameFeelDescriptions
             return TweenHelper.GetDifference(fromValue, toValue);
         }
 
-        //TODO: implement interactionDirection in effects. 07/02/2020
-
         protected override void ExecuteSetup()
         {
             base.ExecuteSetup();
-            
-            if (interactionDirection.HasValue && useInteractionDirection)
+
+            if (useInteractionDirection)
             {
-                end += interactionDirection.Value * interactionDirectionMultiplier;
+                var interactionDirection = Vector3.zero;
+
+                switch (triggerData)
+                {
+                    case CollisionData collisionEvent:
+                        interactionDirection = collisionEvent.GetInteractionDirection();
+                        break;
+                    case PositionalData positionalEvent:
+                        interactionDirection = positionalEvent.DirectionDelta;
+                        break;
+                }
+
+                end += interactionDirection * interactionDirectionMultiplier;
             }
         }
 

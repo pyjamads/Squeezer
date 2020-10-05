@@ -41,7 +41,7 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i], rotation.eulerAngles);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], rotation.eulerAngles);
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new RotationalData{Origin = gameObject, RotationDelta = rotation.eulerAngles});
             }
             
             lastRotation = transform.rotation;

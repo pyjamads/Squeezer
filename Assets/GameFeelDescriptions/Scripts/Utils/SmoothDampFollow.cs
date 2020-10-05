@@ -16,6 +16,12 @@ namespace GameFeelDescriptions
         // Update is called once per frame
         void Update()
         {
+            if (follow == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            
             // var diffSinceLastPos = follow.transform.position - lastPos;
             //
              var currentOffset = offset;
@@ -30,7 +36,7 @@ namespace GameFeelDescriptions
             // }
 
             //var diffPos = follow.transform.position + currentOffset - transform.position;
-
+            
             transform.position = Vector3.SmoothDamp(transform.position, follow.transform.position + currentOffset, ref currentVelocity, SmoothTime);
             //transform.position += diffPos * lerpAmount * Time.deltaTime;
 

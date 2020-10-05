@@ -1,28 +1,35 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace GameFeelDescriptions
 {
     [CustomPropertyDrawer(typeof(HideFieldIfAttribute))]
     public class HideFieldIfAttributeDrawer : PropertyDrawer
     {
+        
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             var hideFieldIf = attribute as HideFieldIfAttribute;
-            
+
             var otherProp = EditorHelpers.ActualFindPropertyRelative(property, hideFieldIf?.property);
 
             if (otherProp == null) return EditorGUI.GetPropertyHeight(property, true);
-            
+
             bool shouldShow;
             if (otherProp.isArray)
             {
                 //Do List.Any() logic here or Count() == 0:
-                shouldShow = hideFieldIf.negate 
-                    ? otherProp.arraySize == 0 
+                shouldShow = hideFieldIf.negate
+                    ? otherProp.arraySize == 0
                     : otherProp.arraySize > 0;
-
             }
             else
             {
@@ -36,46 +43,45 @@ namespace GameFeelDescriptions
             {
                 return EditorGUI.GetPropertyHeight(property, true);
             }
-            
+
             return -EditorGUIUtility.standardVerticalSpacing;
         }
-
 
         // Draw the property inside the given rect
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             // First get the attribute since it contains the range for the slider
             var hideFieldIf = attribute as HideFieldIfAttribute;
-            
+
             var otherProp = EditorHelpers.ActualFindPropertyRelative(property, hideFieldIf?.property);
 
+            //TODO: figure out a better way to "show" property, if it has more attributes!!! 2020-09-22
             if (otherProp == null)
             {
-                EditorGUI.PropertyField(position, property, label,true);
+                EditorGUI.PropertyField(position, property, label, true);
                 return;
             }
-            
-            bool shouldShow;
+
+            bool shouldHide;
             if (otherProp.isArray)
             {
                 //Do List.Any() logic here or Count() == 0:
-                shouldShow = hideFieldIf.negate 
-                    ? otherProp.arraySize == 0 
+                shouldHide = hideFieldIf.negate
+                    ? otherProp.arraySize == 0
                     : otherProp.arraySize > 0;
-
             }
             else
             {
                 var obj = GetValue(otherProp);
-                
-                shouldShow = hideFieldIf.negate
+
+                shouldHide = hideFieldIf.negate
                     ? (hideFieldIf.value != obj && !obj.Equals(hideFieldIf.value))
                     : (hideFieldIf.value == obj || obj.Equals(hideFieldIf.value));
             }
 
-            if (!shouldShow)
+            if (!shouldHide)
             {
-                EditorGUI.PropertyField(position, property, label,true);
+                EditorGUI.PropertyField(position, property, label, true);
             }
         }
 
@@ -84,7 +90,7 @@ namespace GameFeelDescriptions
             switch (prop.propertyType)
             {
                 case SerializedPropertyType.Generic:
-                    return prop; 
+                    return prop;
                 case SerializedPropertyType.Integer:
                     return prop.intValue;
                 case SerializedPropertyType.Boolean:

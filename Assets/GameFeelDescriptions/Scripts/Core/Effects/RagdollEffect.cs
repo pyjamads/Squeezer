@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -36,6 +39,8 @@ namespace GameFeelDescriptions
         
         public Vector3 AdditionalForce;
 
+        public float MaxVelocity = 10f;
+
         public bool ApplyGravity = true;
 
         // [Tooltip("Destroy the ragdoll after a delay?")]
@@ -45,18 +50,21 @@ namespace GameFeelDescriptions
         // public float DestroyDelay = Random.Range(0.2f, 1.5f);
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new RagdollEffect();
 
             cp.RagdollPrefab = RagdollPrefab;
             cp.ForceMultiplier = ForceMultiplier;
             cp.AdditionalForce = AdditionalForce;
+            cp.MaxVelocity = MaxVelocity;
             cp.ApplyGravity = ApplyGravity;
             cp.RandomizeAdditionalForce = RandomizeAdditionalForce;
             // cp.DestroyRagdoll = DestroyRagdoll;
             // cp.DestroyDelay = DestroyDelay;
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
+            
+            if (target == null && origin == null) return null;
             
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
@@ -67,6 +75,18 @@ namespace GameFeelDescriptions
         {
             if (target == null && RagdollPrefab == null) return true;
 
+            var interactionDirection = Vector3.zero;
+
+            switch (triggerData)
+            {
+                case CollisionData collisionEvent:
+                    interactionDirection = collisionEvent.GetInteractionDirection();
+                    break;
+                case PositionalData positionalEvent:
+                    interactionDirection = positionalEvent.DirectionDelta;
+                    break;
+            }
+            
             var ragdoll = target;
             //If there's a ragdoll prefab, Destroy the passed "target" and instantiate the ragdoll instead.
             if (RagdollPrefab != null)
@@ -85,7 +105,11 @@ namespace GameFeelDescriptions
                 var rigid = target.AddComponent<Rigidbody>();
                 //TODO: saw a null ref here, when not 'copying' the object, and it had a Rigidbody2D attached...
                 rigid.useGravity = ApplyGravity;
-                rigid.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);                
+                rigid.velocity = additionalForce + interactionDirection * ForceMultiplier;     
+                if (rigid.velocity.magnitude > MaxVelocity)
+                {
+                    rigid.velocity = rigid.velocity.normalized * MaxVelocity;
+                }
             }
             else
             {
@@ -94,7 +118,11 @@ namespace GameFeelDescriptions
                 {
                     body.useGravity = ApplyGravity;
                     body.isKinematic = false;
-                    body.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
+                    body.velocity = additionalForce + interactionDirection * ForceMultiplier;
+                    if (body.velocity.magnitude > MaxVelocity)
+                    {
+                        body.velocity = body.velocity.normalized * MaxVelocity;
+                    }
                 }
                 else
                 {
@@ -102,7 +130,11 @@ namespace GameFeelDescriptions
                     body2D.isKinematic = false;
                     body2D.bodyType = RigidbodyType2D.Dynamic;
                     body2D.gravityScale = ApplyGravity ? 1f : 0f;
-                    body2D.velocity = additionalForce + (interactionDirection.HasValue ? interactionDirection.Value.normalized * ForceMultiplier : Vector3.zero);
+                    body2D.velocity = additionalForce + interactionDirection * ForceMultiplier;
+                    if (body2D.velocity.magnitude > MaxVelocity)
+                    {
+                        body2D.velocity = body2D.velocity.normalized * MaxVelocity;
+                    }
                 }
             }
 

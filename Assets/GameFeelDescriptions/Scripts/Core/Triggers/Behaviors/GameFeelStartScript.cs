@@ -32,7 +32,7 @@ namespace GameFeelDescriptions
 #if UNITY_EDITOR
                 if (EditorApplication.isPlaying)
 #endif
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i]);
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], null);
             }
         }
     }

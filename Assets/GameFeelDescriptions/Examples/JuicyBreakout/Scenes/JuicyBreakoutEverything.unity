@@ -4266,6 +4266,7 @@ MonoBehaviour:
         DelayBetweenLoops: 0
         Stretch: 0
         Amount: 0.5
+        useCollisionNormal: 0
         easeIn: 3
         easeOut: 12
         lockLocalPosition: 0
@@ -4476,6 +4477,7 @@ MonoBehaviour:
         DelayBetweenLoops: 0
         Stretch: 1
         Amount: 0.5
+        useCollisionNormal: 0
         easeIn: 12
         easeOut: 3
         lockLocalPosition: 0
@@ -4823,7 +4825,7 @@ MonoBehaviour:
         isComplete: 0
         ExecuteOnOffspring: []
         RagdollPrefab: {fileID: 0}
-        ForceMultiplier: 4.681726
+        ForceMultiplier: 1
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 3, y: 4, z: 0}
         ApplyGravity: 0
@@ -7402,7 +7404,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 21
         RagdollPrefab: {fileID: 0}
-        ForceMultiplier: 3
+        ForceMultiplier: 1
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 0.5, y: 2, z: 0.5}
         ApplyGravity: 1
@@ -14430,7 +14432,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 25
         RagdollPrefab: {fileID: 0}
-        ForceMultiplier: 10
+        ForceMultiplier: 1
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 2, y: 4, z: 1}
         ApplyGravity: 1

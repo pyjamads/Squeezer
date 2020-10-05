@@ -37,7 +37,7 @@ namespace GameFeelDescriptions
         public Vector3 PositionOffset;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new PositionalFlashEffect();
 
@@ -47,15 +47,34 @@ namespace GameFeelDescriptions
             cp.FlashColor = FlashColor;
             cp.FlashTransparency = FlashTransparency;
             cp.Scale = Scale;
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
+
+            if (target == null && origin == null) return null;
             
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
             return DeepCopy(cp);
         }
 
+        protected override void ExecuteSetup()
+        {
+            //Update target pos if target is still available.
+            if (target != null)
+            {
+                targetPos = target.transform.position;
+            }
+            
+            base.ExecuteSetup();
+        }
+
         protected override bool ExecuteTick()
         {
+            //Update target pos if target is still available.
+            if (target != null)
+            {
+                targetPos = target.transform.position;
+            }
+            
             GameObject flashObject;
             if (FlashPrefab != null)
             {

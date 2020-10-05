@@ -13,17 +13,16 @@ namespace GameFeelDescriptions
         }
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new MaterialColorChangeEffect
                 {
                     materialToModify = materialToModify,
                     applyToAllInstances = applyToAllInstances,
                 };
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
-        
         
         
         [Header("Finds the first material on the target, and changes the color.", order = 0)]

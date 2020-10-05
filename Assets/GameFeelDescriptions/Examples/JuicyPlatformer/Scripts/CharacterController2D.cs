@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameFeelDescriptions;
+using UnityEngine;
 using UnityEngine.Events;
 
 /// <summary>
@@ -23,7 +24,7 @@ public class CharacterController2D : MonoBehaviour
 	private Vector3 m_Velocity = Vector3.zero;
 
 	[System.Serializable]
-	public class GameObjectEvent : UnityEvent<GameObject, string, Vector3> { }
+	public class GameObjectEvent : UnityEvent<GameObject, string, GameFeelTriggerData> { }
 
 	[Header("Events")]
 	[Space]
@@ -67,7 +68,7 @@ public class CharacterController2D : MonoBehaviour
 			{
 				m_Grounded = true;
 				if (!wasGrounded)
-					OnLandEvent.Invoke(gameObject, "OnLand", Vector3.up);
+					OnLandEvent.Invoke(gameObject, "OnLand", new PositionalData{Position = m_GroundCheck.position, DirectionDelta = Vector3.up, Origin = gameObject});
 			}
 		}
 	}
@@ -140,7 +141,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
-			OnJumpEvent.Invoke(gameObject, "OnJump", Vector3.up);
+			OnJumpEvent.Invoke(gameObject, "OnJump", new PositionalData{Position = m_GroundCheck.position, DirectionDelta = Vector3.up, Origin = gameObject});
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}

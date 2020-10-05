@@ -15,10 +15,10 @@ namespace GameFeelDescriptions
         //TODO: Remove this effect, replace all logic with copies of the thing that the effect happened to. 11/02/2020
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new DestroyEffect();
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
 

@@ -92,8 +92,15 @@ namespace GameFeelDescriptions
         
         public static SerializedProperty ActualFindPropertyRelative(SerializedProperty property, string name)
         {
-            var path = property.propertyPath.Substring(0, property.propertyPath.LastIndexOf("."));
-            return property.serializedObject.FindProperty(path+"."+name);
+            var lastPeriod = property.propertyPath.LastIndexOf(".");
+
+            if (lastPeriod > 0)
+            {
+                var path = property.propertyPath.Substring(0, lastPeriod);
+                return property.serializedObject.FindProperty(path+"."+name);    
+            }
+
+            return property.serializedObject.FindProperty(name);
         }
     }
 }

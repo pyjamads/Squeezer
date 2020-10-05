@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -46,6 +47,7 @@ namespace GameFeelDescriptions
         public AudioSynthPlayEffect()
         {
             Description = "Audio Synth Effect, use for finding the sound you want, generate actual sound clips using the Editor window.";
+            GenerateSynthParameters(false, Random.Range(1, 10));
         }
 
         [Header("The base sound style type, for generating sound when ")]
@@ -57,6 +59,7 @@ namespace GameFeelDescriptions
          Header ("While undefined, the synth will generate a random sound with the given base.", order = 1), 
          Space(-10, order = 2),
          Header("The synth parameters used to generate the sound.", order = 3)]
+        
         [MutateSynthParametersButton]
         public string synthParameters;
 
@@ -100,7 +103,7 @@ namespace GameFeelDescriptions
         }
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var nextParameterSet = synthParameters;
             
@@ -119,7 +122,7 @@ namespace GameFeelDescriptions
                 //latestSynthParameters = latestSynthParameters
             };
             
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
         

@@ -18,6 +18,13 @@ namespace GameFeelDescriptions
             return Boolean(posProp) ? 1 : -1;
         }
 
+
+        public static float MutationAmount(float amount, float value = 1f)
+        {
+            //Get a random value between [-amount, amount] and scale it by the value.  
+            return (Random.value * 2 * amount - amount) * value;
+        }
+
         /// <summary>
         /// Get a random element from a list.
         /// </summary>

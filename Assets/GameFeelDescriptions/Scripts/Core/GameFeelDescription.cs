@@ -38,7 +38,7 @@ namespace GameFeelDescriptions
     }
     
     [DisallowMultipleComponent]
-    [HelpURL("https://github.com/pyjamads/GameFeelDescriptions")]
+    [HelpURL("https://github.com/pyjamads/Squeezer")]
     [Serializable]
     public class GameFeelDescription : MonoBehaviour
     //TODO: rename to something more appropriate, like GameFeelAugmentation or GameFeelEnhancement or something...04/03/2020 
@@ -335,19 +335,21 @@ namespace GameFeelDescriptions
             return JsonUtility.FromJson<GameFeelDescriptionDataStruct>(json);
         }
 
-        public void OverrideDescriptionData(GameFeelDescriptionDataStruct data)
+        public void OverrideDescriptionData(GameFeelDescriptionDataStruct data, bool setDescriptionSettings = true)
         {
-            Name = data.Name;
-            Description = data.Description;
-            AttachToTag = data.AttachToTag;
-            AttachToObjects = data.AttachToObjects;
-            AttachToComponentType = data.AttachToComponentType;
-            DynamicReattachRate = data.DynamicReattachRate;
-            StepThroughMode = data.StepThroughMode;
+            if (setDescriptionSettings)
+            {
+                Name = data.Name;
+                Description = data.Description;
+                AttachToTag = data.AttachToTag;
+                AttachToObjects = data.AttachToObjects;
+                AttachToComponentType = data.AttachToComponentType;
+                DynamicReattachRate = data.DynamicReattachRate;
+                StepThroughMode = data.StepThroughMode;
+            }
+            
             TriggerList = data.TriggerList;
         }
-
-       
 
         public static void SaveToFile(GameFeelDescription description, string filename, string path = null)
         {

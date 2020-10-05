@@ -215,7 +215,8 @@ namespace GameFeelDescriptions
         #endregion
 
         //TODO: consider changing "Vector3? direction" to "TriggerType type, object context", and letting effects cast to respond to different types of context. 7/4/2020
-        public void InitializeAndQueueEffects(GameObject origin, List<GameObject> targets, Vector3? direction = null, bool dontDestroyImmediate = false)
+        public void InitializeAndQueueEffects(GameObject origin, List<GameObject> targets,
+            GameFeelTriggerData dataData, bool dontDestroyImmediate = false)
         {
             //If the effect group is disabled, do nothing.
             if (Disabled) return;
@@ -245,7 +246,7 @@ namespace GameFeelDescriptions
 
                 if (AppliesTo == GameFeelTarget.EditorValue)
                 {
-                    var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, null, direction);
+                    var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, null, dataData);
 
                     if (copy == null) continue;
 
@@ -291,9 +292,9 @@ namespace GameFeelDescriptions
                     //Copy for each target and setup each effect, then Queue them in the executor.
                     for (var inner = 0; inner < targets.Count; inner++)
                     {
-                        var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, targets[inner], direction);
+                        var copy = EffectsToExecute[outer].CopyAndSetElapsed(origin, targets[inner], dataData);
 
-                        //TODO: figure out if this break for all targets, should be a continue instead 2020-09-04
+                        //TODO: figure out if this break for all targets, should be a continue instead 2020-09-04 (otherwise change the continue in SpawningGameFeelEffect as well)
                         if (copy == null) break;
 
                         //Find previously active copy
@@ -307,14 +308,12 @@ namespace GameFeelDescriptions
                         {
                             if (copy is WaitForAboveEffect waitForAboveEffect)
                             {
-                                waitForAboveEffect.WaitFor(queuedEffects.ToList());
-
                                 //For multiple targets, only queue the wait once!
-                                if (inner == targets.Count - 1)
-                                {
-                                    waitForAboveEffect.QueueExecution();
-                                    queuedEffects.Add(waitForAboveEffect);
-                                }
+                                if (waitForAboveEffect.WaitForAllTargets && inner != targets.Count - 1) continue;
+                                
+                                waitForAboveEffect.WaitFor(queuedEffects.Where(item => waitForAboveEffect.WaitForAllTargets || item.target == targets[inner]));
+                                waitForAboveEffect.QueueExecution();
+                                queuedEffects.Add(waitForAboveEffect);
                             }
                             else
                             {
@@ -370,6 +369,12 @@ namespace GameFeelDescriptions
             
             //Override effects with the ones from recipe
             EffectsToExecute = new List<GameFeelEffect>(recipe.effects);
+        }
+        
+        public void ReplaceEffectsWithRecipe(IEnumerable<GameFeelEffect> recipe)
+        {
+            //Override effects with the ones from recipe
+            EffectsToExecute = new List<GameFeelEffect>(recipe);
         }
         
         public void ReplaceEffectsWithRecipe(GameFeelEffectGroup recipe)

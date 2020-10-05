@@ -13,7 +13,7 @@ namespace GameFeelDescriptions
         }
       
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             //This effect does nothing, when no event name is specified!
             if (string.IsNullOrEmpty(EventName))
@@ -24,13 +24,13 @@ namespace GameFeelDescriptions
 
             var cp = new TriggerCustomEventEffect();
             cp.EventName = EventName;
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
 
         protected override bool ExecuteTick()
         {
-            GameFeelEffectExecutor.Instance.TriggerCustomEvent(target == null ? origin : target, EventName, interactionDirection);
+            GameFeelEffectExecutor.Instance.TriggerCustomEvent(target == null ? origin : target, EventName, triggerData);
 
             //We're done
             return true;

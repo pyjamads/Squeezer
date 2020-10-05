@@ -15,12 +15,12 @@ namespace GameFeelDescriptions
         public bool enableAfterDuration;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new DisableRendererEffect();
             cp.includingChildren = includingChildren;
             cp.enableAfterDuration = enableAfterDuration;
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
 
@@ -59,20 +59,26 @@ namespace GameFeelDescriptions
             {
                 if (includingChildren)
                 {
-                    var renderers = target.GetComponentsInChildren<Renderer>();
-                    if (renderers.Length == 0) return;
-
-                    for (int i = 0; i < renderers.Length; i++)
+                    if (target != null)
                     {
-                        renderers[i].enabled = true;    
+                        var renderers = target.GetComponentsInChildren<Renderer>();
+                        if (renderers.Length == 0) return;
+
+                        for (int i = 0; i < renderers.Length; i++)
+                        {
+                            renderers[i].enabled = true;    
+                        }
                     }
                 }
                 else
                 {
-                    var render = target.GetComponent<Renderer>();
-                    if (render == null) return;
+                    if (target != null)
+                    {
+                        var render = target.GetComponent<Renderer>();
+                        if (render == null) return;
                 
-                    render.enabled = true;
+                        render.enabled = true;    
+                    }
                 }  
             }    
 

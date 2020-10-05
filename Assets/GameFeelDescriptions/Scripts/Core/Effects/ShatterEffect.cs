@@ -3,63 +3,6 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    // public class ParticlePoofEffect : SpawningGameFeelEffect
-    // {
-    //     public ParticlePoofEffect()
-    //     {
-    //         Description = "Particle poof creates anything from a dust cloud from a footfall to nuclear explosion.";
-    //     }
-    //     
-    //     [Tooltip("Number of Pieces to spawn, if amount is different from the items in the list, they will be randomly chosen.")]
-    //     public int AmountOfParticles = Random.Range(5, 10);
-    //     
-    //     [Tooltip("Add custom prefabs to spawn instead of the copies of the target.")]
-    //     public List<GameObject> ParticlePrefabs;
-    //
-    //     [Range(1, 10)]
-    //     public int Magnitude = Random.Range(1, 11);
-    //
-    //     // public override void Randomize()
-    //     // {
-    //     //     base.Randomize();
-    //     //
-    //     //     AmountOfParticles = Random.Range(5, 50);
-    //     //     ParticlePrefabs = null; // or have some resources loaded here!
-    //     //     Magnitude = Random.Range(1, 11);
-    //     //
-    //     //     GenerateParticlePoof(); //Make the effect list, and add it to ExecuteOnOffspring!!
-    //     // }
-    //
-    //     // public override void Mutate(float amount = 0.05f)
-    //     // {
-    //     //     base.Mutate(amount);
-    //     //     
-    //     //     AmountOfParticles += Mathf.RoundToInt(AmountOfParticles * amount * RandomExtensions.Sign());
-    //     //     
-    //     //     //TODO: mutate every effect in the ExecuteOnOffspring list
-    //     // }
-    //     
-    //     public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, bool unscaledTime,
-    //         Vector3? interactionDirection = null)
-    //     {
-    //         var cp = new ParticlePoofEffect();
-    //
-    //         cp.ParticlePrefabs = ParticlePrefabs;
-    //         cp.AmountOfParticles = AmountOfParticles;
-    //         cp.Magnitude = Magnitude;
-    //         cp.Init(origin, target, unscaledTime, interactionDirection);
-    //         
-    //         return DeepCopy(cp);
-    //     }
-    //
-    //     protected override bool ExecuteTick()
-    //     {
-    //         throw new System.NotImplementedException();
-    //         //TODO: create "particles"
-    //         //TODO: Add effect list to particles, and queue the effects...
-    //     }
-    // }
-    
     public class ShatterEffect : SpawningGameFeelEffect
     {
         public ShatterEffect()
@@ -83,10 +26,12 @@ namespace GameFeelDescriptions
         [Tooltip("Number of Pieces to spawn, if amount is different from the items in the list, they will be randomly chosen.")]
         public int AmountOfPieces = Random.Range(5, 10);
 
-        [Tooltip("Add custom prefabs to spawn instead of the copies of the target.")]
+        [HideFieldIf("usePrimitivePieces", true)]
+        [Tooltip("Add custom prefabs to spawn instead of using primitives.")]
         public List<GameObject> PrefabPieces;
         
-        public bool usePrimitivePieces;
+        [Tooltip("Whether to use primitives or prefabs!")]
+        public bool usePrimitivePieces = true;
         
         [HideFieldIf("usePrimitivePieces", false)]
         public PrimitiveType PiecePrimitive;
@@ -94,7 +39,7 @@ namespace GameFeelDescriptions
         //TODO: Add 2D option, and maybe a camera reference?, so we can make quad/sprite instead. 2020-08-13
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new ShatterEffect();
 
@@ -103,9 +48,13 @@ namespace GameFeelDescriptions
             cp.usePrimitivePieces = usePrimitivePieces;
             cp.PiecePrimitive = PiecePrimitive;
             
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
 
-            cp.targetPos = target != null ? target.transform.position : origin.transform.position;
+            cp.targetPos = target != null
+                ? target.transform.position
+                : (origin != null ? origin.transform.position : Vector3.zero);
+            
+            
 
             return DeepCopy(cp);
         }
@@ -137,48 +86,47 @@ namespace GameFeelDescriptions
                 var qbrt = Mathf.Pow(AmountOfPieces, 1f / 3f);
                 var scale = Vector3.one / qbrt;
                 GameObject mold = null;
-                
-                if (usePrimitivePieces)
-                {    
-                    mold = GameObject.CreatePrimitive(PiecePrimitive);
-                    mold.transform.parent = GameFeelEffectExecutor.Instance.transform;
-                    mold.transform.position = targetPos;
-                    var renderer = mold.GetComponent<Renderer>();
-                    renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
-                    SetMaterialTransparentBlendMode(renderer.material); 
-                    renderer.material.color = Color.white;
 
+                if (!usePrimitivePieces)
+                {
                     if (target != null)
                     {
-                        scale = target.transform.localScale / qbrt;
-
-                        var targetRenderer = target.GetComponent<Renderer>();
-                        if (targetRenderer.HasPropertyBlock())
-                        {
-                            var materialPropertyBlock = new MaterialPropertyBlock();
-                            targetRenderer.GetPropertyBlock(materialPropertyBlock);   
-                            
-                            renderer.SetPropertyBlock(materialPropertyBlock);
-                        }
-                        else
-                        {
-                            renderer.material.color = targetRenderer.material.color;
-                        }
+                        Debug.LogWarning("ShatterEffect targeting ["+target.name+"] is set to use prefabs, but no prefabs have been added, using primitive instead.");    
                     }
-                    
-                    mold.transform.localScale = scale;
+                    else
+                    {
+                        Debug.LogWarning("ShatterEffect is set to use prefabs, but no prefabs have been added, using primitive instead.");
+                    }
                 }
-                else if (target != null)
+
+                mold = GameObject.CreatePrimitive(PiecePrimitive);
+                mold.transform.parent = GameFeelEffectExecutor.Instance.transform;
+                mold.transform.position = targetPos;
+                var renderer = mold.GetComponent<Renderer>();
+                renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
+                SetMaterialTransparentBlendMode(renderer.material); 
+                renderer.material.color = Color.white;
+
+                if (target != null)
                 {
-                    //Get a copy and remove all scripts, rigidbodies and colliders.
-                    mold = CopyAndStripTarget(target);
-
                     scale = target.transform.localScale / qbrt;
-                    mold.transform.localScale = scale;
-                }
 
-                if (mold == null) return false;
+                    var targetRenderer = target.GetComponent<Renderer>();
+                    if (targetRenderer.HasPropertyBlock())
+                    {
+                        var materialPropertyBlock = new MaterialPropertyBlock();
+                        targetRenderer.GetPropertyBlock(materialPropertyBlock);   
+                        
+                        renderer.SetPropertyBlock(materialPropertyBlock);
+                    }
+                    else
+                    {
+                        renderer.material.color = targetRenderer.material.color;
+                    }
+                }
                 
+                mold.transform.localScale = scale;
+
                 shatteredPieces.Add(mold);
 
                 //Copy the rest off of the first copy.

@@ -44,7 +44,7 @@ namespace GameFeelDescriptions
         public float lastPitchChangeTime;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             
             var cp = new AudioClipPlayEffect
@@ -71,7 +71,7 @@ namespace GameFeelDescriptions
             
             lastPitchChangeTime = Time.unscaledTime;
             
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             
             
             return DeepCopy(cp);

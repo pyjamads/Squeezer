@@ -129,6 +129,7 @@ namespace GameFeelDescriptions
 
         private void PauseAndSelectTrigger(GameFeelEffectGroup effectGroup, params object[] context)
         {
+            
             if (AutomatedDesigner.AutomatedEffectDesigner)
             {
                 //Notify the designer that an event happened, with the description and type.
@@ -151,25 +152,29 @@ namespace GameFeelDescriptions
             //var recipe = MakeRecipe(effects);
 
             var activation = "";
-            switch (TriggerType)
+
+            switch (this)
             {
-                case GameFeelTriggerType.OnCollision:
+                case GameFeelCollisionScript col:
                     activation = "Reacting to "+((OnCollisionTrigger.CollisionActivationType)context[0]).GetName()
-                                              +" with "+ ((GameObject) context[1]).name +" ["+((GameObject)context[1]).tag+"]";
+                                               +" with "+ ((GameObject) context[1]).name +" ["+((GameObject)context[1]).tag+"]";
                     break;
-                case GameFeelTriggerType.OnMove:
+                case GameFeelMovementScript mov:
                     activation = "Reacting to "+((OnMoveTrigger.MovementActivationType)context[0]).GetName();
                     break;
-                case GameFeelTriggerType.OnRotate:
+                case GameFeelRotationScript rot:
                     break;
-                case GameFeelTriggerType.OnStart:
+                case GameFeelStartScript start:
                     break;
-                case GameFeelTriggerType.OnDestroy:
+                case GameFeelDestroyScript destroy:
                     break;
-                case GameFeelTriggerType.OnDisable:
+                case GameFeelDisableScript disable:
                     break;
-                case GameFeelTriggerType.OnCustomEvent:
+                case GameFeelCustomEventScript custom:
                     activation = "Reacting to "+context[0]+" from "+((GameObject) context[1]).name+" ["+((GameObject) context[1]).tag+"]";
+                    break;
+                case StateChangedTriggerScript stateChanged:
+                    activation = "Reacting a value change in "+stateChanged.StateField+" on "+stateChanged.ComponentName + " on "+gameObject.name;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -326,6 +331,21 @@ namespace GameFeelDescriptions
                             break;
                         }
                         case GameFeelTriggerType.OnCollision when
+                            type == typeof(DisableEffect) ||
+                            type == typeof(EnableEffect) ||
+                            type == typeof(DestroyEffect) ||
+                            type == typeof(InvokeUnityEvent) ||
+                            type == typeof(RotateTowardsDirectionEffect) ||
+                            type == typeof(AudioClipModulationEffect) ||
+                            type == typeof(AudioClipPlayEffect) ||
+                            type == typeof(DisableRendererEffect) ||
+                            type == typeof(TriggerCustomEventEffect) ||
+                            type == typeof(PropertyTweenEffect):// ||
+//                            type == typeof(AudioSynthPlayEffect):
+                        {
+                            break;
+                        }
+                        case GameFeelTriggerType.OnStateChanged when
                             type == typeof(DisableEffect) ||
                             type == typeof(EnableEffect) ||
                             type == typeof(DestroyEffect) ||

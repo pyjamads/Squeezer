@@ -11,9 +11,12 @@ namespace GameFeelDescriptions
         
         // Draw the property inside the given rect
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {   
-            if (property.propertyType != SerializedPropertyType.Enum && 
-                property.propertyType != SerializedPropertyType.Integer) return;
+        {
+            if (property.propertyType != SerializedPropertyType.Enum &&
+                property.propertyType != SerializedPropertyType.Integer)
+            {
+                return;
+            }
             
             EasingHelper.EaseType ease;
             

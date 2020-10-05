@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions.Examples
 {
@@ -13,6 +15,17 @@ namespace GameFeelDescriptions.Examples
         private Rigidbody2D body;
 
         public bool ballReady = true;
+
+        public enum TestStates
+        {
+            Bouncing,
+            Flying,
+            Destroying,
+        }
+
+        private bool testBool;
+        private TestStates testEnum;
+        private Action testDelegate = () => { /* DO NOTHING!!!*/ };
 
         // Start is called before the first frame update
         void Start()
@@ -36,6 +49,9 @@ namespace GameFeelDescriptions.Examples
         {
             if (ballReady) return;
 
+            //FAKE FSM CALL
+            testDelegate();
+
             //Standard movement update
 //        velocity += acceleration * Time.deltaTime;
 //        acceleration = Vector2.zero;
@@ -51,10 +67,33 @@ namespace GameFeelDescriptions.Examples
                 transform.position.x < -10 || 10 < transform.position.x) ResetBall();
         }
 
+        
+        void FSMBounce()
+        {
+            /*DO NOTHING!!*/
+        }
 
-
+        void FSMFly()
+        {
+            /*ALSO DO NOTHING!!*/
+        }
+        
         private void OnCollisionEnter2D(Collision2D other)
         {
+            //FSM State change tests
+            testEnum = EnumExtensions.GetRandomValue<TestStates>();
+            //Only true when testEnum is set to bouncing.
+            testBool = testEnum == TestStates.Bouncing;
+
+            if (testEnum == TestStates.Flying)
+            {
+                testDelegate = FSMFly;
+            } 
+            else if (testEnum == TestStates.Bouncing)
+            {
+                testDelegate = FSMBounce;
+            }
+            
             if (other.gameObject.CompareTag("paddle"))
             {
                 var dir = transform.position - other.gameObject.transform.position;

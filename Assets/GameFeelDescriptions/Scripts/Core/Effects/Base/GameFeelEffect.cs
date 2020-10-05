@@ -82,7 +82,8 @@ namespace GameFeelDescriptions
       [Min(0f)]
       public float Cooldown;
       private float lastCopyTime = float.NegativeInfinity;
-
+      
+      
       /// <summary>
       /// List of effects to execute after completion of this effect.
       /// </summary>
@@ -103,7 +104,7 @@ namespace GameFeelDescriptions
 
       protected GameObject origin;
       protected internal GameObject target;
-      protected Vector3? interactionDirection;
+      public GameFeelTriggerData triggerData;
 
       protected bool firstTick = true;
       public bool isComplete;
@@ -113,10 +114,10 @@ namespace GameFeelDescriptions
       /// </summary>
       /// <param name="origin"></param>
       /// <param name="target"></param>
-      /// <param name="interactionDirection"></param>
+      /// <param name="triggerData"></param>
       /// <returns>A copy of the effect or null if copies are suspended.</returns>
       public abstract GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-         Vector3? interactionDirection = null);
+         GameFeelTriggerData triggerData);
 
       protected virtual T DeepCopy<T>(T shallow) where T : GameFeelEffect
       {
@@ -256,8 +257,8 @@ namespace GameFeelDescriptions
       /// </summary>
       /// <param name="origin"></param>
       /// <param name="target"></param>
-      /// <param name="interactionDirection"></param>
-      public void Init(GameObject origin, GameObject target, Vector3? interactionDirection = null) => (this.origin, this.target, this.interactionDirection) = (origin, target, interactionDirection);
+      /// <param name="eventData1"></param>
+      public void Init(GameObject origin, GameObject target, GameFeelTriggerData dataData) => (this.origin, this.target, this.triggerData) = (origin, target, dataData);
       
       /// <summary>
       /// Set the delay before the effect begins.
@@ -328,7 +329,7 @@ namespace GameFeelDescriptions
             if(effect.Disabled) continue;
             
             //Copy and initialize effect.
-            var copy = effect.CopyAndSetElapsed(origin, target, interactionDirection);
+            var copy = effect.CopyAndSetElapsed(origin, target, triggerData);
             
             //Singleton Effects might return null, to avoid copies.
             if(copy == null) continue;

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -12,10 +14,19 @@ namespace GameFeelDescriptions
             Relative,
         }
         
+        [Header("Either specify Duration or allow the system to Randomize it, which can be restricted with DurationMin.")]
+        public bool RandomizeDuration;
+        
+        //NOTE: HideFieldIf doesn't work when you have additional propertyDrawers on a field.
+        //[HideFieldIf("RandomizeDuration", false)]
+        [Tooltip("Used in conjunction with RandomizeDuration, to specify a lower bound for the random Duration.")]
+        [DynamicRange(0f, "Duration")]
+        public float DurationMin;
+        
         /// <summary>
         /// Duration in seconds of execution.
         /// </summary>
-        [Range(0, 5)]
+        [Range(0f, 10f)] //Min is locked to zero.
         public float Duration = Random.Range(10, 121) / 100f;//Default value 0.1-1.2 in steps of 0.01.
 
         [Tooltip("Restart starts over at each iteration.\nYoyo goes back and forth between to and from.\nRelative uses the end value as a starting point for the next loop.")]
@@ -198,30 +209,38 @@ namespace GameFeelDescriptions
             //If the shallow is not DurationalGameFeelEffect, return null instead. 
             if (!(shallow is DurationalGameFeelEffect cp)) return null;
             
-            cp.Duration = Duration;
-
+            //Setup Duration when we copy it!
+            //NOTE: This is slightly hidden logic... 2020-09-22 
+            if (RandomizeDuration)
+            {
+                cp.Duration = Random.Range(DurationMin, Duration);
+            }
+            else
+            {
+                cp.Duration = Duration;
+            }
+            
             cp.loopType = loopType;
             cp.repeat = repeat;
             cp.DelayBetweenLoops = DelayBetweenLoops;
-                
-            return base.DeepCopy(cp as T);
 
+            return base.DeepCopy(cp as T);
         }
 
         public override void Mutate(float amount = 0.05f)
         {
+            base.Mutate(amount);
+            
             var durationAmount = Random.value * amount * 2 - amount;
             Duration = Mathf.Max(0,Duration + durationAmount * Duration);
-            
-            base.Mutate(amount);
         }
 
         public override void Randomize()
         {
+            base.Randomize();
+            
             //Default value 0.1-1.5 in steps of 0.01f, with a higher likelihood of the 0.1f - 1f spectrum.
             Duration = 0.1f + Mathf.Max(0f, (Random.Range(0, 151) - Random.Range(0, 60))/ 100f);
-            
-            base.Randomize();
         }
 
         public override bool CompareTo(GameFeelEffect other)

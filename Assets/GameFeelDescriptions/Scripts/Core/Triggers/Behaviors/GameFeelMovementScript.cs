@@ -141,7 +141,7 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i], activationType, direction);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], direction);    
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new MovementData{Origin = gameObject, Position = transform.position, DirectionDelta = direction, ActivationType = type});    
             }
         }
     }

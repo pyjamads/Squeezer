@@ -33,7 +33,7 @@ namespace GameFeelDescriptions
         }
 
         private void CheckForActivation(OnCollisionTrigger.CollisionActivationType activationType, GameObject other,
-            Vector3 context)
+            GameFeelTriggerData collisionData)
         {
             if (Disabled) return;
             
@@ -163,7 +163,7 @@ namespace GameFeelDescriptions
             if (Description.StepThroughMode)
             {
                 /* Trigger StepThroughMode Popup! */
-                HandleStepThroughMode(activationType, other, context);
+                HandleStepThroughMode(activationType, other, collisionData);
             }
 #endif
             
@@ -176,11 +176,11 @@ namespace GameFeelDescriptions
 #if UNITY_EDITOR
                 //Handle StepThroughMode for this specific group, if enabled.
                 HandleStepThroughMode(Description.TriggerList[TriggerIndex].EffectGroups[i], 
-                    activationType, other, context);
+                    activationType, other, collisionData);
 #endif
 
                 //We pass a normalized direction vector.
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], context, true);
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], collisionData, true);
             }
         }
         
@@ -229,7 +229,10 @@ namespace GameFeelDescriptions
 
 
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionEnter, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnCollisionEnter,
+                    Collision = other,
+                });
         }
 
         private void OnCollisionStay(Collision other)
@@ -261,7 +264,10 @@ namespace GameFeelDescriptions
             }
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionStay, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnCollisionStay,
+                    Collision = other,
+                });
         }
 
         private void OnCollisionExit(Collision other)
@@ -298,7 +304,10 @@ namespace GameFeelDescriptions
             }
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionExit, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnCollisionExit,
+                    Collision = other,
+                });
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -342,7 +351,10 @@ namespace GameFeelDescriptions
             }
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionEnter2D, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnCollisionEnter2D,
+                    Collision2D = other,
+                });
         }
 
         private void OnCollisionStay2D(Collision2D other)
@@ -376,7 +388,10 @@ namespace GameFeelDescriptions
             }
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionStay2D, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnCollisionStay2D,
+                    Collision2D = other,
+                });
         }
 
         private void OnCollisionExit2D(Collision2D other)
@@ -413,7 +428,10 @@ namespace GameFeelDescriptions
             }
 
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnCollisionExit2D, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnCollisionExit2D,
+                    Collision2D = other,
+                });
         }
 
         //TODO: Get rigidbody and figure out trigger collision contexts like relativeVelocity, etc on our own here! 2020-08-27
@@ -423,7 +441,10 @@ namespace GameFeelDescriptions
             Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position);
 
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerEnter, other.gameObject,
-            context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnTriggerEnter,
+                    Collider = other,
+                });
         }
 
         private void OnTriggerStay(Collider other)
@@ -431,14 +452,20 @@ namespace GameFeelDescriptions
             Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position);
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerStay, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnTriggerStay,
+                    Collider = other,
+                });
         }
 
         private void OnTriggerExit(Collider other)
         {
             Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position);
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerExit, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnTriggerExit,
+                    Collider = other,
+                });
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -446,7 +473,10 @@ namespace GameFeelDescriptions
             Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3();
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerEnter2D, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnTriggerEnter2D,
+                    Collider2D = other,
+                });
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -454,7 +484,10 @@ namespace GameFeelDescriptions
             Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3();
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerStay2D, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnTriggerStay2D,
+                    Collider2D = other,
+                });
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -462,7 +495,10 @@ namespace GameFeelDescriptions
             Vector3 context = gameObject.transform.position - other.ClosestPoint(gameObject.transform.position).AsVector3();
             
             CheckForActivation(OnCollisionTrigger.CollisionActivationType.OnTriggerExit2D, other.gameObject,
-                context);
+                new CollisionData{Origin = gameObject, 
+                    ActivationType = OnCollisionTrigger.CollisionActivationType.OnTriggerExit2D,
+                    Collider2D = other,
+                });
         }
 
         #endregion

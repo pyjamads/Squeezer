@@ -91,7 +91,7 @@ namespace GameFeelDescriptions
 //         }
 
         [MenuItem("GameFeelDescriptions/Triggers/Attach To GameObjects")]
-        static void AttachAllTriggers()
+        public static void AttachAllTriggers()
         {
             var descriptions = GameObject.FindObjectsOfType<GameFeelDescription>();
             for (int i = 0; i < descriptions.Length; i++)

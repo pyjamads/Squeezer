@@ -18,14 +18,14 @@ namespace GameFeelDescriptions
         private float lastBlinkTime;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new BlinkEffect
             {
                 OnlyDisableRenderers = OnlyDisableRenderers,
                 Interval = Interval,
             };
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
 

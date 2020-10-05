@@ -1,0 +1,715 @@
+{
+    "Name": "PlayerEffects",
+    "Description": "Description of all effects triggered by game objects with the tag [Player]",
+    "DontDestroyOnLoad": false,
+    "DynamicReattachRate": 0.0,
+    "AttachToTag": "Player",
+    "AttachToObjects": [],
+    "AttachToComponentType": "",
+    "StepThroughMode": false,
+    "TriggerList": [
+        {
+            "id": 0
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "OnCollisionTrigger",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "TriggerType": 0,
+                "Disabled": false,
+                "EffectGroups": [
+                    {
+                        "GroupName": "",
+                        "Disabled": false,
+                        "StepThroughMode": false,
+                        "AppliesTo": 0,
+                        "TargetTag": "",
+                        "TargetComponentType": {
+                            "instanceID": 0
+                        },
+                        "TargetList": [],
+                        "EffectsToExecute": [
+                            {
+                                "id": 1
+                            },
+                            {
+                                "id": 2
+                            },
+                            {
+                                "id": 3
+                            },
+                            {
+                                "id": 4
+                            }
+                        ]
+                    }
+                ],
+                "ReactTo": [
+                    "*"
+                ],
+                "type": 0,
+                "ContextType": 0
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "AudioSynthPlayEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Audio Synth Effect, use for finding the sound you want, generate actual sound clips using the Editor window.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": true,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.47822877764701846,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "soundGeneratorBase": 2,
+                "synthParameters": "3,.5,,.4095,.4848,.2077,.2355,.2036,,-.0774,,,,.1892,,.1661,,,-.0846,.1518,,.219,.1193,.222,,.7788,,,,,,-.114",
+                "mutateOnExecution": false,
+                "latestSynthParameters": [
+                    "3,.5,,.4095,.4848,.2077,.2355,.2036,,-.0774,,,,.1892,,.1661,,,-.0846,.1518,,.219,.1193,.222,,.7788,,,,,,-.114",
+                    "3,.5,,.2155,.4848,.2077,.3,.1778,,-.0926,,,,,,,,,,,,,,,,1,,,,,,"
+                ]
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "PositionalFlashEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Make a positional flash which quickly fades away.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 5
+                    }
+                ],
+                "FlashColor": {
+                    "r": 0.9801766276359558,
+                    "g": 0.7157731652259827,
+                    "b": 0.15218061208724976,
+                    "a": 0.5
+                },
+                "FlashTransparency": false,
+                "FlashPrefab": {
+                    "instanceID": 0
+                },
+                "FlashPrimitive": 0,
+                "Scale": {
+                    "x": 0.960746705532074,
+                    "y": 0.960746705532074,
+                    "z": 0.960746705532074
+                },
+                "PositionOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            }
+        },
+        "00000003": {
+            "type": {
+                "class": "ParticlePuffEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Particle puff creates anything from a dust cloud from a footfall to nuclear explosion.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 6
+                    },
+                    {
+                        "id": 7
+                    },
+                    {
+                        "id": 8
+                    }
+                ],
+                "AmountOfParticles": 56,
+                "ParticlePrefabs": [],
+                "usePrimitiveParticles": true,
+                "ParticlePrimitive": 0,
+                "ExpansionShape": 1,
+                "Height": 1.4923847913742066,
+                "Radius": 0.5840030908584595,
+                "ParticleScale": 0.605005145072937,
+                "ParticleLifetime": 0.7258895039558411
+            }
+        },
+        "00000004": {
+            "type": {
+                "class": "CameraShakeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple camera shake effect.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.9253937005996704,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "cameraToModify": {
+                    "instanceID": 0
+                },
+                "useInteractionDirection": false,
+                "interactionDirectionMultiplier": 1.0,
+                "amount": 0.25,
+                "easeAmountInOut": {
+                    "serializedVersion": "2",
+                    "m_Curve": [
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.0,
+                            "value": 1.0,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 1.0,
+                            "value": 1.0,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        }
+                    ],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                }
+            }
+        },
+        "00000005": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 9
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.14263463020324708,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": false,
+                "from": {
+                    "r": -0.1709166020154953,
+                    "g": -0.022171318531036378,
+                    "b": -0.12213923037052155,
+                    "a": 0.0673777237534523
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.25139933824539187,
+                    "g": 0.18981727957725526,
+                    "b": 0.10858622938394547,
+                    "a": 0.06699094921350479
+                },
+                "easing": 5,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000006": {
+            "type": {
+                "class": "ContinuousRotationEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Continuous Rotation Effect allows you to rotate an object continuously over a duration.",
+                "UnscaledTime": false,
+                "Delay": 0.3205571174621582,
+                "RandomizeDelay": true,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 1.9959524869918824,
+                "loopType": 1,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "useGlobalRotation": false,
+                "RotationPerSecond": {
+                    "x": 72.87195587158203,
+                    "y": -22.121341705322267,
+                    "z": -1.1449652910232545
+                }
+            }
+        },
+        "00000007": {
+            "type": {
+                "class": "ScaleEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Scale Effect allows you to scale an object using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.39229467511177065,
+                "RandomizeDelay": true,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 10
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.579535961151123,
+                "loopType": 3,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.35615023970603945,
+                    "y": 0.35615023970603945,
+                    "z": 0.35615023970603945
+                },
+                "relative": true,
+                "to": {
+                    "x": 0.5522031784057617,
+                    "y": 0.5522031784057617,
+                    "z": 0.5522031784057617
+                },
+                "easing": 7,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                }
+            }
+        },
+        "00000008": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 11
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": true,
+                "DurationMin": 0.30000001192092898,
+                "Duration": 0.941786527633667,
+                "loopType": 2,
+                "repeat": 0,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": true,
+                "from": {
+                    "r": -0.034761711955070499,
+                    "g": 0.1275036633014679,
+                    "b": 0.07985688000917435,
+                    "a": 0.8589728474617004
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.00450042262673378,
+                    "g": 0.14364832639694215,
+                    "b": 0.23483112454414369,
+                    "a": -0.16695278882980348
+                },
+                "easing": 2,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000009": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple destruction effect.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false
+            }
+        },
+        "0000000A": {
+            "type": {
+                "class": "CameraShakeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple camera shake effect.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.3799999952316284,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "cameraToModify": {
+                    "instanceID": 0
+                },
+                "useInteractionDirection": false,
+                "interactionDirectionMultiplier": 1.0,
+                "amount": 0.01166160311549902,
+                "easeAmountInOut": {
+                    "serializedVersion": "2",
+                    "m_Curve": [
+                        {
+                            "serializedVersion": "3",
+                            "time": 0.0,
+                            "value": 1.0,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        },
+                        {
+                            "serializedVersion": "3",
+                            "time": 1.0,
+                            "value": 1.0,
+                            "inSlope": 0.0,
+                            "outSlope": 0.0,
+                            "tangentMode": 0,
+                            "weightedMode": 0,
+                            "inWeight": 0.0,
+                            "outWeight": 0.0
+                        }
+                    ],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                }
+            }
+        },
+        "0000000B": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple destruction effect.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": true,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 12
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false
+            }
+        },
+        "0000000C": {
+            "type": {
+                "class": "TrailEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Make a trail of copies of the game object, which slowly fades.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 13
+                    }
+                ],
+                "TrailPrefab": {
+                    "instanceID": 0
+                },
+                "TrailPositionOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            }
+        },
+        "0000000D": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.10000000149011612,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 14
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.15912064909934998,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": false,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "easing": 7,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "0000000E": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple destruction effect.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    }
+                },
+                "isComplete": false
+            }
+        },
+        "0000000F": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

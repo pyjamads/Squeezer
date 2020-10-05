@@ -9,9 +9,10 @@ namespace GameFeelDescriptions
         public WaitForAboveEffect()
         {
             Description = "Delay any subsequent effect by an amount, or until all effects above it are complete. NB does not include nested effects";
-            Delay = Random.Range(1, 100) / 100f;
         }
 
+        public bool WaitForAllTargets;
+        
         private List<GameFeelEffect> waitingFor = new List<GameFeelEffect>();
 
         public void WaitFor(GameFeelEffect effect)
@@ -23,12 +24,26 @@ namespace GameFeelDescriptions
         {
             waitingFor.AddRange(effects);
         }
-        
+
+        public override void Randomize()
+        {
+            base.Randomize();
+            
+            Delay = Random.Range(1, 100) / 100f;
+        }
+
+        public override void Mutate(float amount = 0.05f)
+        {
+            base.Mutate(amount);
+            
+            Delay += amount - Random.value * 2 * amount;
+        }
+
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new WaitForAboveEffect();
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
 

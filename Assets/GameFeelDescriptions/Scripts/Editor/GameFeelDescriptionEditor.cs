@@ -934,7 +934,7 @@ namespace GameFeelDescriptions
                                         group.EffectsToExecute.AddRange(recipe);
 
                                         //Take the handcrafted tree, and mutate it!
-                                        MutateGroup(group, 0.25f, 0.25f, 0.10f);
+                                        InteractiveEvolution.MutateGroup(group, 0.25f, 0.25f, 0.10f);
 
                                         serializedObject.ApplyModifiedProperties();
                                     }
@@ -974,7 +974,7 @@ namespace GameFeelDescriptions
                                                 ? "EffectGroup"
                                                 : group.GroupName));
 
-                                        MutateGroup(group);
+                                        InteractiveEvolution.MutateGroup(group);
                                     }
 
                                     if (GUILayout.Button("Regenerate"))
@@ -988,7 +988,7 @@ namespace GameFeelDescriptions
                                         group.EffectsToExecute.AddRange(recipe);
 
                                         //Take the handcrafted tree, and mutate it!
-                                        MutateGroup(group, 0.25f, 0.25f, 0.10f);
+                                        InteractiveEvolution.MutateGroup(group, 0.25f, 0.25f, 0.10f);
 
                                         serializedObject.ApplyModifiedProperties();
                                     }
@@ -1050,17 +1050,31 @@ namespace GameFeelDescriptions
                     var prefix = effect.Disabled ? "[DISABLED] " : "";
                     
                     var remainingTime = effect.GetRemainingTime(true);
-                    var suffix = " [" + remainingTime+ "s]";
+                    var suffix = " [" + remainingTime + (remainingTime == float.PositiveInfinity ? "" : "s") +"]";
+
+                    var minTime = remainingTime;
 
                     if (effect.RandomizeDelay)
                     {
-                        suffix = " ["+(remainingTime-effect.Delay)+"-" + remainingTime+ "s]";
+                        minTime -= effect.Delay;
                     }
+
+                    if (effect is DurationalGameFeelEffect durational && durational.RandomizeDuration)
+                    {
+                        minTime -= durational.Duration - durational.DurationMin;
+                    }
+                    
+                    //if (effect.RandomizeDelay || effect is DurationalGameFeelEffect durational && durational.RandomizeDuration)
+                    if (Math.Abs(minTime - remainingTime) > float.Epsilon * 10f)
+                    {
+                        suffix = " ["+(minTime)+"-" + remainingTime + (remainingTime == float.PositiveInfinity ? "" : "s") + "]";
+                    }
+                    
                     
                     totalExecutionTime += remainingTime;
                     if (totalExecutionTime != remainingTime)
                     {
-                        suffix += " (Total: "+totalExecutionTime+"s)";
+                        suffix += " (Total: "+totalExecutionTime + (totalExecutionTime == float.PositiveInfinity ? "" : "s")+")";
                     }
                     
                     var effectLabel = prefix + effect.GetType().Name + suffix;
@@ -1169,99 +1183,6 @@ namespace GameFeelDescriptions
             }
 
             #region local functions
-
-            void MutateGroup(GameFeelEffectGroup gameFeelEffectGroup, float mutateAmount = 0.05f, float addProbability = 0.05f, float removeProbability = 0.05f)
-            {
-                var constructors = GameFeelBehaviorBase.GetGameFeelEffects();
-
-                //Group level remove, then mutate, then add!
-                var unlockedEffects = gameFeelEffectGroup.EffectsToExecute.Where(item => !item.Lock);
-                if (RandomExtensions.Boolean(removeProbability))
-                {
-                    var effectToRemove = unlockedEffects.GetRandomElement();
-                    gameFeelEffectGroup.EffectsToExecute.Remove(effectToRemove);
-                    //TODO: Consider whether this should be a "replace",
-                    //TODO: because currently it's addProb * removeProb that a replace happens. 
-                }
-
-                //Mutate all effects in the list recursively.
-                gameFeelEffectGroup.EffectsToExecute.ForEach(item =>
-                    MutateEffectsRecursive(constructors, item, mutateAmount, addProbability, removeProbability));
-
-                //Add new effect to group...
-                if (RandomExtensions.Boolean(addProbability))
-                {
-                    var instance = constructors.GetRandomElement().Invoke();
-                    gameFeelEffectGroup.EffectsToExecute.Add(instance);
-                }
-            }
-            
-            void MutateEffectsRecursive(List<Func<GameFeelEffect>> effectConstructors, GameFeelEffect outerEffect,
-                float amount = 0.05f, float addProb = 0.05f, float removeProb = 0.05f)
-            {
-                //Remove an unlocked child
-                if (RandomExtensions.Boolean(removeProb))
-                {
-                    //If it's a spawner effect, add it to the offspring effects instead.
-                    if (outerEffect is SpawningGameFeelEffect spawner)
-                    {
-                        var element = spawner.ExecuteOnOffspring.Where(item => !item.Lock).GetRandomElement();
-                        spawner.ExecuteOnOffspring.Remove(element);
-                    }
-                    else
-                    {
-                        var element = outerEffect.ExecuteAfterCompletion.Where(item => !item.Lock).GetRandomElement();
-                        outerEffect.ExecuteAfterCompletion.Remove(element);
-                    }
-                }
-
-                //Run mutate on the children.
-                foreach (var innerEffect in outerEffect.ExecuteAfterCompletion)
-                {
-                    if (!innerEffect.Lock)
-                    {
-                        innerEffect.Mutate(amount);
-                    }
-
-                    MutateEffectsRecursive(effectConstructors, innerEffect, amount, addProb, removeProb);
-                }
-
-                if (outerEffect is SpawningGameFeelEffect spawnerEffect)
-                {
-                    //Run mutate on the children.
-                    foreach (var innerEffect in spawnerEffect.ExecuteOnOffspring)
-                    {
-                        if (!innerEffect.Lock)
-                        {
-                            innerEffect.Mutate(amount);
-                        }
-
-                        MutateEffectsRecursive(effectConstructors, innerEffect, amount, addProb, removeProb);
-                    }
-                }
-
-                //TODO: Consider moving this to only unlocked effects 2020-08-20
-                //Always allow a small probability for adding an extra effect?
-                if (RandomExtensions.Boolean(addProb))
-                {
-                    var instance = effectConstructors.GetRandomElement().Invoke();
-
-                    //If it's a spawner effect, add it to the offspring effects instead.
-                    if (outerEffect is SpawningGameFeelEffect spawner)
-                    {
-                        spawner.ExecuteOnOffspring.Add(instance);
-                    }
-                    else
-                    {
-                        outerEffect.ExecuteAfterCompletion.Add(instance);
-                    }
-                }
-
-                if (!outerEffect.Lock)
-                {
-                    outerEffect.Mutate(amount);
-                }
-            }
 
             void DrawPropertyWithColor(string path, Color separatorColor, bool highlight = false, float highlightAlpha = 1f)
             {

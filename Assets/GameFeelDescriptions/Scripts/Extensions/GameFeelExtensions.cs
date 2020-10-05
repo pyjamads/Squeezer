@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace GameFeelDescriptions
 {
@@ -95,6 +96,189 @@ namespace GameFeelDescriptions
             //Make sure to clean up any residue, created by the effect, before removing the effect.
             effect.ExecuteCleanUp();
             GameFeelEffectExecutor.Instance.RemoveEffect(effect);
+        }
+
+
+        public static Vector3 GetInteractionDirection(this CollisionData collisionData, bool normal = false)
+        {
+            var interactionDirection = Vector3.zero;
+            switch (collisionData.ActivationType)
+            {
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionEnter:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionExit:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionStay:
+                    if (normal)
+                    {
+                        interactionDirection = collisionData.Collision.impulse;
+                    }
+                    else
+                    {
+                        interactionDirection = collisionData.Collision.relativeVelocity;
+                    }
+
+                    break;
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionEnter2D:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionExit2D:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionStay2D:
+                    if (normal)
+                    {
+                        if (collisionData.Collision2D.contactCount > 0)
+                        {
+                            var contact = collisionData.Collision2D.GetContact(0);
+                            interactionDirection = contact.normal * contact.normalImpulse;
+                        }
+                        else
+                        {
+                            //NOTE: this is a bad approximation
+                            interactionDirection = collisionData.Collision2D.relativeVelocity;
+                        }
+                    }
+                    else
+                    {
+                        interactionDirection = collisionData.Collision2D.relativeVelocity;
+                    }
+                    break;
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerEnter:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerExit:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerStay:
+                    interactionDirection = collisionData.Origin.transform.position - collisionData.Collider.transform.position;
+                    break;
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerEnter2D:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerExit2D:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerStay2D:
+                    interactionDirection = collisionData.Origin.transform.position - collisionData.Collider2D.transform.position;
+                    break;
+            }
+
+            return interactionDirection;
+        }
+
+        public static (Vector3 position, Vector3 normal) GetPositionAndNormal(this CollisionData collisionData, bool averagePosition = true, bool averageNormal = false)
+        {
+            var pos = Vector3.zero;
+            var norm = Vector3.one;
+            
+            switch (collisionData.ActivationType)
+            {
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionEnter:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionExit:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionStay:
+
+                    if (collisionData.Collision.contactCount > 0)
+                    {
+                        var list = new List<ContactPoint>();
+                        var contacts = collisionData.Collision.GetContacts(list);
+                        
+                        if (averagePosition)
+                        {
+                            pos = list[0].point;
+                            for (var index = 1; index < contacts; index++)
+                            {
+                                var contactPoint = list[index];
+                                pos += contactPoint.point;
+                            }
+
+                            //Get the average position.
+                            pos /= contacts;
+                        }
+                        else
+                        {
+                            pos = collisionData.Collision.GetContact(0).point;    
+                        }
+
+                        if (averageNormal)
+                        {
+                            norm = list[0].normal;
+                            for (var index = 1; index < contacts; index++)
+                            {
+                                var contactPoint = list[index];
+                                norm += contactPoint.normal;
+                            }
+
+                            //Get the average normal.
+                            norm /= contacts;
+                        }
+                        else
+                        {
+                            norm = collisionData.Collision.GetContact(0).normal; 
+                        }
+                    }
+                    else
+                    {
+                        pos = collisionData.Collision.collider.ClosestPointOnBounds(collisionData.Origin.transform.position);
+                        norm = collisionData.Collision.impulse.normalized;    
+                    }
+                    
+                    break;
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionEnter2D:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionExit2D:
+                case OnCollisionTrigger.CollisionActivationType.OnCollisionStay2D:
+                    if (collisionData.Collision2D.contactCount > 0)
+                    {
+                        var list = new List<ContactPoint2D>();
+                        var contacts = collisionData.Collision2D.GetContacts(list);
+                        
+                        if (averagePosition)
+                        {
+                            pos = list[0].point;
+                            for (var index = 1; index < contacts; index++)
+                            {
+                                var contactPoint = list[index];
+                                pos += contactPoint.point.AsVector3();
+                            }
+
+                            //Get the average position.
+                            pos /= contacts;
+                        }
+                        else
+                        {
+                            pos = collisionData.Collision.GetContact(0).point;    
+                        }
+
+                        if (averageNormal)
+                        {
+                            norm = list[0].normal;
+                            for (var index = 1; index < contacts; index++)
+                            {
+                                var contactPoint = list[index];
+                                norm += contactPoint.normal.AsVector3();
+                            }
+
+                            //Get the average normal.
+                            norm /= contacts;
+                        }
+                        else
+                        {
+                            norm = collisionData.Collision2D.GetContact(0).normal;
+                        }
+                        
+                    }
+                    else
+                    {
+                        pos = collisionData.Collision2D.collider.ClosestPoint(collisionData.Origin.transform.position);
+                        //NOTE: this is a bad approximation
+                        norm = collisionData.Collision2D.relativeVelocity.normalized;     
+                    }
+                    break;
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerEnter:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerExit:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerStay:
+                    //TODO: Consider getting the average position and normal between all contacts. 2020-09-10
+                    pos = collisionData.Collider.ClosestPointOnBounds(collisionData.Origin.transform.position);
+                    //NOTE: this is a bad approximation
+                    norm = collisionData.Origin.transform.position - collisionData.Collider.transform.position;
+                    break;
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerEnter2D:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerExit2D:
+                case OnCollisionTrigger.CollisionActivationType.OnTriggerStay2D:
+                    //TODO: Consider getting the average position and normal between all contacts. 2020-09-10
+                    pos = collisionData.Collider2D.ClosestPoint(collisionData.Origin.transform.position);
+                    //NOTE: this is a bad approximation
+                    norm = collisionData.Origin.transform.position - collisionData.Collider2D.transform.position;
+                    break;
+            }
+
+            return (pos, norm);
         }
     }
 }

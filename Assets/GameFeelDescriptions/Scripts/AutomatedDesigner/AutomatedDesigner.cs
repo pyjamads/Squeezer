@@ -73,6 +73,8 @@ namespace GameFeelDescriptions
                     break;
                 case GameFeelTriggerType.OnCustomEvent:
                     break;
+                case GameFeelTriggerType.OnStateChanged:
+                    break;
             }
 
 

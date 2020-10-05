@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.U2D;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GameFeelDescriptions
 {
@@ -44,7 +42,7 @@ namespace GameFeelDescriptions
             }
         }
 
-        private void QueueExecution(GameObject origin, string eventName, Vector3? direction = null)
+        private void QueueExecution(GameObject origin, string eventName, GameFeelTriggerData triggerData)
         {
             if (Disabled) return;
             
@@ -79,7 +77,7 @@ namespace GameFeelDescriptions
             if (Description.StepThroughMode)
             {
                 /* Trigger StepThroughMode Popup! */
-                HandleStepThroughMode(eventName, origin, direction);
+                HandleStepThroughMode(eventName, origin, triggerData);
             }
 #endif
             
@@ -88,10 +86,11 @@ namespace GameFeelDescriptions
             {
 #if UNITY_EDITOR
                 //Handle StepThroughMode for this specific group, if enabled.
-                HandleStepThroughMode(EffectGroups[i], eventName, origin, direction);
+                HandleStepThroughMode(EffectGroups[i], eventName, origin, triggerData);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], direction);
+                //NOTE: we pass here the origin of the event, instead of this detector as the origin.
+                EffectGroups[i].InitializeAndQueueEffects(origin, targets[i], triggerData);
             }
         }
     }

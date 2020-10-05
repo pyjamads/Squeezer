@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -26,8 +28,10 @@ namespace GameFeelDescriptions
             
         private Vector3 initialPosition;
 
+        private Vector3 interactionDirection = Vector3.zero;
+
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new ShakeEffect
             {
@@ -36,7 +40,7 @@ namespace GameFeelDescriptions
                 useResetPositionAfterShake = useResetPositionAfterShake, 
                 resetPosition = resetPosition
             };
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
         
@@ -46,6 +50,19 @@ namespace GameFeelDescriptions
             
             var position = target.transform.position;
             initialPosition = new Vector3(position.x, position.y, position.z);
+            
+            interactionDirection = Vector3.zero;
+
+            switch (triggerData)
+            {
+                case CollisionData collisionEvent:
+                    interactionDirection = collisionEvent.GetInteractionDirection();
+                    break;
+                case PositionalData positionalEvent:
+                    interactionDirection = positionalEvent.DirectionDelta;
+                    break;
+            }
+            
             base.ExecuteSetup();
         }
 
@@ -55,10 +72,10 @@ namespace GameFeelDescriptions
             
             var direction = Random.onUnitSphere;
             
-            if(useInteractionDirection && interactionDirection != null)
+            if(useInteractionDirection)
             {
                 direction *= 0.5f;
-                direction += interactionDirection.Value * interactionDirectionMultiplier * 0.5f;
+                direction += interactionDirection * interactionDirectionMultiplier * 0.5f;
             }
 
             var deltaTime = 1;//Time.deltaTime;

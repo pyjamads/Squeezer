@@ -16,10 +16,10 @@ namespace GameFeelDescriptions
         public Camera cameraToModify;   
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new CameraBackgroundColorChangeEffect{cameraToModify = cameraToModify};
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
 
             //Handling the cameraToModify setup here, to be able to a better use CompareTo
             if(cp.cameraToModify == null)
@@ -30,13 +30,15 @@ namespace GameFeelDescriptions
 //                    Debug.LogError("Set CameraToModify in the editor, with AppliesTo is set to EditorValue.");
 //                    return null;
                 }
-                
-                cp.cameraToModify = target.GetComponent<Camera>();
-                if(cp.cameraToModify == null)
+                else
                 {
-                    cp.cameraToModify = Camera.main;
+                    cp.cameraToModify = target.GetComponent<Camera>();
+                    if(cp.cameraToModify == null)
+                    {
+                        cp.cameraToModify = Camera.main;
 //                    Debug.LogError("No camera attached to target.");
 //                    return null;
+                    }    
                 }
             }
             

@@ -1,10 +1,45 @@
 using System;
+using System.Linq;
 using System.Reflection;
+using UnityEditor;
 
 namespace GameFeelDescriptions
 {
     public static class MemberInfoExtensions
     {
+        public static T [] GetCustomAttributes<T>(this SerializedProperty property) where T: Attribute {
+            var path = property.propertyPath.Split ('.');
+
+            var failed = false;
+            var type = property.serializedObject.targetObject.GetType();
+            FieldInfo field = null;
+            for (var i = 0; i < path.Length; i++) {
+                field = type.GetField(path[i],BindingFlags.Public 
+                    | BindingFlags.NonPublic
+                    | BindingFlags.DeclaredOnly 
+                    | BindingFlags.FlattenHierarchy
+                    | BindingFlags.Instance);
+                type = field.FieldType;
+
+                // for non-arrays: .fieldName
+                // for arrays: .fieldName.Array.data[0]
+                var next = i + 1;
+                if (next < path.Length && path[next] == "Array") {
+                    i += 2;
+                    if (type.IsArray) {
+                        type = type.GetElementType();
+                    }
+                    else {
+                        type = type.GetGenericArguments()[0];
+                    }
+                }
+            }
+
+            return field.GetCustomAttributes(typeof(T), false)
+                .Cast<T>()
+                .ToArray();
+        }
+        
         public static void SetValue(this MemberInfo member, object property, object value)
         {
             if (member.MemberType == MemberTypes.Property)

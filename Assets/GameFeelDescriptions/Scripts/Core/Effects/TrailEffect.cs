@@ -42,7 +42,7 @@ namespace GameFeelDescriptions
         
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new TrailEffect();
 
@@ -52,7 +52,9 @@ namespace GameFeelDescriptions
             // cp.FadeEase = FadeEase;
             cp.TrailPositionOffset = TrailPositionOffset;
             // cp.CustomFadeEffects = CustomFadeEffects;
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
+
+            if (target == null && origin == null) return null;
             
             cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             

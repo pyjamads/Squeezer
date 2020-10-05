@@ -22,6 +22,8 @@ namespace GameFeelDescriptions
         [Range(0f, (1f-float.Epsilon))]
         public float Amount;
 
+        public bool useCollisionNormal;
+
         public EasingHelper.EaseType easeIn;
         
         public EasingHelper.EaseType easeOut;
@@ -40,7 +42,7 @@ namespace GameFeelDescriptions
         private Vector3 collisionPos;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new SquashAndStretchEffect();
             cp.Stretch = Stretch;
@@ -50,7 +52,8 @@ namespace GameFeelDescriptions
             cp.resetSizeAfterEffect = resetSizeAfterEffect;
             cp.lockLocalPosition = lockLocalPosition;
             cp.resetSize = resetSize;
-            cp.Init(origin, target, interactionDirection);
+            cp.useCollisionNormal = useCollisionNormal;
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
 
@@ -112,10 +115,25 @@ namespace GameFeelDescriptions
         {
             if (target == null) return;
             
-            if (interactionDirection == null)
+            if (triggerData == null)
             {
                 Debug.LogError("interactionDirection needs to be provided for SquashAndStretch to work.");
                 return;
+            }
+            
+            var interactionDirection = Vector3.zero;
+                
+            switch (triggerData)
+            {
+                case CollisionData collisionEvent:
+                    interactionDirection = collisionEvent.GetInteractionDirection(useCollisionNormal);
+                    break;
+                //case MovementEvent movementEvent: //NOTE:MovementEvent is handled as PositionalEvent here!
+                case PositionalData positionalEvent:
+                    interactionDirection = positionalEvent.DirectionDelta;
+                    break;
+                // default:
+                //     throw new ArgumentOutOfRangeException(nameof(eventData), "EventType and useInteractionDirection not handled by CameraShakeEffect");
             }
 
             //Calculate direction to squash!
@@ -123,12 +141,12 @@ namespace GameFeelDescriptions
             var up = target.transform.up;
             var right = target.transform.right;
             
-            var forwardAmount = Vector3.Dot(forward, interactionDirection.Value);
-            var backAmount = Vector3.Dot(-forward, interactionDirection.Value);
-            var upAmount = Vector3.Dot(up, interactionDirection.Value);
-            var downAmount = Vector3.Dot(-up, interactionDirection.Value);
-            var rightAmount = Vector3.Dot(right, interactionDirection.Value);
-            var leftAmount = Vector3.Dot(-right, interactionDirection.Value);
+            var forwardAmount = Vector3.Dot(forward, interactionDirection);
+            var backAmount = Vector3.Dot(-forward, interactionDirection);
+            var upAmount = Vector3.Dot(up, interactionDirection);
+            var downAmount = Vector3.Dot(-up, interactionDirection);
+            var rightAmount = Vector3.Dot(right, interactionDirection);
+            var leftAmount = Vector3.Dot(-right, interactionDirection);
 
             var max = Mathf.Max(forwardAmount, backAmount, upAmount, downAmount, rightAmount, leftAmount);
             var maxDir = Vector3.zero;
@@ -151,14 +169,14 @@ namespace GameFeelDescriptions
             maxOffset = Stretch ? maxDir * offsetAmount : maxDir * (-1f * offsetAmount);
             currentOffset = Vector3.zero;
             //Offset the collider slightly, because we just collided
-            collisionPos = target.transform.localPosition - maxOffset * 0.1f;
+            collisionPos = target.transform.localPosition;// - maxOffset * 0.1f;
         }
         
         protected override bool ExecuteTick()
         {
             if (target == null) return true;
             
-            if (interactionDirection == null)
+            if (triggerData == null)
             {
                 Debug.LogError("interactionDirection needs to be provided for SquashAndStretch to work.");
                 return true;
@@ -173,9 +191,10 @@ namespace GameFeelDescriptions
                 {
                     //Remove the current offset, calculate the new offset, and add that.
                     //target.transform.localPosition -= currentOffset;
-                    currentOffset = TweenHelper.Interpolate(Vector3.zero, Mathf.Clamp01(elapsed / (Duration / 5f)), maxOffset, EasingHelper.Ease(easeIn));
+                    //currentOffset = TweenHelper.Interpolate(Vector3.zero, Mathf.Clamp01(elapsed / (Duration / 5f)), maxOffset, EasingHelper.Ease(easeIn));
+                    currentOffset = maxOffset.normalized.multiplyElements(target.transform.localScale / 2f);
                     //target.transform.localPosition += currentOffset;
-                    target.transform.localPosition = collisionPos + currentOffset;   
+                    target.transform.localPosition = collisionPos + currentOffset; 
                 }
             }
             else

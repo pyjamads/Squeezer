@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -31,10 +32,10 @@ namespace GameFeelDescriptions
         //private Quaternion forwardCorrection;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            Vector3? interactionDirection = null)
+            GameFeelTriggerData triggerData)
         {
             var cp = new RotateTowardsDirectionEffect{useGlobalRotation = useGlobalRotation, relativeAmount = relativeAmount, only2D = only2D};
-            cp.Init(origin, target, interactionDirection);
+            cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
 
@@ -68,22 +69,61 @@ namespace GameFeelDescriptions
         {
             start = GetValue(target);
             end = GetValue(target);
+
+            var rotation = Vector3.zero;
+            var interactionDirection = Vector3.zero;
             
-            if (interactionDirection != null)
+            switch (triggerData)
             {
-                if (only2D)
-                {   
-                    //TODO: Assuming z-axis is always up (aka towards camera), consider adding an rotate around vector.
-                    var angle = Vector3.SignedAngle(Vector3.right, interactionDirection.Value, Vector3.back);
+                case CollisionData collisionEvent:
+                    interactionDirection = collisionEvent.GetInteractionDirection();
                     
-                    end = Quaternion.AngleAxis(angle, Vector3.back);
-                }
-                else
-                {
-                    end = Quaternion.LookRotation(interactionDirection.Value, target.transform.up);    
-                }
+                    if (only2D)
+                    {   
+                        //TODO: Assuming z-axis is always up (aka towards camera), consider adding an rotate around vector.
+                        var angle = Vector3.SignedAngle(Vector3.right, interactionDirection, Vector3.back);
+                    
+                        end = Quaternion.AngleAxis(angle, Vector3.back);
+                    }
+                    else
+                    {
+                        end = Quaternion.LookRotation(interactionDirection, target.transform.up);    
+                    }
+                    break;
+                case PositionalData positionalEvent:
+                    interactionDirection = positionalEvent.DirectionDelta;
+                    
+                    if (only2D)
+                    {   
+                        //TODO: Assuming z-axis is always up (aka towards camera), consider adding an rotate around vector.
+                        var angle = Vector3.SignedAngle(Vector3.right, interactionDirection, Vector3.back);
+                    
+                        end = Quaternion.AngleAxis(angle, Vector3.back);
+                    }
+                    else
+                    {
+                        end = Quaternion.LookRotation(interactionDirection, target.transform.up);    
+                    }
+                    break;
+                case RotationalData rotationalEvent:
+                    rotation = rotationalEvent.RotationDelta;
+                    
+                    if (only2D)
+                    {   
+                        //TODO: Assuming z-axis is always up (aka towards camera), consider adding an rotate around vector.
+                        var angle = Vector3.SignedAngle(Vector3.right, rotation, Vector3.back);
+                    
+                        end = Quaternion.AngleAxis(angle, Vector3.back);
+                    }
+                    else
+                    {
+                        end = Quaternion.LookRotation(rotation, target.transform.up);    
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(triggerData));
             }
-            
+
             base.ExecuteSetup();
         }
 

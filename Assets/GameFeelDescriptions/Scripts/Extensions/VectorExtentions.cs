@@ -45,6 +45,11 @@ namespace GameFeelDescriptions
         {
             return new Vector3(vec.x * scaleBy.x, vec.y * scaleBy.y, vec.z * scaleBy.z);
         }
+        
+        public static float getAvg(this Vector3 vec)
+        {
+            return (Mathf.Abs(vec.x) + Mathf.Abs(vec.y) + Mathf.Abs(vec.z)) / 3f;
+        }
 
         public static float Dot(this Vector3 lhs, Vector3 rhs)
         {

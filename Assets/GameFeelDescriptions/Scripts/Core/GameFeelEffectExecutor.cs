@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,6 +9,8 @@ namespace GameFeelDescriptions
     //[ExecuteInEditMode]
     public class GameFeelEffectExecutor : MonoBehaviour
     {
+        //Debug info for the Inspector
+        [UsedImplicitly]
         public int CurrentlyExecuting;
         
         //TODO: Check how slow this is, and maybe make a type registry+array or a single list with filtering
@@ -129,7 +132,8 @@ namespace GameFeelDescriptions
             //TODO: instead of passing this "forceQueue" flag, pass a isCollisionUpdate flag 2020-08-27
             //TODO: handle the whole DestroyImmediate issue as well (when copying objects) 2020-08-27
             //TODO: another issue is Disabling the renderer when making a copy that is following the original...2020-09-04
-            if (forceQueue && (effect is DestroyEffect || effect is DisableEffect || effect is DisableRendererEffect || effect is SpawningGameFeelEffect))
+            
+            if (forceQueue && (effect is DestroyEffect || effect is DisableEffect || effect is DisableRendererEffect || effect is TrailEffect || effect is SpawnCopyEffect))
             {
                 activeEffects.Add(effect);
                 return;
@@ -144,11 +148,11 @@ namespace GameFeelDescriptions
                     activeEffects.Add(effect);
                 }
 
-                //If Duration > 0, queue the "rest" of the effect.
-                if (effect is DurationalGameFeelEffect durational && durational.Duration > 0)
-                {
-                    activeEffects.Add(effect);
-                }
+                // //If Duration > 0, queue the "rest" of the effect.
+                // if (effect is DurationalGameFeelEffect durational && durational.Duration > 0)
+                // {
+                //     activeEffects.Add(effect);
+                // }
             }
             else
             {
@@ -162,15 +166,9 @@ namespace GameFeelDescriptions
             activeEffects.Remove(effect);
         }
         
-        public void TriggerCustomEvent(GameObject origin, string eventName, Vector3 direction) => OnCustomEventTriggered.Invoke(origin, eventName, direction);
+        public void TriggerCustomEvent(GameObject origin, string eventName, GameFeelTriggerData innerDataData = null) => OnCustomEventTriggered.Invoke(origin, eventName, innerDataData);
 
-        //TODO: make an GameFeelEventExecutor instead.
-        //TODO: Make an attribute CustomEventTriggerAttribute(string eventName), that invokes this when the Method is called. 7/4/2020
-        public void TriggerCustomEvent(GameObject origin, string eventName, Vector3? direction = null) => OnCustomEventTriggered.Invoke(origin, eventName, direction);
-
-        
-        //TODO: Maybe register events separately per "eventName", ie. Dictionary<string, Action<GameObject, string, Vector3?>> ... 7/4/2020
-        public event Action<GameObject, string, Vector3?> OnCustomEventTriggered = delegate(GameObject o, string s, Vector3? arg3) {  };
-        //public event System.Action OnNormalJump = delegate { };
+        //TODO: Maybe register events separately per "eventName", ie. Dictionary<string, Action<GameObject, string, GameFeelTriggerEvent>> ... 7/4/2020
+        public event Action<GameObject, string, GameFeelTriggerData> OnCustomEventTriggered = delegate(GameObject o, string s, GameFeelTriggerData args) {  };
     }
 }
