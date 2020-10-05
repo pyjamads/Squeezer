@@ -174,7 +174,7 @@ namespace GameFeelDescriptions
                     activation = "Reacting to "+context[0]+" from "+((GameObject) context[1]).name+" ["+((GameObject) context[1]).tag+"]";
                     break;
                 case StateChangedTriggerScript stateChanged:
-                    activation = "Reacting a value change in "+stateChanged.StateField+" on "+stateChanged.ComponentName + " on "+gameObject.name;
+                    activation = "Reacting a value change in "+stateChanged.field+" on "+stateChanged.selectedComponent.name + " on "+gameObject.name;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

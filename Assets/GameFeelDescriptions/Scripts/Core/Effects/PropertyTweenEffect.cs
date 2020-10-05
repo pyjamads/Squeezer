@@ -28,7 +28,7 @@ namespace GameFeelDescriptions
         public Component Component;
 
         //The field
-        [MemberInfoSelector("Component")]
+        [TweenableMemberInfoSelector("Component")]
         public string Field;
 
         [HideInInspector]

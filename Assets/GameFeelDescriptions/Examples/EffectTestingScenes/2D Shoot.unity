@@ -360,8 +360,9 @@ MonoBehaviour:
   projectileSpeed: 12
   ShootKey: 32
   autoShoot: 1
-  timeBetweenShots: 0.1
+  timeBetweenShots: 0.3
   accuracy: 0.3
+  charge: 0
 --- !u!23 &602750643
 MeshRenderer:
   m_ObjectHideFlags: 0

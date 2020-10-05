@@ -27,4 +27,29 @@ namespace GameFeelDescriptions
             this.type = type;
         }
     }
+    
+    [AttributeUsage(AttributeTargets.Field)]
+    public class TweenableMemberInfoSelectorAttribute : PropertyAttribute
+    {
+        public string getTypeRelative;
+        public Type type;
+
+        /// <summary>
+        /// Lookup a the type of a relative property.
+        /// </summary>
+        /// <param name="property"></param>
+        public TweenableMemberInfoSelectorAttribute(string getTypeRelative)
+        {
+            this.getTypeRelative = getTypeRelative;
+        }
+        
+        /// <summary>
+        /// Define a type to be used 
+        /// </summary>
+        /// <param name="type"></param>
+        public TweenableMemberInfoSelectorAttribute(Type type)
+        {
+            this.type = type;
+        }
+    }
 }

@@ -520,8 +520,8 @@ namespace GameFeelDescriptions
 
                 //Maybe destroy it as well.
                 //translate.OnComplete(new DestroyEffect());
-                
-                translate.Init(origin, particle, particleTriggerData);
+                var translateTriggerData = new PositionalData{Position = particle.transform.position, DirectionDelta = normal };
+                translate.Init(origin, particle, translateTriggerData);
                 translate.SetElapsed();
                 translate.QueueExecution(forceQueue: triggerData is CollisionData);
             }

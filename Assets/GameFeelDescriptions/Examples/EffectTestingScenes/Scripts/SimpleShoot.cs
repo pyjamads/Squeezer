@@ -14,21 +14,25 @@ namespace GameFeelDescriptions.Examples
 
         public float accuracy = 0.3f;
         
-        private float lastShootTime;
+        //private float lastShootTime;
+
+        public float charge;
 
         void Update()
         {
             var doShoot = Input.GetKeyDown(ShootKey);
 
-            if (autoShoot && Time.time > lastShootTime + timeBetweenShots)
+            charge += Time.deltaTime;
+            
+            if (autoShoot && charge > timeBetweenShots)
             {
                 doShoot = true;
+                charge = 0;
             }
 
             if (doShoot)
             {
-                
-                lastShootTime = Time.time;
+                //lastShootTime = Time.time;
                 
                 var go = Instantiate(projectilePrefab);
                 

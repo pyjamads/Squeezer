@@ -9,11 +9,12 @@ namespace GameFeelDescriptions
     public class StateChangedTriggerScript : GameFeelBehaviorBase
     {
 
-        [Header("The component containing the field or property.")]
-        public string ComponentName;
-        [Header("The field or property to track.")]
-        public string StateField;
-
+        [Header("The script containing the field (on GameObjects or Prefabs).")]
+        public MonoBehaviour selectedComponent;
+        
+        [Header("The field to track.")]
+        [MemberInfoSelector("selectedComponent")]
+        public string field;
         
         [Header("Conditional operator to apply, when comparing values.")]
         public Conditionals Conditional;
@@ -27,7 +28,14 @@ namespace GameFeelDescriptions
         [Header("Should the trigger active when achieving or loosing the specified condition.")]
         public bool ReactOnObtainingValue = true;
 
-        private Component component;
+        [Header("Position offset, from transform.position")]
+        public Vector3 localPositionOffset;
+        
+        [Header("Rotation offset, from transform.forward")]
+        public Vector3 forwardRotationOffset;
+
+        //public Component selectedComponent;
+       
         private MemberInfo memberInfo;
         private object storedValue;
 
@@ -35,19 +43,18 @@ namespace GameFeelDescriptions
         {
             SetupInitialTargets();
 
-            component = GetComponent(ComponentName);
-            if (component == null)
+            //selectedComponent = GetComponent(selectedComponent);
+            if (selectedComponent == null)
             {
-                Debug.LogError("Failed to find "+ComponentName+" on "+gameObject.name);
+                Debug.LogError("No component selected!");//"Failed to find "+selectedComponent.name+" on "+gameObject.name);
                 return;
             }
             
-            var type = component.GetType();
-            //TODO: might want to also get Properties... 2020-09-30
-            var memberInfos = type.GetMember(StateField, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            var type = selectedComponent.GetType();
+            var memberInfos = type.GetMember(field, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (memberInfos.Length == 0)
             {
-                Debug.LogError("Failed to find "+StateField+" on "+ComponentName);
+                Debug.LogError("Failed to find "+field+" on "+selectedComponent.name);
                 return;
             }
             
@@ -57,24 +64,19 @@ namespace GameFeelDescriptions
             if (memberInfo.MemberType == MemberTypes.Field || memberInfo.MemberType == MemberTypes.Property)
             {
                 //Get the current value.
-                storedValue = memberInfo.GetValue(component);   
+                storedValue = memberInfo.GetValue(selectedComponent);   
             }
             else
             {
-                Debug.LogError(StateField+" on "+ComponentName+ " is neither a Property or Field.");
+                Debug.LogError(field+" on "+selectedComponent.name+ " is neither a Property or Field.");
             }
         }
 
         void Update()
         {
-            if (component != null && memberInfo != null)
+            if (selectedComponent != null && memberInfo != null)
             {
-                var currentValue = memberInfo.GetValue(component);
-                
-                //TODO: We may want to be able to determine the value that triggers the event,
-                //TODO: for booleans this could be when it's flipped to true,
-                //TODO: for enums, it might be a switch to a specific flag 
-                //TODO: and for delegates, it might switching to a specific method, such as "DoJump" or "DoShoot" 2020-09-30
+                var currentValue = memberInfo.GetValue(selectedComponent);
                 
                 //If the stored value is different to the current value!
                 if (storedValue.Equals(currentValue) == false)
@@ -92,7 +94,7 @@ namespace GameFeelDescriptions
                             ExecuteTrigger();
                         }
                         //React to the value changing away from the specified value
-                        else if(before && !after)
+                        else if(!ReactOnObtainingValue && before && !after)
                         {
                             //Trigger the effects!
                             ExecuteTrigger();
@@ -248,6 +250,7 @@ namespace GameFeelDescriptions
             {
                 /* Trigger StepThroughMode Popup! */
                 HandleStepThroughMode(storedValue);
+
             }
 #endif
             
@@ -259,8 +262,12 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i], storedValue);
 #endif
                 
-                //TODO: maybe we want to pass the value of the state change... but for now, let's just react to the change. 2020-09-30
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new GameFeelTriggerData{Origin = gameObject});
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i],
+                    new PositionalData
+                    {
+                        Origin = gameObject, Position = transform.position + localPositionOffset,
+                        DirectionDelta = Quaternion.Euler(forwardRotationOffset) * transform.forward
+                    });
             }
         }
         

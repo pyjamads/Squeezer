@@ -26,6 +26,7 @@ namespace GameFeelDescriptions.Examples
         private bool testBool;
         private TestStates testEnum;
         private Action testDelegate = () => { /* DO NOTHING!!!*/ };
+        
 
         // Start is called before the first frame update
         void Start()

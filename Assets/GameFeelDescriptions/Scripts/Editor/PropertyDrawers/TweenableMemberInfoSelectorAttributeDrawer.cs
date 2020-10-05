@@ -6,8 +6,8 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    [CustomPropertyDrawer(typeof(MemberInfoSelectorAttribute))]
-    public class MemberInfoSelectorAttributeDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(TweenableMemberInfoSelectorAttribute))]
+    public class TweenableMemberInfoSelectorAttributeDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -23,7 +23,7 @@ namespace GameFeelDescriptions
                 return;
             }
             
-            var memberInfoAttr = attribute as MemberInfoSelectorAttribute;
+            var memberInfoAttr = attribute as TweenableMemberInfoSelectorAttribute;
 
             var menu = new GenericMenu();
             menu.allowDuplicateNames = true;
@@ -49,15 +49,17 @@ namespace GameFeelDescriptions
             {
                 var properties = type.GetProperties(BindingFlags.Public | 
                                                     BindingFlags.NonPublic |
-                                                    BindingFlags.Instance |
-                                                    BindingFlags.DeclaredOnly
+                                                    BindingFlags.Instance 
+                                                    // |
+                                                    // BindingFlags.DeclaredOnly
                     )
                     .Where(o => isTweenable(o.PropertyType));
 
                 var fields = type.GetFields(BindingFlags.Public |
                                             BindingFlags.NonPublic |
-                                            BindingFlags.Instance |
-                                            BindingFlags.DeclaredOnly
+                                            BindingFlags.Instance 
+                                            // |
+                                            // BindingFlags.DeclaredOnly
                     )
                     .Where(o => isTweenable(o.FieldType));
 
@@ -66,7 +68,7 @@ namespace GameFeelDescriptions
                 var typelist = fields.Select(m => m.FieldType).Concat(properties.Select(m => m.PropertyType));
                 
             
-                EditorGUILayout.BeginHorizontal();
+                //EditorGUILayout.BeginHorizontal();
             
                 var pos = new Rect(position);
                 pos.width = EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
@@ -114,7 +116,7 @@ namespace GameFeelDescriptions
                     menu.ShowAsContext();
                 }
                 
-                EditorGUILayout.EndHorizontal();
+                //EditorGUILayout.EndHorizontal();
             }
             else
             {

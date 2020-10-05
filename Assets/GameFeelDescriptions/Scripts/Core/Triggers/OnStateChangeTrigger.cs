@@ -15,11 +15,12 @@ namespace GameFeelDescriptions
             GreaterThanOrEquals,
         }
         
-        [Header("The component containing the field or property.")]
-        public string ComponentName;
-        
-        [Header("The field or property to track.")]
-        public string StateField;
+        [Header("The script containing the field (on GameObjects or Prefabs).")]
+        public MonoBehaviour selectedComponent;
+
+        [Header("The field to track.")]
+        [MemberInfoSelector("selectedComponent")]
+        public string field;
         
         [Header("Conditional operator to apply, when comparing values.")]
         public Conditionals Conditional;
@@ -33,6 +34,12 @@ namespace GameFeelDescriptions
         [DisableFieldIf("ReactToSpecificValue", false)]
         [Header("Should the trigger active when achieving or loosing the specified condition.")]
         public bool ReactOnObtainingValue = true;
+
+        [Header("Position offset, from transform.position")]
+        public Vector3 localPositionOffset;
+        
+        [Header("Rotation offset, from transform.forward")]
+        public Vector3 forwardRotationOffset;
         
         public OnStateChangeTrigger() : base(GameFeelTriggerType.OnStateChanged) {  }
         
@@ -44,12 +51,14 @@ namespace GameFeelDescriptions
                 component.TriggerType = TriggerType;
                 component.Description = description;
                 component.TriggerIndex = triggerIndex;
-                component.ComponentName = ComponentName;
-                component.StateField = StateField;
+                component.selectedComponent = selectedComponent;
+                component.field = field;
+                component.ReactOnObtainingValue = ReactOnObtainingValue;
                 component.ReactToSpecificValue = ReactToSpecificValue;
                 component.Conditional = Conditional;
                 component.Value = Value;
-                component.ReactOnObtainingValue = ReactOnObtainingValue;
+                component.localPositionOffset = localPositionOffset;
+                component.forwardRotationOffset = forwardRotationOffset;
                 description.attachedTriggers.Add(component);
             }
         }
