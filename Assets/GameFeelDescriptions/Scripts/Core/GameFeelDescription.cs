@@ -268,11 +268,12 @@ namespace GameFeelDescriptions
                 }
             }
 
-            if (AttachToObjects?.Length > 0)
+            foreach (var attachToObject in AttachToObjects)
             {
-                attachTo.AddRange(AttachToObjects);
+                if (attachedTriggers.Exists(item => item.gameObject == attachToObject)) continue;
+                attachTo.Add(attachToObject);
             }
-
+            
             return attachTo;
         }
 

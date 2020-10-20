@@ -13,6 +13,8 @@ namespace GameFeelDescriptions.Examples
         
         public Animator animator;
 
+        public float Speed;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -38,7 +40,29 @@ namespace GameFeelDescriptions.Examples
             speed = Vector2.ClampMagnitude(speed, maxSpeed);
 
             animator.SetFloat("Speed", speed.magnitude);
-            transform.position += speed.AsVector3() * Time.deltaTime;
+            Speed = speed.magnitude;
+            
+            var direction = speed.AsVector3() * Time.deltaTime;
+
+            if (transform.position.x > 4.5f)
+            {
+                direction.x = -Mathf.Abs(direction.x);
+            }
+            else if (transform.position.x < -4.5f)
+            {
+                direction.x = Mathf.Abs(direction.x);
+            }
+            
+            if (transform.position.y > 4.5f)
+            {
+                direction.y = -Mathf.Abs(direction.y);
+            }
+            else if (transform.position.y < -4.5f)
+            {
+                direction.y = Mathf.Abs(direction.y);
+            }
+
+            transform.position += direction;
         }
 
         private void OnCollisionEnter2D(Collision2D other)

@@ -25,13 +25,14 @@ namespace GameFeelDescriptions.Examples
         //TODO: Display Time, drop bones on death, effects with Squeezer!!
         public float TimeInLevel;
         
+        public TextMesh TextMesh;
+
         private float timeSinceLastSpawn;
 
         private DiscPlayer player;
         
         private void Start()
         {
-            
             Instantiate(WallDiscPrefab, new Vector3(-4.5f, 4.5f,0), Quaternion.identity);
             player = FindObjectOfType<DiscPlayer>();
         }
@@ -42,6 +43,8 @@ namespace GameFeelDescriptions.Examples
             {
                 Restart();
             }
+
+            DrawText();
             
             if (!player) return;
                 
@@ -58,7 +61,9 @@ namespace GameFeelDescriptions.Examples
             }
             else
             {
-                if (timeSinceLastSpawn > TimeBetweenDiscs)
+                var allowSpawn = !limitDiscCount || Discs.Count < maxDiscs;
+
+                if (allowSpawn && timeSinceLastSpawn > TimeBetweenDiscs)
                 {
                     Discs.Add(Instantiate(DiscPrefab));
                     timeSinceLastSpawn = 0;
@@ -66,10 +71,40 @@ namespace GameFeelDescriptions.Examples
             }
         }
 
+        private void DrawText()
+        {
+            if (TextMesh == null) return;
+
+            //DRAW TEXT!!
+            if (player)
+            {
+                TextMesh.text = "Time: " + TimeInLevel.ToString("F1") + "s";
+            }
+            else
+            {
+                TextMesh.text = "Time: " + TimeInLevel.ToString("F1") + "s\n" +
+                                "DON'T HIT THE DISCS\n"+
+                                "Press 'R' to restart!";
+            }
+        }
+
         public void Restart()
         {
             var scene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(scene.name, LoadSceneMode.Single);
+            
+            //Stop all current effects!
+            GameFeelEffectExecutor.Instance.activeEffects.Clear();
+            //Reset timeScale!
+            Time.timeScale = 1f;
+            
+            //Remove all the current effect generated gameObjects
+            var childCount = GameFeelEffectExecutor.Instance.transform.childCount;
+            for (int i = 0; i < childCount; i++)
+            {
+                var child = GameFeelEffectExecutor.Instance.transform.GetChild(i);
+                Destroy(child.gameObject);
+            }
         }
     }
 }

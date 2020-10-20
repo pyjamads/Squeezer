@@ -19,8 +19,7 @@ namespace GameFeelDescriptions
             //TODO: randomize rotation per "particle", ie. have a "mutateOnCopy" flag and an amount? 2020-09-22
             var rotation = new ContinuousRotationEffect();
             rotation.RotationPerSecond = Random.onUnitSphere * (Mathf.PI - Random.value * 2 * Mathf.PI) * Mathf.Rad2Deg;
-            rotation.Delay = 0.3f;
-            rotation.RandomizeDelay = true;
+            rotation.RandomizeInitialRotation = true;
             rotation.Duration = 2f;
             this.OnOffspring(rotation);
             
@@ -85,7 +84,15 @@ namespace GameFeelDescriptions
         
         [Tooltip("The shape of the particle blast")]
         public PuffShapes ExpansionShape = EnumExtensions.GetRandomValue<PuffShapes>();
-
+        
+        [DisableFieldIf("setParticleForward", true)]
+        [Header("Set the particle's transform.up to the expansion direction.")]
+        public bool setParticleUp = true;
+        
+        [DisableFieldIf("setParticleUp", true)]
+        [Header("Set the particle's transform.forward to the expansion direction.")]
+        public bool setParticleForward;
+        
         [Tooltip("The height of the shape, in the normal direction")]
         [AdjustableRange(0.01f, 5f, lockMin = true)]
         public float Height = Random.Range(0.1f, 2f);
@@ -165,6 +172,8 @@ namespace GameFeelDescriptions
             cp.ParticlePrimitive = ParticlePrimitive;
 
             cp.ExpansionShape = ExpansionShape;
+            cp.setParticleUp = setParticleUp;
+            cp.setParticleForward = setParticleForward;
             cp.Height = Height;
             cp.Radius = Radius;
             cp.ParticleScale = ParticleScale;
@@ -245,13 +254,15 @@ namespace GameFeelDescriptions
                 {
                     if (AmountOfParticles != ParticlePrefabs.Count)
                     {
-                        particles.Add(Object.Instantiate(ParticlePrefabs.GetRandomElement(), 
-                            position, Quaternion.identity, GameFeelEffectExecutor.Instance.transform));
+                        var particle = Object.Instantiate(ParticlePrefabs.GetRandomElement(), GameFeelEffectExecutor.Instance.transform);
+                        particle.transform.position = position;
+                        particles.Add(particle);
                     }
                     else
                     {
-                        particles.Add(Object.Instantiate(ParticlePrefabs[i], 
-                            position, Quaternion.identity, GameFeelEffectExecutor.Instance.transform));
+                        var particle = Object.Instantiate(ParticlePrefabs[i], GameFeelEffectExecutor.Instance.transform);
+                        particle.transform.position = position;
+                        particles.Add(particle);
                     }
                 }
             }
@@ -508,6 +519,17 @@ namespace GameFeelDescriptions
                 //Also scale direction by the cube root and the user determined size scale.
                 translate.to = direction;
 
+                if (setParticleUp)
+                {
+                    //Set initial rotation based on direction.
+                    particle.transform.up = direction;    
+                }
+                else if (setParticleForward)
+                {
+                    //Set initial rotation based on direction.
+                    particle.transform.forward = direction;
+                }
+
                 //translate.RandomizeDelay = true;
                 //translate.Delay = Random.Range(0, 0.1f * ParticleLifetime);
                 
@@ -516,7 +538,7 @@ namespace GameFeelDescriptions
                 translate.Duration = ParticleLifetime;
                     
                 //TODO: Make better easing curve, that starts fast and slows down over time... 2020-09-17
-                translate.easing = EasingHelper.EaseType.SineInOut;
+                translate.easing = EasingHelper.EaseType.QuadOut;
 
                 //Maybe destroy it as well.
                 //translate.OnComplete(new DestroyEffect());

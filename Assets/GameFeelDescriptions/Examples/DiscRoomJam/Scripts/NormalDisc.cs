@@ -19,6 +19,11 @@ namespace GameFeelDescriptions.Examples
             direction = Random.insideUnitCircle.normalized;
             var renderer = GetComponent<SpriteRenderer>();
             renderer.color = renderer.color.withA(0.4f);
+            var collider = GetComponent<Collider>();
+            if(collider) collider.enabled = false;
+            
+            var collider2D = GetComponent<Collider2D>();
+            if(collider2D) collider2D.enabled = false;
         }
 
         private void Update()
@@ -31,6 +36,12 @@ namespace GameFeelDescriptions.Examples
                 {
                     var renderer = GetComponent<SpriteRenderer>();
                     renderer.color = renderer.color.withA(1f);
+                    
+                    var collider = GetComponent<Collider>();
+                    if(collider) collider.enabled = true;
+                    
+                    var collider2D = GetComponent<Collider2D>();
+                    if(collider2D) collider2D.enabled = true;
                     Inactive = false;
                 }
                 

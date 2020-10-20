@@ -31,7 +31,7 @@ namespace GameFeelDescriptions
         /// <param name="list"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T GetRandomElement<T>(this List<T> list)
+        public static T GetRandomElement<T>(this List<T> list) //TODO: introduce weights: List<float> weights = null
         {
             if ((list?.Count > 0) == false) return default;
             

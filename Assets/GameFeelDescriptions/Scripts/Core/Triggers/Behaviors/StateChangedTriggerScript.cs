@@ -2,13 +2,12 @@ using System;
 using System.Reflection;
 using UnityEngine;
 using Conditionals = GameFeelDescriptions.OnStateChangeTrigger.Conditionals;
-
+using TriggerConditionType = GameFeelDescriptions.OnStateChangeTrigger.TriggerConditionType;
 
 namespace GameFeelDescriptions
 {
     public class StateChangedTriggerScript : GameFeelBehaviorBase
     {
-
         [Header("The script containing the field (on GameObjects or Prefabs).")]
         public MonoBehaviour selectedComponent;
         
@@ -21,15 +20,15 @@ namespace GameFeelDescriptions
         
         [Header("The value to use for the comparison.")]
         public string Value;
-        
-        [Header("Should the trigger react to a specific condition.")]
-        public bool ReactToSpecificValue;
-        
-        [Header("Should the trigger active when achieving or loosing the specified condition.")]
-        public bool ReactOnObtainingValue = true;
 
+        [Header("When should the trigger react.")]
+        public TriggerConditionType TriggerCondition;
+        
         [Header("Position offset, from transform.position")]
         public Vector3 localPositionOffset;
+        
+        [Header("Is position offset relative to transform.forward")]
+        public bool useForwardForPositionOffset;
         
         [Header("Rotation offset, from transform.forward")]
         public Vector3 forwardRotationOffset;
@@ -38,6 +37,7 @@ namespace GameFeelDescriptions
        
         private MemberInfo memberInfo;
         private object storedValue;
+        
 
         private void Start()
         {
@@ -50,7 +50,12 @@ namespace GameFeelDescriptions
                 return;
             }
             
+            //Get the type from the selectedComponent.
             var type = selectedComponent.GetType();
+            
+            //Get component on attached game object!
+            selectedComponent = (MonoBehaviour)GetComponent(type);
+            
             var memberInfos = type.GetMember(field, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (memberInfos.Length == 0)
             {
@@ -77,56 +82,85 @@ namespace GameFeelDescriptions
             if (selectedComponent != null && memberInfo != null)
             {
                 var currentValue = memberInfo.GetValue(selectedComponent);
-                
-                //If the stored value is different to the current value!
-                if (storedValue.Equals(currentValue) == false)
-                {
-                    //Check the value change more thoroughly.
-                    if (ReactToSpecificValue)
-                    {
-                        var before = CheckValue(storedValue);
-                        var after = CheckValue(currentValue);
 
-                        //React to the value changing to the specified value 
-                        if (ReactOnObtainingValue && !before && after)
-                        {
+                switch (TriggerCondition)
+                {
+                    case TriggerConditionType.OnValueChanged:
+                        //If value changed, trigger
+                        if (storedValue.Equals(currentValue) == false)
+                        { 
                             //Trigger the effects!
                             ExecuteTrigger();
                         }
-                        //React to the value changing away from the specified value
-                        else if(!ReactOnObtainingValue && before && !after)
+                        break;
+                    case TriggerConditionType.OnValueChangedAndConditionIsTrue:
+                        //If value changed, check condition
+                        if (storedValue.Equals(currentValue) == false)
                         {
-                            //Trigger the effects!
-                            ExecuteTrigger();
-                        }
-                    }
-                    else
-                    {
-                        //If a value is defined
-                        if (!string.IsNullOrWhiteSpace(Value))
-                        {
-                            //check it with the conditional 
+                            //If the condition is true, trigger
                             if (CheckValue(currentValue))
                             {
                                 //if it's fulfilled, execute trigger
                                 ExecuteTrigger();
                             }
                         }
-                        else
+                        break;
+                    case TriggerConditionType.OnConditionAchieved:
+                        //If value changed, check condition
+                        if (storedValue.Equals(currentValue) == false)
                         {
-                            //Trigger the effects!
-                            ExecuteTrigger();    
+                            var before = CheckValue(storedValue);
+                            var after = CheckValue(currentValue);
+
+                            //If condition was false before, but true after the value change, trigger
+                            if (!before && after)
+                            {
+                                //Trigger the effects!
+                                ExecuteTrigger();
+                            }
                         }
-                    }
-                    
-                    //Lastly update the storedValue
-                    storedValue = currentValue;
+                        break;
+                    case TriggerConditionType.OnConditionLost:
+                        //If value changed, check condition
+                        if (storedValue.Equals(currentValue) == false)
+                        {
+                            var before = CheckValue(storedValue);
+                            var after = CheckValue(currentValue);
+
+                            //If condition was true before, but not after the value change, trigger
+                            if (before && !after)
+                            {
+                                //Trigger the effects!
+                                ExecuteTrigger();
+                            }
+                        }
+                        break;
+                    case TriggerConditionType.WhileConditionIsTrue:
+                        //If the condition is true, trigger 
+                        if (CheckValue(currentValue))
+                        {
+                            //if it's fulfilled, execute trigger
+                            ExecuteTrigger();
+                        }
+                        
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
+
+                //Lastly update the storedValue
+                storedValue = currentValue;
             }
         }
 
         private bool CheckValue(object val)
         {
+            if (string.IsNullOrWhiteSpace(Value))
+            {
+                Debug.LogWarning("No Value is set for StateChangedTrigger on: "+gameObject.name);
+                return false;
+            }
+
             switch (val)
             {
                 case bool boolean:
@@ -253,6 +287,20 @@ namespace GameFeelDescriptions
 
             }
 #endif
+
+            var positionWithOffset = transform.position + localPositionOffset;
+
+            if (useForwardForPositionOffset)
+            {
+                var qrt = Quaternion.LookRotation(transform.forward, transform.up);
+                positionWithOffset = transform.position + qrt * localPositionOffset;
+            }
+
+            var positionDelta = new PositionalData
+            {
+                Origin = gameObject, Position = positionWithOffset,
+                DirectionDelta = Quaternion.Euler(forwardRotationOffset) * transform.forward
+            };
             
             //When a custom event triggers, Other is the origin of the event.
             for (var i = 0; i < EffectGroups.Count; i++)
@@ -262,12 +310,7 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i], storedValue);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i],
-                    new PositionalData
-                    {
-                        Origin = gameObject, Position = transform.position + localPositionOffset,
-                        DirectionDelta = Quaternion.Euler(forwardRotationOffset) * transform.forward
-                    });
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], positionDelta);
             }
         }
         

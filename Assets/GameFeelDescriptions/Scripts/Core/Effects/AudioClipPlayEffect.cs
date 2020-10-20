@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameFeelDescriptions
@@ -20,11 +21,11 @@ namespace GameFeelDescriptions
         public AudioSource source;
         
         [Header("Clip to play, on the selected audioSource.")]
-        public AudioClip clip;
+        public List<AudioClip> clips;
 
         [Header("Play one shot, instead of playing directly from the source itself.")]
-        [HideFieldIf("playLoop", true)]
-        public bool playOneShot;
+        [DisableFieldIf("playLoop", true)]
+        public bool playOneShot = true;
 
         [HideFieldIf("playOneShot", false)]
         public float pitchShiftAmount;
@@ -33,7 +34,7 @@ namespace GameFeelDescriptions
         public float pitchResetDelay = 1f;
 
         
-        [HideFieldIf("playOneShot", true)]
+        [DisableFieldIf("playOneShot", true)]
         [Header("Play the audio clip looping.")]
         public bool playLoop;
 
@@ -49,9 +50,9 @@ namespace GameFeelDescriptions
             
             var cp = new AudioClipPlayEffect
             {
-                createAudioSource = createAudioSource, 
+                createAudioSource = createAudioSource,
                 source = source, 
-                clip = clip, 
+                clips = clips, 
                 playOneShot = playOneShot, 
                 volume = volume,
                 playLoop = playLoop,
@@ -103,9 +104,9 @@ namespace GameFeelDescriptions
 
             if (playOneShot == false)
             {
-                if (clip != null)
+                if (clips != null && clips.Count > 0)
                 {
-                    source.clip = clip;
+                    source.clip = clips.GetRandomElement();
                 }
             }
 
@@ -116,12 +117,12 @@ namespace GameFeelDescriptions
 
         protected override bool ExecuteTick()
         {
-            if (source == null || clip == null) return true;
+            if (source == null || clips == null || clips.Count == 0) return true;
 
             if (playOneShot)
             {
                 source.pitch = currentPitch;
-                source.PlayOneShot(clip);
+                source.PlayOneShot(clips.GetRandomElement());
             }
             else
             {
