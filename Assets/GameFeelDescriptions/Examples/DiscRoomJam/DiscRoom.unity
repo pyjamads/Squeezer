@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeBetweenDiscs: 2
-  limitDiscCount: 1
+  limitDiscCount: 0
   maxDiscs: 7
   InitialDiscs: 4
   TimeBetweenInitialDiscs: 0.2
