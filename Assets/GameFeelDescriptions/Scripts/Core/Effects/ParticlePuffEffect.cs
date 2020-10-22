@@ -239,7 +239,7 @@ namespace GameFeelDescriptions
             }
 
             //Make triggerData for particles
-            var particleTriggerData = new DirectionalData{ DirectionDelta = normal };
+            var particleTriggerData = new DirectionalData{ DirectionDelta = normal, InCollisionUpdate = triggerData.InCollisionUpdate };
             
             //STEP 2: Spawn primitives or prefabs.
             var particles = new List<GameObject>();
@@ -542,14 +542,18 @@ namespace GameFeelDescriptions
 
                 //Maybe destroy it as well.
                 //translate.OnComplete(new DestroyEffect());
-                var translateTriggerData = new PositionalData{Position = particle.transform.position, DirectionDelta = normal };
+                var translateTriggerData = new PositionalData{Position = particle.transform.position, DirectionDelta = direction, InCollisionUpdate = triggerData.InCollisionUpdate};
                 translate.Init(origin, particle, translateTriggerData);
                 translate.SetElapsed();
-                translate.QueueExecution(forceQueue: triggerData is CollisionData);
+                translate.QueueExecution();
+                
+                //NOTE: If we do this instead of queuing them all, the waitForAbove won't wait for all particles to finish.
+                //NOTE: However, now each particle will also transmit it's own direction down the tree. 2020-10-22 
+                QueueOffspringEffects(particle, new DirectionalData{DirectionDelta = direction, InCollisionUpdate = triggerData.InCollisionUpdate});
             }
 
             //STEP 4: Queue the rest of the effects on all particles!
-            QueueOffspringEffects(particles, particleTriggerData);
+            //QueueOffspringEffects(particles, particleTriggerData);
             
             //We're done!
             return true;

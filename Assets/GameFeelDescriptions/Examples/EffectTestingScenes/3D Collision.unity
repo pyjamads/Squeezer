@@ -170,6 +170,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &70048194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 70048195}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &70048195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70048194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.4867942, y: -3.1094685, z: -0.12646484}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 674409746}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &204639365
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,6 +301,7 @@ MonoBehaviour:
   Right: 275
   autoRotate: 1
   rotationSpeed: 20
+  doRotationInTicks: 0
 --- !u!1 &543861845
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +395,470 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &674409745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674409746}
+  - component: {fileID: 674409747}
+  m_Layer: 0
+  m_Name: EvolvedEffects (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &674409746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674409745}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.4867942, y: 2.6094685, z: 0.12646484}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 70048195}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674409747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674409745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PlayerEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [Player]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0.1
+  AttachToTag: ball
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+          - id: 3
+          - id: 4
+        ReactTo:
+        - '*'
+        type: 0
+        ContextType: 0
+    00000001:
+      type: {class: SquashAndStretchEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Squash and Stretch Effect allows you to scale an object using
+          easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.21294776
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        Stretch: 0
+        Amount: 0.18477361
+        useCollisionNormal: 0
+        easeIn: 0
+        easeOut: 0
+        lockLocalPosition: 0
+        resetSizeAfterEffect: 0
+        resetSize: {x: 0, y: 0, z: 0}
+    00000002:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.21587884
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        soundGeneratorBase: 4
+        synthParameters: 1,.3,,,.153,.3084,.3,.1444,,-.6681,,,,.0411,,,,,.1103,,,,,,.1947,1,,,,,,-.2262
+        mutateOnExecution: 0
+        latestSynthParameters:
+        - 1,.3,,,.153,.3084,.3,.1444,,-.6681,,,,.0411,,,,,.1103,,,,,,.1947,1,,,,,,-.2262
+        - 1,.3,,.0355,,.2307,.3,.2752,,-.6681,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.2,.5226,.0101,.0003,.8413,.0238,.5809,,.9054,-.0003,.0017,.9665,.7461,.6043,.3054,.6407,-.5712,.0351,.2957,.0307,-.4731,-.8236,-.0493,.0038,.7665,.0433,-.3252,,-.5941,.7412,.9673
+    00000003:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.35477227
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        setFromValue: 1
+        from: {r: -0.021683937, g: -0.18090664, b: -0.0025465272, a: -0.19899863}
+        relative: 0
+        to: {r: 0.7395995, g: 0.35221225, b: 0.34421235, a: 0.998429}
+        easing: 2
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000004:
+      type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle puff creates anything from a dust cloud from a footfall
+          to nuclear explosion.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 5
+        - id: 6
+        - id: 7
+        AmountOfParticles: 9
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 0
+        ExpansionShape: 2
+        setParticleUp: 1
+        setParticleForward: 0
+        Height: 1.0080311
+        Radius: 1.3534747
+        ParticleScale: 0.2255371
+        ParticleLifetime: 0.41485316
+    00000005:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 2.1897905
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: -85.466324, y: 3.3391223, z: 26.709967}
+    00000006:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.24278039
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.6645339
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        setFromValue: 0
+        from: {x: 0.02787897, y: 0.02787897, z: 0.02787897}
+        relative: 1
+        to: {x: 0.64114016, y: 0.64114016, z: 0.64114016}
+        easing: 1
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 8
+        - id: 9
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 1.3322918
+        loopType: 0
+        repeat: -1
+        DelayBetweenLoops: 0
+        setFromValue: 1
+        from: {r: 0.68487734, g: 0.9473948, b: 0.68463284, a: 1.1262822}
+        relative: 0
+        to: {r: 0.4349129, g: 0.90004534, b: 0.3407595, a: -0.086120404}
+        easing: 1
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    00000009:
+      type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle puff creates anything from a dust cloud from a footfall
+          to nuclear explosion.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 10
+        - id: 11
+        - id: 12
+        AmountOfParticles: 6
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 1
+        ExpansionShape: 4
+        setParticleUp: 1
+        setParticleForward: 0
+        Height: 1.9292768
+        Radius: 1.8723726
+        ParticleScale: 0.15045968
+        ParticleLifetime: 1.0556943
+    0000000A:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 2
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: 11.148256, y: -79.89835, z: 150.2572}
+    0000000B:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.3
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1.2421637
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 1.7719455, y: 1.7719455, z: 1.7719455}
+        easing: 10
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    0000000C:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 13
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 0.9695983
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        setFromValue: 1
+        from: {r: 0.9372821, g: 0.6873327, b: 0.7361271, a: 1}
+        relative: 0
+        to: {r: 0.9372821, g: 0.6873327, b: 0.7361271, a: 0}
+        easing: 10
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    0000000D:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
 --- !u!1 &763928781
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,34 +1136,4 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1901927106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1901927107}
-  m_Layer: 0
-  m_Name: 'TODO: make rotation camera'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1901927107
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1901927106}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.736892, y: 9.969801, z: -2.610437}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

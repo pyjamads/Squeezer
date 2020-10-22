@@ -9,11 +9,18 @@ namespace GameFeelDescriptions
         //TODO: consider adding more data here, such that we can give better error info when effects fail and while debugging.
         //eg. public TriggerInfo trigger, with references to description and triggerID and TriggerType, etc!
         public GameObject Origin;
+
+        public bool InCollisionUpdate;
     }
 
     [Serializable]
     public class CollisionData : GameFeelTriggerData
     {
+        public CollisionData()
+        {
+            InCollisionUpdate = true;
+        }
+        
         public OnCollisionTrigger.CollisionActivationType ActivationType;
         
         //pass the collision event details.

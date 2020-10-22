@@ -30,7 +30,7 @@ namespace GameFeelDescriptions
             return other is SpawningGameFeelEffect && base.CompareTo(other);
         }
 
-        protected void QueueOffspringEffects(GameObject offspring)
+        protected void QueueOffspringEffects(GameObject offspring, GameFeelTriggerData data = null)
         {
             var queuedEffects = new List<GameFeelEffect>();
             
@@ -39,7 +39,7 @@ namespace GameFeelDescriptions
                 //If the effect is disabled, skip it.
                 if(ExecuteOnOffspring[i].Disabled) continue;
             
-                var copy = ExecuteOnOffspring[i].CopyAndSetElapsed(origin, offspring, triggerData);
+                var copy = ExecuteOnOffspring[i].CopyAndSetElapsed(origin, offspring, data ?? triggerData);
             
                 if(copy == null) continue;
                     
@@ -58,12 +58,12 @@ namespace GameFeelDescriptions
                         //if (waitForAboveEffect.WaitForAllTargets && inner != offspring.Count - 1) continue;
                         
                         waitForAboveEffect.WaitFor(queuedEffects.ToList());
-                        waitForAboveEffect.QueueExecution(forceQueue: false);
+                        waitForAboveEffect.QueueExecution();
                         queuedEffects.Add(waitForAboveEffect);
                     }
                     else
                     {
-                        copy.QueueExecution(forceQueue: false);
+                        copy.QueueExecution();
                         queuedEffects.Add(copy);    
                     }
                 }
@@ -100,12 +100,12 @@ namespace GameFeelDescriptions
                             if (waitForAboveEffect.WaitForAllTargets && inner != offspring.Count - 1) continue;
                             
                             waitForAboveEffect.WaitFor(queuedEffects.Where(item => waitForAboveEffect.WaitForAllTargets || item.target == offspring[inner]));
-                            waitForAboveEffect.QueueExecution(forceQueue: triggerData is CollisionData);
+                            waitForAboveEffect.QueueExecution();
                             queuedEffects.Add(waitForAboveEffect);
                         }
                         else
                         {
-                            copy.QueueExecution(forceQueue: triggerData is CollisionData);
+                            copy.QueueExecution();
                             queuedEffects.Add(copy);
                         }
                     }
@@ -130,7 +130,7 @@ namespace GameFeelDescriptions
                 var scripts = targetCopy.GetComponentsInChildren<MonoBehaviour>();
                 foreach (var script in scripts)
                 {
-                    if (triggerData is CollisionData)
+                    if (triggerData.InCollisionUpdate)
                     {
                         Object.Destroy(script);   
                     }
@@ -146,7 +146,7 @@ namespace GameFeelDescriptions
                 var rigids = targetCopy.GetComponentsInChildren<Rigidbody>();
                 foreach (var rigid in rigids)
                 {
-                    if (triggerData is CollisionData)
+                    if (triggerData.InCollisionUpdate)
                     {
                         Object.Destroy(rigid);   
                     }
@@ -159,7 +159,7 @@ namespace GameFeelDescriptions
                 var rigid2Ds = targetCopy.GetComponentsInChildren<Rigidbody2D>();
                 foreach (var rigid2D in rigid2Ds)
                 {
-                    if (triggerData is CollisionData)
+                    if (triggerData.InCollisionUpdate)
                     {
                         Object.Destroy(rigid2D);   
                     }
@@ -175,7 +175,7 @@ namespace GameFeelDescriptions
                 var cols = targetCopy.GetComponentsInChildren<Collider>();
                 foreach (var col in cols)
                 {
-                    if (triggerData is CollisionData)
+                    if (triggerData.InCollisionUpdate)
                     {
                         Object.Destroy(col);   
                     }
@@ -188,7 +188,7 @@ namespace GameFeelDescriptions
                 var col2Ds = targetCopy.GetComponentsInChildren<Collider2D>();
                 foreach (var col2D in col2Ds)
                 {
-                    if (triggerData is CollisionData)
+                    if (triggerData.InCollisionUpdate)
                     {
                         Object.Destroy(col2D);   
                     }

@@ -130,7 +130,9 @@ namespace GameFeelDescriptions
         {
             if (attachingTo == null || attachingTo.Count == 0)
             {
-                attachingTo = FindGameObjectsToAttach(); 
+                attachingTo = FindGameObjectsToAttach();
+
+                if (attachingTo == null || attachingTo.Count == 0) return;
             }
 
             Handles.zTest = CompareFunction.LessEqual;

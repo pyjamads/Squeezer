@@ -70,7 +70,7 @@ namespace GameFeelDescriptions
                 follow.offset = PositionOffset;
             }
 
-            QueueOffspringEffects(copy);
+            QueueOffspringEffects(copy, triggerData);
             
             //We're done!
             return true;
