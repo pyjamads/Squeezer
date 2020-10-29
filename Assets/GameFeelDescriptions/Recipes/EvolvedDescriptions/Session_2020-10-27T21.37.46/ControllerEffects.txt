@@ -1,0 +1,53 @@
+{
+    "Name": "ControllerEffects",
+    "Description": "Description of all effects triggered by the game object with the name [Controller]",
+    "DontDestroyOnLoad": false,
+    "DynamicReattachRate": 0.10000000149011612,
+    "AttachToTag": "",
+    "AttachToObjects": [],
+    "AttachToComponentType": "GameFeelDescriptions.Examples.DiscController",
+    "StepThroughMode": false,
+    "TriggerList": [
+        {
+            "id": 0
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "OnStartTrigger",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "TriggerType": 3,
+                "Disabled": false,
+                "EffectGroups": [
+                    {
+                        "selectedCategory": 1,
+                        "selectedIntensity": 1,
+                        "GroupName": "",
+                        "Disabled": false,
+                        "StepThroughMode": false,
+                        "AppliesTo": 0,
+                        "TargetTag": "",
+                        "TargetComponentType": {
+                            "instanceID": 0
+                        },
+                        "TargetList": [],
+                        "EffectsToExecute": []
+                    }
+                ]
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

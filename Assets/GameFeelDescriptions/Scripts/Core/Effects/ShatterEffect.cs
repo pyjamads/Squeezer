@@ -10,15 +10,11 @@ namespace GameFeelDescriptions
             Description = "Shatter an object into pieces and add a the Ragdoll effect to the pieces.";
             
             var ragdoll = new RagdollEffect();
-            if (ragdoll.ExecuteOnOffspring.Count > 0)
-            {
-                ragdoll.ExecuteOnOffspring.Clear();    
-            }
-            
+
             var destroy = new DestroyEffect();
             destroy.Delay = Random.Range(0.2f, 1.5f);
             destroy.RandomizeDelay = true;
-            ragdoll.ExecuteOnOffspring.Add(destroy);
+            ragdoll.OnComplete(destroy);
 
             this.OnOffspring(ragdoll);
         }
@@ -102,6 +98,16 @@ namespace GameFeelDescriptions
                 mold = GameObject.CreatePrimitive(PiecePrimitive);
                 mold.transform.parent = GameFeelEffectExecutor.Instance.transform;
                 mold.transform.position = targetPos;
+                
+                if (triggerData.InCollisionUpdate)
+                {
+                    GameObject.Destroy(mold.GetComponent<Collider>());
+                }
+                else
+                {
+                    GameObject.DestroyImmediate(mold.GetComponent<Collider>());
+                }
+                
                 var renderer = mold.GetComponent<Renderer>();
                 renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
                 SetMaterialTransparentBlendMode(renderer.material); 
@@ -112,11 +118,11 @@ namespace GameFeelDescriptions
                     scale = target.transform.localScale / qbrt;
 
                     var targetRenderer = target.GetComponent<Renderer>();
-                    if (targetRenderer.HasPropertyBlock())
+                    if (targetRenderer.HasPropertyBlock() && !(targetRenderer is SpriteRenderer)) 
                     {
                         var materialPropertyBlock = new MaterialPropertyBlock();
-                        targetRenderer.GetPropertyBlock(materialPropertyBlock);   
-                        
+                        targetRenderer.GetPropertyBlock(materialPropertyBlock);
+
                         renderer.SetPropertyBlock(materialPropertyBlock);
                     }
                     else
@@ -133,6 +139,29 @@ namespace GameFeelDescriptions
                 for (var i = 1; i < AmountOfPieces; i++)
                 {
                     var piece = Object.Instantiate(mold, GameFeelEffectExecutor.Instance.transform, true);
+
+                    if (triggerData.InCollisionUpdate)
+                    {
+                        GameObject.Destroy(mold.GetComponent<Collider>());
+                    }
+                    
+                    renderer = piece.GetComponent<Renderer>();
+                    if (target != null)
+                    {
+                        var targetRenderer = target.GetComponent<Renderer>();
+                        //NOTE: SpriteRenderer's will copy their texture as well, so we just do the material.color instead.
+                        if (targetRenderer.HasPropertyBlock() && !(targetRenderer is SpriteRenderer))   
+                        {
+                            var materialPropertyBlock = new MaterialPropertyBlock();
+                            targetRenderer.GetPropertyBlock(materialPropertyBlock);
+
+                            renderer.SetPropertyBlock(materialPropertyBlock);
+                        }
+                        else
+                        {
+                            renderer.material.color = targetRenderer.material.color;
+                        }
+                    }
 
                     //Adjust position randomly based on the original position and the scale of the objects!
                     var pos = new Vector3(

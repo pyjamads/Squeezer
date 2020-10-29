@@ -73,8 +73,8 @@ namespace GameFeelDescriptions
     {
         private GameFeelTriggerType selectedTriggerType;
         private int selectedEffectIndex;
-        private StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
-        private int selectedIntensity = 1;
+        // private StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
+        // private int selectedIntensity = 1;
         
         private int attachToIndex = -1;
         
@@ -915,21 +915,21 @@ namespace GameFeelDescriptions
                             {
                                 using (new EditorGUILayout.VerticalScope())
                                 {
-                                    selectedCategory =
+                                    group.selectedCategory =
                                         (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
-                                            "Category", selectedCategory);
-                                    selectedIntensity =
-                                        EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
+                                            "Category", group.selectedCategory);
+                                    group.selectedIntensity =
+                                        EditorGUILayout.IntSlider("Intensity", group.selectedIntensity, 1, 10);
                                 }
 
                                 using (new EditorGUILayout.VerticalScope())
                                 {
                                     if (GUILayout.Button("Generate!"))
                                     {
-                                        Undo.RecordObject(target, "Generate " + selectedCategory.GetName());
+                                        Undo.RecordObject(target, "Generate " + group.selectedCategory.GetName());
                                         var recipe =
-                                            StepThroughModeWindow.GenerateRecipe(selectedCategory,
-                                                selectedIntensity);
+                                            StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
+                                                group.selectedIntensity);
 
                                         group.EffectsToExecute.AddRange(recipe);
 
@@ -941,10 +941,10 @@ namespace GameFeelDescriptions
 
                                     if (GUILayout.Button("Handcrafted!"))
                                     {
-                                        Undo.RecordObject(target, "Handcrafted " + selectedCategory.GetName());
+                                        Undo.RecordObject(target, "Handcrafted " + group.selectedCategory.GetName());
                                         var recipe =
-                                            StepThroughModeWindow.GenerateRecipe(selectedCategory,
-                                                selectedIntensity);
+                                            StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
+                                                group.selectedIntensity);
                                     
                                         group.EffectsToExecute.AddRange(recipe);
                                         serializedObject.ApplyModifiedProperties();
@@ -958,11 +958,11 @@ namespace GameFeelDescriptions
                             {
                                 using (new EditorGUILayout.VerticalScope())
                                 {
-                                    selectedCategory =
+                                    group.selectedCategory =
                                         (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
-                                            "Category", selectedCategory);
-                                    selectedIntensity =
-                                        EditorGUILayout.IntSlider("Intensity", selectedIntensity, 1, 10);
+                                            "Category", group.selectedCategory);
+                                    group.selectedIntensity =
+                                        EditorGUILayout.IntSlider("Intensity", group.selectedIntensity, 1, 10);
                                 }
 
                                 using (new EditorGUILayout.VerticalScope())
@@ -979,11 +979,11 @@ namespace GameFeelDescriptions
 
                                     if (GUILayout.Button("Regenerate"))
                                     {
-                                        Undo.RecordObject(target, "Regenerate " + selectedCategory.GetName());
+                                        Undo.RecordObject(target, "Regenerate " + group.selectedCategory.GetName());
                                         //group.EffectsToExecute.Clear();
                                         group.EffectsToExecute.RemoveAll(item => item.Lock == false);
-                                        var recipe = StepThroughModeWindow.GenerateRecipe(selectedCategory,
-                                            selectedIntensity, group.EffectsToExecute);
+                                        var recipe = StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
+                                            group.selectedIntensity, group.EffectsToExecute);
 
                                         group.EffectsToExecute.AddRange(recipe);
 

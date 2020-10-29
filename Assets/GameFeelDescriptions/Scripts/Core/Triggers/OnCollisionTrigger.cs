@@ -78,9 +78,9 @@ namespace GameFeelDescriptions
                 component.TriggerType = TriggerType;
                 component.Description = description;
                 component.TriggerIndex = triggerIndex;
-                component.ReactTo = ReactTo;
-                component.ContextType = ContextType;
-                component.type = type;
+                // component.ReactTo = ReactTo;
+                // component.ContextType = ContextType;
+                // component.type = type;
                 description.attachedTriggers.Add(component);
             }
         }

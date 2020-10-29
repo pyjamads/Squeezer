@@ -68,7 +68,7 @@ public class CharacterController2D : MonoBehaviour
 			{
 				m_Grounded = true;
 				if (!wasGrounded)
-					OnLandEvent.Invoke(gameObject, "OnLand", new PositionalData{Position = m_GroundCheck.position, DirectionDelta = Vector3.up, Origin = gameObject});
+					OnLandEvent.Invoke(gameObject, "OnLand", new PositionalData(m_GroundCheck.position, Vector3.up){Origin = gameObject});
 			}
 		}
 	}
@@ -141,7 +141,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
-			OnJumpEvent.Invoke(gameObject, "OnJump", new PositionalData{Position = m_GroundCheck.position, DirectionDelta = Vector3.up, Origin = gameObject});
+			OnJumpEvent.Invoke(gameObject, "OnJump", new PositionalData(m_GroundCheck.position, Vector3.up){Origin = gameObject});
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
 		}
 	}

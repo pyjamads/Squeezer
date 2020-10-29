@@ -108,8 +108,15 @@ namespace GameFeelDescriptions
             CurrentlyExecuting = tempEffects.Count;
             foreach (var effect in tempEffects)
             {
-                //Tell the effect that it can use destroyImmediate.
-                effect.triggerData.InCollisionUpdate = false;
+                if (effect.triggerData != null)
+                {
+                    //Tell the effect that it can use destroyImmediate.
+                    effect.triggerData.InCollisionUpdate = false;
+                }
+                else
+                {
+                    int i = 0;
+                }
                 
                 // update tween
                 if(effect.Tick())
@@ -136,7 +143,7 @@ namespace GameFeelDescriptions
             //TODO: handle the whole DestroyImmediate issue as well (when copying objects) 2020-08-27
             //TODO: another issue is Disabling the renderer when making a copy that is following the original...2020-09-04
             
-            if (effect.triggerData.InCollisionUpdate && (effect is DestroyEffect || effect is DisableEffect || effect is DisableRendererEffect || effect is TrailEffect || effect is SpawnCopyEffect))
+            if (effect.triggerData != null && effect.triggerData.InCollisionUpdate && (effect is DestroyEffect || effect is DisableEffect || effect is DisableRendererEffect || effect is TrailEffect || effect is SpawnCopyEffect))
             {
                 activeEffects.Add(effect);
                 return;

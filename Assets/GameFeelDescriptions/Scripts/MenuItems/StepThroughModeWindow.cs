@@ -55,7 +55,7 @@ namespace GameFeelDescriptions
                 var synth = (AudioSynthPlayEffect) Activator.CreateInstance(typeof(AudioSynthPlayEffect));
                 //TODO: more varied settings for synth 
                 synth.soundGeneratorBase = AudioSynthPlayEffect.SynthBaseSounds.Jump;
-                synth.synthParameters = synth.GenerateSynthParameters(intensity: intensity);
+                synth.synthParameters = synth.GenerateSynthParameters(false, intensity: intensity);
                 synth.LoadSynthParameters();
                 
                 if (locked.Any(item => item is AudioSynthPlayEffect) == false)
@@ -98,7 +98,7 @@ namespace GameFeelDescriptions
                         synth.soundGeneratorBase = AudioSynthPlayEffect.SynthBaseSounds.HitHurt;
                     }
                 
-                    synth.synthParameters = synth.GenerateSynthParameters(intensity: intensity);
+                    synth.synthParameters = synth.GenerateSynthParameters(false, intensity: intensity);
                     synth.LoadSynthParameters();
                     
                     recipe.Add(synth);    
@@ -166,7 +166,7 @@ namespace GameFeelDescriptions
                 //TODO: more varied settings for synth 
                 synth.soundGeneratorBase = AudioSynthPlayEffect.SynthBaseSounds.LaserShoot;
 
-                synth.synthParameters = synth.GenerateSynthParameters(intensity: intensity);
+                synth.synthParameters = synth.GenerateSynthParameters(false, intensity: intensity);
                 synth.LoadSynthParameters();
                 
                 if (locked.Any(item => item is AudioSynthPlayEffect) == false)
@@ -236,7 +236,7 @@ namespace GameFeelDescriptions
                 //TODO: more varied settings for synth 
                 synth.soundGeneratorBase = AudioSynthPlayEffect.SynthBaseSounds.PickupCoin;
 
-                synth.synthParameters = synth.GenerateSynthParameters(intensity: intensity);
+                synth.synthParameters = synth.GenerateSynthParameters(false, intensity: intensity);
                 synth.LoadSynthParameters();
                 
                 if (locked.Any(item => item is AudioSynthPlayEffect) == false)
@@ -255,7 +255,7 @@ namespace GameFeelDescriptions
                     //TODO: more varied settings for synth 
                     synth.soundGeneratorBase = AudioSynthPlayEffect.SynthBaseSounds.Explosion;
 
-                    synth.synthParameters = synth.GenerateSynthParameters(intensity: intensity);
+                    synth.synthParameters = synth.GenerateSynthParameters(false, intensity: intensity);
                     synth.LoadSynthParameters();
                     
                     recipe.Add(synth);
@@ -363,10 +363,13 @@ namespace GameFeelDescriptions
             }
             else //if (category == EffectGeneratorCategories.RANDOM)
             {
+                //TODO: with the addition of the Type to GameFeelBehaviorBase, we could do
+                //TODO: GameFeelBehaviorBase<OnCollisionTrigger>.GetGameFeelEffects() to get things that match with collision Triggers. 2020-10-26
                 //Get possible effects from trigger type
-                var effects = GameFeelBehaviorBase.GetGameFeelEffects();
+                var effects = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();
+                //TODO: we can also do the above for the MakeRecipe call.
                 //Generate a recipe of up to 5 effects, from those effects.
-                recipe = GameFeelBehaviorBase.MakeRecipe(effects);
+                recipe = GameFeelBehaviorBase<GameFeelTrigger>.MakeRecipe(effects);
 
                 //If there's room, and no sound effect has been added, add one.
                 if (recipe.Count < 5 && !recipe.Any(item => item is AudioSynthPlayEffect))
@@ -374,7 +377,7 @@ namespace GameFeelDescriptions
                     var synth = (AudioSynthPlayEffect) Activator.CreateInstance(typeof(AudioSynthPlayEffect));
                     //TODO: more varied settings for synth 
                     synth.soundGeneratorBase = AudioSynthPlayEffect.SynthBaseSounds.Random;
-                    synth.synthParameters = synth.GenerateSynthParameters(intensity: intensity);
+                    synth.synthParameters = synth.GenerateSynthParameters(false, intensity: intensity);
                     synth.LoadSynthParameters();
                     recipe.Add(synth);
                 }
@@ -453,7 +456,7 @@ namespace GameFeelDescriptions
         [MenuItem("GameFeelDescriptions/Step Through Mode")]
         public static void ShowWindow()
         {
-            ShowWindow(null, null, null);
+            ShowWindow<GameFeelTrigger>(null, null, null);
         }
 
         /*
@@ -471,7 +474,7 @@ namespace GameFeelDescriptions
          * THIS SHOULD JUST BE AVAILABLE IN THE REGULAR INSPECTOR AT RUNTIME AND AT EDITOR TIME!!!
          */
         
-        public static void ShowWindow(string message, GameFeelBehaviorBase trigger, GameFeelEffectGroup effectGroup, params object[] context)
+        public static void ShowWindow<T>(string message, GameFeelBehaviorBase<T> trigger, GameFeelEffectGroup effectGroup, params object[] context) where T : GameFeelTrigger
         {
             var window = GetWindow<StepThroughModeWindow>("Step Through Mode");
             window.message = message;

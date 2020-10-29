@@ -103,7 +103,7 @@ namespace GameFeelDescriptions
         [MenuItem("GameFeelDescriptions/Triggers/Remove from GameObjects")]
         static void RemoveAllTriggers()
         {
-            var triggers = GameObject.FindObjectsOfType<GameFeelBehaviorBase>();
+            var triggers = GameObject.FindObjectsOfType<GameFeelBehaviorBase<GameFeelTrigger>>();
             for (int i = 0; i < triggers.Length; i++)
             {
                 Object.DestroyImmediate(triggers[i]);

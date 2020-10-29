@@ -164,7 +164,6 @@ namespace GameFeelDescriptions
             GameFeelTriggerData triggerData)
         {
             var cp = new ParticlePuffEffect();
-
             
             cp.ParticlePrefabs = ParticlePrefabs;
             cp.AmountOfParticles = AmountOfParticles;
@@ -239,7 +238,7 @@ namespace GameFeelDescriptions
             }
 
             //Make triggerData for particles
-            var particleTriggerData = new DirectionalData{ DirectionDelta = normal, InCollisionUpdate = triggerData.InCollisionUpdate };
+            var particleTriggerData = new DirectionalData(normal){ InCollisionUpdate = triggerData.InCollisionUpdate };
             
             //STEP 2: Spawn primitives or prefabs.
             var particles = new List<GameObject>();
@@ -268,23 +267,27 @@ namespace GameFeelDescriptions
             }
             else
             {
-                //Scale the pieces, so approximate the same total size comes out (using the Cubic root: pieces^(1/3)).
-                GameObject mold = null;
-
                 if (!usePrimitiveParticles)
                 {
                     Debug.LogWarning("ParticlePuffEffect targeting ["+target.name+"] is set to use prefabs, but no prefabs have been added, using primitive instead.");
                 }
-
-                mold = GameObject.CreatePrimitive(ParticlePrimitive);
+                
+                var mold = GameObject.CreatePrimitive(ParticlePrimitive);
                 mold.transform.parent = GameFeelEffectExecutor.Instance.transform;
                 mold.transform.position = position;
                 
                 //TODO: figure out how to make better primitive particles,
                 //TODO: because having the collider causes a physics separation impulse when the objects are spawned, 
                 //TODO: and will also disrupt physics based simulations ... 2020-09-17
-                GameObject.Destroy(mold.GetComponent<Collider>());
-                
+                if (triggerData.InCollisionUpdate)
+                {
+                    GameObject.Destroy(mold.GetComponent<Collider>());
+                }
+                else
+                {
+                    GameObject.DestroyImmediate(mold.GetComponent<Collider>());
+                }
+
                 var renderer = mold.GetComponent<Renderer>();
                 renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
                 SetMaterialTransparentBlendMode(renderer.material);
@@ -317,7 +320,12 @@ namespace GameFeelDescriptions
                 for (var i = 1; i < AmountOfParticles; i++)
                 {
                     var particle = Object.Instantiate(mold, GameFeelEffectExecutor.Instance.transform, true);
-                    
+
+                    if (triggerData.InCollisionUpdate)
+                    {
+                        GameObject.Destroy(particle.GetComponent<Collider>());
+                    }
+
                     //NOTE: collider is NOT copied, when it's already been marked for destruction in the mold. 2020-09-18
                     //So no need to remove it here, also no impact separation should happen between these copies. 
                     //GameObject.Destroy(particle.GetComponent<Collider>());
@@ -542,14 +550,14 @@ namespace GameFeelDescriptions
 
                 //Maybe destroy it as well.
                 //translate.OnComplete(new DestroyEffect());
-                var translateTriggerData = new PositionalData{Position = particle.transform.position, DirectionDelta = direction, InCollisionUpdate = triggerData.InCollisionUpdate};
+                var translateTriggerData = new PositionalData (particle.transform.position, direction) { InCollisionUpdate = triggerData.InCollisionUpdate };
                 translate.Init(origin, particle, translateTriggerData);
                 translate.SetElapsed();
                 translate.QueueExecution();
                 
                 //NOTE: If we do this instead of queuing them all, the waitForAbove won't wait for all particles to finish.
                 //NOTE: However, now each particle will also transmit it's own direction down the tree. 2020-10-22 
-                QueueOffspringEffects(particle, new DirectionalData{DirectionDelta = direction, InCollisionUpdate = triggerData.InCollisionUpdate});
+                QueueOffspringEffects(particle, new DirectionalData(direction){ InCollisionUpdate = triggerData.InCollisionUpdate });
             }
 
             //STEP 4: Queue the rest of the effects on all particles!

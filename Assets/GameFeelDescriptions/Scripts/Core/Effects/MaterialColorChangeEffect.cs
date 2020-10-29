@@ -11,28 +11,28 @@ namespace GameFeelDescriptions
             Description = "Material Color change Effect allows you to change the color of a material using easing.";
             relative = false;
         }
-        
+
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)
         {
             var cp = new MaterialColorChangeEffect
-                {
-                    materialToModify = materialToModify,
-                    applyToAllInstances = applyToAllInstances,
-                };
+            {
+                materialToModify = materialToModify,
+                applyToAllInstances = applyToAllInstances,
+            };
             cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
-        
-        
+
+
         [Header("Finds the first material on the target, and changes the color.", order = 0)]
         [Header("Or use a material reference", order = 1)]
         public Material materialToModify;
-        
+
         [HideFieldIf("materialToModify", null, true)]
         [Header("Also apply the color to all other instances of the material on the target.")]
         public bool applyToAllInstances;
-        
+
         private static readonly int ColorPropId = Shader.PropertyToID("_Color");
 
         private MaterialPropertyBlock materialPropertyBlock;
@@ -63,7 +63,7 @@ namespace GameFeelDescriptions
             if (renderer == null)
             {
                 if (target == null) return;
-                
+
                 renderer = target.GetComponentInChildren<Renderer>();
                 if (renderer == null)
                 {
@@ -88,11 +88,11 @@ namespace GameFeelDescriptions
         protected override Color GetValue(GameObject target)
         {
             if (materialToModify) return materialToModify.GetColor(ColorPropId);
-            
+
             if (renderer == null)
             {
                 if (target == null) return Color.magenta;
-                
+
                 renderer = target.GetComponentInChildren<Renderer>();
                 if (renderer == null)
                 {
@@ -101,7 +101,7 @@ namespace GameFeelDescriptions
                     return Color.magenta;
                 }
             }
-                
+
             if (applyToAllInstances)
             {
                 return renderer.sharedMaterial.GetColor(ColorPropId);
@@ -111,17 +111,32 @@ namespace GameFeelDescriptions
             {
                 renderer.GetPropertyBlock(MaterialPropertyBlock);
             }
-            
-            return MaterialPropertyBlock.isEmpty ? 
-                renderer.sharedMaterial.GetColor(ColorPropId) : 
-                MaterialPropertyBlock.GetColor(ColorPropId);
+
+            return MaterialPropertyBlock.isEmpty
+                ? renderer.sharedMaterial.GetColor(ColorPropId)
+                : MaterialPropertyBlock.GetColor(ColorPropId);
         }
 
+        protected override void ExecuteSetup()
+        {
+            base.ExecuteSetup();
+
+            if (materialToModify) return;
+
+            if (target == null) return;
+            
+            var renderer = target.GetComponentInChildren<Renderer>();
+            if (renderer == null)
+            {
+                Debug.LogWarning(
+                    "No renderer attached to target. A renderer is required unless using a material reference.");
+            }
+        }
 
         protected override bool TickTween()
         {
-            if (target == null) return true;
-            
+            if (target == null || target.GetComponentInChildren<Renderer>() == null) return true;
+
             SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
@@ -137,9 +152,6 @@ namespace GameFeelDescriptions
             }
 
             return false;
-
         }
-
-        
     }
 }

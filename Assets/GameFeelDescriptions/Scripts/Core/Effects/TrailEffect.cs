@@ -76,6 +76,8 @@ namespace GameFeelDescriptions
                 if (!target.GetComponent<Renderer>())
                 {
                     Debug.LogError("No renderer attached to object: " + target.name);
+                    ExecuteOnOffspring.Clear();
+                    ExecuteAfterCompletion.Clear();
                     return true;
                 }
                 

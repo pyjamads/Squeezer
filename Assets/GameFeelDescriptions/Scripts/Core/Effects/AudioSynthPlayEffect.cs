@@ -160,7 +160,7 @@ namespace GameFeelDescriptions
             soundGeneratorBase = EnumExtensions.GetRandomValue<SynthBaseSounds>();
 
             //TODO: maybe include the severity/intensity as a passed in parameter!
-            synthParameters = GenerateSynthParameters(true, 5);
+            synthParameters = GenerateSynthParameters(false, 5);
         }
 
         public string GenerateSynthParameters(bool playSound = false, int intensity = 1)
@@ -233,7 +233,7 @@ namespace GameFeelDescriptions
             base.Mutate(amount);
 
             //This also fixes the duration!
-            synthParameters = MutateSynthParameters(true, amount);
+            synthParameters = MutateSynthParameters(false, amount);
         }
 
         public string MutateSynthParameters(bool playSound = false, float mutationAmount = 0.05f)

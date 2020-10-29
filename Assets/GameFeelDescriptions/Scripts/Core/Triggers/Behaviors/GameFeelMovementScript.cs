@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class GameFeelMovementScript : GameFeelBehaviorBase
+    public class GameFeelMovementScript : GameFeelBehaviorBase<OnMoveTrigger>
     {
-        public OnMoveTrigger.MovementActivationType type;
+        // public OnMoveTrigger.MovementActivationType type;
 
         private Vector3 lastPosition;
 
@@ -55,36 +55,36 @@ namespace GameFeelDescriptions
             }
             
             //React according to movement type.
-            switch (type)
+            switch (Trigger.type)
             {
                 case OnMoveTrigger.MovementActivationType.OnBeginMoving:
                     if (justBeganMoving)
                     {
-                        ExecuteEffectGroups(type);
+                        ExecuteEffectGroups(Trigger.type);
                     }
                     break;
                 case OnMoveTrigger.MovementActivationType.WhileMoving:
                     if (isMoving)
                     {
-                        ExecuteEffectGroups(type);
+                        ExecuteEffectGroups(Trigger.type);
                     }
                     break;
                 case OnMoveTrigger.MovementActivationType.OnDirectionChange:
                     if (justChangedDirection)
                     {
-                        ExecuteEffectGroups(type);
+                        ExecuteEffectGroups(Trigger.type);
                     }
                     break;
                 case OnMoveTrigger.MovementActivationType.OnStopMoving:
                     if (justStoppedMoving)
                     {
-                        ExecuteEffectGroups(type);
+                        ExecuteEffectGroups(Trigger.type);
                     }
                     break;
                 case OnMoveTrigger.MovementActivationType.WhileNotMoving:
                     if (!isMoving)
                     {
-                        ExecuteEffectGroups(type);
+                        ExecuteEffectGroups(Trigger.type);
                     }
                     break;
                 case OnMoveTrigger.MovementActivationType.OnAnyStateChange:
@@ -141,7 +141,7 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i], activationType, direction);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new MovementData{Origin = gameObject, Position = transform.position, DirectionDelta = direction, ActivationType = type});    
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new MovementData(transform.position, direction, Trigger.type){Origin = gameObject});    
             }
         }
     }

@@ -30,7 +30,7 @@ namespace GameFeelDescriptions
                 component.TriggerType = TriggerType;
                 component.Description = description;
                 component.TriggerIndex = triggerIndex;
-                component.type = type;
+                // component.type = type;
                 description.attachedTriggers.Add(component);
             }
         }

@@ -80,6 +80,11 @@ namespace GameFeelDescriptions
 
         protected override void ExecuteSetup()
         {
+            if (target == null)
+            {
+                target = Camera.main.gameObject;
+            }
+            
             if (source == null)
             {
                 if (createAudioSource)

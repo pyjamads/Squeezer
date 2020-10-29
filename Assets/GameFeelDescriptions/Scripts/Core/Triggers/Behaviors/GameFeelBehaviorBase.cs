@@ -10,28 +10,44 @@ using UnityEditor;
 
 namespace GameFeelDescriptions
 {
-    public class GameFeelBehaviorBase : MonoBehaviour
+    public abstract class GameFeelBehaviorBase<T> : MonoBehaviour where T : GameFeelTrigger
     {
         private const bool showRecipeDebug = false;
         private static bool disableStepThroughModeHandling = true;
         
         //public bool StepThroughMode;
 
-        [ReadOnly]
+        //[ReadOnly] //Replace with [DisableAtRuntime] attribute (TBD)
         public GameFeelDescription Description;
-        [ReadOnly]
+        //[ReadOnly] //Replace with [DisableAtRuntime] attribute (TBD)
         public int TriggerIndex;
-        [ReadOnly]
+        //[ReadOnly] //Replace with [DisableAtRuntime] attribute (TBD)
         public GameFeelTriggerType TriggerType;
-        
-        public bool Disabled => Description.TriggerList[TriggerIndex].Disabled;
+
+        public T Trigger
+        {
+            get
+            {
+                if (Description.TriggerList.Count >= TriggerIndex && Description.TriggerList[TriggerIndex] is T trigger)
+                {
+                    return trigger;
+                }
+                
+                //Remove this script if the check above fails.
+                Destroy(this);
+                Debug.LogError(Description.name+" Trigger List changed could not find ["+typeof(T).Name+"] at index: "+TriggerIndex);
+                return null;
+            }
+        }
+
+        public bool Disabled => Description.TriggerList.Count <= TriggerIndex || Description.TriggerList[TriggerIndex].Disabled;
 
         public List<GameFeelEffectGroup> EffectGroups
         {
             get
             {
                 //If the trigger matches us, return the effect groups.
-                if(Description.TriggerList.Count >= TriggerIndex && 
+                if(Description.TriggerList.Count > TriggerIndex &&
                    Description.TriggerList[TriggerIndex].TriggerType == TriggerType)
                 {
                     return Description.TriggerList[TriggerIndex].EffectGroups;

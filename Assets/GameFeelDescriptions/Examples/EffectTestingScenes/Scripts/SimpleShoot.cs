@@ -58,7 +58,7 @@ namespace GameFeelDescriptions.Examples
                     }
                 }
                 
-                GameFeelEffectExecutor.Instance.TriggerCustomEvent(gameObject, "Shoot", new PositionalData{Position = go.transform.position, DirectionDelta = projectileVelocity, Origin = gameObject});
+                GameFeelEffectExecutor.Instance.TriggerCustomEvent(gameObject, "Shoot", new PositionalData(go.transform.position,  projectileVelocity){Origin = gameObject});
             }
         }
     }

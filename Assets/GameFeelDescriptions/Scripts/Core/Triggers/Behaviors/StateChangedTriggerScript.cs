@@ -6,7 +6,7 @@ using TriggerConditionType = GameFeelDescriptions.OnStateChangeTrigger.TriggerCo
 
 namespace GameFeelDescriptions
 {
-    public class StateChangedTriggerScript : GameFeelBehaviorBase
+    public class StateChangedTriggerScript : GameFeelBehaviorBase<OnStateChangeTrigger>
     {
         [Header("The script containing the field (on GameObjects or Prefabs).")]
         public MonoBehaviour selectedComponent;
@@ -296,11 +296,7 @@ namespace GameFeelDescriptions
                 positionWithOffset = transform.position + qrt * localPositionOffset;
             }
 
-            var positionDelta = new PositionalData
-            {
-                Origin = gameObject, Position = positionWithOffset,
-                DirectionDelta = Quaternion.Euler(forwardRotationOffset) * transform.forward
-            };
+            var positionDelta = new PositionalData(positionWithOffset, Quaternion.Euler(forwardRotationOffset) * transform.forward) { Origin = gameObject };
             
             //When a custom event triggers, Other is the origin of the event.
             for (var i = 0; i < EffectGroups.Count; i++)

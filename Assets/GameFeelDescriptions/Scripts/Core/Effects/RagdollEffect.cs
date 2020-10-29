@@ -6,11 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
-    //NOTE: Ragdoll effect can change the target (to the specified Prefab),
-    //which means all effects need to be added as an OnComplete to the Ragdoll,
-    //in order to apply to the "new" target!
-    
-    public class RagdollEffect : SpawningGameFeelEffect
+    public class RagdollEffect : GameFeelEffect
     {
         public RagdollEffect()
         {
@@ -28,8 +24,8 @@ namespace GameFeelDescriptions
             // };
         }
         
-        [Tooltip("Add a custom prefab to spawn instead of changing the target.")]
-        public GameObject RagdollPrefab;
+        // [Tooltip("Add a custom prefab to spawn instead of changing the target.")]
+        // public GameObject RagdollPrefab;
 
         [Tooltip("Initial velocity force multiplier (Can be negative)")]
         public float ForceMultiplier = Random.Range(1f, 5f);
@@ -54,7 +50,7 @@ namespace GameFeelDescriptions
         {
             var cp = new RagdollEffect();
 
-            cp.RagdollPrefab = RagdollPrefab;
+            // cp.RagdollPrefab = RagdollPrefab;
             cp.ForceMultiplier = ForceMultiplier;
             cp.AdditionalForce = AdditionalForce;
             cp.MaxVelocity = MaxVelocity;
@@ -66,15 +62,16 @@ namespace GameFeelDescriptions
             
             if (target == null && origin == null) return null;
             
-            cp.targetPos = target != null ? target.transform.position : origin.transform.position;
+            // cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
             return DeepCopy(cp);
         }
 
         protected override bool ExecuteTick()
         {
-            if (target == null && RagdollPrefab == null) return true;
-
+            // if (target == null && RagdollPrefab == null) return true;
+            if (target == null) return true;
+            
             var interactionDirection = Vector3.zero;
 
             switch (triggerData)
@@ -87,12 +84,12 @@ namespace GameFeelDescriptions
                     break;
             }
             
-            var ragdoll = target;
+            // var ragdoll = target;
             //If there's a ragdoll prefab, Destroy the passed "target" and instantiate the ragdoll instead.
-            if (RagdollPrefab != null)
-            {
-                ragdoll = Object.Instantiate(RagdollPrefab, targetPos, Quaternion.identity, GameFeelEffectExecutor.Instance.transform);
-            }
+            // if (RagdollPrefab != null)
+            // {
+            //     ragdoll = Object.Instantiate(RagdollPrefab, targetPos, Quaternion.identity, GameFeelEffectExecutor.Instance.transform);
+            // }
 
             var additionalForce = AdditionalForce;
             if (RandomizeAdditionalForce)
@@ -102,13 +99,32 @@ namespace GameFeelDescriptions
             
             if (!target.GetComponent<Rigidbody>() && !target.GetComponent<Rigidbody2D>())
             {
-                var rigid = target.AddComponent<Rigidbody>();
-                //TODO: saw a null ref here, when not 'copying' the object, and it had a Rigidbody2D attached...
-                rigid.useGravity = ApplyGravity;
-                rigid.velocity = additionalForce + interactionDirection * ForceMultiplier;     
-                if (rigid.velocity.magnitude > MaxVelocity)
+                
+                if (target.GetComponent<Collider2D>())
                 {
-                    rigid.velocity = rigid.velocity.normalized * MaxVelocity;
+                    var rigid = target.AddComponent<Rigidbody2D>();
+                    //TODO: saw a null ref here, when not 'copying' the object, and it had a Rigidbody2D attached...
+                    rigid.simulated = true;
+                    rigid.isKinematic = false;
+                    rigid.bodyType = RigidbodyType2D.Dynamic;
+                    rigid.gravityScale = ApplyGravity ? 1f : 0f;
+                    rigid.velocity = additionalForce + interactionDirection * ForceMultiplier;     
+                    if (rigid.velocity.magnitude > MaxVelocity)
+                    {
+                        rigid.velocity = rigid.velocity.normalized * MaxVelocity;
+                    }
+                }
+                else
+                {
+                    var rigid = target.AddComponent<Rigidbody>();
+                    //TODO: saw a null ref here, when not 'copying' the object, and it had a Rigidbody2D attached...
+                    rigid.useGravity = ApplyGravity;
+                    rigid.isKinematic = false;
+                    rigid.velocity = additionalForce + interactionDirection * ForceMultiplier;     
+                    if (rigid.velocity.magnitude > MaxVelocity)
+                    {
+                        rigid.velocity = rigid.velocity.normalized * MaxVelocity;
+                    }
                 }
             }
             else
@@ -147,7 +163,7 @@ namespace GameFeelDescriptions
             //     this.OnComplete(destroy);
             // }
             
-            QueueOffspringEffects(ragdoll);
+            // QueueOffspringEffects(ragdoll);
             
             //We're done!
             return true;

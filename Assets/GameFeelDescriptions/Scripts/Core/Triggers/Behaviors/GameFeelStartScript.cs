@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class GameFeelStartScript : GameFeelBehaviorBase
+    public class GameFeelStartScript : GameFeelBehaviorBase<OnStartTrigger>
     {
         private void Start()
         {
@@ -32,7 +32,7 @@ namespace GameFeelDescriptions
 #if UNITY_EDITOR
                 if (EditorApplication.isPlaying)
 #endif
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], null);
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new PositionalData(transform.position));
             }
         }
     }

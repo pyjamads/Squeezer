@@ -44,11 +44,11 @@ namespace GameFeelDescriptions
     //TODO: rename to something more appropriate, like GameFeelAugmentation or GameFeelEnhancement or something...04/03/2020 
     {
         public const string savePath = "Assets/GameFeelDescriptions/Recipes";
-        public const bool saveDataForUserStudy = true;
+        public const bool saveDataForUserStudy = false;
         public static string userStudyPath = Path.Combine(savePath, "UserStudyData");
         
         [NonSerialized]
-        public List<GameFeelBehaviorBase> attachedTriggers = new List<GameFeelBehaviorBase>();
+        public List<MonoBehaviour> attachedTriggers = new List<MonoBehaviour>();
         
         #region Fields (Remember GameFeelDescriptionDataStruct when adding/removing fields, as well as OverrideDescriptionData)
         

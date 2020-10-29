@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class GameFeelDisableScript : GameFeelBehaviorBase
+    public class GameFeelDisableScript : GameFeelBehaviorBase<OnDisableTrigger>
     {
         [HideInInspector]
         public bool shouldReact = true;
@@ -50,7 +50,7 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i]);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], null);   
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new PositionalData(transform.position));   
             }
         }
     }

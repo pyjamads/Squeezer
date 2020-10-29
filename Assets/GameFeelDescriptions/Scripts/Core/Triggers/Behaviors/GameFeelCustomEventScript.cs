@@ -5,16 +5,8 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class GameFeelCustomEventScript : GameFeelBehaviorBase
+    public class GameFeelCustomEventScript : GameFeelBehaviorBase<OnCustomEventTrigger>
     {
-        public string EventName; 
-        
-        public OnCustomEventTrigger.EventTriggerSources AllowFrom;
- 
-        [HideFieldIf("AllowFrom", OnCustomEventTrigger.EventTriggerSources.Sources, negate: true)]
-        public string[] Sources;
-
-
         public List<bool> isTag;
         private void Start()
         {
@@ -27,7 +19,7 @@ namespace GameFeelDescriptions
         private void CheckSources()
         {
             isTag = new List<bool>();
-            foreach (var str in Sources)
+            foreach (var str in Trigger.Sources)
             {
                 isTag.Add(Helpers.DoesTagExist(str));
             }
@@ -51,12 +43,12 @@ namespace GameFeelDescriptions
                 SetupInitialTargets();
             }
 
-            if (AllowFrom == OnCustomEventTrigger.EventTriggerSources.Sources && Sources.Length != isTag.Count)
+            if (Trigger.AllowFrom == OnCustomEventTrigger.EventTriggerSources.Sources && Trigger.Sources.Length != isTag.Count)
             {
                 CheckSources();
             }
       
-            switch (AllowFrom)
+            switch (Trigger.AllowFrom)
             {
                 case OnCustomEventTrigger.EventTriggerSources.Anywhere:
                     //Just allow it through.
@@ -65,13 +57,13 @@ namespace GameFeelDescriptions
                     if (origin != gameObject) return; 
                     break;
                 case OnCustomEventTrigger.EventTriggerSources.Sources:
-                    if (Sources.Any(origin.CompareTag) == false && Sources.Any(origin.name.Equals) == false) return;
+                    if (Trigger.Sources.Any(origin.CompareTag) == false && Trigger.Sources.Any(origin.name.Equals) == false) return;
                     break;
             }
             
             //Check to see if we are supposed to React to this event.
-            if (!EventName.Contains("*") &&
-                string.Compare(eventName, EventName, StringComparison.OrdinalIgnoreCase) != 0) return;
+            if (!Trigger.EventName.Contains("*") &&
+                string.Compare(eventName, Trigger.EventName, StringComparison.OrdinalIgnoreCase) != 0) return;
             
 #if UNITY_EDITOR
             if (Description.StepThroughMode)

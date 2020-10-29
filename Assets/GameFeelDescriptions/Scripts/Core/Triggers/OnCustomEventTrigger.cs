@@ -65,9 +65,9 @@ namespace GameFeelDescriptions
                 component.TriggerType = TriggerType;
                 component.Description = description;
                 component.TriggerIndex = triggerIndex;
-                component.EventName = EventName;
-                component.AllowFrom = AllowFrom;
-                component.Sources = Sources;
+                // component.EventName = EventName;
+                // component.AllowFrom = AllowFrom;
+                // component.Sources = Sources;
                 description.attachedTriggers.Add(component);
             }
         }

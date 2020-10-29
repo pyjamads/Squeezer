@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class GameFeelRotationScript : GameFeelBehaviorBase
+    public class GameFeelRotationScript : GameFeelBehaviorBase<OnRotateTrigger>
     {
-        public Quaternion lastRotation;
+        private Quaternion lastRotation;
 
         private void Start()
         {
@@ -41,7 +41,7 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i], rotation.eulerAngles);
 #endif
                 
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new RotationalData{Origin = gameObject, RotationDelta = rotation.eulerAngles});
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new RotationalData(rotation.eulerAngles){Origin = gameObject});
             }
             
             lastRotation = transform.rotation;

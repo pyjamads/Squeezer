@@ -54,16 +54,13 @@ namespace GameFeelDescriptions.Examples
             //Trigger a custom event with the settings, and scale the direction randomly between 0.3 and 2.
             GameFeelEffectExecutor.Instance.TriggerCustomEvent(gameObject, EventName,
                 OnlyPassDirection
-                    ? new DirectionalData
+                    ? new DirectionalData(randomDirection * Random.Range(0.3f, 2f))
                     {
-                        Origin = gameObject,
-                        DirectionDelta = randomDirection * Random.Range(0.3f, 2f)
+                        Origin = gameObject
                     }
-                    : new PositionalData
+                    : new PositionalData(pos, randomDirection * Random.Range(0.3f, 2f))
                     {
-                        Origin = gameObject,
-                        Position = pos,
-                        DirectionDelta = randomDirection * Random.Range(0.3f, 2f)
+                        Origin = gameObject
                     }
             );
         }

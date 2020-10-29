@@ -21,9 +21,6 @@ namespace GameFeelDescriptions
 
             using (new EditorGUI.PropertyScope(position, label, property))
             {
-
-
-
                 //EditorGUI.BeginProperty(position, label, property);
 
                 //[Label]    [params][mutate+play][play]
@@ -74,7 +71,8 @@ namespace GameFeelDescriptions
                 else if (showButtons && GUI.Button(buttonPosition2, "mutate"))
                 {
                     Undo.RecordObject(property.serializedObject.targetObject, "Mutate Synth values");
-                    audioSynthEffect.MutateSynthParameters(true);
+                    audioSynthEffect.Mutate();
+                    audioSynthEffect.PlaySound();
 
                     property.serializedObject.ApplyModifiedProperties();
                 }

@@ -1,0 +1,507 @@
+{
+    "Name": "EnemyEffects",
+    "Description": "Description of all effects triggered by game objects with the tag [Enemy]",
+    "DontDestroyOnLoad": false,
+    "DynamicReattachRate": 0.10000000149011612,
+    "AttachToTag": "Enemy",
+    "AttachToObjects": [],
+    "AttachToComponentType": "",
+    "StepThroughMode": false,
+    "TriggerList": [
+        {
+            "id": 0
+        },
+        {
+            "id": 1
+        }
+    ],
+    "references": {
+        "version": 1,
+        "00000000": {
+            "type": {
+                "class": "OnStateChangeTrigger",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "TriggerType": 7,
+                "Disabled": false,
+                "EffectGroups": [
+                    {
+                        "GroupName": "",
+                        "Disabled": false,
+                        "StepThroughMode": false,
+                        "AppliesTo": 0,
+                        "TargetTag": "",
+                        "TargetComponentType": {
+                            "instanceID": 0
+                        },
+                        "TargetList": [],
+                        "EffectsToExecute": [
+                            {
+                                "id": 2
+                            },
+                            {
+                                "id": 3
+                            }
+                        ]
+                    }
+                ],
+                "selectedComponent": {
+                    "instanceID": 14532
+                },
+                "field": "direction",
+                "TriggerCondition": 0,
+                "Conditional": 0,
+                "Value": "",
+                "localPositionOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "useForwardForPositionOffset": false,
+                "forwardRotationOffset": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                }
+            }
+        },
+        "00000001": {
+            "type": {
+                "class": "OnStartTrigger",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "TriggerType": 3,
+                "Disabled": false,
+                "EffectGroups": [
+                    {
+                        "GroupName": "",
+                        "Disabled": false,
+                        "StepThroughMode": false,
+                        "AppliesTo": 0,
+                        "TargetTag": "",
+                        "TargetComponentType": {
+                            "instanceID": 0
+                        },
+                        "TargetList": [],
+                        "EffectsToExecute": [
+                            {
+                                "id": 4
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "00000002": {
+            "type": {
+                "class": "AudioClipPlayEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Play Audio clip Effect allows you to a sound clip and adjust volume using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 5
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false,
+                "createAudioSource": true,
+                "volume": 0.25,
+                "source": {
+                    "instanceID": 0
+                },
+                "clips": [
+                    {
+                        "instanceID": 14534
+                    },
+                    {
+                        "instanceID": 14536
+                    },
+                    {
+                        "instanceID": 14538
+                    },
+                    {
+                        "instanceID": 14540
+                    }
+                ],
+                "playOneShot": true,
+                "pitchShiftAmount": 0.0,
+                "pitchResetDelay": 1.0,
+                "playLoop": false,
+                "currentPitch": 1.0,
+                "lastPitchChangeTime": 77.63046264648438
+            }
+        },
+        "00000003": {
+            "type": {
+                "class": "ParticlePuffEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Particle puff creates anything from a dust cloud from a footfall to nuclear explosion.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false,
+                "ExecuteOnOffspring": [
+                    {
+                        "id": 6
+                    },
+                    {
+                        "id": 7
+                    }
+                ],
+                "AmountOfParticles": 16,
+                "ParticlePrefabs": [],
+                "usePrimitiveParticles": true,
+                "ParticlePrimitive": 1,
+                "ExpansionShape": 2,
+                "setParticleUp": true,
+                "setParticleForward": false,
+                "Height": 0.3670715093612671,
+                "Radius": 0.7156420350074768,
+                "ParticleScale": 0.13070939481258393,
+                "ParticleLifetime": 0.49008840322494509
+            }
+        },
+        "00000004": {
+            "type": {
+                "class": "AudioClipPlayEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Play Audio clip Effect allows you to a sound clip and adjust volume using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false,
+                "createAudioSource": true,
+                "volume": 0.5,
+                "source": {
+                    "instanceID": 0
+                },
+                "clips": [
+                    {
+                        "instanceID": 14542
+                    },
+                    {
+                        "instanceID": 14544
+                    },
+                    {
+                        "instanceID": 14546
+                    },
+                    {
+                        "instanceID": 14548
+                    }
+                ],
+                "playOneShot": true,
+                "pitchShiftAmount": 0.0,
+                "pitchResetDelay": 1.0,
+                "playLoop": false,
+                "currentPitch": 1.0,
+                "lastPitchChangeTime": 77.25713348388672
+            }
+        },
+        "00000005": {
+            "type": {
+                "class": "TranslateEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Translate Effect allows you to move an object using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.44999998807907107,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": false,
+                "from": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "x": -0.0632094070315361,
+                    "y": -0.4886159598827362,
+                    "z": -0.37639978528022768
+                },
+                "easing": 5,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "useGlobalPosition": false,
+                "useInteractionDirection": false,
+                "interactionDirectionMultiplier": 1.0
+            }
+        },
+        "00000006": {
+            "type": {
+                "class": "ScaleEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Scale Effect allows you to scale an object using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.2739983797073364,
+                "RandomizeDelay": true,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 8
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.7901343107223511,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": true,
+                "from": {
+                    "x": 0.016409188508987428,
+                    "y": 0.016409188508987428,
+                    "z": 0.016409188508987428
+                },
+                "relative": true,
+                "to": {
+                    "x": 1.3771785497665406,
+                    "y": 1.3771785497665406,
+                    "z": 1.3771785497665406
+                },
+                "easing": 12,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                }
+            }
+        },
+        "00000007": {
+            "type": {
+                "class": "MaterialColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Material Color change Effect allows you to change the color of a material using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": true,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [
+                    {
+                        "id": 9
+                    }
+                ],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false,
+                "RandomizeDuration": true,
+                "DurationMin": 0.5569999814033508,
+                "Duration": 0.7234969735145569,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": true,
+                "from": {
+                    "r": 0.9723225831985474,
+                    "g": 0.8224669694900513,
+                    "b": -0.0028761846479028465,
+                    "a": 1.0285800695419312
+                },
+                "relative": false,
+                "to": {
+                    "r": 0.9818640351295471,
+                    "g": 0.8711674809455872,
+                    "b": -0.003750715870410204,
+                    "a": -0.01878383383154869
+                },
+                "easing": 0,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "materialToModify": {
+                    "instanceID": 0
+                },
+                "applyToAllInstances": false
+            }
+        },
+        "00000008": {
+            "type": {
+                "class": "CameraBackgroundColorChangeEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Camera Background Color change Effect allows you to change a camera background color field using easing.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false,
+                "RandomizeDuration": false,
+                "DurationMin": 0.0,
+                "Duration": 0.800000011920929,
+                "loopType": 0,
+                "repeat": 1,
+                "DelayBetweenLoops": 0.0,
+                "setFromValue": false,
+                "from": {
+                    "r": 0.0,
+                    "g": 0.0,
+                    "b": 0.0,
+                    "a": 0.0
+                },
+                "relative": true,
+                "to": {
+                    "r": 0.5964654088020325,
+                    "g": 0.7338882088661194,
+                    "b": 0.6249811053276062,
+                    "a": 1.0
+                },
+                "easing": 0,
+                "curve": {
+                    "serializedVersion": "2",
+                    "m_Curve": [],
+                    "m_PreInfinity": 2,
+                    "m_PostInfinity": 2,
+                    "m_RotationOrder": 4
+                },
+                "cameraToModify": {
+                    "instanceID": 0
+                }
+            }
+        },
+        "00000009": {
+            "type": {
+                "class": "DestroyEffect",
+                "ns": "GameFeelDescriptions",
+                "asm": "Assembly-CSharp"
+            },
+            "data": {
+                "StackingType": 0,
+                "Disabled": false,
+                "Lock": false,
+                "Description": "Simple destruction effect.",
+                "UnscaledTime": false,
+                "Delay": 0.0,
+                "RandomizeDelay": false,
+                "Cooldown": 0.0,
+                "ExecuteAfterCompletion": [],
+                "triggerData": {
+                    "Origin": {
+                        "instanceID": 0
+                    },
+                    "InCollisionUpdate": false
+                },
+                "isComplete": false
+            }
+        },
+        "0000000A": {
+            "type": {
+                "class": "Terminus",
+                "ns": "UnityEngine.DMAT",
+                "asm": "FAKE_ASM"
+            },
+            "data": {}
+        }
+    }
+}

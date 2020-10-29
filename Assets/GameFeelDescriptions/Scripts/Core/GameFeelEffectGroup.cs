@@ -14,11 +14,16 @@ using Object = UnityEngine.Object;
 namespace GameFeelDescriptions
 {
     //TODO: Remove effect groups 1: move appliesTo, to effects??? maybe make en effect that allows you to target other things...
-    //TODO: Remove effect groups 2: move stepthroughmode and disabled up to triggers, and rename it to pause on trigger or something.
+    //TODO: Remove effect groups 2: move stepthroughmode up to triggers, and rename it to pause on trigger or something.
     
     [Serializable]
     public class GameFeelEffectGroup
     {
+        [HideInInspector]
+        public StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
+        [HideInInspector]
+        public int selectedIntensity = 1;
+
         /// <summary>
         /// Name of the group, useful for telegraphing what this group is meant to do.
         /// </summary>

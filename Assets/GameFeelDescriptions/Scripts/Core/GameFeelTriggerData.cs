@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace GameFeelDescriptions
 {
@@ -46,18 +47,39 @@ namespace GameFeelDescriptions
     public class DirectionalData : GameFeelTriggerData
     {
         public Vector3 DirectionDelta;
+
+        public DirectionalData(Vector3 direction)
+        {
+            DirectionDelta = direction;
+        }
     }
 
     [Serializable]
     public class PositionalData : DirectionalData
     {
         public Vector3 Position;
+        
+        
+        public PositionalData(Vector3 position) : base(Vector3.zero)
+        {
+            Position = position;
+        }
+        
+        public PositionalData(Vector3 position, Vector3 direction) : base(direction)
+        {
+            Position = position;
+        }
     }
 
     [Serializable]
     public class MovementData : PositionalData
     {
         public OnMoveTrigger.MovementActivationType ActivationType;
+
+        public MovementData(Vector3 position, Vector3 direction, OnMoveTrigger.MovementActivationType activation) : base(position, direction)
+        {
+            ActivationType = activation;
+        }
     }
 
     [Serializable]
@@ -65,6 +87,11 @@ namespace GameFeelDescriptions
     {
         //TODO: consider adding position + radius as well. 2020-09-07
         public Vector3 RotationDelta;
+
+        public RotationalData(Vector3 rotation)
+        {
+            RotationDelta = rotation;
+        }
     }
     
     // [Serializable]
