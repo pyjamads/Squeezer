@@ -35,7 +35,8 @@ namespace GameFeelDescriptions
         public KeyCode selectPrevEffect = KeyCode.P;
         
         public GameObject InitialVariation;
-
+        private List<GameFeelDescription> lastEvolvedDescriptions = new List<GameFeelDescription>();
+        
         //public int VariationCount = 8;
         
         [Header("How long in seconds, to show each individual setup for")]
@@ -72,6 +73,8 @@ namespace GameFeelDescriptions
         private int selectedDescriptionIndex = 0;
         private int selectedTriggerIndex = 0;
         
+        private int generationIndex;
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -86,10 +89,10 @@ namespace GameFeelDescriptions
             activeEffectSwitcher.enabled = false;
             activeEffectSwitcher.displayCurrent = false;
 
+            lastEvolvedDescriptions.Replace(InitialVariation.GetComponentsInChildren<GameFeelDescription>());
+            
             //AddDescriptionsToSwitcher();
             AddChildrenToSwitcher();
-
-            activeEffectSwitcher.Initialize();
             
             var timeStamp = DateTime.Now.ToString("s").Replace(':', '.');
             SessionSavePath = Path.Combine(SessionSavePath, "Session_" + timeStamp);
@@ -140,6 +143,8 @@ namespace GameFeelDescriptions
                     }
                 }
             }
+            
+            activeEffectSwitcher.Initialize();
         }
         
         // private void AddDescriptionsToSwitcher()
@@ -331,21 +336,20 @@ namespace GameFeelDescriptions
 
                 var variationID = activeEffectSwitcher.currentGroup +1;
                 
-                if (GUI.Button(new Rect((Screen.width / 2f) + 5f, Screen.height - 30, 300, 30),
-                    "Evolve Variation " + variationID))
-                {
-                    autoSwithcing = false;
-                    EvolveSelected();
-                }
-
                 if (GUI.Button(new Rect(40f, Screen.height - 30, 300, 30),
                     "Reset "+trigName+"!"))
                 {
                     autoSwithcing = false;
                     ResetEvolution();
                 }
-
-
+                
+                if (GUI.Button(new Rect((Screen.width / 2f) + 355f, Screen.height - 30, 100, 30),
+                    "Re-Roll"))
+                {
+                    autoSwithcing = false;
+                    EvolveSelected(true);
+                }
+                
                 //TODO: maybe only save the current selected description and/or trigger, when bookmarking!
                 if (GUI.Button(new Rect((Screen.width / 2f) - 205f, Screen.height - 30, 200, 30),
                     "Save Variation "+variationID))
@@ -354,11 +358,18 @@ namespace GameFeelDescriptions
                     
                     foreach (var description in currentDescriptions)
                     {
-                        var name = "Variation_"+variationID +"_"+ description.name+ ".txt";
+                        var name = "Generation"+generationIndex+" Variation_"+variationID +"_"+ description.name+ ".txt";
                         Debug.Log("THE DESCRIPTION IS SAVED!!\n"+SessionSavePath+"/"+name);
 
                         GameFeelDescription.SaveToFile(description, name, SessionSavePath);    
                     }
+                }
+                
+                if (GUI.Button(new Rect((Screen.width / 2f) + 5f, Screen.height - 30, 300, 30),
+                    "Evolve Variation " + variationID))
+                {
+                    autoSwithcing = false;
+                    EvolveSelected();
                 }
             }
         }
@@ -445,7 +456,7 @@ namespace GameFeelDescriptions
                     
                 foreach (var description in currentDescriptions)
                 {
-                    var name = "Variation"+activeEffectSwitcher.currentGroup +"_"+ description.name+ ".txt";
+                    var name = "Generation"+generationIndex+" Variation"+activeEffectSwitcher.currentGroup +"_"+ description.name+ ".txt";
                     Debug.Log("THE DESCRIPTION IS SAVED!!\n"+SessionSavePath+"/"+name);
 
                     GameFeelDescription.SaveToFile(description, name, SessionSavePath);    
@@ -457,7 +468,7 @@ namespace GameFeelDescriptions
             //TODO: loading bookmarks into the evolution 2020-10-05
         }
 
-        private void EvolveSelected()
+        private void EvolveSelected(bool reroll = false)
         {
             if (Time.unscaledTime < lastEvolveTime + 1f)
             {
@@ -475,7 +486,7 @@ namespace GameFeelDescriptions
             // }
             // else
             // {
-            Evolve(activeEffectSwitcher.currentGroup);
+            Evolve(activeEffectSwitcher.currentGroup, reroll);
             // }
             
             ReloadScene();
@@ -483,7 +494,7 @@ namespace GameFeelDescriptions
             //Re-enable autoSwitching...
             autoSwithcing = true;
         }
-
+        
         private void ResetEvolution()
         {
             if (Time.unscaledTime < lastEvolveTime + 1f)
@@ -554,6 +565,7 @@ namespace GameFeelDescriptions
                 //var selectedIndividual = descriptions[index];
                 var selectedIndividual = transform.GetChild(index).gameObject;
                 InitialVariation = selectedIndividual;
+                lastEvolvedDescriptions.Replace(InitialVariation.GetComponentsInChildren<GameFeelDescription>());
                 
                 //Destoy all other individuals
                 for (int i = 0; i < individuals; i++)
@@ -581,6 +593,9 @@ namespace GameFeelDescriptions
                     var individualCopy = Instantiate(selectedIndividual, transform);
                     activeEffectSwitcher.ABGroups.Add(individualCopy);
                 }
+
+                //Increase generation index when selecting a new trigger to evolve for.
+                generationIndex++;
                 
                 //Gently mutate the selected individual...
                 //NOTE: we're ignoring the inactive descriptions here!
@@ -592,22 +607,23 @@ namespace GameFeelDescriptions
                 {
                     var description = descriptions[selectedDescriptionIndex];
                     var selectedTrigger = description.TriggerList[selectedTriggerIndex];
-                    evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Saved";
+                    evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Saved.txt";
                 }
                 
                 //Also save the selected individual!
                 foreach (var description in descriptions)
                 {
-                    var name = description.name + ".txt";
+                    var name = "Generation"+generationIndex+" "+ description.name + ".txt";
                     
                     GameFeelDescription.SaveToFile(description, name, SessionSavePath);
                 }
 
-                SessionSavePath = Path.Combine(SessionSavePath, evolveName);
+                //TODO: save a "seperator" text file with the status and name, but don't make the path deeper 2020-10-30
+                //SessionSavePath = Path.Combine(SessionSavePath, evolveName);
             }
         }
-        
-        public void Evolve(int index)
+
+        public void Evolve(int index, bool reroll = false)
         {
             var individuals = activeEffectSwitcher.ABGroups.Count;
             
@@ -618,6 +634,22 @@ namespace GameFeelDescriptions
                 //var selectedIndividual = descriptions[index];
                 var selectedIndividual = transform.GetChild(index).gameObject;
                 InitialVariation = selectedIndividual;
+                
+                if (reroll)
+                {
+                    //Re-initialize selected individual with the last evolved descriptions
+                    var descs = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
+
+                    for (int i = 0; i < descs.Length; i++)
+                    {
+                        descs[i].OverrideDescriptionData(lastEvolvedDescriptions[i]);
+                    }
+                }
+                else
+                {
+                    //Otherwise save selected individual as the last evolved.
+                    lastEvolvedDescriptions.Replace(InitialVariation.GetComponentsInChildren<GameFeelDescription>());    
+                }
                 
                 //Destoy all other individuals
                 for (int i = 0; i < individuals; i++)
@@ -681,6 +713,9 @@ namespace GameFeelDescriptions
                     }
                 }
                 
+                //Increment before saving, so first generation is gen 1 instead of gen 0. 
+                generationIndex++;
+
                 //Gently mutate the selected individual...
                 //NOTE: we're ignoring the inactive descriptions here!
                 var descriptions = selectedIndividual.GetComponentsInChildren<GameFeelDescription>();
@@ -691,18 +726,20 @@ namespace GameFeelDescriptions
                 {
                     var description = descriptions[selectedDescriptionIndex];
                     var selectedTrigger = description.TriggerList[selectedTriggerIndex];
-                    evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Evolved";
+                    evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Evolved.txt";
                 }
+
                 
                 //Also save the selected individual!
                 foreach (var description in descriptions)
                 {
-                    var name = description.name + ".txt";
+                    var name = "Generation"+generationIndex+" "+description.name + ".txt";
                     
                     GameFeelDescription.SaveToFile(description, name, SessionSavePath);
                 }
 
-                SessionSavePath = Path.Combine(SessionSavePath, evolveName);
+                //TODO: save a "seperator" text file with the status and name, but don't make the path deeper 2020-10-30 
+                //SessionSavePath = Path.Combine(SessionSavePath, evolveName);
                 
                 if (selectedDescriptionIndex <= -1 && selectedTriggerIndex <= -1 ||
                     selectedDescriptionIndex >= descriptions.Length)
@@ -730,6 +767,8 @@ namespace GameFeelDescriptions
                         MutateGroup(effectGroup, 0.05f, 0, 0);
                     }
                 }
+                
+                activeEffectSwitcher.Initialize();
             }
             // else
             // {
@@ -793,10 +832,12 @@ namespace GameFeelDescriptions
                 var descriptions = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
                 var description = descriptions[selectedDescriptionIndex];
                 var selectedTrigger = description.TriggerList[selectedTriggerIndex];
-                evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Reset";
+                evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Reset.txt";
             }
 
-            SessionSavePath = Path.Combine(SessionSavePath, evolveName);
+            
+            //TODO: save a "seperator" text file with the status and name, but don't make the path deeper 2020-10-30 
+            //SessionSavePath = Path.Combine(SessionSavePath, evolveName);
             
             //DO THE RESET!!
             foreach (var individual in activeEffectSwitcher.ABGroups)

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace GameFeelDescriptions
-{   
+{
     //[ExecuteInEditMode]
     public class GameFeelEffectExecutor : MonoBehaviour
     {

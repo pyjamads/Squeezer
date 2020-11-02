@@ -353,6 +353,22 @@ namespace GameFeelDescriptions
             
             TriggerList = data.TriggerList;
         }
+        
+        public void OverrideDescriptionData(GameFeelDescription data, bool setDescriptionSettings = true)
+        {
+            if (setDescriptionSettings)
+            {
+                Name = data.Name;
+                Description = data.Description;
+                AttachToTag = data.AttachToTag;
+                AttachToObjects = data.AttachToObjects;
+                AttachToComponentType = data.AttachToComponentType;
+                DynamicReattachRate = data.DynamicReattachRate;
+                StepThroughMode = data.StepThroughMode;
+            }
+            
+            TriggerList = data.TriggerList;
+        }
 
         public static void SaveToFile(GameFeelDescription description, string filename, string path = null)
         {

@@ -155,7 +155,7 @@ namespace GameFeelDescriptions
             
             Height = Mathf.Max(0.1f, Height + Random.value * 2 * amount - amount);
             Radius = Mathf.Max(0.1f, Radius + Random.value * 2 * amount - amount);
-
+            
             ParticleScale = Mathf.Max(0.1f, ParticleScale + Random.value * 2 * amount - amount);
             ParticleLifetime = Mathf.Max(0.1f, ParticleLifetime + Random.value * 2 * amount - amount);
         }

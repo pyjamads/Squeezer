@@ -1435,9 +1435,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: DiscRoomEvolution
   activeEffectSwitcher: {fileID: 1364119990}
+  selectNextEffect: 110
+  selectPrevEffect: 112
   InitialVariation: {fileID: 2047099842}
   displayTimer: 10
+  increaseDisplayTime: 43
+  decreaseDisplayTime: 45
   autoSwithcing: 1
+  toggleAutoSwitching: 32
+  evolveSelectedEffect: 13
+  saveSelectedEffect: 115
 --- !u!114 &1364119990
 MonoBehaviour:
   m_ObjectHideFlags: 0

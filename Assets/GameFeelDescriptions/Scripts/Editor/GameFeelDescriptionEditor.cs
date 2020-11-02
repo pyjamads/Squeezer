@@ -1,14 +1,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
@@ -228,7 +223,7 @@ namespace GameFeelDescriptions
 
             GUILayout.Space(20);
             
-            showBottomButtons = EditorGUILayout.Foldout(showBottomButtons, "Additional helpers");
+            showBottomButtons = EditorGUILayout.Foldout(showBottomButtons, "Additional helpers", true);
 
             if (showBottomButtons)
             {
@@ -526,7 +521,7 @@ namespace GameFeelDescriptions
                     //Skip all game feel effects and sub effects!
                     if (type != null && type != typeof(GameFeelEffect)) break;
                         
-                    list.Add(indentString + (index) + ". " + effect.GetType().Name);
+                    list.Add(indentString + (index) + ". " + ObjectNames.NicifyVariableName(effect.GetType().Name));
                     objs.Add(effect);
                 
                     for (int i = 0; i < effect.ExecuteAfterCompletion.Count; i++)
@@ -575,7 +570,7 @@ namespace GameFeelDescriptions
                     //Skip adding triggers!
                     if (type == null || type == typeof(GameFeelTrigger))
                     {
-                        var triggerLabel = indentString + (index) + ". " + trigger.GetType().Name;
+                        var triggerLabel = indentString + (index) + ". " + ObjectNames.NicifyVariableName(trigger.GetType().Name);
 
                         if (trigger is OnCollisionTrigger col)
                         {
@@ -617,6 +612,12 @@ namespace GameFeelDescriptions
                 propertyPath += parentProperty+".Array.data[" + dataIndex + "]";
             }
 
+            var toggleOnLabel = false;
+            
+            #if UNITY_2019_4
+                toggleOnLabel = true;
+            #endif
+            
             //var canPaste = false;
             
             var highlightColor = new Color(1f, 1f, 0f, 1f);
@@ -633,7 +634,7 @@ namespace GameFeelDescriptions
             {
                 case GameFeelDescription desc:
                 {
-                    showDescriptionSettings = EditorGUILayout.Foldout(showDescriptionSettings, "Description Settings");
+                    showDescriptionSettings = EditorGUILayout.Foldout(showDescriptionSettings, "Description Settings", toggleOnLabel);
                     
                     if (showDescriptionSettings)
                     {
@@ -692,6 +693,7 @@ namespace GameFeelDescriptions
                         canPaste = false;
                     }
 
+                    //TODO: re-write headers and add '+' button at the end! 2020-10-30
                     var clickArea = ClickAreaWithContextMenu(desc, false);
                     if (desc.TriggerList.Count == 0)
                     {
@@ -743,16 +745,16 @@ namespace GameFeelDescriptions
                 case GameFeelTrigger trigger:
                 {
                     var prefix = trigger.Disabled ? "[DISABLED] " : "";
-                    var triggerLabel = prefix + trigger.GetType().Name;
+                    var triggerLabel = prefix + ObjectNames.NicifyVariableName(trigger.GetType().Name);
 
                     if (trigger is OnCollisionTrigger col)
                     {
                         triggerLabel += " [reacting to ("+String.Join(", ", col.ReactTo)
-                                                         +") "+col.type.GetName()+"]";
+                                                         +") "+ObjectNames.NicifyVariableName(col.type.GetName())+"]";
                     }
                     else if (trigger is OnMoveTrigger mov)
                     {
-                        triggerLabel += " [executing "+mov.type.GetName()+"]";
+                        triggerLabel += " [executing "+ObjectNames.NicifyVariableName(mov.type.GetName())+"]";
                     }
                     else if (trigger is OnCustomEventTrigger custom)
                     {
@@ -787,18 +789,18 @@ namespace GameFeelDescriptions
                         }
                     }
 
-                    using (new EditorGUI.DisabledScope(trigger.Disabled))
-                    {
-                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
-                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
-                            ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel);
-                    }
-
                     trigger.Disabled =
                         !EditorGUI.ToggleLeft(
                             new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f,
                                 clickArea.height),
                             GUIContent.none, !trigger.Disabled);
+                    
+                    using (new EditorGUI.DisabledScope(trigger.Disabled))
+                    {
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
+                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel, toggleOnLabel);
+                    }
 
                     if (!trigger.Disabled)
                     {
@@ -864,7 +866,7 @@ namespace GameFeelDescriptions
                     // }
                     
                     var prefix = group.Disabled ? "[DISABLED] " : "";
-                    var groupLabel = prefix + "EffectGroup " + (string.IsNullOrWhiteSpace(group.GroupName)
+                    var groupLabel = prefix + "Effect Group " + (string.IsNullOrWhiteSpace(group.GroupName)
                                          ? ""
                                          : "'" + group.GroupName + "'")
                                      + " [Applies to "
@@ -880,19 +882,19 @@ namespace GameFeelDescriptions
                         // ExpandedDescriptionNames[target.GetInstanceID()][index] = true;
                     }
 
-                    using (new EditorGUI.DisabledScope(group.Disabled))
-                    {
-                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
-                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
-                            ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel);
-                    }
-
                     group.Disabled =
                         !EditorGUI.ToggleLeft(
                             new Rect(clickArea.x - 28f, clickArea.y, clickArea.width - indented.width + 15f,
                                 clickArea.height),
                             GUIContent.none, !group.Disabled);
-
+                    
+                    using (new EditorGUI.DisabledScope(group.Disabled))
+                    {
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
+                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel, toggleOnLabel);
+                    }
+                    
                     if (!group.Disabled)
                     {
                         if (ExpandedDescriptionNames[target.GetInstanceID()][index])
@@ -1046,11 +1048,10 @@ namespace GameFeelDescriptions
                     
                     var indented = EditorGUI.IndentedRect(clickArea);
                     
-                    
                     var prefix = effect.Disabled ? "[DISABLED] " : "";
                     
                     var remainingTime = effect.GetRemainingTime(true);
-                    var suffix = " [" + remainingTime + (remainingTime == float.PositiveInfinity ? "" : "s") +"]";
+                    var suffix = " [" + remainingTime.ToString("F") + (remainingTime == float.PositiveInfinity ? "" : "s") +"]";
 
                     var minTime = remainingTime;
 
@@ -1067,33 +1068,19 @@ namespace GameFeelDescriptions
                     //if (effect.RandomizeDelay || effect is DurationalGameFeelEffect durational && durational.RandomizeDuration)
                     if (Math.Abs(minTime - remainingTime) > float.Epsilon * 10f)
                     {
-                        suffix = " ["+(minTime)+"-" + remainingTime + (remainingTime == float.PositiveInfinity ? "" : "s") + "]";
+                        suffix = " ["+(minTime.ToString("F"))+"-" + remainingTime.ToString("F") + (remainingTime == float.PositiveInfinity ? "" : "s") + "]";
                     }
                     
                     
                     totalExecutionTime += remainingTime;
                     if (totalExecutionTime != remainingTime)
                     {
-                        suffix += " (Total: "+totalExecutionTime + (totalExecutionTime == float.PositiveInfinity ? "" : "s")+")";
+                        suffix += " (Total: "+totalExecutionTime.ToString("F") + (totalExecutionTime == float.PositiveInfinity ? "" : "s")+")";
                     }
                     
-                    var effectLabel = prefix + effect.GetType().Name + suffix;
+                    var effectLabel = prefix + ObjectNames.NicifyVariableName(effect.GetType().Name) + suffix;
 
                     EditorGUILayout.BeginHorizontal();
-
-                    using (new EditorGUI.DisabledScope(effect.Disabled))
-                    {
-                        // if (effect is TrailEffect trail)
-                        // {
-                        //     showAttach =
-                        //         EditorGUI.Foldout(new Rect(clickArea.x + 100f, clickArea.y, clickArea.width - 100f, clickArea.height),
-                        //             showAttach, "Custom Fade Effect");
-                        // }
-                        
-                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
-                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
-                            ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel);
-                    }
 
                     effect.Disabled =
                         !EditorGUI.ToggleLeft(
@@ -1131,6 +1118,35 @@ namespace GameFeelDescriptions
                         }
                     }
 
+                    if (!effect.Disabled)
+                    {
+                        if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),"+"))
+                        {
+                            PlusMenuDropdown(effect);
+                        }
+                            
+                        if (GUI.Button(new Rect(indented.x + indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, indented.y, 50f, indented.height),"Mutate"))
+                        {
+                            Undo.RecordObject(target, "Mutate " + (string.IsNullOrEmpty(ObjectNames.NicifyVariableName(effect.GetType().Name))));
+
+                            InteractiveEvolution.MutateEffectsRecursive(GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects(), effect);
+                        }
+                    }
+                    
+                    using (new EditorGUI.DisabledScope(effect.Disabled))
+                    {
+                        // if (effect is TrailEffect trail)
+                        // {
+                        //     showAttach =
+                        //         EditorGUI.Foldout(new Rect(clickArea.x + 100f, clickArea.y, clickArea.width - 100f, clickArea.height),
+                        //             showAttach, "Custom Fade Effect");
+                        // }
+                        
+                        ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
+                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel, toggleOnLabel);
+                    }
+                    
                     EditorGUILayout.EndHorizontal();
                     
                     if(!effect.Disabled)
@@ -1141,12 +1157,8 @@ namespace GameFeelDescriptions
                         }
                         // else
                         // {
-                            if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),"+"))
-                            {
-                                PlusMenuDropdown(effect);
-                            }
-                        
-                            for (var i = 0; i < effect.ExecuteAfterCompletion.Count; i++)
+
+                        for (var i = 0; i < effect.ExecuteAfterCompletion.Count; i++)
                             {
                                 if (effect.ExecuteAfterCompletion[i] == null) continue;
 
@@ -1163,7 +1175,7 @@ namespace GameFeelDescriptions
                                     
                                     var subClickArea = ClickAreaWithContextMenu(spawner, false);
                                 
-                                    EditorGUI.LabelField(subClickArea, "Executed on "+spawner.GetType().Name+" Offspring:", EditorStyles.miniBoldLabel);
+                                    EditorGUI.LabelField(subClickArea, "Executed on "+ObjectNames.NicifyVariableName(spawner.GetType().Name)+" Offspring:", EditorStyles.miniBoldLabel);
                                 
                                     for (var i = 0; i < spawner.ExecuteOnOffspring.Count; i++)
                                     {
@@ -1677,7 +1689,7 @@ namespace GameFeelDescriptions
                                     return trigger;
                                 },
                             };
-                            menu.AddItem(new GUIContent("Add " + typeName), false,
+                            menu.AddItem(new GUIContent("Add " + ObjectNames.NicifyVariableName(typeName)), false,
                                 AddPropertyCallback, data);
                         }
 
@@ -1740,7 +1752,7 @@ namespace GameFeelDescriptions
                                 context = group.EffectsToExecute,
                                 instance = () => Activator.CreateInstance(type)
                             };
-                            menu.AddItem(new GUIContent("Add Effect/" + type.Name), false,
+                            menu.AddItem(new GUIContent("Add Effect/" + ObjectNames.NicifyVariableName(type.Name)), false,
                                 AddPropertyCallback, data);
                         }
 
@@ -1780,7 +1792,7 @@ namespace GameFeelDescriptions
                                     context = effect.ExecuteAfterCompletion,
                                     instance = () => Activator.CreateInstance(type)
                                 };
-                                menu.AddItem(new GUIContent("Add OnComplete Effect/" + type.Name), false,
+                                menu.AddItem(new GUIContent("Add OnComplete Effect/" + ObjectNames.NicifyVariableName(type.Name)), false,
                                     AddPropertyCallback, data);
                             }
 
@@ -1791,7 +1803,7 @@ namespace GameFeelDescriptions
                                     context = spawner.ExecuteOnOffspring,
                                     instance = () => Activator.CreateInstance(type)
                                 };
-                                menu.AddItem(new GUIContent("Add OnOffspring Effect/" + type.Name), false,
+                                menu.AddItem(new GUIContent("Add OnOffspring Effect/" + ObjectNames.NicifyVariableName(type.Name)), false,
                                     AddPropertyCallback, data);
                             }
                         }
@@ -1867,7 +1879,7 @@ namespace GameFeelDescriptions
                     case List<GameFeelEffect> list:
                     {
                         var effectInstance = (GameFeelEffect) instance.Invoke();
-                        Undo.RecordObject(gameFeelDescription, isPaste ? "Paste" : ("Add " + effectInstance.GetType().Name));
+                        Undo.RecordObject(gameFeelDescription, isPaste ? "Paste" : ("Add " + ObjectNames.NicifyVariableName(effectInstance.GetType().Name)));
                         list.Add(effectInstance);
                         serializedObject.ApplyModifiedProperties();
                         break;

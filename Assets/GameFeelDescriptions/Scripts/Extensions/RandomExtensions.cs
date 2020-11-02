@@ -38,6 +38,19 @@ namespace GameFeelDescriptions
             var index = Random.Range(0, list.Count);
             return list[index];
         }
+
+
+        /// <summary>
+        /// Replace the current content of a list, with a new set of items.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="replacement"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Replace<T>(this List<T> list, IEnumerable<T> replacement)
+        {
+            list.Clear();
+            list.AddRange(replacement);
+        }
         
         /// <summary>
         /// Get a random element from a list.
