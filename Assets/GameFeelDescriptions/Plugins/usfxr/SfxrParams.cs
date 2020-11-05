@@ -1,3 +1,4 @@
+using System.Globalization;
 using UnityEngine;
 
 public class SfxrParams {
@@ -846,7 +847,7 @@ public class SfxrParams {
 	 */
 	private string To4DP(float __value) {
 		if (__value < 0.0001f && __value > -0.0001f) return "";
-		return __value.ToString("#.####");
+		return __value.ToString("#.####", NumberFormatInfo.InvariantInfo);
 	}
 
 	/**
@@ -854,7 +855,7 @@ public class SfxrParams {
 	 */
 	private uint ParseUint(string __value) {
 		if (__value.Length == 0) return 0;
-		return uint.Parse(__value);
+		return uint.Parse(__value, NumberFormatInfo.InvariantInfo);
 	}
 
 	/**
@@ -862,7 +863,7 @@ public class SfxrParams {
 	 */
 	private float ParseFloat(string __value) {
 		if (__value.Length == 0) return 0;
-		return float.Parse(__value);
+		return float.Parse(__value, NumberFormatInfo.InvariantInfo);
 	}
 
 	/**
