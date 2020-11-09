@@ -190,9 +190,12 @@ namespace GameFeelDescriptions
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            //Set all generated sounds to low volume.
+            synth.parameters.masterVolume = 0.05f;
 		
             //Adjust for severity
-            synth.parameters.masterVolume = 0.1f * intensity;
+            synth.parameters.masterVolume += 0.005f * intensity;
             
             //TODO: adjust more parameters for severity 2020-08-13
             //synth.parameters. = 0.1f * severity;
@@ -224,7 +227,7 @@ namespace GameFeelDescriptions
             {
                 mutateOnExecution = !mutateOnExecution;
             }
-
+            
             //This also fixes the duration!
             synthParameters = MutateSynthParameters(false, amount);
             
