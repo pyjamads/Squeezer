@@ -157,14 +157,14 @@ namespace GameFeelDescriptions
          if (RandomExtensions.Boolean())
          {
             //Add or remove the amount [-amount, amount] from the delay, but never goes below 0.
-            var delayAmount = Random.value * 2f * amount - amount;
-            Delay = Mathf.Max(0,Delay + delayAmount);   
+            var delayAmount = RandomExtensions.MutationAmount(amount);
+            Delay = Mathf.Max(0,Delay + delayAmount); 
          }
 
-         if (RandomExtensions.Boolean())
+         if (RandomExtensions.Boolean(amount))
          {
             //XOR with a amount probability to flip the bool.
-            RandomizeDelay ^= RandomExtensions.Boolean(amount);
+            RandomizeDelay = !RandomizeDelay;
          }
          
          //Flip stacking type with prop = amount.
@@ -173,10 +173,11 @@ namespace GameFeelDescriptions
             //NOTE: Queue and Add stacking types might create un-intuitive behavior, so disabled for mutation. 2020-11-09
             StackingType = EnumExtensions.GetRandomValue(new List<StackEffectType>{StackEffectType.Queue, StackEffectType.Add});   
          }
-
-         if (RandomExtensions.Boolean())
+         
+         //NOTE: For spawning effects, this is not super awesome, so we're gonna reduce the chance that it happens. 
+         if (RandomExtensions.Boolean(amount))
          {
-            var cooldownAmount = Random.value * 2f * amount - amount;
+            var cooldownAmount = RandomExtensions.MutationAmount(amount);
             Cooldown = Mathf.Max(0,Cooldown + cooldownAmount);
          }
 

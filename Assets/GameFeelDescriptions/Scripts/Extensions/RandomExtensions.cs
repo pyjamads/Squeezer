@@ -21,6 +21,9 @@ namespace GameFeelDescriptions
 
         public static float MutationAmount(float amount, float value = 1f)
         {
+            //Make sure the value is actually something.
+            if (value == 0) value = 1f;
+            
             //Get a random value between [-amount, amount] and scale it by the value.  
             return (Random.value * 2 * amount - amount) * value;
         }
