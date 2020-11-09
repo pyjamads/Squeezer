@@ -29,6 +29,21 @@ namespace GameFeelDescriptions
             return DeepCopy(cp);
         }
 
+        public override void Mutate(float amount = 0.05f)
+        {
+            if (RandomExtensions.Boolean())
+            {
+                OnlyDisableRenderers = !OnlyDisableRenderers;
+            }
+            
+            if (RandomExtensions.Boolean())
+            {
+                Interval = Mathf.Max(0.01f, Interval + RandomExtensions.MutationAmount(amount));
+            }
+
+            base.Mutate(amount);
+        }
+
         protected override bool ExecuteTick()
         {
             if (target == null) return true;

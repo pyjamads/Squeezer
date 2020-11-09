@@ -51,6 +51,8 @@ namespace GameFeelDescriptions
             
             return DeepCopy(cp);
         }
+        
+        //TODO: Add mutate!!
 
         protected override bool ExecuteTick()
         {

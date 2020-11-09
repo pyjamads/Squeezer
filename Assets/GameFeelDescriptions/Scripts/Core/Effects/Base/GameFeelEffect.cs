@@ -81,6 +81,7 @@ namespace GameFeelDescriptions
       [Header("Cooldown in seconds before another instance of this effect can be executed!")]
       [Min(0f)]
       public float Cooldown;
+      
       private float lastCopyTime = float.NegativeInfinity;
       
       
@@ -104,6 +105,8 @@ namespace GameFeelDescriptions
 
       protected GameObject origin;
       protected internal GameObject target;
+      
+      [HideInInspector]
       public GameFeelTriggerData triggerData;
 
       protected bool firstTick = true;
@@ -151,47 +154,36 @@ namespace GameFeelDescriptions
       
       public virtual void Mutate(float amount = 0.05f)
       {
-         //Add or remove the amount [-amount, amount] from the delay, but never goes below 0.
-         var delayAmount = Random.value * 2f * amount - amount;
-         Delay = Mathf.Max(0,Delay + delayAmount * Delay);
+         if (RandomExtensions.Boolean())
+         {
+            //Add or remove the amount [-amount, amount] from the delay, but never goes below 0.
+            var delayAmount = Random.value * 2f * amount - amount;
+            Delay = Mathf.Max(0,Delay + delayAmount);   
+         }
+
+         if (RandomExtensions.Boolean())
+         {
+            //XOR with a amount probability to flip the bool.
+            RandomizeDelay ^= RandomExtensions.Boolean(amount);
+         }
          
-         //XOR with a amount probability to flip the bool.
-         RandomizeDelay ^= RandomExtensions.Boolean(amount);
-         
-         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for mutation. 2020-08-20
-         // //Flip stacking type with prop = amount.
-         // if (RandomExtensions.Boolean(trueProp: amount))
-         // {
-         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
-         // }
-         
+         //Flip stacking type with prop = amount.
+         if (RandomExtensions.Boolean(trueProp: amount))
+         {
+            //NOTE: Queue and Add stacking types might create un-intuitive behavior, so disabled for mutation. 2020-11-09
+            StackingType = EnumExtensions.GetRandomValue(new List<StackEffectType>{StackEffectType.Queue, StackEffectType.Add});   
+         }
+
+         if (RandomExtensions.Boolean())
+         {
+            var cooldownAmount = Random.value * 2f * amount - amount;
+            Cooldown = Mathf.Max(0,Cooldown + cooldownAmount);
+         }
+
          //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
          SetElapsed();
       }
 
-      /// <summary>
-      /// Randomize the parameters of the Game Feel Effect.
-      /// </summary>
-      public virtual void Randomize()
-      {
-         //Generate a random delay between [0 and 1] in steps of 0.05f, with a 50% chance of 0.
-         Delay = Mathf.Max(0, (Random.Range(0,41) / 20f) - 1f);
-
-         //25% chance to tick the RandomizeDelay.
-         RandomizeDelay = RandomExtensions.Boolean(0.25f);
-         
-         StackingType = StackEffectType.Discard;
-         //NOTE: Other stacking types might create un-intuitive behavior, so disabled for randomization. 2020-08-20
-         // //50% chance of getting a random stacking type.  
-         // if (RandomExtensions.Boolean(0.5f))
-         // {
-         //    StackingType = EnumExtensions.GetRandomValue<StackEffectType>();   
-         // }
-         
-         //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
-         SetElapsed();
-      }
-      
       public virtual float GetRemainingTime(bool includeDelay = false)
       {
          if (includeDelay)

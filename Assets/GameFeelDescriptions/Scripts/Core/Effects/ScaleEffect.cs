@@ -12,25 +12,7 @@ namespace GameFeelDescriptions
             relative = false;
             to = Vector3.one * Random.Range(0, 101) / 20f;
         }
-        
-        public override void Randomize()
-        {
-            base.Randomize();
-            
-            if (setFromValue)
-            {
-                @from = Vector3.one * Random.Range(0, 101) / 20f;
-            }
-            else
-            {
-                @from = Vector3.one;
-            }
 
-            relative = RandomExtensions.Boolean(0.5f);
-            
-            to = Vector3.one * Random.Range(0, 101) / 20f;
-        }
-        
         public override void Mutate(float amount = 0.05f)
         {
             if (RandomExtensions.Boolean(amount))
@@ -38,20 +20,26 @@ namespace GameFeelDescriptions
                 setFromValue = !setFromValue;
             }
 
-            //Make a random color, and add/subtract a proportional amount here.
-            @from += Vector3.one * RandomExtensions.MutationAmount(amount);
-            if (@from.x < 0)
+            if (RandomExtensions.Boolean())
             {
-                @from = Vector3.zero;
+                //Make a random scale, and add/subtract a proportional amount here.
+                @from += Vector3.one * RandomExtensions.MutationAmount(amount);
+                if (@from.x < 0)
+                {
+                    @from = Vector3.zero;
+                }    
             }
 
-            //Make a random color, and add/subtract a proportional amount here.
-            to += Vector3.one * RandomExtensions.MutationAmount(amount); 
-            if (to.x < 0)
+            if (RandomExtensions.Boolean())
             {
-                to = Vector3.zero;
+                //Make a random scale, and add/subtract a proportional amount here.
+                to += Vector3.one * RandomExtensions.MutationAmount(amount); 
+                if (to.x < 0)
+                {
+                    to = Vector3.zero;
+                }    
             }
-            
+
             if (RandomExtensions.Boolean(amount))
             {
                 easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
@@ -117,6 +105,7 @@ namespace GameFeelDescriptions
         }
     }
     
+    //TODO: make scale with velocity effect! 2020-11-09
 //    public class ScaleWithVelocityEffect : GameFeelEffect
 //    {   
 //        public ScaleWithVelocityEffect()

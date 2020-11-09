@@ -5,37 +5,6 @@ namespace GameFeelDescriptions
 {
     public abstract class ColorChangeEffect : TweenEffect<Color>
     {
-        public override void Randomize()
-        {
-            //10% chance to setFromValue 
-            setFromValue = RandomExtensions.Boolean(0.1f);
-
-            
-            if (setFromValue)
-            {
-                @from = Random.ColorHSV().withA(Random.value);;
-            }
-            else
-            {
-                @from = Color.clear;
-            }
-
-            //No chance to set the relative value to true, because it's kinda weird with colors.
-            //relative = RandomExtensions.Boolean(0.05f);
-            relative = false;
-            
-            to = Random.ColorHSV().withA(Random.value);
-            
-            easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
-            
-            //NOTE: curve is excluded here.
-
-            loopType = EnumExtensions.GetRandomValue<LoopType>();
-            repeat = Random.Range(-1, 3);
-
-            base.Randomize();
-        }
-
         public override void Mutate(float amount = 0.05f)
         {
             if (RandomExtensions.Boolean(amount))
@@ -43,11 +12,17 @@ namespace GameFeelDescriptions
                 setFromValue = !setFromValue;
             }
 
-            //Make a random color, and add/subtract a proportional amount here.
-            @from += RandomExtensions.Sign(0.5f) * amount * Random.ColorHSV().withA(Random.value);
-        
-            //Make a random color, and add/subtract a proportional amount here.
-            to += RandomExtensions.Sign(0.5f) * amount * Random.ColorHSV().withA(Random.value);
+            if (RandomExtensions.Boolean())
+            {
+                //Make a random color, and add/subtract a proportional amount here.
+                @from += RandomExtensions.Sign(0.5f) * amount * Random.ColorHSV().withA(Random.value);    
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                //Make a random color, and add/subtract a proportional amount here.
+                to += RandomExtensions.Sign(0.5f) * amount * Random.ColorHSV().withA(Random.value);
+            }
 
             if (RandomExtensions.Boolean(amount))
             {

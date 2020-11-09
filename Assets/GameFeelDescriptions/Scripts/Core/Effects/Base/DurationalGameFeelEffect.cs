@@ -231,16 +231,19 @@ namespace GameFeelDescriptions
         {
             base.Mutate(amount);
             
-            var durationAmount = Random.value * amount * 2 - amount;
-            Duration = Mathf.Max(0,Duration + durationAmount * Duration);
-        }
+            if (RandomExtensions.Boolean())
+            {
+                var durationAmount = Random.value * amount * 2 - amount;
+                Duration = Mathf.Max(0,Duration + durationAmount);    
+            }
 
-        public override void Randomize()
-        {
-            base.Randomize();
+            //NOTE: We won't mutate loop type here, individual effects can do that if it makes sense.
             
-            //Default value 0.1-1.5 in steps of 0.01f, with a higher likelihood of the 0.1f - 1f spectrum.
-            Duration = 0.1f + Mathf.Max(0f, (Random.Range(0, 151) - Random.Range(0, 60))/ 100f);
+            if (RandomExtensions.Boolean())
+            {
+                var delayAmount = Random.value * amount * 2 - amount;
+                DelayBetweenLoops = Mathf.Max(0, DelayBetweenLoops + delayAmount);
+            }
         }
 
         public override bool CompareTo(GameFeelEffect other)

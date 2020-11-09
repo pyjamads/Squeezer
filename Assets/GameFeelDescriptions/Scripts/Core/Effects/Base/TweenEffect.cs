@@ -57,37 +57,6 @@ namespace GameFeelDescriptions
             return base.DeepCopy(cp as T);
 
         }
-        
-        public override void Randomize()
-        {
-            //10% chance to setFromValue 
-            setFromValue = RandomExtensions.Boolean(0.1f);
-
-            if (setFromValue)
-            {
-                @from = (TTween)TweenHelper.GetRandomValue(typeof(TTween), Random.Range(0f, 5f));
-            }
-            else
-            {
-                @from = default;
-            }
-
-            //No chance to set the relative value to true, because it's kinda weird with colors.
-            //relative = RandomExtensions.Boolean(0.05f);
-            relative = false;
-            
-            to = (TTween)TweenHelper.GetRandomValue(typeof(TTween), Random.Range(0f, 5f));
-            
-            
-            easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
-            //NOTE: curve is excluded here.
-            
-            loopType = EnumExtensions.GetRandomValue<LoopType>();
-            repeat = Random.Range(-1, 3);
-            DelayBetweenLoops = Random.value;
-
-            base.Randomize();
-        }
 
         public override bool CompareTo(GameFeelEffect other)
         {

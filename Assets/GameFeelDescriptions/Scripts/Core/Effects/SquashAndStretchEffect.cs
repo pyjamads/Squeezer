@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GameFeelDescriptions
 {
     //TODO: make a squash and strech continuous effect!
-    //NOTE: This is actually just a squash/stretch effect, not squash and stretch (use flipDirection to switch between the two)
+    //NOTE: This is actually just a squash or stretch effect, not squash and stretch (use flipDirection to switch between the two)
     //Consider making two separate effects squash and stretch.
     
     public class SquashAndStretchEffect : DurationalGameFeelEffect
@@ -56,6 +56,8 @@ namespace GameFeelDescriptions
             cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
+        
+        //TODO: add mutate!!
 
         public override bool CompareTo(GameFeelEffect other)
         {

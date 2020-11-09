@@ -184,7 +184,9 @@ MonoBehaviour:
         TriggerType: 6
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -216,6 +218,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -246,6 +249,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -267,6 +271,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -317,6 +322,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 7
@@ -327,6 +333,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 5
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 1
         Radius: 0.5
         ParticleScale: 0.2
@@ -345,6 +353,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -378,6 +387,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -414,6 +424,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -422,6 +433,7 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         useGlobalRotation: 0
+        RandomizeInitialRotation: 0
         RotationPerSecond: {x: -89.88127, y: 29.404385, z: 42.734325}
     00000008:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -437,6 +449,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -471,6 +484,7 @@ MonoBehaviour:
         - id: 10
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.3
@@ -505,6 +519,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &754187146
 GameObject:
@@ -599,7 +614,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &857015656
+--- !u!1 &951327618
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -607,11 +622,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 857015660}
-  - component: {fileID: 857015659}
-  - component: {fileID: 857015658}
-  - component: {fileID: 857015657}
-  - component: {fileID: 857015661}
+  - component: {fileID: 951327619}
+  - component: {fileID: 951327621}
+  - component: {fileID: 951327620}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -619,38 +632,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &857015657
-MonoBehaviour:
+--- !u!4 &951327619
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857015656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a540b2d01a4eedb7d60f9178f26241, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Left: 276
-  Right: 275
-  autoRotate: 1
-  rotationSpeed: 20
-  doRotationInTicks: 1
---- !u!81 &857015658
+  m_GameObject: {fileID: 951327618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1267796222}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &951327620
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857015656}
+  m_GameObject: {fileID: 951327618}
   m_Enabled: 1
---- !u!20 &857015659
+--- !u!20 &951327621
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857015656}
+  m_GameObject: {fileID: 951327618}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
@@ -687,39 +697,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &857015660
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857015656}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -15}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
---- !u!1183024399 &857015661
-LookAtConstraint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 857015656}
-  m_Enabled: 0
-  m_Weight: 0.025
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_RotationOffset: {x: 0, y: 0, z: 0}
-  m_Roll: 0
-  m_WorldUpObject: {fileID: 0}
-  m_UseUpObject: 0
-  m_IsContraintActive: 1
-  m_IsLocked: 0
-  m_Sources:
-  - sourceTransform: {fileID: 0}
-    weight: 1
 --- !u!1 &1129427704
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,6 +806,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1267796220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1267796222}
+  - component: {fileID: 1267796221}
+  m_Layer: 0
+  m_Name: CameraFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1267796221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267796220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a540b2d01a4eedb7d60f9178f26241, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Left: 276
+  Right: 275
+  autoRotate: 1
+  rotationSpeed: 20
+  doRotationInTicks: 0
+--- !u!4 &1267796222
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267796220}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 0, y: 5, z: -15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 951327619}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!1 &1885726279
 GameObject:
   m_ObjectHideFlags: 0

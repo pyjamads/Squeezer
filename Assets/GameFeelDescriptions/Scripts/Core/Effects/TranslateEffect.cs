@@ -32,24 +32,6 @@ namespace GameFeelDescriptions
             cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
-        
-        public override void Randomize()
-        {
-            base.Randomize();
-            
-            setFromValue = false;
-
-            useGlobalPosition = RandomExtensions.Boolean(0.25f);
-            useInteractionDirection = RandomExtensions.Boolean(0.25f);
-            interactionDirectionMultiplier = Random.Range(0f, 5f);
-
-            @from = Vector3.zero;
-
-            relative = true;
-            
-            //Just point somewhere! and scale it between 0-5x
-            to = Random.onUnitSphere * Random.Range(0f, 5f);
-        }
 
         public override void Mutate(float amount = 0.05f)
         {
@@ -68,17 +50,17 @@ namespace GameFeelDescriptions
                 useInteractionDirection = !useInteractionDirection;
             }
             
-            if(RandomExtensions.Boolean(amount))
+            if(RandomExtensions.Boolean())
             {
                 var multiplierAmount = Random.value * amount * 2 - amount;
                 interactionDirectionMultiplier += multiplierAmount;
             }
 
-            //Make a random color, and add/subtract a proportional amount here.
+            //Make a random vector, and add/subtract a proportional amount here.
             var rndAmount = Random.value * amount * 2 - amount;
             @from += Random.onUnitSphere * rndAmount;
         
-            //Make a random color, and add/subtract a proportional amount here.
+            //Make a random vector, and add/subtract a proportional amount here.
             rndAmount = Random.value * amount * 2 - amount;
             to += Random.onUnitSphere * rndAmount;
 
@@ -94,7 +76,8 @@ namespace GameFeelDescriptions
 
             if (RandomExtensions.Boolean(amount))
             {
-                repeat = Random.Range(-1, 3);
+                //Don't allow infinite looping
+                repeat = Random.Range(0, 3);
             }
 
             base.Mutate(amount);

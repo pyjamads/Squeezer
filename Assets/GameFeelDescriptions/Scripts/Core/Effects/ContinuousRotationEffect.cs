@@ -70,28 +70,20 @@ namespace GameFeelDescriptions
             cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
-        
-        public override void Randomize()
-        {
-            base.Randomize();
-
-            RotationPerSecond = Random.onUnitSphere * 2*Mathf.PI *Mathf.Rad2Deg; 
-            
-            useGlobalRotation = RandomExtensions.Boolean(0.25f);
-
-            RandomizeInitialRotation = RandomExtensions.Boolean(0.25f);
-        }
 
         public override void Mutate(float amount = 0.05f)
         {
             if(RandomExtensions.Boolean(amount))
             {
-                useGlobalRotation = RandomExtensions.Boolean(0.25f);
+                useGlobalRotation = !useGlobalRotation;
             }
 
-            //Make a random color, and add/subtract a proportional amount here.
-            var rndAmount = Random.value * amount * 2 - amount;
-            RotationPerSecond += Random.onUnitSphere * rndAmount * Mathf.Rad2Deg;
+            if (RandomExtensions.Boolean())
+            {
+                //Make a random rotation, and add/subtract a proportional amount here.
+                var rndAmount = RandomExtensions.MutationAmount(amount);
+                RotationPerSecond += Random.onUnitSphere * rndAmount * Mathf.Rad2Deg;    
+            }
 
             if (RandomExtensions.Boolean(amount))
             {

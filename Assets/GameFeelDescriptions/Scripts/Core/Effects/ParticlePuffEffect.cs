@@ -20,7 +20,9 @@ namespace GameFeelDescriptions
             var rotation = new ContinuousRotationEffect();
             rotation.RotationPerSecond = Random.onUnitSphere * (Mathf.PI - Random.value * 2 * Mathf.PI) * Mathf.Rad2Deg;
             rotation.RandomizeInitialRotation = true;
-            rotation.Duration = 2f;
+            rotation.Duration = 1f;
+            rotation.loopType = DurationalGameFeelEffect.LoopType.Restart;
+            rotation.repeat = -1;
             this.OnOffspring(rotation);
             
             var scale = new ScaleEffect();
@@ -38,16 +40,15 @@ namespace GameFeelDescriptions
             color.RandomizeDuration = true;
             color.DurationMin = 0.3f;
             color.Duration = Random.Range(0.4f, 1.6f);
-
-            color.OnComplete(new DestroyEffect());
             this.OnOffspring(color);
             
+            var destroy = new DestroyEffect();
+            destroy.Delay = color.Duration;
+            destroy.RandomizeDelay = RandomExtensions.Boolean();
+            this.OnOffspring(destroy);
+
             //TODO: maybe have a lifetime value, that adjusts the Durations above. 2020-09-23
             //TODO: adjust velocity over time... 2020-09-16 
-            
-            // var waitForAbove = new WaitForAboveEffect();
-            // waitForAbove.OnComplete(new DestroyEffect());
-            // this.OnOffspring(waitForAbove);
         }
 
         public enum PuffShapes
@@ -108,35 +109,16 @@ namespace GameFeelDescriptions
         //Duration slider min/max duration can be adjusted, but it can never be set to a negative number.
         [AdjustableRange(0.01f, 1f, lockMin = true)]
         public float ParticleLifetime = Random.Range(0.1f, 1.5f);
-        
-        
-        public override void Randomize()
-        {
-            base.Randomize();
-        
-            AmountOfParticles = Random.Range(5, 50);
-            
-            ParticlePrimitive = EnumExtensions.GetRandomValue(
-                new List<PrimitiveType> //Remove 2D objects for now. 2020-09-28
-                {
-                    PrimitiveType.Plane, 
-                    PrimitiveType.Quad
-                });
 
-            ExpansionShape = EnumExtensions.GetRandomValue<PuffShapes>();
 
-            Height = Random.Range(0.1f, 2f);
-            Radius = Random.Range(0.1f, 2f);
-
-            ParticleScale = Random.Range(0.1f, 1.5f);
-            ParticleLifetime = Random.Range(0.1f, 1.5f);
-        }
-    
         public override void Mutate(float amount = 0.05f)
         {
             base.Mutate(amount);
-            
-            AmountOfParticles = Mathf.Max(1, AmountOfParticles + RandomExtensions.Sign() * Mathf.RoundToInt(AmountOfParticles * amount));
+
+            if (RandomExtensions.Boolean())
+            {
+                AmountOfParticles = Mathf.Max(1, AmountOfParticles + RandomExtensions.Sign() * Mathf.CeilToInt(AmountOfParticles * amount));
+            }
 
             if (RandomExtensions.Boolean(amount))
             {
@@ -152,12 +134,36 @@ namespace GameFeelDescriptions
             {
                 ExpansionShape = EnumExtensions.GetRandomValue<PuffShapes>();
             }
-            
-            Height = Mathf.Max(0.1f, Height + Random.value * 2 * amount - amount);
-            Radius = Mathf.Max(0.1f, Radius + Random.value * 2 * amount - amount);
-            
-            ParticleScale = Mathf.Max(0.1f, ParticleScale + Random.value * 2 * amount - amount);
-            ParticleLifetime = Mathf.Max(0.1f, ParticleLifetime + Random.value * 2 * amount - amount);
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                setParticleForward = !setParticleForward;
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                setParticleUp = !setParticleUp;
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                Height = Mathf.Max(0.1f, Height + RandomExtensions.MutationAmount(amount));    
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                Radius = Mathf.Max(0.1f, Radius + RandomExtensions.MutationAmount(amount));
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                ParticleScale = Mathf.Max(0.1f, ParticleScale + RandomExtensions.MutationAmount(amount));    
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                ParticleLifetime = Mathf.Max(0.1f, ParticleLifetime + RandomExtensions.MutationAmount(amount));
+            }
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,

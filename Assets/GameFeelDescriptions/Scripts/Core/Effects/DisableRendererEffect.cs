@@ -53,7 +53,7 @@ namespace GameFeelDescriptions
             return false;
         }
 
-        protected override void ExecuteComplete()
+        public override void ExecuteCleanUp()
         {
             if (enableAfterDuration)
             {
@@ -80,9 +80,7 @@ namespace GameFeelDescriptions
                         render.enabled = true;    
                     }
                 }  
-            }    
-
-            base.ExecuteComplete();
+            }
         }
     }
 }

@@ -44,6 +44,8 @@ namespace GameFeelDescriptions
             return DeepCopy(cp);
         }
         
+        //TODO: add mutate!!!
+        
         protected override void ExecuteSetup()
         {
             if (target == null) return;
@@ -94,7 +96,7 @@ namespace GameFeelDescriptions
             return false;
         }
 
-        protected override void ExecuteComplete()
+        public override void ExecuteCleanUp()
         {
             if (target == null) return;
 
@@ -110,8 +112,6 @@ namespace GameFeelDescriptions
                     target.transform.position = initialPosition;
                 }
             }
-            
-            base.ExecuteComplete();
         }
     }
 }

@@ -137,20 +137,5 @@ namespace GameFeelDescriptions
             //We're done
             return true;
         }
-
-//        public override void OverrideEffect(GameFeelEffect next)
-//        {
-//            if (source == null || clip == null) return;
-//            
-//            //TODO: save time in playback, and resume from that point in time?
-//            if (playOneShot == false)
-//            {
-//                var time = source.time;
-//                var effect = next as AudioClipPlayEffect;
-//                effect.source = source;
-//            }
-//            
-//            throw new System.NotImplementedException();
-//        }
     }
 }

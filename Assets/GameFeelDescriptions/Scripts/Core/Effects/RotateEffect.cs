@@ -70,22 +70,6 @@ namespace GameFeelDescriptions
             cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }
-        
-        public override void Randomize()
-        {
-            base.Randomize();
-            
-            setFromValue = false;
-
-            @from = Vector3.zero;
-
-            relative = true;
-            
-            useGlobalRotation = RandomExtensions.Boolean(0.25f);
-
-            //Just point somewhere! and scale it between 0-5x
-            to = Random.onUnitSphere * Random.Range(0f, 5f);
-        }
 
         public override void Mutate(float amount = 0.05f)
         {
@@ -99,13 +83,20 @@ namespace GameFeelDescriptions
                 useGlobalRotation = RandomExtensions.Boolean(0.25f);
             }
 
-            //Make a random color, and add/subtract a proportional amount here.
-            var rndAmount = Random.value * amount * 2 - amount;
-            @from += Random.onUnitSphere * rndAmount;
-        
-            //Make a random color, and add/subtract a proportional amount here.
-            rndAmount = Random.value * amount * 2 - amount;
-            to += Random.onUnitSphere * rndAmount;
+            if (RandomExtensions.Boolean())
+            {
+                //Make a random color, and add/subtract a proportional amount here.
+                var rndAmount = Random.value * amount * 2 - amount;
+                @from += Random.onUnitSphere * rndAmount;    
+            }
+
+
+            if (RandomExtensions.Boolean())
+            {
+                //Make a random color, and add/subtract a proportional amount here.
+                var rndAmount = Random.value * amount * 2 - amount;
+                to += Random.onUnitSphere * rndAmount;    
+            }
 
             if (RandomExtensions.Boolean(amount))
             {

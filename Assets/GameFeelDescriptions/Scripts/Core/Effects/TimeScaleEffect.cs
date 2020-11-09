@@ -25,14 +25,19 @@ namespace GameFeelDescriptions
 
         public override void Mutate(float amount = 0.05f)
         {
-            base.Mutate(amount);
+            if (RandomExtensions.Boolean())
+            {
+                //Make sure to stays above 0.
+                to = Mathf.Max(0.01f, to + RandomExtensions.MutationAmount(amount, to));    
+            }
 
-            //Make sure to stays above 0.
-            to = Mathf.Max(0.01f, to + RandomExtensions.MutationAmount(amount, to));
+            base.Mutate(amount);
+            
+            setFromValue = false;   
             loopType = LoopType.Yoyo;
             repeat = 1;
-            
             UnscaledTime = true;
+            SetElapsed();
         }
 
         protected override void SetValue(GameObject target, float value)

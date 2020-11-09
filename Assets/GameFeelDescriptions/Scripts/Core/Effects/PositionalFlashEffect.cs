@@ -56,6 +56,42 @@ namespace GameFeelDescriptions
             return DeepCopy(cp);
         }
 
+        public override void Mutate(float amount = 0.05f)
+        {
+            if (RandomExtensions.Boolean())
+            {
+                //Make a random color, and add/subtract a proportional amount here.
+                FlashColor += RandomExtensions.Sign() * amount * Random.ColorHSV().withA(Random.value);
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                FlashTransparency = !FlashTransparency;
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                FlashPrimitive = RandomExtensions.GetRandomElement(new List<PrimitiveType> {PrimitiveType.Plane});
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                PositionOffset += Random.insideUnitSphere * amount;
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                //Make a random scale, and add/subtract a proportional amount here.
+                Scale += Vector3.one * RandomExtensions.MutationAmount(amount); 
+                if (Scale.x < 0)
+                {
+                    Scale = Vector3.zero;
+                }
+            }
+            
+            base.Mutate(amount);
+        }
+
         protected override void ExecuteSetup()
         {
             //Update target pos if target is still available.

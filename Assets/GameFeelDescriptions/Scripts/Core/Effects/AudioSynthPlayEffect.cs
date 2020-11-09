@@ -153,16 +153,6 @@ namespace GameFeelDescriptions
             }
         }
 
-        public override void Randomize()
-        {
-            base.Randomize();
-            
-            soundGeneratorBase = EnumExtensions.GetRandomValue<SynthBaseSounds>();
-
-            //TODO: maybe include the severity/intensity as a passed in parameter!
-            synthParameters = GenerateSynthParameters(false, 5);
-        }
-
         public string GenerateSynthParameters(bool playSound = false, int intensity = 1)
         {
             intensity = Mathf.Clamp(intensity, 1, 10);
@@ -230,10 +220,15 @@ namespace GameFeelDescriptions
 
         public override void Mutate(float amount = 0.05f)
         {
-            base.Mutate(amount);
+            if (RandomExtensions.Boolean(amount))
+            {
+                mutateOnExecution = !mutateOnExecution;
+            }
 
             //This also fixes the duration!
             synthParameters = MutateSynthParameters(false, amount);
+            
+            base.Mutate(amount);
         }
 
         public string MutateSynthParameters(bool playSound = false, float mutationAmount = 0.05f)
@@ -267,33 +262,6 @@ namespace GameFeelDescriptions
 
             return synthParams;
         }
-        
-//        protected override void SetValue(GameObject target, float value)
-//        {
-//            if (modulatePitch)
-//            {
-//                source.pitch = value;
-//            }
-//            else
-//            {
-//                source.volume = value;
-//            }
-//        }
-//
-//        protected override float GetValue(GameObject target)
-//        {
-//            return modulatePitch ? source.pitch : source.volume;
-//        }
-//
-//        protected override float GetRelativeValue(float fromValue, float addValue)
-//        {
-//            return fromValue + addValue;
-//        }
-//
-//        protected override float GetDifference(float fromValue, float toValue)
-//        {
-//            return toValue - fromValue;
-//        }
 
         protected override void ExecuteSetup()
         {
@@ -331,15 +299,8 @@ namespace GameFeelDescriptions
             //We're just doing nothing here, because the sounds if not played by our system.
             //PlaySound(); //PlaySound is executed in the Setup function, ie. on first tick.
             
-            //We're done
-            return true;
+            //We return false, so it waits for the duration.
+            return false;
         }
-
-//        public override IEnumerator ExecuteTween(GameObject target, float start, float duration, float end, Vector3? interactionDirection, bool unscaledTime)
-//        {
-//            if (source == null) yield break;
-//
-//            yield return new TweenFloat().Tween(value => SetValue(target, value), start, duration, end, GetEaseFunc(), unscaledTime);
-//        }
     }
 }

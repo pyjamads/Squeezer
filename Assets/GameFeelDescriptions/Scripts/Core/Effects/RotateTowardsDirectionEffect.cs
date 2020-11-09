@@ -31,6 +31,8 @@ namespace GameFeelDescriptions
 
         //private Quaternion forwardCorrection;
 
+        //TODO: Add mutate!!
+        
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)
         {

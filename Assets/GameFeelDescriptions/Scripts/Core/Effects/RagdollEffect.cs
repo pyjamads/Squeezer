@@ -23,7 +23,7 @@ namespace GameFeelDescriptions
             //     destroy
             // };
         }
-        
+
         // [Tooltip("Add a custom prefab to spawn instead of changing the target.")]
         // public GameObject RagdollPrefab;
 
@@ -44,6 +44,8 @@ namespace GameFeelDescriptions
         //
         // [HideFieldIf("DestroyRagdoll", false)]
         // public float DestroyDelay = Random.Range(0.2f, 1.5f);
+        
+        //TODO: add mutate!!
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)

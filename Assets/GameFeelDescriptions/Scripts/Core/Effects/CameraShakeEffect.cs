@@ -24,8 +24,30 @@ namespace GameFeelDescriptions
         // public bool useResetPositionAfterShake;
         // public Vector3 resetPosition;
         
-        
         private Vector3 initialPosition;
+
+        public override void Mutate(float amount = 0.05f)
+        {
+            //TODO: make mutate for animationCurves!! 2020-11-09
+            //easeAmountInOut.
+
+            if (RandomExtensions.Boolean())
+            {
+                this.amount = Mathf.Max(0, amount + RandomExtensions.MutationAmount(amount));
+            }
+
+            if (RandomExtensions.Boolean(amount))
+            {
+                useInteractionDirection = !useInteractionDirection;
+            }
+
+            if (RandomExtensions.Boolean())
+            {
+                interactionDirectionMultiplier = Mathf.Min(0f, interactionDirectionMultiplier + RandomExtensions.MutationAmount(amount));
+            }
+            
+            base.Mutate(amount);
+        }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)
@@ -69,7 +91,7 @@ namespace GameFeelDescriptions
         {
             if (cameraToModify == null) return;
             
-            var position = cameraToModify.transform.position;
+            var position = cameraToModify.transform.localPosition;
             initialPosition = new Vector3(position.x, position.y, position.z);
             base.ExecuteSetup();
         }
@@ -128,7 +150,7 @@ namespace GameFeelDescriptions
             // }
             // else
             // {
-            cameraToModify.transform.position = initialPosition;
+            cameraToModify.transform.localPosition = initialPosition;
             //}
             
             base.ExecuteComplete();

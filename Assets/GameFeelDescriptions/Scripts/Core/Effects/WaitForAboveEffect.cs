@@ -25,20 +25,6 @@ namespace GameFeelDescriptions
             waitingFor.AddRange(effects);
         }
 
-        public override void Randomize()
-        {
-            base.Randomize();
-            
-            Delay = Random.Range(1, 100) / 100f;
-        }
-
-        public override void Mutate(float amount = 0.05f)
-        {
-            base.Mutate(amount);
-            
-            Delay += amount - Random.value * 2 * amount;
-        }
-
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)
         {
@@ -51,8 +37,8 @@ namespace GameFeelDescriptions
         {
             //TODO: might need a version that waits for every child effect as well. 2020-09-05
             
-            //While any of the effects in this list is still running, returns false.
-            return waitingFor.All(item => item.isComplete);
+            //While any of the effects in this list is still running, returns false, unless the effect is looping infinitely.
+            return waitingFor.All(item => item.isComplete || float.IsInfinity(item.GetRemainingTime()));
         }
 
         public override void ExecuteCleanUp()
