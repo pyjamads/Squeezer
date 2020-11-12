@@ -310,12 +310,18 @@ namespace GameFeelDescriptions
                 
                 
                 var timer = " ("+(displayTimer - (Time.unscaledTime - lastSwitchTime)).ToString("F1")+"s)";
-                if (GUI.Button(new Rect(Screen.width - 40 - 100, Screen.height / 2f, 100, 30),
+                if (GUI.Button(new Rect(Screen.width - 40 - 100, Screen.height / 2f - 35f, 100, 30),
                     "Next"+(autoSwithcing ? timer : "")))
                 {
                     ReloadScene();
                     activeEffectSwitcher.SwitchToNextGroup();
                     lastSwitchTime = Time.unscaledTime;
+                }
+                
+                if (GUI.Button(new Rect(Screen.width - 40 - 100, Screen.height / 2f, 100, 30),
+                    (autoSwithcing ? "Pause" : "Resume")))
+                {
+                    autoSwithcing = !autoSwithcing;
                 }
                 
                 //Evaluation time adjustment
