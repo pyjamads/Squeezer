@@ -264,7 +264,7 @@ namespace GameFeelDescriptions
                     //Queue the effect
                     if (queueCopy)
                     {
-                        if (copy is WaitForAboveEffect waitForAboveEffect)
+                        if (copy is WaitForAbove waitForAboveEffect)
                         {
                             waitForAboveEffect.WaitFor(queuedEffects.ToList());
                         }
@@ -288,6 +288,7 @@ namespace GameFeelDescriptions
                         return;
                     }
 
+                    //NOTE: removed this "safety" check, to allow "attaching" many targets in preview mode! 2021-02-04 
                     if (AppliesTo.IsRelative() && targets.Count > 1)
                     {
                         Debug.LogError(EffectsToExecute[outer].GetType().Name +
@@ -311,7 +312,7 @@ namespace GameFeelDescriptions
                         //Queue the effect
                         if (queueCopy)
                         {
-                            if (copy is WaitForAboveEffect waitForAboveEffect)
+                            if (copy is WaitForAbove waitForAboveEffect)
                             {
                                 //For multiple targets, only queue the wait once!
                                 if (waitForAboveEffect.WaitForAllTargets && inner != targets.Count - 1) continue;

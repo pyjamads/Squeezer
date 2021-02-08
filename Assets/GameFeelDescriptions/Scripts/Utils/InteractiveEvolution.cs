@@ -6,7 +6,6 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace GameFeelDescriptions
 {
@@ -228,9 +227,9 @@ namespace GameFeelDescriptions
                     var selected = i == activeEffectSwitcher.currentGroup;
                  
                     if (selected 
-                        ? GUI.Button(new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 40 * (i / 4), buttonWidth, 30),
+                        ? GUI.Button(new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 10+ 40 * (i / 4), buttonWidth, 30),
                             "Select Variation " + (i+1), EditorStyles.helpBox) //HELP BOX STYLE WHEN SELECTED! 
-                        : GUI.Button(new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 40 * (i / 4), buttonWidth, 30),
+                        : GUI.Button(new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 10+ 40 * (i / 4), buttonWidth, 30),
                             "Select Variation " + (i+1)))
                     {
                         ReloadScene();
@@ -251,6 +250,7 @@ namespace GameFeelDescriptions
                 GUILayout.BeginArea(new Rect(40, Screen.height / 2f - 300, 250, 600));
                 using (new GUILayout.VerticalScope())
                 {
+                    GUILayout.Space(50);
                     GUILayout.Label("Select trigger to evolve effects for:");
                     
                     var descriptions = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
@@ -290,10 +290,12 @@ namespace GameFeelDescriptions
                     
                     if(selectedDescriptionIndex == -1 && selectedTriggerIndex == -1)
                     {
+                        GUILayout.Space(25);
                         GUILayout.Toggle(true, "Evolve Everything!");
                     }
                     else
                     {
+                        GUILayout.Space(25);
                         if (GUILayout.Toggle(false, "Evolve Everything!"))
                         {
                             selectedDescriptionIndex = -1;
@@ -342,12 +344,21 @@ namespace GameFeelDescriptions
 
                 var variationID = activeEffectSwitcher.currentGroup +1;
                 
-                if (GUI.Button(new Rect(40f, Screen.height - 30, 300, 30),
-                    "Reset "+trigName+"!"))
+                if (GUI.Button(new Rect(40f, Screen.height - 65f, 300, 30),
+                    "Regenerate "+trigName+"!"))
                 {
                     autoSwithcing = false;
                     ResetEvolution();
                 }
+                
+                if (GUI.Button(new Rect(40f, Screen.height - 30f, 300, 30),
+                    "Clear "+trigName+"!"))
+                {
+                    autoSwithcing = false;
+                    ClearEffects();
+                }
+                
+                
                 
                 if (GUI.Button(new Rect((Screen.width / 2f) + 355f, Screen.height - 30, 100, 30),
                     "Re-Roll"))
@@ -514,6 +525,26 @@ namespace GameFeelDescriptions
             
             //Randomize all descriptions based on their trigger groups selected category and intensity.
             Randomize();
+            
+            ReloadScene();
+
+            //Re-enable autoSwitching...
+            autoSwithcing = true;
+        }
+
+        private void ClearEffects()
+        {
+            if (Time.unscaledTime < lastEvolveTime + 1f)
+            {
+                //Evolve cooldown of 1 second!
+                return;
+            }
+            
+            lastSwitchTime = Time.unscaledTime;
+            lastEvolveTime = Time.unscaledTime - 30f; //We don't want it to say Mutation Complete here!
+            
+            //Clear the effects from the selected trigger!
+            Clear();
             
             ReloadScene();
 
@@ -848,12 +879,12 @@ namespace GameFeelDescriptions
             //DO THE RESET!!
             foreach (var individual in activeEffectSwitcher.ABGroups)
             {
-                var descs = individual.GetComponentsInChildren<GameFeelDescription>();                            
+                var descs = individual.GetComponentsInChildren<GameFeelDescription>(true);                            
 
                 if (selectedDescriptionIndex <= -1 && selectedTriggerIndex <= -1 ||
                     selectedDescriptionIndex >= descs.Length)
                 {
-                    //Mutate all the descriptions on the copy.
+                    //Regenerate all the descriptions on the copy.
                     foreach (var desc in descs)
                     {
                         foreach (var trigger in desc.TriggerList)
@@ -872,7 +903,7 @@ namespace GameFeelDescriptions
                 }
                 else
                 {
-                    //Mutate the selected description and trigger.
+                    //Regenerate the selected description and trigger.
                     var description = descs[selectedDescriptionIndex];
                     var trigger = description.TriggerList[selectedTriggerIndex];
                         
@@ -884,6 +915,62 @@ namespace GameFeelDescriptions
                     foreach (var effectGroup in trigger.EffectGroups)
                     {
                         ReplaceRecipeOnGroup(effectGroup, useGroupCategories);
+                    }
+                }
+            }
+        }
+        
+        public void Clear()
+        {
+            var evolveName = "Clear_Everything";
+                
+            if (selectedDescriptionIndex != -1 && selectedTriggerIndex != -1)
+            {
+                var descriptions = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
+                var description = descriptions[selectedDescriptionIndex];
+                var selectedTrigger = description.TriggerList[selectedTriggerIndex];
+                evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Clear.txt";
+            }
+
+            //DO THE CLEAR!!
+            foreach (var individual in activeEffectSwitcher.ABGroups)
+            {
+                var descs = individual.GetComponentsInChildren<GameFeelDescription>(true);                            
+
+                if (selectedDescriptionIndex <= -1 && selectedTriggerIndex <= -1 ||
+                    selectedDescriptionIndex >= descs.Length)
+                {
+                    //Clear all the descriptions on the copy.
+                    foreach (var desc in descs)
+                    {
+                        foreach (var trigger in desc.TriggerList)
+                        {
+                            if (trigger.EffectGroups == null || trigger.EffectGroups.Count == 0)
+                            {
+                                trigger.EffectGroups.Add(new GameFeelEffectGroup(){GroupName = trigger.GetType().Name+"Group"});
+                            }
+                            
+                            foreach (var effectGroup in trigger.EffectGroups)
+                            {
+                                effectGroup.EffectsToExecute.Clear();
+                            }
+                        }
+                    }    
+                }
+                else
+                {
+                    //Clear the selected description and trigger.
+                    var description = descs[selectedDescriptionIndex];
+                    var trigger = description.TriggerList[selectedTriggerIndex];
+                        
+                    if (trigger.EffectGroups == null || trigger.EffectGroups.Count == 0)
+                    {
+                        trigger.EffectGroups.Add(new GameFeelEffectGroup(){GroupName = trigger.GetType().Name+"Group"});
+                    }
+                    
+                    foreach (var effectGroup in trigger.EffectGroups)
+                    {
+                        effectGroup.EffectsToExecute.Clear();
                     }
                 }
             }

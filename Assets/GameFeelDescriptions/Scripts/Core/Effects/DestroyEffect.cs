@@ -25,9 +25,15 @@ namespace GameFeelDescriptions
         protected override bool ExecuteTick()
         {
             if (target == null) return true;
-            
-            //TODO: Make sure Effects and Tweens don't get messed up, by this 06/02/2020
-            UnityEngine.Object.Destroy(target);
+
+            if (triggerData.InCollisionUpdate)
+            {
+                UnityEngine.Object.Destroy(target);
+            }
+            else
+            {
+                UnityEngine.Object.DestroyImmediate(target);
+            }
 
             //We're done
             return true;

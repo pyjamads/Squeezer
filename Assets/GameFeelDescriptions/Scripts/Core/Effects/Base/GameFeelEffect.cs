@@ -262,7 +262,7 @@ namespace GameFeelDescriptions
       /// Update effects based on the elapsed time.
       /// </summary>
       /// <returns></returns>
-      public virtual bool Tick()
+      public virtual bool Tick(float unscaledDeltaTime)
       {
          //If this is the first Tick, after the delay, run setup
          if (firstTick && elapsed >= 0)
@@ -287,7 +287,7 @@ namespace GameFeelDescriptions
             }
          }
          
-         elapsed += UnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+         elapsed += UnscaledTime ? unscaledDeltaTime : Time.timeScale * unscaledDeltaTime;
 
          return false;
       }
@@ -309,11 +309,16 @@ namespace GameFeelDescriptions
       /// <summary>
       /// Executes on effect completion, for most effects the default of executing the follow up effects is enough.
       /// </summary>
-      protected virtual void ExecuteComplete()
+      protected void ExecuteComplete()
       {
          isComplete = true;
          ExecuteCleanUp();
          
+         QueueEffects();
+      }
+
+      protected void QueueEffects()
+      {
          var queuedEffects = new List<GameFeelEffect>();
          
          foreach (var effect in ExecuteAfterCompletion)
@@ -336,7 +341,7 @@ namespace GameFeelDescriptions
             //Queue the effect
             if (queueCopy)
             {
-               if (copy is WaitForAboveEffect waitForAboveEffect)
+               if (copy is WaitForAbove waitForAboveEffect)
                {
                   waitForAboveEffect.WaitFor(queuedEffects.ToList());
                }
@@ -349,5 +354,107 @@ namespace GameFeelDescriptions
       }
 
       public virtual void ExecuteCleanUp() { /* CLEAN UP STUFF CREATED IN THE SETUP */ }
+      
+      
+      
+      
+      //TREE EDIT DISTANCE!
+      #region Tree Edit Distance
+
+      // public static float DistanceCost(List<GameFeelEffect> a, List<GameFeelEffect> b)
+      // {
+      //    //First let's figure out the difference in child count.
+      //    float distanceCost = Mathf.Abs(a.Count - b.Count);
+      //
+      //    var treeCost = new float[a.Count, b.Count];
+      //
+      //    //Get the replacement costs of each child combination.
+      //    for (var i = 0; i < a.Count; i++)
+      //    {
+      //       var minValue = float.MaxValue;
+      //       
+      //       for (int j = 0; j < b.Count; j++)
+      //       {
+      //          treeCost[i,j] = a[i].DistanceCost(b[j]);
+      //          if (treeCost[i, j] < minValue)
+      //          {
+      //             minValue = treeCost[i, j];
+      //          }
+      //       }
+      //       
+      //       //Then for each child find the lowest replacementCost (NOTE: can be 0, if they match exactly)
+      //       //TODO: this does not take into account, that multiple i's could select a single j. please fix 2020-11-27
+      //       distanceCost += minValue;
+      //    }
+      //
+      //    return distanceCost;
+      // }
+      
+      // public float DistanceCost(GameFeelEffect other)
+      // {
+      //    //We're working under the assumption that the two trees will most likely be different, at least at the leaf level.
+      //    
+      //    //If the type is the same, get ReplacementCost (this can be 0, if they are equal.)
+      //    return ReplacementCost(other) + SubtreeCost(other);
+      // }
+      
+      /// <summary>
+      /// The distance between two 
+      /// </summary>
+      /// <param name="other"></param>
+      /// <returns></returns>
+      public virtual float ReplacementCost(GameFeelEffect other)
+      {
+         //TODO: implement cost function in all effects! (probably make it abstract!) 2020-12-01
+         //Default replacement cost, implement comparison in effects.
+         return 0f;
+      }
+
+      public static float ReplacementCost(GameFeelEffect a, GameFeelEffect b)
+      {
+         if (a == b) return 0f;
+         
+         if (a != null && b != null && a.GetType() == b.GetType())
+         {
+            //Custom replacement cost for two effects of the same type,
+            //based on a comparison in the effects themselves.
+            //Cost range [0f, 1f[
+            return a.ReplacementCost(b);
+         }
+
+         //Delete, Insert and Replace with another effect type, all costs 1f;
+         return 1f;
+      }
+
+      // public virtual float SubtreeCost(GameFeelEffect other)
+      // {
+      //    //First let's figure out the difference in child count.
+      //    float distanceCost = Mathf.Abs(other.ExecuteAfterCompletion.Count - ExecuteAfterCompletion.Count);
+      //
+      //    var treeCost = new float[ExecuteAfterCompletion.Count, other.ExecuteAfterCompletion.Count];
+      //
+      //    //Get the distance costs of each child combination.
+      //    for (var i = 0; i < ExecuteAfterCompletion.Count; i++)
+      //    {
+      //       var minValue = float.MaxValue;
+      //       
+      //       for (int j = 0; j < other.ExecuteAfterCompletion.Count; j++)
+      //       {
+      //          treeCost[i,j] = ExecuteAfterCompletion[i].DistanceCost(other.ExecuteAfterCompletion[j]);
+      //          if (treeCost[i, j] < minValue)
+      //          {
+      //             minValue = treeCost[i, j];
+      //          }
+      //       }
+      //       
+      //       //Then for each child find the lowest replacementCost (NOTE: can be 0, if they match exactly)
+      //       //TODO: this does not take into account, that multiple i's could select a single j. please fix 2020-11-27
+      //       distanceCost += minValue;
+      //    }
+      //
+      //    return distanceCost;
+      // }
+      
+      #endregion
    }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 
 namespace GameFeelDescriptions
@@ -55,7 +56,8 @@ namespace GameFeelDescriptions
         {
             if (displayCurrent)
             {
-                GUI.Label(new Rect(Screen.width / 2f - 75, 0, 150, 100), "Current active effect tree: " + ABGroups[currentGroup].name);    
+                //GUI.Box(new Rect(Screen.width / 2f - 75, 0, 150, 100), "Current active effect tree: " + ABGroups[currentGroup].name);
+                GUI.Label(new Rect(Screen.width / 2f - 75, 50, 150, 100), "Current active effect tree: " + ABGroups[currentGroup].name);    
             }
         }
 

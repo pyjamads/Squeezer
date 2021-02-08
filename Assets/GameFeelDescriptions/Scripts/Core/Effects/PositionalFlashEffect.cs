@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -103,36 +104,55 @@ namespace GameFeelDescriptions
             base.ExecuteSetup();
         }
 
-        protected override bool ExecuteTick()
+        protected override bool ExecuteTick() //Scene scene
         {
-            //Update target pos if target is still available.
+            //STEP 1: Get position!
+            //NOTE: Use target position as fallback.
             if (target != null)
             {
                 targetPos = target.transform.position;
+            }
+
+            //If triggerData provides position and normal, use those.
+            if (triggerData is CollisionData collisionData)
+            {
+                //NOTE: For "OnTriggerEnter/Exit/Stay" collisions,
+                //this returns a point on the bounds + the direction between the center of the two colliders.
+                var (position, _) = collisionData.GetPositionAndNormal();
+
+                //If it's a 2D collision set the z axis from the target Position.
+                if (collisionData.wasCollision2D())
+                {
+                    position.z = target != null ? target.transform.position.z : targetPos.z;
+                }
+
+                targetPos = position;
+            }
+            else if (triggerData is PositionalData positionalData)
+            {
+                targetPos = positionalData.Position;
             }
             
             GameObject flashObject;
             if (FlashPrefab != null)
             {
-                flashObject = Object.Instantiate(FlashPrefab, GameFeelEffectExecutor.Instance.transform);
-                flashObject.transform.position = targetPos;
-                
+                flashObject = GameFeelEffectExecutor.Instantiate(FlashPrefab, targetPos);
+
                 var renderer = flashObject.GetComponent<Renderer>();
                 //renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
-                renderer.material.color = FlashColor;
+                renderer.sharedMaterial.color = FlashColor;
             }
             else
             {
-                flashObject = GameObject.CreatePrimitive(FlashPrimitive);
-                flashObject.transform.parent = GameFeelEffectExecutor.Instance.transform;
-                flashObject.transform.position = targetPos;
+                flashObject = GameFeelEffectExecutor.Instantiate(FlashPrimitive, targetPos);
+                
                 var renderer = flashObject.GetComponent<Renderer>();
-                renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
+                renderer.sharedMaterial = new Material(Shader.Find("Particles/Standard Unlit"));
                 if (FlashTransparency)
                 {
-                    SetMaterialTransparentBlendMode(renderer.material);
+                    SetMaterialTransparentBlendMode(renderer.sharedMaterial);
                 }
-                renderer.material.color = FlashColor;
+                renderer.sharedMaterial.color = FlashColor;
             }
 
             flashObject.transform.position += PositionOffset;

@@ -52,7 +52,7 @@ namespace GameFeelDescriptions
                 //Queue the effect
                 if (queueCopy)
                 {
-                    if (copy is WaitForAboveEffect waitForAboveEffect)
+                    if (copy is WaitForAbove waitForAboveEffect)
                     {
                         //NOTE: there's only one offspring in this case, so it'll always queue the wait.
                         //if (waitForAboveEffect.WaitForAllTargets && inner != offspring.Count - 1) continue;
@@ -94,7 +94,7 @@ namespace GameFeelDescriptions
                     //Queue the effect
                     if (queueCopy)
                     {
-                        if (copy is WaitForAboveEffect waitForAboveEffect)
+                        if (copy is WaitForAbove waitForAboveEffect)
                         {
                             //For multiple targets, only queue the wait once!
                             if (waitForAboveEffect.WaitForAllTargets && inner != offspring.Count - 1) continue;
@@ -226,5 +226,42 @@ namespace GameFeelDescriptions
             // material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             // break;
         }
+        
+        
+        // public override float SubtreeCost(GameFeelEffect other)
+        // {
+        //     //First let's figure out the difference in child count.
+        //     float distanceCost = Mathf.Abs(other.ExecuteAfterCompletion.Count - ExecuteAfterCompletion.Count);
+        //
+        //     var treeCost = new float[ExecuteAfterCompletion.Count, other.ExecuteAfterCompletion.Count];
+        //
+        //     //Get the distance costs of each child combination.
+        //     for (var i = 0; i < ExecuteAfterCompletion.Count; i++)
+        //     {
+        //         var minValue = float.MaxValue;
+        //     
+        //         for (int j = 0; j < other.ExecuteAfterCompletion.Count; j++)
+        //         {
+        //             treeCost[i,j] = ExecuteAfterCompletion[i].DistanceCost(other.ExecuteAfterCompletion[j]);
+        //             if (treeCost[i, j] < minValue)
+        //             {
+        //                 minValue = treeCost[i, j];
+        //             }
+        //         }
+        //     
+        //         //Then for each child find the lowest replacementCost (NOTE: can be 0, if they match exactly)
+        //         //TODO: this does not take into account, that multiple i's could select a single j. please fix 2020-11-27
+        //         distanceCost += minValue;
+        //     }
+        //
+        //     if (other is SpawningGameFeelEffect spawner)
+        //     {
+        //         var treeCost2 = new float[ExecuteOnOffspring.Count, spawner.ExecuteOnOffspring.Count];
+        //         
+        //         
+        //     }
+        //     
+        //     return distanceCost;
+        // }
     }
 }

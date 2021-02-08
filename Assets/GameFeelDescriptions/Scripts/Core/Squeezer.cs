@@ -10,12 +10,12 @@ namespace GameFeelDescriptions
         
         public static GameFeelEffect Trigger(this GameObject target,
             StepThroughModeWindow.EffectGeneratorCategories selectedCategory, int selectedIntensity,
-            DirectionalData direction, float delay = 0, bool randomizeDelay = false)
+            GameFeelTriggerData direction, float delay = 0, bool randomizeDelay = false)
         {
             //TODO: maybe make this smarter! 2020-10-30
-            var root = new DelayEffect();
+            var root = new Delay();
 
-            if (constructors != null)
+            if (constructors == null)
             {
                 constructors = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();    
             }
@@ -44,16 +44,16 @@ namespace GameFeelDescriptions
             root.SetElapsed();
             root.QueueExecution();
             
-            //Return the delay object, for 
+            //Return the delay object, for caching and further manipulation.
             return root;
         }
         
-        public static GameFeelEffect Trigger(StepThroughModeWindow.EffectGeneratorCategories selectedCategory, int selectedIntensity, DirectionalData location, GameObject target = null, float delay = 0, bool randomizeDelay = false)
+        public static GameFeelEffect Trigger(StepThroughModeWindow.EffectGeneratorCategories selectedCategory, int selectedIntensity, GameFeelTriggerData location, GameObject target = null, float delay = 0, bool randomizeDelay = false)
         {
             //TODO: maybe make this smarter! 2020-10-30
-            var root = new DelayEffect();
+            var root = new Delay();
 
-            if (constructors != null)
+            if (constructors == null)
             {
                 constructors = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();    
             }
@@ -82,8 +82,10 @@ namespace GameFeelDescriptions
             root.SetElapsed();
             root.QueueExecution();
             
-            //Return the delay object, for 
+            //Return the delay object, for caching and further manipulation.
             return root;
         }
+        
+        //TODO: add generator and stashing functionality here! 2021-02-03 
     }
 }

@@ -53,7 +53,14 @@ namespace GameFeelDescriptions
 
         protected override bool ExecuteTick()
         {
-            if (target == null) return true;
+            if (target == null)
+            {
+                //disable looping!
+                repeat = 0;
+                loopType = LoopType.None;
+                //signal effect is done!
+                return true;
+            }
             
             SetValue(target, GetValue(target) + RotationPerSecond * (UnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime));
 

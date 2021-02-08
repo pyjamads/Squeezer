@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,6 +17,7 @@ namespace GameFeelDescriptions.Examples
 
         public bool ballReady = true;
 
+        //NOTE: the "tests" were used to check that OnStateChangedTrigger could handle tracking various FSM types.
         public enum TestStates
         {
             Bouncing,
@@ -26,7 +28,9 @@ namespace GameFeelDescriptions.Examples
         private bool testBool;
         private TestStates testEnum;
         private Action testDelegate = () => { /* DO NOTHING!!!*/ };
-        
+
+        // [SerializeReference]
+        // public List<GameFeelEffect> activatedEffects = new List<GameFeelEffect>(); 
 
         // Start is called before the first frame update
         void Start()
@@ -133,6 +137,10 @@ namespace GameFeelDescriptions.Examples
 
                 if (other.gameObject.CompareTag("block") || other.gameObject.CompareTag("Enemy"))
                 {
+                    //Direct activation test...
+                    // var effect =Squeezer.Trigger(other.gameObject, StepThroughModeWindow.EffectGeneratorCategories.EXPLODE, 5, new CollisionData {Collision2D = other, ActivationType = OnCollisionTrigger.CollisionActivationType.OnCollisionEnter2D});
+                    // activatedEffects.Add(effect);
+                    
                     Destroy(other.gameObject);
                 }
             }

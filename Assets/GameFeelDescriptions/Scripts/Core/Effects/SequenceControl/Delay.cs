@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class DelayEffect : GameFeelEffect
+    public class Delay : GameFeelEffect
     {
-        public DelayEffect()
+        public Delay()
         {
-            Description = "Delay any subsequent effect.";
+            Description = "Delay any subsequent effect(s).";
             Delay = Random.Range(1, 100) / 100f;
             
             //10% chance of random
@@ -16,7 +16,7 @@ namespace GameFeelDescriptions
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)
         {
-            var cp = new DelayEffect();
+            var cp = new Delay();
             cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }

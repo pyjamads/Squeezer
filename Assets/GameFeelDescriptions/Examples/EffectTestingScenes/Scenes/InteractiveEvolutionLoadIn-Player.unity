@@ -121,7 +121,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &324634287
+--- !u!1 &61603540
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,36 +129,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 324634288}
-  - component: {fileID: 324634289}
+  - component: {fileID: 61603541}
+  - component: {fileID: 61603542}
   m_Layer: 0
-  m_Name: EvolvedEffects (3)
+  m_Name: PlayerEffects (5)
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &324634288
+--- !u!4 &61603541
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324634287}
+  m_GameObject: {fileID: 61603540}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 457662184}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &324634289
+--- !u!114 &61603542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 324634287}
+  m_GameObject: {fileID: 61603540}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
@@ -183,7 +183,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -206,7 +208,7 @@ GameObject:
   - component: {fileID: 401003136}
   - component: {fileID: 401003137}
   m_Layer: 0
-  m_Name: EvolvedEffects (1)
+  m_Name: PlayerEffects
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -257,7 +259,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -299,13 +303,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 401003136}
-  - {fileID: 1979129147}
-  - {fileID: 324634288}
-  - {fileID: 562953538}
-  - {fileID: 2015143190}
-  - {fileID: 1734274564}
-  - {fileID: 1382995228}
-  - {fileID: 889904591}
+  - {fileID: 1731051978}
+  - {fileID: 861573125}
+  - {fileID: 1647358455}
+  - {fileID: 1291008034}
+  - {fileID: 61603541}
+  - {fileID: 1890349793}
+  - {fileID: 855497717}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -340,13 +344,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneName: 
   activeEffectSwitcher: {fileID: 457662185}
+  selectNextEffect: 110
+  selectPrevEffect: 112
+  InitialVariation: {fileID: 401003135}
   displayTimer: 5
+  increaseDisplayTime: 43
+  decreaseDisplayTime: 45
   autoSwithcing: 1
-  initializeDescriptions: 1
-  SeedDescription: {fileID: 0}
-  intensity: 3
-  category: 4
---- !u!1 &562953537
+  toggleAutoSwitching: 32
+  evolveSelectedEffect: 13
+  saveSelectedEffect: 115
+--- !u!1 &855497716
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -354,96 +362,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 562953538}
-  - component: {fileID: 562953539}
+  - component: {fileID: 855497717}
+  - component: {fileID: 855497718}
   m_Layer: 0
-  m_Name: EvolvedEffects (4)
+  m_Name: PlayerEffects (7)
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &562953538
+--- !u!4 &855497717
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562953537}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 457662184}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &562953539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562953537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: PlayerEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [Player]
-  DontDestroyOnLoad: 0
-  DynamicReattachRate: 0.1
-  AttachToTag: Player
-  AttachToObjects: []
-  AttachToComponentType: 
-  StepThroughMode: 0
-  TriggerList:
-  - id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        Disabled: 0
-        EffectGroups:
-        - GroupName: 
-          Disabled: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          EffectsToExecute: []
-        ReactTo:
-        - '*'
-        type: 0
-        ContextType: 0
---- !u!1 &889904590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 889904591}
-  - component: {fileID: 889904592}
-  m_Layer: 0
-  m_Name: EvolvedEffects (8)
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &889904591
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889904590}
+  m_GameObject: {fileID: 855497716}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -451,13 +385,13 @@ Transform:
   m_Father: {fileID: 457662184}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &889904592
+--- !u!114 &855497718
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 889904590}
+  m_GameObject: {fileID: 855497716}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
@@ -482,7 +416,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -494,7 +430,7 @@ MonoBehaviour:
         - '*'
         type: 0
         ContextType: 0
---- !u!1 &1382995227
+--- !u!1 &861573124
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -502,36 +438,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1382995228}
-  - component: {fileID: 1382995229}
+  - component: {fileID: 861573125}
+  - component: {fileID: 861573126}
   m_Layer: 0
-  m_Name: EvolvedEffects (7)
+  m_Name: PlayerEffects (2)
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1382995228
+--- !u!4 &861573125
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382995227}
+  m_GameObject: {fileID: 861573124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 457662184}
-  m_RootOrder: 6
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1382995229
+--- !u!114 &861573126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1382995227}
+  m_GameObject: {fileID: 861573124}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
@@ -556,7 +492,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -568,7 +506,7 @@ MonoBehaviour:
         - '*'
         type: 0
         ContextType: 0
---- !u!1 &1734274563
+--- !u!1 &1291008033
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -576,170 +514,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1734274564}
-  - component: {fileID: 1734274565}
+  - component: {fileID: 1291008034}
+  - component: {fileID: 1291008035}
   m_Layer: 0
-  m_Name: EvolvedEffects (6)
+  m_Name: PlayerEffects (4)
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1734274564
+--- !u!4 &1291008034
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734274563}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 457662184}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1734274565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734274563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: PlayerEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [Player]
-  DontDestroyOnLoad: 0
-  DynamicReattachRate: 0.1
-  AttachToTag: Player
-  AttachToObjects: []
-  AttachToComponentType: 
-  StepThroughMode: 0
-  TriggerList:
-  - id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        Disabled: 0
-        EffectGroups:
-        - GroupName: 
-          Disabled: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          EffectsToExecute: []
-        ReactTo:
-        - '*'
-        type: 0
-        ContextType: 0
---- !u!1 &1979129146
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1979129147}
-  - component: {fileID: 1979129148}
-  m_Layer: 0
-  m_Name: EvolvedEffects (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1979129147
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979129146}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 457662184}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1979129148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1979129146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: PlayerEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [Player]
-  DontDestroyOnLoad: 0
-  DynamicReattachRate: 0.1
-  AttachToTag: Player
-  AttachToObjects: []
-  AttachToComponentType: 
-  StepThroughMode: 0
-  TriggerList:
-  - id: 0
-  references:
-    version: 1
-    00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        Disabled: 0
-        EffectGroups:
-        - GroupName: 
-          Disabled: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          EffectsToExecute: []
-        ReactTo:
-        - '*'
-        type: 0
-        ContextType: 0
---- !u!1 &2015143189
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2015143190}
-  - component: {fileID: 2015143191}
-  m_Layer: 0
-  m_Name: EvolvedEffects (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2015143190
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015143189}
+  m_GameObject: {fileID: 1291008033}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -747,13 +537,13 @@ Transform:
   m_Father: {fileID: 457662184}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2015143191
+--- !u!114 &1291008035
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2015143189}
+  m_GameObject: {fileID: 1291008033}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
@@ -778,7 +568,237 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute: []
+        ReactTo:
+        - '*'
+        type: 0
+        ContextType: 0
+--- !u!1 &1647358454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1647358455}
+  - component: {fileID: 1647358456}
+  m_Layer: 0
+  m_Name: PlayerEffects (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1647358455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647358454}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 457662184}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1647358456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647358454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PlayerEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [Player]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0.1
+  AttachToTag: Player
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute: []
+        ReactTo:
+        - '*'
+        type: 0
+        ContextType: 0
+--- !u!1 &1731051977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1731051978}
+  - component: {fileID: 1731051979}
+  m_Layer: 0
+  m_Name: PlayerEffects (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1731051978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731051977}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 457662184}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1731051979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731051977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PlayerEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [Player]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0.1
+  AttachToTag: Player
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute: []
+        ReactTo:
+        - '*'
+        type: 0
+        ContextType: 0
+--- !u!1 &1890349792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1890349793}
+  - component: {fileID: 1890349794}
+  m_Layer: 0
+  m_Name: PlayerEffects (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1890349793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890349792}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 457662184}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1890349794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890349792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: PlayerEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [Player]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0.1
+  AttachToTag: Player
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0

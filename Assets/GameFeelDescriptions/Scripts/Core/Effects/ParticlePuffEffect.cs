@@ -295,29 +295,10 @@ namespace GameFeelDescriptions
                 }
 
                 var renderer = mold.GetComponent<Renderer>();
-                renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
-                SetMaterialTransparentBlendMode(renderer.material);
-                renderer.material.color = Color.white;
+                renderer.sharedMaterial = new Material(Shader.Find("Particles/Standard Unlit"));
+                SetMaterialTransparentBlendMode(renderer.sharedMaterial);
+                renderer.sharedMaterial.color = Color.white;
 
-                //NOTE: removed this scaling after adding the ParticleScale
-                // if (target != null)
-                // {
-                //     scale *= target.transform.localScale.getAvg();
-                //
-                //     // var targetRenderer = target.GetComponent<Renderer>();
-                //     // if (targetRenderer.HasPropertyBlock())
-                //     // {
-                //     //     var materialPropertyBlock = new MaterialPropertyBlock();
-                //     //     targetRenderer.GetPropertyBlock(materialPropertyBlock);   
-                //     //     
-                //     //     renderer.SetPropertyBlock(materialPropertyBlock);
-                //     // }
-                //     // else
-                //     // {
-                //     //     renderer.material.color = targetRenderer.material.color;
-                //     // }
-                // }
-                
                 mold.transform.localScale = scale;
 
                 particles.Add(mold);

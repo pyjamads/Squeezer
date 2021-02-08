@@ -63,7 +63,7 @@ namespace GameFeelDescriptions
             return other is TweenEffect<TTween> && base.CompareTo(other);
         }
         
-        // public override bool Tick()
+        // public override bool Tick(float unscaledDeltaTime)
         // {
         //     //If this is the first Tick, after the delay, run setup
         //     if (firstTick && elapsed >= 0)
@@ -108,7 +108,7 @@ namespace GameFeelDescriptions
         //         }
         //     }
         //     
-        //     var deltaTime = unscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+        //     var deltaTime = UnscaledTime ? unscaledDeltaTime : Time.timeScale * unscaledDeltaTime;
         //
         //     // running in reverse? then we need to subtract deltaTime
         //     if (reverse)

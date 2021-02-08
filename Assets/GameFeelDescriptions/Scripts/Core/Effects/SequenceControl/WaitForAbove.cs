@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace GameFeelDescriptions
 {
-    public class WaitForAboveEffect : GameFeelEffect
+    public class WaitForAbove : GameFeelEffect
     {
-        public WaitForAboveEffect()
+        public WaitForAbove()
         {
             Description = "Delay any subsequent effect by an amount, or until all effects above it are complete. NB does not include nested effects";
         }
@@ -28,7 +28,7 @@ namespace GameFeelDescriptions
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)
         {
-            var cp = new WaitForAboveEffect();
+            var cp = new WaitForAbove();
             cp.Init(origin, target, triggerData);
             return DeepCopy(cp);
         }

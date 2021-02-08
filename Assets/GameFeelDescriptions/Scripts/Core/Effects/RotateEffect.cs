@@ -56,7 +56,14 @@ namespace GameFeelDescriptions
         
         protected override bool TickTween()
         {
-            if (target == null) return true;
+            if (target == null)
+            {
+                //disable looping!
+                repeat = 0;
+                loopType = LoopType.None;
+                //signal effect is done!
+                return true;
+            }
             
             SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 

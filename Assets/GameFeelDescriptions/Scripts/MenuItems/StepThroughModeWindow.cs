@@ -330,6 +330,7 @@ namespace GameFeelDescriptions
                     //TODO: Make more complex generator here! 
                     var trailEffect = (TrailEffect) Activator.CreateInstance(typeof(TrailEffect));
                     //TODO: add fancy trails!
+                    //TODO: add footfall or continuous sounds, to signify the movement
                     
                     recipe.Add(trailEffect);
                 }
@@ -341,7 +342,8 @@ namespace GameFeelDescriptions
                     //TODO: Make more complex generator here!
                     var trailEffect = (TrailEffect) Activator.CreateInstance(typeof(TrailEffect));
                     //TODO: add fancy trails!
-
+                    //TODO: add wooshing sound, with a short drop off (can only be heard close by) [requires more advanced sound setup]
+                    
                     if (intensity > 6)
                     {
                         var ragdoll = (RagdollEffect) Activator.CreateInstance(typeof(RagdollEffect));

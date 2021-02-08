@@ -32,6 +32,7 @@ namespace GameFeelDescriptions
         [Tooltip("Restart starts over at each iteration.\nYoyo goes back and forth between to and from.\nRelative uses the end value as a starting point for the next loop.")]
         [EnableFieldIf("repeat", (int)LoopType.None, negate: true)]
         [EnableFieldIf("DelayBetweenLoops", (int)LoopType.None, negate: true)]
+        [EnableFieldIf("ExecuteEffectsOnLooping", (int)LoopType.None, negate: true)]
         public LoopType loopType;
         
         [HideInInspector]
@@ -41,9 +42,12 @@ namespace GameFeelDescriptions
         [HideInInspector]
         public float DelayBetweenLoops = 0f;
         
+        [HideInInspector]
+        public bool ExecuteEffectsOnLooping;
+        
         protected bool reverse;
 
-        public override bool Tick()
+        public override bool Tick(float unscaledDeltaTime)
         {
             //If this is the first Tick, after the delay, run setup
             if (firstTick && elapsed >= 0)
@@ -80,15 +84,21 @@ namespace GameFeelDescriptions
             {
                 complete = HandleLooping( elapsedTimeExcess );
 
-                //In case the tween is not complete, update the tween with the excess time.
+                //In case the effect is not complete, update again with the excess time.
                 if (!complete && elapsedTimeExcess > 0)
                 {
                     //ExecuteTick can finish early, due to missing targets or other settings.
                     complete = ExecuteTick() || complete;
                 }
+
+                //In case of looping, and executing effects on every loop
+                if (!complete && ExecuteEffectsOnLooping)
+                {
+                    QueueEffects();
+                }
             }
             
-            var deltaTime = UnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
+            var deltaTime = UnscaledTime ? unscaledDeltaTime : Time.timeScale * unscaledDeltaTime;
         
             // running in reverse? then we need to subtract deltaTime
             if (reverse)
@@ -223,6 +233,7 @@ namespace GameFeelDescriptions
             cp.loopType = loopType;
             cp.repeat = repeat;
             cp.DelayBetweenLoops = DelayBetweenLoops;
+            cp.ExecuteEffectsOnLooping = ExecuteEffectsOnLooping;
 
             return base.DeepCopy(cp as T);
         }

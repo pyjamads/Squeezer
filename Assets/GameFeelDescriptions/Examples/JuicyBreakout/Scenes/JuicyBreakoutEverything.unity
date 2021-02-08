@@ -279,6 +279,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -371,7 +372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26173078}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -956,6 +957,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -964,7 +969,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: CopyAndScale
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: CopyAndScale
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -992,11 +999,14 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         createAudioSource: 0
         volume: 0
         source: {fileID: 0}
-        clip: {fileID: 8300000, guid: 0e266c9aad8b74b848633388de70e124, type: 3}
+        clips: []
         playOneShot: 1
         pitchShiftAmount: 0
         pitchResetDelay: 0
@@ -1016,11 +1026,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 2
         synthParameters: 3,.5,,.3339,.5521,.2041,.3,.0753,,-.3856,,,,,,,.5475,.7794,,,,,,,,1,,,,,,
         mutateOnExecution: 0
@@ -1108,6 +1124,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 4
@@ -1133,11 +1152,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.05
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -1164,11 +1189,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 6
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.05
         loopType: 1
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -1192,6 +1223,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &162514231
 GameObject:
@@ -1578,7 +1612,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 203915138}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -1711,6 +1745,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -1719,7 +1757,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -1735,6 +1775,9 @@ MonoBehaviour:
           - id: 6
           - id: 7
           - id: 8
+        localPositionOffset: {x: 0, y: 0, z: 0}
+        useForwardForPositionOffset: 0
+        forwardRotationOffset: {x: 0, y: 0, z: 0}
     00000001:
       type: {class: CameraBackgroundColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -1748,11 +1791,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -1778,11 +1827,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -1810,11 +1865,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -1842,11 +1903,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -1874,11 +1941,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -1906,17 +1979,20 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         createAudioSource: 1
         volume: 0.2
         source: {fileID: 0}
-        clip: {fileID: 8300000, guid: 45e277d40b3624b49b5f91c34281ef10, type: 3}
+        clips: []
         playOneShot: 0
         pitchShiftAmount: 0
         pitchResetDelay: 0
         playLoop: 1
-        currentPitch: 0
-        lastPitchChangeTime: 0
+        currentPitch: 1
+        lastPitchChangeTime: 1107.6526
     00000007:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -1930,11 +2006,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1.2
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -1962,11 +2044,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -2007,7 +2095,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231350199}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -3061,7 +3149,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456201434}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -3273,7 +3361,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482469175}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 1, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -3379,7 +3467,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483305390}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -3684,7 +3772,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534568735}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -4128,6 +4216,10 @@ MonoBehaviour:
   - id: 3
   - id: 4
   - id: 5
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -4136,7 +4228,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: Ball Impact
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Ball Impact
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -4159,7 +4253,9 @@ MonoBehaviour:
         TriggerType: 1
         Disabled: 0
         EffectGroups:
-        - GroupName: Ball Trail
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Ball Trail
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -4175,7 +4271,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 1
         EffectGroups:
-        - GroupName: Enter Ball Speed Area
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Enter Ball Speed Area
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 1
@@ -4194,7 +4292,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 1
         EffectGroups:
-        - GroupName: Exit Ball Speed Area
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Exit Ball Speed Area
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 1
@@ -4213,7 +4313,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 1
@@ -4233,7 +4335,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -4259,11 +4363,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 14
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         Stretch: 0
         Amount: 0.5
         useCollisionNormal: 0
@@ -4285,11 +4395,14 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         createAudioSource: 0
         volume: 0.5
         source: {fileID: 1499500743}
-        clip: {fileID: 8300000, guid: b6a27581d03324e20a3b911079487f65, type: 3}
+        clips: []
         playOneShot: 1
         pitchShiftAmount: 0.5
         pitchResetDelay: 1
@@ -4309,11 +4422,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.2
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 1, g: 0.7877358, b: 0.7877358, a: 1}
         relative: 0
@@ -4339,6 +4458,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 15
@@ -4359,11 +4481,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 3
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: 0
         relative: 0
@@ -4387,11 +4515,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: 0
         relative: 0
@@ -4415,11 +4549,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.05
         loopType: 1
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: 0
         relative: 0
@@ -4443,6 +4583,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 19
@@ -4470,11 +4613,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.12
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         Stretch: 1
         Amount: 0.5
         useCollisionNormal: 0
@@ -4496,11 +4645,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 3
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
@@ -4545,11 +4700,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 23
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.68
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.7830189, g: 0, b: 0.7830189, a: 1}
         relative: 0
@@ -4575,11 +4736,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -4606,11 +4773,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.9
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -4636,11 +4809,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 24
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.4
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useInteractionDirection: 1
         interactionDirectionMultiplier: 1
         amount: 0
@@ -4683,11 +4862,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.4
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -4712,11 +4897,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.4
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -4743,6 +4934,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 25
@@ -4763,6 +4957,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000018:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -4776,6 +4973,9 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000019:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -4791,11 +4991,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 27
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.6
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.38679248, g: 0.30149746, b: 0.0054734685, a: 1}
         relative: 0
@@ -4822,12 +5028,14 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
-        ExecuteOnOffspring: []
-        RagdollPrefab: {fileID: 0}
         ForceMultiplier: 1
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 3, y: 4, z: 0}
+        MaxVelocity: 0
         ApplyGravity: 0
     0000001B:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -4841,6 +5049,9 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &610275652
 GameObject:
@@ -6247,6 +6458,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -6255,7 +6470,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -6280,6 +6497,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 2
@@ -6299,11 +6519,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 3
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1.06
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -6329,6 +6555,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &853609165
 GameObject:
@@ -6783,6 +7012,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -6791,7 +7024,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 2
@@ -6800,7 +7035,9 @@ MonoBehaviour:
           TargetList: []
           EffectsToExecute:
           - id: 1
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 2
@@ -6809,7 +7046,9 @@ MonoBehaviour:
           TargetList: []
           EffectsToExecute:
           - id: 2
-        - GroupName: Block Destruction
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Block Destruction
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -6844,11 +7083,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 12
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -6874,11 +7119,17 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -6904,11 +7155,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 13
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -6960,11 +7217,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 14
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1.5
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -6992,17 +7255,20 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         createAudioSource: 1
         volume: 0
         source: {fileID: 1499500743}
-        clip: {fileID: 8300000, guid: 3733ea7d142a44d50b8d2ce7c54528f1, type: 3}
+        clips: []
         playOneShot: 1
         pitchShiftAmount: 0.1
         pitchResetDelay: 1
         playLoop: 0
         currentPitch: 1
-        lastPitchChangeTime: 9.402952
+        lastPitchChangeTime: 1157.0765
     00000006:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -7016,11 +7282,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7046,11 +7318,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1.5
         loopType: 3
         repeat: 10
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -7166,6 +7444,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         action:
           m_PersistentCalls:
@@ -7194,6 +7475,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 15
@@ -7216,11 +7500,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 7
         synthParameters: 3,.101,.085,.182,.103,.434,.609,.08,,.0191,.0722,.296,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,,,.0035,.1778,.87
         mutateOnExecution: 1
@@ -7273,6 +7563,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 18
@@ -7296,11 +7589,17 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7326,11 +7625,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -7354,6 +7659,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000000F:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -7369,11 +7677,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 20
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7400,13 +7714,14 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
-        ExecuteOnOffspring:
-        - id: 21
-        RagdollPrefab: {fileID: 0}
         ForceMultiplier: 1
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 0.5, y: 2, z: 0.5}
+        MaxVelocity: 0
         ApplyGravity: 1
     00000011:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -7420,12 +7735,18 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 22
+        - id: 21
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -7453,11 +7774,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.4
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7483,12 +7810,18 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 23
+        - id: 22
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.26
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -7513,11 +7846,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7532,20 +7871,6 @@ MonoBehaviour:
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
     00000015:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0.5
-        RandomizeDelay: 1
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 24
-        isComplete: 0
-    00000016:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -7558,6 +7883,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         action:
           m_PersistentCalls:
@@ -7573,7 +7901,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    00000017:
+    00000016:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -7585,12 +7913,18 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 25
+        - id: 23
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -7602,28 +7936,7 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000018:
-      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Make a positional flash which quickly fades away.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 26
-        FlashColor: {r: 0.20754719, g: 0, b: 0.15483679, a: 0.9019608}
-        FlashTransparency: 1
-        FlashPrefab: {fileID: 0}
-        FlashPrimitive: 0
-        Scale: {x: 0, y: 0, z: 0}
-        PositionOffset: {x: 0, y: 0, z: 0}
-    00000019:
+    00000017:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -7635,51 +7948,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
-        isComplete: 0
-    0000001A:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 27
-        isComplete: 0
-        Duration: 0.10802267
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0, g: 0, b: 0, a: 0}
-        easing: 11
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    0000001B:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &916993034
 GameObject:
@@ -7734,6 +8005,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -7742,7 +8017,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 1
@@ -7773,11 +8050,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 1
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7802,11 +8085,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
@@ -7856,11 +8145,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 1
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 1
@@ -8246,6 +8541,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 1
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -8254,7 +8553,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 2
@@ -8265,7 +8566,9 @@ MonoBehaviour:
           - id: 1
           - id: 2
           - id: 3
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 2
@@ -8274,6 +8577,9 @@ MonoBehaviour:
           TargetList: []
           EffectsToExecute:
           - id: 4
+        localPositionOffset: {x: 0, y: 0, z: 0}
+        useForwardForPositionOffset: 0
+        forwardRotationOffset: {x: 0, y: 0, z: 0}
     00000001:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -8282,15 +8588,21 @@ MonoBehaviour:
         Lock: 0
         Description: Translate Effect allows you to move an object using easing.
         UnscaledTime: 1
-        Delay: 0.25
+        Delay: 0
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.75
         Duration: 1
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {x: 0, y: 10, z: 0}
         relative: 1
@@ -8317,11 +8629,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: 0
         relative: 0
@@ -8334,7 +8652,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
     00000003:
-      type: {class: WaitForAboveEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      type: {class: WaitForAbove, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
@@ -8347,7 +8665,11 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 5
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        WaitForAllTargets: 0
     00000004:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -8360,13 +8682,19 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.6
         Duration: 0.8
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
-        from: {x: 0, y: 10, z: 0}
+        from: {x: 0, y: -10, z: 0}
         relative: 1
         to: {x: 0, y: 0, z: 0}
         easing: 11
@@ -8391,11 +8719,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: 0
         relative: 0
@@ -9308,6 +9642,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9625,7 +9960,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287639860}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -9731,7 +10066,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293486842}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -10510,7 +10845,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352994638}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -10616,7 +10951,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361191012}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -11013,7 +11348,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430109179}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -11517,6 +11852,8 @@ GameObject:
   - component: {fileID: 1499500740}
   - component: {fileID: 1499500739}
   - component: {fileID: 1499500743}
+  - component: {fileID: 1499500744}
+  - component: {fileID: 1499500742}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -11542,7 +11879,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 0}
+  m_BackGroundColor: {r: 0.12941177, g: 0.12941177, b: 0.12941177, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -11589,6 +11926,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1499500742
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499500738}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!82 &1499500743
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11604,6 +12037,102 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &1499500744
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499500738}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -11791,6 +12320,88 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504341577}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!21 &1541005946
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Block 1 (Instance)
+  m_Shader: {fileID: 10760, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _ColorMask: 15
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 10
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _Metallic: 0
+    - _Mode: 3
+    - _OcclusionStrength: 1
+    - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UVSec: 0
+    - _UseUIAlphaClip: 0
+    - _ZWrite: 0
+    m_Colors:
+    - _Color: {r: 1, g: 0.25943398, b: 0.81241167, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &1560730003
 GameObject:
   m_ObjectHideFlags: 0
@@ -11923,7 +12534,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589070750}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -11974,7 +12585,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d4865acb8a5f540469dcd16080593944, type: 2}
+  - {fileID: 1541005946}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12382,7 +12993,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690288186}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -12594,7 +13205,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1732196171}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -12806,7 +13417,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806265988}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -13124,7 +13735,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863806339}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -13336,7 +13947,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921883361}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: -5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []
@@ -13649,6 +14260,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -13657,7 +14272,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -13680,6 +14297,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         useGlobalRotation: 0
         relativeAmount: 1
@@ -13737,6 +14357,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewEnabled: 0
+  PreviewCooldown: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -13745,7 +14369,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: Block Destruction
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Block Destruction
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -13762,7 +14388,9 @@ MonoBehaviour:
           - id: 7
           - id: 8
           - id: 9
-        - GroupName: Custom Property test
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Custom Property test
           Disabled: 1
           StepThroughMode: 0
           AppliesTo: 1
@@ -13771,7 +14399,9 @@ MonoBehaviour:
           TargetList: []
           EffectsToExecute:
           - id: 10
-        - GroupName: Happy Rotations
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Happy Rotations
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 4
@@ -13781,7 +14411,9 @@ MonoBehaviour:
           - {fileID: 853609165}
           EffectsToExecute:
           - id: 11
-        - GroupName: block wiggle
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: block wiggle
           Disabled: 1
           StepThroughMode: 0
           AppliesTo: 2
@@ -13807,11 +14439,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 13
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -13863,11 +14501,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 14
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1.5
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -13895,11 +14539,14 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         createAudioSource: 1
         volume: 0
         source: {fileID: 1499500743}
-        clip: {fileID: 8300000, guid: 3733ea7d142a44d50b8d2ce7c54528f1, type: 3}
+        clips: []
         playOneShot: 1
         pitchShiftAmount: 0.1
         pitchResetDelay: 1
@@ -13919,11 +14566,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -13949,11 +14602,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1.5
         loopType: 3
         repeat: 10
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -14068,6 +14727,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 15
@@ -14091,6 +14753,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         action:
           m_PersistentCalls:
@@ -14119,11 +14784,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 7
         synthParameters: 3,.101,.085,.182,.103,.434,.609,.08,,.0191,.0722,.296,.682,.2855,.1003,.8029,-.9223,.8911,.0563,.02,.2632,.0053,.445,.0084,.1406,.9845,.0035,,,.0035,.1778,.87
         mutateOnExecution: 1
@@ -14178,6 +14849,9 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 17
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 18
@@ -14199,11 +14873,17 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.2
         loopType: 1
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         relative: 1
         easing: 3
@@ -14230,11 +14910,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 21
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.2
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -14259,11 +14945,17 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.1
         loopType: 3
         repeat: 2
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -14288,11 +14980,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -14316,6 +15014,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000000F:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -14331,11 +15032,17 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 22
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.104040146
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -14361,6 +15068,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 23
@@ -14383,6 +15093,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000012:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -14397,11 +15110,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 2
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -14428,13 +15147,14 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
-        ExecuteOnOffspring:
-        - id: 25
-        RagdollPrefab: {fileID: 0}
         ForceMultiplier: 1
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 2, y: 4, z: 1}
+        MaxVelocity: 0
         ApplyGravity: 1
     00000014:
       type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -14448,12 +15168,18 @@ MonoBehaviour:
         RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 26
+        - id: 25
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 1
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -14480,12 +15206,18 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 27
+        - id: 26
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.15
         loopType: 3
         repeat: 3
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -14510,6 +15242,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000017:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -14524,12 +15259,18 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 28
+        - id: 27
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.3308709
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -14555,11 +15296,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.23
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -14572,19 +15319,6 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
     00000019:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 2
-        RandomizeDelay: 1
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        isComplete: 0
-    0000001A:
       type: {class: InvokeUnityEvent, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14597,6 +15331,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         action:
           m_PersistentCalls:
@@ -14612,7 +15349,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-    0000001B:
+    0000001A:
       type: {class: RotateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14624,11 +15361,17 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
         Duration: 0.5
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -14641,7 +15384,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
         useGlobalRotation: 0
-    0000001C:
+    0000001B:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -14653,6 +15396,9 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &2009092097
 GameObject:
@@ -14786,7 +15532,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011620623}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: -0.00000016292068}
   m_LocalPosition: {x: 5, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.3, z: 1}
   m_Children: []

@@ -98,7 +98,14 @@ namespace GameFeelDescriptions
 
         protected override bool ExecuteTick()
         {
-            if (cameraToModify == null) return true;
+            if (cameraToModify == null)
+            {
+                //disable looping!
+                repeat = 0;
+                loopType = LoopType.None;
+                //signal effect is done!
+                return true;
+            }
             
             var direction = Random.onUnitSphere;
             
@@ -139,7 +146,7 @@ namespace GameFeelDescriptions
             return false;
         }
 
-        protected override void ExecuteComplete()
+        public override void ExecuteCleanUp()
         {
             if (cameraToModify == null) return;
             
@@ -152,8 +159,6 @@ namespace GameFeelDescriptions
             // {
             cameraToModify.transform.localPosition = initialPosition;
             //}
-            
-            base.ExecuteComplete();
         }
     }
 }

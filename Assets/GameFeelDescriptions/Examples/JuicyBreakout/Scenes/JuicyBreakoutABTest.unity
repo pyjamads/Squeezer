@@ -436,7 +436,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: Effects triggered OnCollision
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Effects triggered OnCollision
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -448,7 +450,9 @@ MonoBehaviour:
           - id: 2
           - id: 3
           - id: 4
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 1
@@ -458,7 +462,9 @@ MonoBehaviour:
           - {fileID: 1499500738}
           EffectsToExecute:
           - id: 5
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 2
@@ -486,6 +492,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -516,6 +523,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 7
@@ -538,6 +546,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 9
@@ -561,6 +570,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000005:
       type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -576,6 +586,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -634,6 +645,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -667,6 +679,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -702,10 +715,8 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
-        ExecuteOnOffspring:
-        - id: 10
-        RagdollPrefab: {fileID: 0}
         ForceMultiplier: 5
         RandomizeAdditionalForce: 0
         AdditionalForce: {x: 0, y: 0, z: 0}
@@ -724,9 +735,10 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 11
+        - id: 10
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -755,211 +767,13 @@ MonoBehaviour:
         Lock: 0
         Description: Simple destruction effect.
         UnscaledTime: 0
-        Delay: 0.5
-        RandomizeDelay: 1
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 12
-        - id: 13
-        triggerData:
-          Origin: {fileID: 0}
-        isComplete: 0
-    0000000B:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
         Delay: 0
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
-        isComplete: 0
-    0000000C:
-      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Audio Synth Effect, use for finding the sound you want, generate
-          actual sound clips using the Editor window.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0.2812993
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.28129932
-        loopType: 0
-        repeat: 0
-        DelayBetweenLoops: 0
-        soundGeneratorBase: 2
-        synthParameters: 3,.1,,.352,.659,.007,.096,.007,,.0484,,,,,,,,,,,,,,.3268,-.1294,1,,,,,,
-        mutateOnExecution: 0
-        latestSynthParameters:
-        - 3,.1,,.1846,.744,.352,.253,.1237,.0482,.0484,,.0207,,,,,-.0133,,.0016,,.0428,.0333,,.3604,-.1294,1,,.0391,.0438,,,-.0288
-        - 3,.1,.015,.2159,.726,.3954,.2873,.1095,,.0484,-.0212,,.0041,,.0347,,.0282,,,.0193,,-.0446,,.3589,-.1294,.9855,,,.0054,.0334,,.0176
-        - 3,.1,,.2248,.7414,.352,.2638,.1091,,.0682,,,,,,,,,.0269,,,,,.3268,-.1119,1,-.0484,,,-.0245,.0475,.0361
-        - 3,.1,,.1842,.7398,.352,.3418,.1237,,.0484,,,,,,,,,.0057,,,,,.354,-.1294,1,.0138,,,.0389,,
-        - 3,.1,.0221,.2111,.7634,.352,.3,.1237,.029,.0022,.0198,,,,.0324,.0493,-.0379,,,.0052,.034,,,.3386,-.1294,1,-.0076,.0129,,.0112,,
-        - 3,.1,,.1842,.7398,.3737,.3079,.0793,,.0484,.0298,.0482,,,,,.008,,-.0292,,,,,.3268,-.1294,1,,,.0344,,.0271,.0092
-        - 3,.1,,.1842,.7398,.3791,.3,.1237,.0426,.0484,,,.0243,.0285,,,,.0173,-.0319,,,,.0127,.3268,-.1403,.959,.0091,,.0288,,,.0394
-        - 3,.1,,.1842,.7398,.352,.2884,.0891,,.0356,,,,,.0027,.0161,.0383,,,,.0171,,,.3744,-.1294,1,.0234,,,-.0095,,
-        - 3,.1,.0422,.2101,.7401,.352,.3029,.1576,.0242,.081,.0338,,,,,.0031,-.0348,.021,-.0306,,,,.0388,.3368,-.1266,1,-.0463,,,,.0027,
-        - 3,.1,,.1842,.7398,.3952,.3464,.1438,,.0497,.0316,,,.0478,,,,,,,.0453,-.0355,,.3031,-.1181,.9726,,,.0354,,,.0133
-        - 3,.1,,.1842,.7398,.352,.3,.1237,,.0484,,,,,,,,,,,,,,.3268,-.1294,1,,,,,,
-        - 3,.1,,.251,.2733,.3869,.3,.137,,-.2585,,,,,,,,,,,,,,.179,-.1909,1,,,,,,
-        - 3,.1,,.3116,.4898,.3239,.3,.2036,,,,,,,,,,,,,,,.7338,,,1,,,,,,
-        - 1,.05,.014,.7782,.5933,.6432,.4904,.2224,.1297,-.6122,-.0412,.0115,.0631,,,.1517,-.0489,.2347,-.1281,.2874,.669,-.2591,,.125,-.1036,.9716,-.0603,,.0479,-.0131,.0302,-.0433
-        - 1,.05,.0215,.7782,.5933,.6393,.5233,.2224,.1297,-.6514,-.0412,,.0584,.0114,,.1517,-.0078,.2047,-.081,.3494,.7084,-.2591,,.1252,-.1036,.9716,-.0603,,.0479,.0182,,-.0196
-        - 1,.05,,.7782,.5933,.6032,.5233,.2177,.1297,-.6122,-.0412,,.0629,,,.1517,-.0489,.2485,-.081,.3009,.7557,-.2151,,.1116,-.0777,.9716,-.055,.0027,.0574,.0182,.02,-.0196
-        - 1,.05,,.7782,.5579,.6209,.5685,.2224,.1297,-.6122,-.04,.0077,.0385,.015,,.1753,-.0291,.2699,-.081,.2752,.7084,-.2131,,.1252,-.1036,.9716,-.055,,.0479,.0357,,-.0196
-        - 1,.05,.0215,.7782,.5933,.6593,.5233,.2156,.1209,-.6122,-.0412,,.0584,,,.137,-.0489,.2285,-.081,.3009,.7084,-.2591,,.1252,-.1063,.9313,-.0258,,.0129,.0463,,-.0196
-        - 1,.05,,.7782,.5933,.6432,.4939,.2551,.107,-.5924,-.0412,,.0273,.0114,.0187,.1517,-.0489,.1851,-.1304,.2778,.7397,-.2338,,.173,-.0803,.9851,-.055,,.0479,.0182,,-.0196
-        - 1,.05,.0215,.7782,.5483,.6432,.551,.2635,.1297,-.6122,-.0412,,.1067,.0489,.006,.1255,-.0101,.2005,-.081,.2943,.7084,-.2337,,.1252,-.1499,.9659,-.0515,.0463,.0479,-.0079,,-.0437
-        - 1,.05,.0464,.7782,.5933,.6432,.4744,.1817,.1582,-.6122,-.0605,,.0856,.0441,,.1517,-.0489,.2347,-.063,.2869,.7084,-.2661,.0391,.1252,-.1071,.9716,-.055,,.0479,.0182,,-.0196
-        - 1,.05,.0215,.823,.5636,.6432,.5328,.2339,.1439,-.6122,-.0697,,.1001,.0114,.016,.1154,-.0082,.2334,-.0945,.3382,.7084,-.2591,,.1252,-.1009,.9716,-.055,,.0914,-.0283,,-.0016
-        - 1,.05,.0215,.7782,.5933,.6235,.5233,.2224,.1741,-.6158,-.0412,,.0584,.0114,,.1517,-.0982,.1976,-.0777,.3317,.7084,-.2591,,.1525,-.1322,.9492,-.0414,.0082,.0479,.0182,,-.0196
-        - 1,.05,.0459,.7782,.5933,.6578,.536,.2515,.1006,-.6122,-.0412,,.0593,.0114,.0062,.1517,-.0692,.2347,-.0989,.3009,.7114,-.2541,,.1252,-.1036,1,-.055,,.0479,.0567,,-.0196
-        - 1,.05,.0215,.7883,.5435,.6432,.5233,.246,.1297,-.623,-.0683,,.0584,.0114,,.1837,-.0293,.2347,-.081,.2904,.6864,-.2591,,.17,-.1098,.9778,-.055,,.0479,.0182,,-.0196
-        - 1,.05,.0063,.7417,.6341,.6384,.5233,.2224,.1297,-.6122,-.0623,,.083,.037,,.1898,-.0881,.2347,-.081,.2813,.7084,-.2591,,.1214,-.1036,.944,-.055,,.0284,.0003,.0291,-.0196
-        - 1,.05,.0113,.7782,.597,.6432,.5233,.2224,.1131,-.5672,-.0739,.007,.0584,.0114,,.1653,-.0011,.2417,-.0711,.3009,.7084,-.2591,,.1252,-.1036,.9812,-.0052,,.0348,.0182,,-.0196
-        - 1,.05,.0215,.8132,.6319,.6432,.5233,.2507,.1777,-.6391,-.0052,.0137,.0136,.0271,,.1517,-.0011,.2347,-.0962,.2901,.6831,-.2848,,.1694,-.1036,.9716,-.0488,,.0479,.0607,,-.0196
-        - 1,.05,.0537,.8055,.5933,.6432,.562,.1945,.1622,-.6333,-.0625,,.0584,.0405,,.1517,-.0489,.2347,-.081,.3009,.7084,-.3018,.0199,.0797,-.1453,.9365,-.055,.0409,,.0182,,.0082
-        - 1,.05,.0287,.7782,.5876,.6432,.5442,.2224,.1121,-.5645,-.0729,.0286,.0602,.0114,,.1517,-.0489,.2347,-.1096,.3097,.7084,-.2591,,.0812,-.1036,.938,-.055,,.0207,.0304,.0028,.0253
-        - 1,.05,.0215,.7985,.5933,.6914,.5233,.2224,.1796,-.6122,-.0412,,.0584,.0359,,.1049,-.0489,.2347,-.0819,.3348,.7084,-.2591,.0273,.1031,-.1425,.9721,-.055,,.0707,.028,,-.0291
-        - 1,.05,.0126,.7782,.5933,.6369,.5528,.2224,.1297,-.6122,.0007,.0175,.0584,.0114,,.1843,-.0489,.2347,-.0532,.299,.7139,-.2591,,.1252,-.1036,.9716,-.055,,.0321,.0182,,-.0196
-        - 1,.05,.0215,.7782,.6148,.6382,.5233,.2224,.1297,-.6122,-.0699,.0092,.0584,.0114,,.1517,-.0756,.2347,-.0509,.3009,.7084,-.2591,,.1356,-.1036,.9716,-.055,,.0962,.0182,,-.0196
-        - 1,.05,.0035,.7782,.5933,.6432,.5233,.2224,.1071,-.6381,-.0828,,.0584,.0114,,.1517,-.0032,.2347,-.081,.3493,.7084,-.2591,,.1252,-.1036,.9261,-.0506,,.0613,.0182,.0384,-.0544
-        - 1,.05,.0215,.7782,.5933,.6432,.5233,.2113,.1297,-.6122,-.0181,,.106,,.0024,.1517,-.0489,.2347,-.0881,.2638,.7084,-.2591,,.1021,-.0718,.9726,-.0698,,.0479,-.0094,.0267,.006
-        - 1,.05,.018,.7782,.5933,.6432,.5302,.1833,.1297,-.6122,-.008,.0301,.0378,.0114,.0255,.1517,-.0489,.2347,-.091,.2825,.6655,-.2591,,.1252,-.1036,.9444,-.0525,,.0762,.0396,,-.0472
-        - 1,.05,.0196,.8133,.5994,.6064,.5233,.2224,.1297,-.6122,-.0412,,.0584,,,.1517,-.0489,.2705,-.1078,.3009,.7084,-.2591,,.1252,-.0852,.9716,-.0249,,.0479,.0182,,-.0196
-        - 1,.05,.0224,.7453,.5933,.6623,.5233,.2224,.1297,-.6122,-.0412,.0398,.0584,.0114,,.1994,-.0907,.2347,-.0548,.2917,.733,-.2517,,.148,-.071,.9987,-.055,.0004,.0864,-.0282,,.0162
-        - 1,.05,.0152,.7733,.5933,.663,.5507,.1759,.0802,-.6461,-.0132,,.0584,.0486,,.1354,-.0489,.2347,-.081,.3207,.7065,-.2307,,.1084,-.1036,1,-.055,,.0479,-.013,,-.0196
-        - 1,.05,.0215,.7583,.5933,.6432,.4909,.1812,.1297,-.633,-.0007,,.0584,.0031,.0492,.1291,-.0249,.2347,-.081,.3009,.7084,-.2591,,.1687,-.1036,1,-.055,,.0479,.0065,,-.0196
-        - 1,.05,.046,.7316,.5938,.6442,.5233,.2224,.1297,-.6122,-.044,.0182,.0824,,,.1169,-.0489,.2587,-.081,.2872,.7084,-.2991,.0411,.1527,-.1036,.9716,-.055,,.0104,.0593,,-.0196
-        - 1,.05,.0215,.7782,.5516,.6921,.5663,.2224,.1297,-.6275,-.0541,,.0933,,,.1517,-.0489,.2347,-.0805,.3009,.724,-.2591,,.0939,-.1036,1,-.1029,,.0877,.0182,,-.0196
-        - 1,.05,.0418,.76,.5933,.6538,.4974,.2602,.173,-.5666,-.0412,,.0697,,,.1517,-.0417,.2347,-.081,.2818,.7084,-.2591,,.1252,-.1036,.9304,-.055,,.0479,.0182,,-.0141
-        - 1,.05,.0699,.7662,.5774,.6432,.4901,.2224,.152,-.6122,-.0372,,.0172,.0114,,.1802,-.0489,.2347,-.081,.3009,.6611,-.213,,.099,-.1036,.9478,-.029,,.0479,-.0235,,-.0196
-        - 1,.05,.0215,.7638,.635,.6039,.5146,.2224,.1378,-.6122,-.0412,,.1077,.0114,,.1517,-.0489,.2347,-.072,.29,.6711,-.244,,.1011,-.0852,.9716,-.0372,,.0479,.0182,,-.0552
-        - 1,.1,,.2118,,.0295,.3,.6053,.0849,-.5733,,,,,,,,,,,.7487,-.2936,,,,1,,,,,,
-        - 0,.1,,.148,,.0018,.3,.577,.2731,-.2819,,,,,,,,,,,.4498,.1817,,,,1,,,,,,
-        - 1,.1,,.2113,,.0978,.3,.6348,.2316,-.3084,,,,,,,,,,,.2843,.093,,,,1,,,,,,
-        - 1,.1,,.2424,.1262,.1428,.3,.6401,.2,-.2309,,,,,,,,,,,.6319,-.0067,,,,1,,,.2288,,,
-    0000000D:
-      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Make a positional flash which quickly fades away.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 14
-        FlashColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0.54509807}
-        FlashTransparency: 0
-        FlashPrefab: {fileID: 0}
-        FlashPrimitive: 0
-        Scale: {x: 1, y: 1, z: 1}
-        PositionOffset: {x: 0, y: 0, z: 0}
-    0000000E:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 15
-        triggerData:
-          Origin: {fileID: 0}
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.15
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0, g: 0, b: 0, a: 0}
-        easing: 7
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    0000000F:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 16
-        triggerData:
-          Origin: {fileID: 0}
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.15
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 0
-        to: {x: 0, y: 0, z: 0}
-        easing: 4
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-    00000010:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0.1
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &111458616
 GameObject:
@@ -4406,7 +4220,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -4435,6 +4251,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 3
@@ -4445,9 +4262,11 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 0
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.25
         Radius: 0.3
-        ParticleScale: 0.2
+        ParticleScale: 0.1
         ParticleLifetime: 0.7
     00000002:
       type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -4463,6 +4282,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.05
@@ -4521,6 +4341,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.2
@@ -4531,7 +4352,7 @@ MonoBehaviour:
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
-        to: {x: 1.2901438, y: 1.2901438, z: 1.2901438}
+        to: {x: 4.290144, y: 4.290144, z: 4.290144}
         easing: 0
         curve:
           serializedVersion: 2
@@ -4555,6 +4376,7 @@ MonoBehaviour:
         - id: 6
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 1
         RandomizeDuration: 1
         DurationMin: 0.3
@@ -4563,9 +4385,9 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         setFromValue: 1
-        from: {r: 1, g: 0.8968139, b: 0.5424528, a: 1}
+        from: {r: 1, g: 0.747421, b: 0.5411765, a: 1}
         relative: 0
-        to: {r: 0.5188679, g: 0.44653097, b: 0.19335172, a: 0}
+        to: {r: 0.5176471, g: 0.34137484, b: 0.19215685, a: 0}
         easing: 7
         curve:
           serializedVersion: 2
@@ -4589,6 +4411,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 7
@@ -4612,6 +4435,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000007:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -4629,6 +4453,7 @@ MonoBehaviour:
         - id: 8
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -4663,6 +4488,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &717186168
 GameObject:
@@ -5686,7 +5512,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -5716,6 +5544,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 5
@@ -5741,6 +5570,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 7
@@ -5750,11 +5580,13 @@ MonoBehaviour:
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
-        ExpansionShape: 2
+        ExpansionShape: 0
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.6
         Radius: 1
         ParticleScale: 0.05
-        ParticleLifetime: 1
+        ParticleLifetime: 1.5
     00000003:
       type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -5769,6 +5601,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.449
@@ -5819,6 +5652,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 10
@@ -5829,6 +5663,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 3
         ExpansionShape: 5
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.8
         Radius: 2
         ParticleScale: 0.1
@@ -5848,6 +5684,7 @@ MonoBehaviour:
         - id: 13
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.02
@@ -5882,6 +5719,7 @@ MonoBehaviour:
         - id: 14
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -5916,6 +5754,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.5
@@ -5950,6 +5789,7 @@ MonoBehaviour:
         - id: 15
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 1
         RandomizeDuration: 1
         DurationMin: 0.5
@@ -5984,6 +5824,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 16
@@ -6008,6 +5849,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -6016,6 +5858,7 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         useGlobalRotation: 0
+        RandomizeInitialRotation: 0
         RotationPerSecond: {x: 96.19507, y: -20.264887, z: -81.31085}
     0000000B:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -6031,6 +5874,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.6
@@ -6065,6 +5909,7 @@ MonoBehaviour:
         - id: 17
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.7
@@ -6099,6 +5944,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 18
@@ -6123,6 +5969,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000000F:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -6138,6 +5985,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000010:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -6155,6 +6003,7 @@ MonoBehaviour:
         - id: 20
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -6189,6 +6038,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000012:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -6204,6 +6054,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -6238,6 +6089,7 @@ MonoBehaviour:
         - id: 21
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 1.5
@@ -6272,6 +6124,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000015:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -6287,6 +6140,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &920071533
 GameObject:
@@ -6668,7 +6522,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -6698,6 +6554,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -6819,6 +6676,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 4
@@ -6843,6 +6701,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -6880,6 +6739,7 @@ MonoBehaviour:
         - id: 6
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -6914,6 +6774,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -6946,6 +6807,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &1072451243
 GameObject:
@@ -7118,7 +6980,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: Effects triggered OnCollision
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Effects triggered OnCollision
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -7142,7 +7006,9 @@ MonoBehaviour:
         TriggerType: 1
         Disabled: 0
         EffectGroups:
-        - GroupName: Ball Trail
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Ball Trail
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -7158,7 +7024,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 2
@@ -7179,7 +7047,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -7206,6 +7076,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7227,6 +7098,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 14
@@ -7253,6 +7125,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7280,6 +7153,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 15
@@ -7300,6 +7174,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7324,6 +7199,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7347,6 +7223,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 16
@@ -7369,6 +7246,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 20
@@ -7396,6 +7274,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7430,6 +7309,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 22
@@ -7460,6 +7340,7 @@ MonoBehaviour:
         - id: 26
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7491,6 +7372,7 @@ MonoBehaviour:
         - id: 27
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7526,6 +7408,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7579,6 +7462,7 @@ MonoBehaviour:
         - id: 28
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7613,6 +7497,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7648,6 +7533,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7681,6 +7567,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7734,6 +7621,7 @@ MonoBehaviour:
         - id: 29
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7770,6 +7658,7 @@ MonoBehaviour:
         - id: 30
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7821,6 +7710,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7854,6 +7744,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -7889,6 +7780,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 31
@@ -7911,6 +7803,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000001B:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -7926,6 +7819,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000001C:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -7941,6 +7835,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000001D:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -7956,6 +7851,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000001E:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -7971,6 +7867,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000001F:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -7988,6 +7885,7 @@ MonoBehaviour:
         - id: 33
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -8023,9 +7921,8 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
-        ExecuteOnOffspring: []
-        RagdollPrefab: {fileID: 0}
         ForceMultiplier: 4.681726
         RandomizeAdditionalForce: 1
         AdditionalForce: {x: 3, y: 4, z: 0}
@@ -8045,6 +7942,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &1099446153
 GameObject:
@@ -8565,7 +8463,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -8594,6 +8494,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 4
@@ -8618,6 +8519,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.449
@@ -8668,6 +8570,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 6
@@ -8679,6 +8582,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 5
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 2
         Radius: 0.2
         ParticleScale: 0.2
@@ -8698,6 +8603,7 @@ MonoBehaviour:
         - id: 10
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.02
@@ -8732,6 +8638,7 @@ MonoBehaviour:
         - id: 11
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -8767,6 +8674,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -8775,6 +8683,7 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         useGlobalRotation: 0
+        RandomizeInitialRotation: 0
         RotationPerSecond: {x: 96.19507, y: -20.264887, z: -81.31085}
     00000007:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -8790,6 +8699,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 1
@@ -8825,6 +8735,7 @@ MonoBehaviour:
         - id: 13
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.6
@@ -8860,6 +8771,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 14
@@ -8870,6 +8782,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 6
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.4
         Radius: 1.5
         ParticleScale: 0.1
@@ -8888,6 +8802,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 17
@@ -8912,6 +8827,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000000C:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -8927,6 +8843,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000000D:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -8943,6 +8860,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 19
@@ -8952,6 +8870,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 3
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.5
         Radius: 0.7
         ParticleScale: 0.2
@@ -8970,6 +8890,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.6
@@ -9004,6 +8925,7 @@ MonoBehaviour:
         - id: 21
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.3
@@ -9039,6 +8961,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 22
@@ -9048,6 +8971,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 3
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.5
         Radius: 0.5
         ParticleScale: 0.2
@@ -9066,6 +8991,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -9100,6 +9026,7 @@ MonoBehaviour:
         - id: 24
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 1.5
@@ -9134,6 +9061,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.2
@@ -9168,6 +9096,7 @@ MonoBehaviour:
         - id: 25
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.5
@@ -9202,6 +9131,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000016:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -9217,6 +9147,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.4
@@ -9251,6 +9182,7 @@ MonoBehaviour:
         - id: 26
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.3
@@ -9285,6 +9217,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000019:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -9300,6 +9233,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000001A:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -9315,6 +9249,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &1195170230
 GameObject:
@@ -10608,7 +10543,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1327238929
 Transform:
   m_ObjectHideFlags: 0
@@ -10654,7 +10589,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -10684,6 +10621,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 5
@@ -10709,6 +10647,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 7
@@ -10719,6 +10658,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 0
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.7
         Radius: 0.5
         ParticleScale: 0.1
@@ -10737,6 +10678,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.05
@@ -10787,6 +10729,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 10
@@ -10797,6 +10740,8 @@ MonoBehaviour:
         usePrimitiveParticles: 1
         ParticlePrimitive: 3
         ExpansionShape: 5
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.5
         Radius: 1.5
         ParticleScale: 0.1
@@ -10816,6 +10761,7 @@ MonoBehaviour:
         - id: 13
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.12
@@ -10850,6 +10796,7 @@ MonoBehaviour:
         - id: 14
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -10884,6 +10831,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.5
@@ -10918,6 +10866,7 @@ MonoBehaviour:
         - id: 15
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 1
         RandomizeDuration: 1
         DurationMin: 0.3
@@ -10952,6 +10901,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 16
@@ -10976,6 +10926,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.1
@@ -10984,6 +10935,7 @@ MonoBehaviour:
         repeat: -1
         DelayBetweenLoops: 0
         useGlobalRotation: 0
+        RandomizeInitialRotation: 0
         RotationPerSecond: {x: 96.19507, y: -20.264887, z: -81.31085}
     0000000B:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -10999,6 +10951,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.231
@@ -11033,6 +10986,7 @@ MonoBehaviour:
         - id: 17
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.3
@@ -11067,6 +11021,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 18
@@ -11090,6 +11045,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     0000000F:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -11105,6 +11061,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000010:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -11122,6 +11079,7 @@ MonoBehaviour:
         - id: 19
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -11156,6 +11114,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000012:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -11173,6 +11132,7 @@ MonoBehaviour:
         - id: 20
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -11207,6 +11167,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000014:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -11222,6 +11183,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &1333875830
 GameObject:
@@ -12479,7 +12441,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1550174403
 Transform:
   m_ObjectHideFlags: 0
@@ -12517,6 +12479,7 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  - id: 1
   references:
     version: 1
     00000000:
@@ -12525,7 +12488,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 4
+          selectedIntensity: 6
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -12533,12 +12498,30 @@ MonoBehaviour:
           TargetComponentType: {fileID: 0}
           TargetList: []
           EffectsToExecute:
-          - id: 1
+          - id: 2
         ReactTo:
         - '*'
         type: 0
         ContextType: 1
     00000001:
+      type: {class: OnMoveTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 1
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 3
+        type: 1
+    00000002:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12553,20 +12536,44 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
-        - id: 2
-        - id: 3
+        - id: 4
+        - id: 5
         AmountOfParticles: 25
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 6
+        setParticleUp: 0
+        setParticleForward: 0
         Height: 0.25
         Radius: 0.35
         ParticleScale: 0.2
         ParticleLifetime: 0.7
-    00000002:
+    00000003:
+      type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a trail of copies of the game object, which slowly fades.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0.1
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 6
+        - id: 7
+        TrailPrefab: {fileID: 0}
+        TrailPositionOffset: {x: 0, y: 0, z: 0}
+    00000004:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12580,6 +12587,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
         DurationMin: 0.2
@@ -12598,7 +12606,7 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000003:
+    00000005:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12611,9 +12619,10 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 4
+        - id: 8
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 1
         RandomizeDuration: 1
         DurationMin: 0.3
@@ -12634,7 +12643,77 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000004:
+    00000006:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.52
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        setFromValue: 0
+        from: {x: 0.05, y: 0.05, z: 0.05}
+        relative: 0
+        to: {x: 0.05, y: 0.05, z: 0.05}
+        easing: 5
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0.1
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 9
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 2.15
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 4
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12648,6 +12727,23 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    00000009:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &1560730003
 GameObject:
@@ -13600,7 +13696,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -13631,6 +13729,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -13661,6 +13760,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -13688,6 +13788,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -13722,6 +13823,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 5
@@ -13744,6 +13846,7 @@ MonoBehaviour:
         - id: 7
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -13778,6 +13881,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -13810,6 +13914,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &1806265988
 GameObject:
@@ -14403,7 +14508,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -14416,7 +14523,9 @@ MonoBehaviour:
           - id: 3
           - id: 4
           - id: 5
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 2
@@ -14444,6 +14553,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -14474,6 +14584,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -14501,6 +14612,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -14535,6 +14647,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 7
@@ -14555,6 +14668,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000006:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -14572,6 +14686,7 @@ MonoBehaviour:
         - id: 9
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -14608,6 +14723,7 @@ MonoBehaviour:
         - id: 10
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -14642,6 +14758,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -14675,6 +14792,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -14709,6 +14827,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
 --- !u!1 &1921883361
 GameObject:
@@ -15838,7 +15957,9 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - GroupName: 
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
@@ -15871,6 +15992,7 @@ MonoBehaviour:
         - id: 6
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -15894,6 +16016,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring: []
         FlashColor: {r: 0.83382887, g: 0.6338577, b: 0.8785535, a: 1}
@@ -15916,6 +16039,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring: []
         SetTag: Untagged
@@ -15940,6 +16064,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
         - id: 7
@@ -15960,6 +16085,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         WaitForAllTargets: 0
     00000006:
@@ -15977,6 +16103,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -16002,6 +16129,7 @@ MonoBehaviour:
         - id: 8
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
@@ -16037,6 +16165,7 @@ MonoBehaviour:
         - id: 9
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
     00000009:
       type: {class: SpawnCopyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
@@ -16052,6 +16181,7 @@ MonoBehaviour:
         ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
+          InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring: []
         SetTag: Untagged

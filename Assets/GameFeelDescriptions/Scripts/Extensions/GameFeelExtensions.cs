@@ -232,7 +232,7 @@ namespace GameFeelDescriptions
                         }
                         else
                         {
-                            pos = collisionData.Collision.GetContact(0).point;    
+                            pos = collisionData.Collision2D.GetContact(0).point;    
                         }
 
                         if (averageNormal)

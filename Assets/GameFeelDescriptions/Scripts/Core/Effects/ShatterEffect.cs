@@ -111,9 +111,9 @@ namespace GameFeelDescriptions
                 }
                 
                 var renderer = mold.GetComponent<Renderer>();
-                renderer.material = new Material(Shader.Find("Particles/Standard Unlit"));
-                SetMaterialTransparentBlendMode(renderer.material); 
-                renderer.material.color = Color.white;
+                renderer.sharedMaterial = new Material(Shader.Find("Particles/Standard Unlit"));
+                SetMaterialTransparentBlendMode(renderer.sharedMaterial); 
+                renderer.sharedMaterial.color = Color.white;
 
                 if (target != null)
                 {
@@ -129,7 +129,7 @@ namespace GameFeelDescriptions
                     }
                     else
                     {
-                        renderer.material.color = targetRenderer.material.color;
+                        renderer.sharedMaterial.color = targetRenderer.material.color;
                     }
                 }
                 
@@ -161,7 +161,7 @@ namespace GameFeelDescriptions
                         }
                         else
                         {
-                            renderer.material.color = targetRenderer.material.color;
+                            renderer.sharedMaterial.color = targetRenderer.material.color;
                         }
                     }
 

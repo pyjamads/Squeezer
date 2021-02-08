@@ -3,66 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GameFeelDescriptions
 {
-    //TODO: custom previewer to show effects ! 09/06/2020
-    /* 
-    [UnityEditor.CustomEditor(typeof(BaseItemDataContainer), true)]
-    public class MyScriptEditor : UnityEditor.Editor
-    {
-        public override bool HasPreviewGUI() { return true; }
-        private PreviewRenderUtility _previewRenderUtility;
-        Editor gameObjectEditor;
-   
-        public override void OnPreviewGUI(Rect r, GUIStyle background)
-        {
-            GameObject obj = (target as BaseItemDataContainer).m_Item != null ? (target as BaseItemDataContainer).m_Item.gameObject : (target as BaseItemDataContainer).m_ItemGameObject;
-            if (obj)
-            {
-                if (gameObjectEditor == null)
-                    gameObjectEditor = Editor.CreateEditor(obj);
-                gameObjectEditor.OnPreviewGUI(r, background);
-            }
-     
-        }
-    }
-    
-    
-    //Alternative!
-    GameObject gameObject;
-    Editor gameObjectEditor;
-    Texture2D previewBackgroundTexture;
-    void OnGUI ()
-    {
-        EditorGUI.BeginChangeCheck();
-   
-        gameObject = (GameObject) EditorGUILayout.ObjectField(gameObject, typeof(GameObject), true);
-   
-        if(EditorGUI.EndChangeCheck())
-        {
-            if(gameObjectEditor != null) DestroyImmediate(gameObjectEditor);
-        }
-   
-        GUIStyle bgColor = new GUIStyle();
-   
-   
-        bgColor.normal.background = previewBackgroundTexture;
-   
-        if (gameObject != null)
-        {
-            if (gameObjectEditor == null)
-       
-            gameObjectEditor = Editor.CreateEditor(gameObject);
-            gameObjectEditor.OnInteractivePreviewGUI(GUILayoutUtility.GetRect (200,200),bgColor);
-        }
-    }
-    
-    also this: https://timaksu.com/post/126337219047/spruce-up-your-custom-unity-inspectors-with-a
-    
-    */
-    
     [CustomEditor(typeof(GameFeelDescription))]
     public class GameFeelDescriptionEditor : Editor
     {
@@ -91,6 +37,7 @@ namespace GameFeelDescriptions
         private static object copiedObject;
         
         public static Dictionary<int, List<bool>> ExpandedDescriptionNames = new Dictionary<int, List<bool>>();
+        public bool showGenerators;
 
         //TODO: Consider making these static, to cache them between instances.
         //[SerializeField] // ?!? does this make sense here?
@@ -99,6 +46,11 @@ namespace GameFeelDescriptions
 
         private float lastSaveTime;
         private double editorTimeAtLastUpdate;
+
+        private GameObject previewObject;
+        private float LastPreviewTime = 0;
+        
+        private Scene theScene;
 
         private void OnEnable()
         {
@@ -174,15 +126,16 @@ namespace GameFeelDescriptions
         // }
         
         #endregion
-        
-        
-        
+
         public override void OnInspectorGUI()
         {   
             EditorGUI.BeginChangeCheck();
             
             #region draw inspector
             var gameFeelDescription = (GameFeelDescription) target;
+            
+            //note the scene!
+            theScene = gameFeelDescription.gameObject.scene;
 
             var style = new GUIStyle();
             style.border = new RectOffset(5,5,5,5);
@@ -254,9 +207,7 @@ namespace GameFeelDescriptions
                     if (gameFeelDescription.TriggerList.Count != 0)
                     {
                         GUILayout.Space(20);
-
-
-
+                        
                         EditorGUILayout.HelpBox(new GUIContent("Effect groups can be saved and loaded as recipes!"));
                         var (groupNames, groupRefs) =
                             GenerateLabelObjectLists(gameFeelDescription, typeof(GameFeelEffectGroup));
@@ -679,7 +630,98 @@ namespace GameFeelDescriptions
                     serializedObject.ApplyModifiedProperties();
                     
                     GUILayout.Space(20);
+
+
+
+                    desc.PreviewExpanded = EditorGUILayout.Foldout(desc.PreviewExpanded,
+                        desc.PreviewExpanded
+                            ? "Preview settings:"
+                            : "Continuous Preview [" + (desc.PreviewEnabled ? "ON] Cooldown [" + desc.PreviewCooldown.ToString("F1") + "s]" : "OFF]")
+                        , true, EditorStyles.foldoutHeader);
+                    //GUILayout.Label("Preview settings:", EditorStyles.boldLabel);
+
+                    if (desc.PreviewExpanded)
+                    {
+                        EditorGUI.BeginChangeCheck();
+                        desc.PreviewEnabled = EditorGUILayout.Toggle("Enabled", desc.PreviewEnabled);
+                        if (EditorGUI.EndChangeCheck())
+                        {
+                            EditorApplication.QueuePlayerLoopUpdate();
+                        }
+                        desc.PreviewCooldown = EditorGUILayout.FloatField("Cooldown", desc.PreviewCooldown);
+                        desc.PreviewDirection = EditorGUILayout.Vector3Field("Direction", desc.PreviewDirection);
+                        desc.PreviewPositionOffset = EditorGUILayout.Vector3Field("Position Offset", desc.PreviewPositionOffset);
+
+                        if (previewObject != null && GUILayout.Button("Reset Preview Object!"))
+                        {
+                            previewObject.SetActive(true);
+                            previewObject = null;
+                            GameFeelEffectExecutor.DestroyInstance();
+                            //TODO: this is a bunch of faking ... but it kinda works!
+                        }
+
+                        if (GUILayout.Button("Toggle object visibility"))
+                        {
+                            if (EditorWindow.HasOpenInstances<PreviewWindow>() && PreviewWindow.target != null)
+                            {
+                                //TODO: make this better, maybe as a preview setting, so it just doesn't copy it over. 2021-02-08
+                                //NOTE: very confusing the way this makes it scale down, and fade out, instead of just disappearing. 
+                                PreviewWindow.target.SetActive(!PreviewWindow.target.activeSelf);
+                            }
+                        }
+                    }
                     
+                    
+                    if(desc.PreviewEnabled && Time.realtimeSinceStartup - LastPreviewTime > desc.PreviewCooldown)
+                    {
+                        LastPreviewTime = Time.realtimeSinceStartup;
+
+                        var targetInAList = new List<GameObject>();
+                        if (EditorWindow.HasOpenInstances<PreviewWindow>() && PreviewWindow.target != null)
+                        {
+                            targetInAList.Add(PreviewWindow.target);
+                        }
+                        
+                        //Grab the first available attachTarget.
+                        if(targetInAList.Count == 0)
+                        {
+                            //Grab the first available attachTarget.
+                            var attachTargets = desc.FindGameObjectsToAttach();
+                
+                            if (attachTargets.Count > 0)
+                            {
+                                targetInAList = attachTargets.GetRange(0, 1);
+
+                                targetInAList[0] = Instantiate(targetInAList[0], GameFeelEffectExecutor.Instance.transform, true);
+                    
+                                // Undo.RecordObject(attachTargets[0], "preview effect");
+                                // //TODO: maybe hide the original object, and show it again after the preview is done!
+                                // previewObject = attachTargets[0];
+                                // previewObject.SetActive(false);
+                            }
+                        }
+
+                        foreach (var trigger in desc.TriggerList)
+                        {
+                            foreach (var effectGroup in trigger.EffectGroups)
+                            {
+                                var position = Vector3.zero;
+                                if (targetInAList.Count > 0)
+                                {
+                                    position = targetInAList[0].transform.position;
+                                }
+
+                                effectGroup.InitializeAndQueueEffects(null, targetInAList,
+                                    new PositionalData(
+                                        position + desc.PreviewPositionOffset,
+                                        desc.PreviewDirection));
+                            }
+                        }
+                    }
+                    
+                    
+                    GUILayout.Space(20);
+
                     GUILayout.Label("Effect Tree (Click elements to edit, or right click for options):", EditorStyles.boldLabel);
 
 //                    desc.StepThroughMode = EditorGUILayout.Toggle("Step Through Mode", desc.StepThroughMode);
@@ -693,7 +735,7 @@ namespace GameFeelDescriptions
                         canPaste = false;
                     }
 
-                    //TODO: re-write headers and add '+' button at the end! 2020-10-30
+                    
                     var clickArea = ClickAreaWithContextMenu(desc, false);
                     if (desc.TriggerList.Count == 0)
                     {
@@ -724,7 +766,7 @@ namespace GameFeelDescriptions
                                                                                                                           seperator +
                                                                                                                           desc.AttachToComponentType +
                                                                                                                           andList + "]");
-
+                        
                         if (GUI.Button(new Rect(clickArea.x + clickArea.width - 50f, clickArea.y, 50f, clickArea.height),"+"))
                         {
                             PlusMenuDropdown(desc);
@@ -798,7 +840,7 @@ namespace GameFeelDescriptions
                     using (new EditorGUI.DisabledScope(trigger.Disabled))
                     {
                         ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
-                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            new Rect(clickArea.x, clickArea.y, indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, clickArea.height),
                             ExpandedDescriptionNames[target.GetInstanceID()][index], triggerLabel, toggleOnLabel);
                     }
 
@@ -821,7 +863,54 @@ namespace GameFeelDescriptions
                         // {
                         //     RemovePropertyCallback();
                         // }
+                        
+                        if (GUI.Button(new Rect(indented.x + indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, indented.y, 50f, indented.height),">"))
+                        {
+                            
+                            //Ignore resetting the state for now! TODO: actually reset the state or use a preview window!
 
+                            var desc = (GameFeelDescription)target;
+                        
+                            var targetInAList = new List<GameObject>();
+                            if (EditorWindow.HasOpenInstances<PreviewWindow>() && PreviewWindow.target != null)
+                            {
+                                targetInAList.Add(PreviewWindow.target);
+                            }
+                            
+                            if(targetInAList.Count == 0)
+                            {
+                                //Grab the first available attachTarget.
+                                var attachTargets = desc.FindGameObjectsToAttach();
+                            
+                                if (attachTargets.Count > 0)
+                                {
+                                    targetInAList = attachTargets.GetRange(0, 1);
+
+                                    targetInAList[0] = Instantiate(targetInAList[0], GameFeelEffectExecutor.Instance.transform, true);
+                                
+                                    Undo.RecordObject(attachTargets[0], "preview effect");
+                                    //TODO: maybe hide the original object, and show it again after the preview is done!
+                                    previewObject = attachTargets[0];
+                                    previewObject.SetActive(false);
+                                }
+                            }
+                            
+                            foreach (var effectGroup in trigger.EffectGroups)
+                            {
+                                var previewTargetPosition = Vector3.zero;
+                                if (targetInAList.Count > 0)
+                                {
+                                    previewTargetPosition = targetInAList[0].transform.position;
+                                }
+
+                                effectGroup.InitializeAndQueueEffects(null, targetInAList,
+                                        new PositionalData(
+                                            previewTargetPosition + desc.PreviewPositionOffset,
+                                            desc.PreviewDirection));
+                            }
+                        }
+                        
+                        
                         if (GUI.Button(new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),
                             "+"))
                         {
@@ -836,7 +925,7 @@ namespace GameFeelDescriptions
                             GenerateSimpleInterface(trigger.EffectGroups[i], ref index, indent + 1,
                                 propertyPath + ".EffectGroups", i, doHighlight);
                         }
-
+                        
                         // }
                     }
 
@@ -891,22 +980,12 @@ namespace GameFeelDescriptions
                     using (new EditorGUI.DisabledScope(group.Disabled))
                     {
                         ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
-                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            new Rect(clickArea.x, clickArea.y, indented.width - 210f, clickArea.height),
                             ExpandedDescriptionNames[target.GetInstanceID()][index], groupLabel, toggleOnLabel);
                     }
                     
                     if (!group.Disabled)
                     {
-                        if (ExpandedDescriptionNames[target.GetInstanceID()][index])
-                        {
-                            // ExpandedDescriptionNames[target.GetInstanceID()][index][1] =
-                            //     EditorGUILayout.Foldout(ExpandedDescriptionNames[target.GetInstanceID()][index][1], "Group Properties");
-                            //
-                            // if (ExpandedDescriptionNames[target.GetInstanceID()][index][1])
-                            // {
-                            DrawPropertyWithColor(propertyPath, highlightColor);
-                            // }
-                        }
                         // else
                         // {   
 
@@ -956,46 +1035,54 @@ namespace GameFeelDescriptions
                         }
                         else
                         {
-                            using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
+                            showGenerators =
+                                EditorGUI.Foldout(new Rect(indented.x + indented.width - 210f - EditorGUIUtility.standardVerticalSpacing, 
+                                                                    indented.y, 110f, indented.height), 
+                                    showGenerators, "Generator", true);
+                            if (showGenerators)
                             {
-                                using (new EditorGUILayout.VerticalScope())
+                                using (new EditorGUILayout.HorizontalScope(EditorStyles.helpBox))
                                 {
-                                    group.selectedCategory =
-                                        (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
-                                            "Category", group.selectedCategory);
-                                    group.selectedIntensity =
-                                        EditorGUILayout.IntSlider("Intensity", group.selectedIntensity, 1, 10);
-                                }
-
-                                using (new EditorGUILayout.VerticalScope())
-                                {
-                                    if (GUILayout.Button("Mutate"))
+                                    using (new EditorGUILayout.VerticalScope())
                                     {
-                                        Undo.RecordObject(target,
-                                            "Mutate " + (string.IsNullOrEmpty(group.GroupName)
-                                                ? "EffectGroup"
-                                                : group.GroupName));
-
-                                        InteractiveEvolution.MutateGroup(group);
+                                        group.selectedCategory =
+                                            (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
+                                                "Category", group.selectedCategory);
+                                        group.selectedIntensity =
+                                            EditorGUILayout.IntSlider("Intensity", group.selectedIntensity, 1, 10);
                                     }
 
-                                    if (GUILayout.Button("Regenerate"))
+                                    using (new EditorGUILayout.VerticalScope())
                                     {
-                                        Undo.RecordObject(target, "Regenerate " + group.selectedCategory.GetName());
-                                        //group.EffectsToExecute.Clear();
-                                        group.EffectsToExecute.RemoveAll(item => item.Lock == false);
-                                        var recipe = StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
-                                            group.selectedIntensity, group.EffectsToExecute);
+                                        if (GUILayout.Button("Mutate"))
+                                        {
+                                            Undo.RecordObject(target,
+                                                "Mutate " + (string.IsNullOrEmpty(group.GroupName)
+                                                    ? "EffectGroup"
+                                                    : group.GroupName));
 
-                                        group.EffectsToExecute.AddRange(recipe);
+                                            InteractiveEvolution.MutateGroup(group);
+                                        }
 
-                                        //Take the handcrafted tree, and mutate it!
-                                        InteractiveEvolution.MutateGroup(group, 0.25f, 0.25f, 0.10f);
+                                        if (GUILayout.Button("Regenerate"))
+                                        {
+                                            Undo.RecordObject(target, "Regenerate " + group.selectedCategory.GetName());
+                                            //group.EffectsToExecute.Clear();
+                                            group.EffectsToExecute.RemoveAll(item => item.Lock == false);
+                                            var recipe = StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
+                                                group.selectedIntensity, group.EffectsToExecute);
 
-                                        serializedObject.ApplyModifiedProperties();
+                                            group.EffectsToExecute.AddRange(recipe);
+
+                                            //Take the handcrafted tree, and mutate it!
+                                            InteractiveEvolution.MutateGroup(group, 0.25f, 0.25f, 0.10f);
+
+                                            serializedObject.ApplyModifiedProperties();
+                                        }
                                     }
                                 }
                             }
+                            
 
                             // using (new EditorGUILayout.HorizontalScope())
                             // {
@@ -1011,6 +1098,17 @@ namespace GameFeelDescriptions
                             //     }
                             // }
                         }
+                        
+                        if (ExpandedDescriptionNames[target.GetInstanceID()][index])
+                        {
+                            // ExpandedDescriptionNames[target.GetInstanceID()][index][1] =
+                            //     EditorGUILayout.Foldout(ExpandedDescriptionNames[target.GetInstanceID()][index][1], "Group Properties");
+                            //
+                            // if (ExpandedDescriptionNames[target.GetInstanceID()][index][1])
+                            // {
+                            DrawPropertyWithColor(propertyPath, highlightColor);
+                            // }
+                        }
 
                         if (GUI.Button(
                             new Rect(indented.x + indented.width - 50f, indented.y, 50f, indented.height),
@@ -1019,6 +1117,13 @@ namespace GameFeelDescriptions
                             PlusMenuDropdown(group);
                         }
 
+                        
+                        if (GUI.Button(new Rect(indented.x + indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, indented.y, 50f, indented.height),"Mutate"))
+                        {
+                            Undo.RecordObject(target, "Mutate " + (string.IsNullOrEmpty(group.GroupName) ? "EffectGroup" : group.GroupName));
+
+                            InteractiveEvolution.MutateGroup(group);
+                        }
 
                         for (var i = 0; i < group.EffectsToExecute.Count; i++)
                         {
@@ -1143,7 +1248,7 @@ namespace GameFeelDescriptions
                         // }
                         
                         ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
-                            new Rect(clickArea.x, clickArea.y, indented.width - 50f, clickArea.height),
+                            new Rect(clickArea.x, clickArea.y, indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, clickArea.height),
                             ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel, toggleOnLabel);
                     }
                     

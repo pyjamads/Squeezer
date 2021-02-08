@@ -8,6 +8,15 @@ namespace GameFeelDescriptions
 {
     public class GameFeelStartScript : GameFeelBehaviorBase<OnStartTrigger>
     {
+        [Header("Position offset, from transform.position")]
+        public Vector3 localPositionOffset;
+        
+        [Header("Is position offset relative to transform.forward")]
+        public bool useForwardForPositionOffset;
+        
+        [Header("Rotation offset, from transform.forward")]
+        public Vector3 forwardRotationOffset;
+
         private void Start()
         {
             if (Disabled) return;
@@ -29,10 +38,20 @@ namespace GameFeelDescriptions
                 HandleStepThroughMode(EffectGroups[i]);
 #endif
                 
+                var positionWithOffset = transform.position + localPositionOffset;
+
+                if (useForwardForPositionOffset)
+                {
+                    var qrt = Quaternion.LookRotation(transform.forward, transform.up);
+                    positionWithOffset = transform.position + qrt * localPositionOffset;
+                }
+
+                var positionDelta = new PositionalData(positionWithOffset, Quaternion.Euler(forwardRotationOffset) * transform.forward) { Origin = gameObject };
+
 #if UNITY_EDITOR
                 if (EditorApplication.isPlaying)
 #endif
-                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], new PositionalData(transform.position));
+                EffectGroups[i].InitializeAndQueueEffects(gameObject, targets[i], positionDelta);
             }
         }
     }

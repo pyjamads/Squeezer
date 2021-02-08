@@ -61,22 +61,20 @@ namespace GameFeelDescriptions
         }
 
         protected override bool TickTween()
-        {   
+        {
             SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
             
             //We never need to breakout early here.
             return false;
         }
 
-        protected override void ExecuteComplete()
+        public override void ExecuteCleanUp()
         {
             //This should always be the case!
             if (singletonCopy == this)
             {
                 singletonCopy = null;
             }
-            
-            base.ExecuteComplete();
         }
 
         public override bool CompareTo(GameFeelEffect other)

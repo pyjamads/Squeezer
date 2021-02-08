@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
+
 #if UNITY_EDITOR
-    using UnityEditor;
+using UnityEditor;
+using UnityEngine.SceneManagement;
 #endif
 
 namespace GameFeelDescriptions
@@ -122,10 +125,22 @@ namespace GameFeelDescriptions
 
 
         #if UNITY_EDITOR
-        [NonSerialized]
-        private List<GameObject> attachingTo;
+
+        [NonSerialized] private List<GameObject> attachingTo;
+        private const string effectPreviewScenePrefix = "EffectPreviewScene";
+        [NonSerialized] private Scene effectPreviewScene;
+        [NonSerialized] private bool effectPreviewSceneActive;
         
-        [ExecuteAlways]
+        //Preview effects settings!
+        [NonSerialized]
+        public bool PreviewExpanded = false;
+        
+        public bool PreviewEnabled = false;
+        public float PreviewCooldown = 2f;
+        public Vector3 PreviewDirection = Vector3.up;
+        public Vector3 PreviewPositionOffset = Vector3.zero;
+
+        // [ExecuteAlways]
         private void OnDrawGizmosSelected()
         {
             if (attachingTo == null || attachingTo.Count == 0)
@@ -152,7 +167,61 @@ namespace GameFeelDescriptions
                     Color.white,
                     Texture2D.whiteTexture, 
                     1f);
+                
+                //Preview arrow
+                if (PreviewExpanded)
+                {
+                    Gizmos.DrawSphere(attachPos + PreviewPositionOffset, 0.02f);
+                    Handles.ArrowHandleCap(0, attachPos + PreviewPositionOffset, Quaternion.LookRotation(PreviewDirection), 0.5f, EventType.Repaint);
+                }
             }
+            
+            
+
+            //Only Preview if one object is selected! (for now!)
+            // if (Selection.gameObjects.Length == 1 && Selection.gameObjects[0] == gameObject)
+            // {
+            //     var effectPreviewSceneName = effectPreviewScenePrefix + gameObject.GetInstanceID();
+            //     
+            //     //Handle loading and unloading the scene!
+            //     if (effectPreviewSceneActive == false)
+            //     {
+            //         //Create or Clear the preview scene
+            //         if (effectPreviewScene.IsValid() == false)
+            //         {
+            //             effectPreviewScene = EditorSceneManager.NewPreviewScene();
+            //             effectPreviewScene.name = effectPreviewSceneName;
+            //         }
+            //         else
+            //         {
+            //             var rootGameObjects = effectPreviewScene.GetRootGameObjects();
+            //             foreach (var rootGameObject in rootGameObjects)
+            //             {
+            //                 Destroy(rootGameObject);
+            //             }
+            //         }
+            //     
+            //         //Load the preview scene
+            //         //SceneManager.LoadScene(effectPreviewSceneName);
+            //
+            //         // Selection.selectionChanged += () =>
+            //         // {
+            //         //     //unload preview scene
+            //         //     SceneManager.UnloadSceneAsync(effectPreviewScene);
+            //         //     effectPreviewSceneActive = false;
+            //         // };
+            //
+            //         effectPreviewSceneActive = true;
+            //     }
+            //
+            //     //Execute the effects of Trigger[0] if the scene has been loaded!
+            //     if (effectPreviewScene.isLoaded)
+            //     {
+            //         
+            //     }
+            //     
+            // }
+            
         }
         #endif
 
@@ -390,3 +459,4 @@ namespace GameFeelDescriptions
         #endregion
     }
 }
+
