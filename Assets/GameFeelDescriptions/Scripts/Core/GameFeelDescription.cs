@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Rendering;
-
+using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine.SceneManagement;
@@ -135,8 +135,8 @@ namespace GameFeelDescriptions
         [NonSerialized]
         public bool PreviewExpanded = false;
         
-        public bool PreviewEnabled = false;
-        public float PreviewCooldown = 2f;
+        [FormerlySerializedAs("PreviewEnabled")] public int PreviewMode = 0;
+        [FormerlySerializedAs("PreviewCooldown")] public float PreviewTriggerInterval = -1f;
         public Vector3 PreviewDirection = Vector3.up;
         public Vector3 PreviewPositionOffset = Vector3.zero;
 
@@ -352,7 +352,9 @@ namespace GameFeelDescriptions
         {
             while(attachedTriggers.Count > 0)
             {
-                DestroyImmediate(attachedTriggers[0]);
+                var temp = attachedTriggers[0];
+                attachedTriggers.RemoveAt(0);
+                DestroyImmediate(temp);
             }
         }
         #endregion

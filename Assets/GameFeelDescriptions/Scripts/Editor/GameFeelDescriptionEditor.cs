@@ -50,11 +50,41 @@ namespace GameFeelDescriptions
         private GameObject previewObject;
         private float LastPreviewTime = 0;
         
-        private Scene theScene;
+        //private Scene theScene;
 
         private void OnEnable()
         {
             Init();
+            
+            Selection.selectionChanged += ClearLingeringPreview;
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
+
+        private void OnDestroy()
+        {
+            Selection.selectionChanged -= ClearLingeringPreview;
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        }
+
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingEditMode)
+            {
+               ClearLingeringPreview();
+            }
+            else if (state == PlayModeStateChange.EnteredEditMode)
+            {
+                GameFeelEffectExecutor.DestroyInstance();
+                GameFeelEffectExecutor.applicationIsQuitting = false;
+            }
+        }
+        
+        private void ClearLingeringPreview()
+        {
+            if ((target as GameFeelDescription)?.PreviewMode == 1)
+            {
+                GameFeelEffectExecutor.DestroyInstance();
+            }
         }
         
         public override bool RequiresConstantRepaint()
@@ -135,7 +165,7 @@ namespace GameFeelDescriptions
             var gameFeelDescription = (GameFeelDescription) target;
             
             //note the scene!
-            theScene = gameFeelDescription.gameObject.scene;
+            //theScene = gameFeelDescription.gameObject.scene;
 
             var style = new GUIStyle();
             style.border = new RectOffset(5,5,5,5);
@@ -565,7 +595,7 @@ namespace GameFeelDescriptions
 
             var toggleOnLabel = false;
             
-            #if UNITY_2019_4
+            #if UNITY_2019_4 //_OR_NEWER ...TODO: test this with different versions 2021-02-15
                 toggleOnLabel = true;
             #endif
             
@@ -631,96 +661,197 @@ namespace GameFeelDescriptions
                     
                     GUILayout.Space(20);
 
-
-
-                    desc.PreviewExpanded = EditorGUILayout.Foldout(desc.PreviewExpanded,
-                        desc.PreviewExpanded
-                            ? "Preview settings:"
-                            : "Continuous Preview [" + (desc.PreviewEnabled ? "ON] Cooldown [" + desc.PreviewCooldown.ToString("F1") + "s]" : "OFF]")
-                        , true, EditorStyles.foldoutHeader);
-                    //GUILayout.Label("Preview settings:", EditorStyles.boldLabel);
-
-                    if (desc.PreviewExpanded)
+                    if (!EditorApplication.isPlayingOrWillChangePlaymode)
                     {
-                        EditorGUI.BeginChangeCheck();
-                        desc.PreviewEnabled = EditorGUILayout.Toggle("Enabled", desc.PreviewEnabled);
-                        if (EditorGUI.EndChangeCheck())
-                        {
-                            EditorApplication.QueuePlayerLoopUpdate();
-                        }
-                        desc.PreviewCooldown = EditorGUILayout.FloatField("Cooldown", desc.PreviewCooldown);
-                        desc.PreviewDirection = EditorGUILayout.Vector3Field("Direction", desc.PreviewDirection);
-                        desc.PreviewPositionOffset = EditorGUILayout.Vector3Field("Position Offset", desc.PreviewPositionOffset);
+                        var previewString = "Preview settings:";
 
-                        if (previewObject != null && GUILayout.Button("Reset Preview Object!"))
+                        if (!desc.PreviewExpanded)
                         {
-                            previewObject.SetActive(true);
-                            previewObject = null;
-                            GameFeelEffectExecutor.DestroyInstance();
-                            //TODO: this is a bunch of faking ... but it kinda works!
-                        }
+                            previewString = "Preview [";
 
-                        if (GUILayout.Button("Toggle object visibility"))
-                        {
-                            if (EditorWindow.HasOpenInstances<PreviewWindow>() && PreviewWindow.target != null)
+                            if (desc.PreviewTriggerInterval > 0 && desc.PreviewMode > 0)
                             {
-                                //TODO: make this better, maybe as a preview setting, so it just doesn't copy it over. 2021-02-08
-                                //NOTE: very confusing the way this makes it scale down, and fade out, instead of just disappearing. 
-                                PreviewWindow.target.SetActive(!PreviewWindow.target.activeSelf);
-                            }
-                        }
-                    }
-                    
-                    
-                    if(desc.PreviewEnabled && Time.realtimeSinceStartup - LastPreviewTime > desc.PreviewCooldown)
-                    {
-                        LastPreviewTime = Time.realtimeSinceStartup;
-
-                        var targetInAList = new List<GameObject>();
-                        if (EditorWindow.HasOpenInstances<PreviewWindow>() && PreviewWindow.target != null)
-                        {
-                            targetInAList.Add(PreviewWindow.target);
-                        }
-                        
-                        //Grab the first available attachTarget.
-                        if(targetInAList.Count == 0)
-                        {
-                            //Grab the first available attachTarget.
-                            var attachTargets = desc.FindGameObjectsToAttach();
-                
-                            if (attachTargets.Count > 0)
-                            {
-                                targetInAList = attachTargets.GetRange(0, 1);
-
-                                targetInAList[0] = Instantiate(targetInAList[0], GameFeelEffectExecutor.Instance.transform, true);
-                    
-                                // Undo.RecordObject(attachTargets[0], "preview effect");
-                                // //TODO: maybe hide the original object, and show it again after the preview is done!
-                                // previewObject = attachTargets[0];
-                                // previewObject.SetActive(false);
-                            }
-                        }
-
-                        foreach (var trigger in desc.TriggerList)
-                        {
-                            foreach (var effectGroup in trigger.EffectGroups)
-                            {
-                                var position = Vector3.zero;
-                                if (targetInAList.Count > 0)
+                                if (desc.PreviewMode == 1)
                                 {
-                                    position = targetInAList[0].transform.position;
+                                    previewString += "SCENE";
+                                }
+                                else
+                                {
+                                    previewString += "WINDOW";
                                 }
 
-                                effectGroup.InitializeAndQueueEffects(null, targetInAList,
-                                    new PositionalData(
-                                        position + desc.PreviewPositionOffset,
-                                        desc.PreviewDirection));
+                                previewString += "] Trigger Interval [" + desc.PreviewTriggerInterval.ToString("F1") +
+                                                 "s]";
+                            }
+                            else
+                            {
+                                //NOTE: Maybe it's okay to leave "OFF" as "Manual", but this forces you to make a choice!
+                                if (desc.PreviewMode > 0)
+                                {
+                                    previewString += "MANUAL]";
+                                }
+                                else
+                                {
+                                    previewString += "OFF]";
+                                }
+                            }
+
+                            previewString += " (expand for more settings):";
+                        }
+
+
+
+                        desc.PreviewExpanded = EditorGUILayout.Foldout(desc.PreviewExpanded,
+                            previewString, true, EditorStyles.foldoutHeader);
+                        //GUILayout.Label("Preview settings:", EditorStyles.boldLabel);
+
+                        if (desc.PreviewExpanded)
+                        {
+                            desc.PreviewTriggerInterval = EditorGUILayout.FloatField(
+                                "Trigger Interval" + ((desc.PreviewTriggerInterval <= 0)
+                                    ? " (Automatic for values > 0)"
+                                    : " (Manual for values <= 0)"), desc.PreviewTriggerInterval);
+                            desc.PreviewDirection = EditorGUILayout.Vector3Field("Direction", desc.PreviewDirection);
+                            desc.PreviewPositionOffset =
+                                EditorGUILayout.Vector3Field("Position Offset", desc.PreviewPositionOffset);
+
+                            if (desc.PreviewMode == 1 && previewObject != null && GUILayout.Button("Reset Preview Object!"))
+                            {
+                                //Hard reset the scene target object!
+                                DestroyImmediate(previewObject);
+                                previewObject = null;
+                                GameFeelEffectExecutor.DestroyInstance();
+                            }
+                            else if (desc.PreviewMode == 2 && GUILayout.Button("Reset Preview!"))
+                            {
+                                //Hard reset the window!
+                                if (EditorWindow.HasOpenInstances<PreviewWindow>())
+                                {
+                                    EditorWindow.GetWindow<PreviewWindow>().Close();
+                                }
+                            }
+
+                            if (GUILayout.Button("Toggle object visibility"))
+                            {
+                                if (EditorWindow.HasOpenInstances<PreviewWindow>() && PreviewWindow.target != null)
+                                {
+                                    //TODO: make this better, maybe as a preview setting, so it just doesn't copy it over. 2021-02-08
+                                    //NOTE: very confusing the way this makes it scale down, and fade out, instead of just disappearing. (seems to only happen when we are running preview)
+                                    PreviewWindow.target.SetActive(!PreviewWindow.target.activeSelf);
+                                }
+                            }
+                        }
+
+                        using (new EditorGUILayout.HorizontalScope())
+                        {
+                            EditorGUILayout.HelpBox(new GUIContent(
+                                "Scene Mode previews the effect directly in the scene. " +
+                                "\nThis will alter the scene itself, which can lead to lingering " +
+                                "\nObject Transformations, Color Changes and Components."));
+
+                            EditorGUILayout.HelpBox(new GUIContent("Preview Window Mode opens a preview scene " +
+                                                                   "\nwith a copy og the target object. Known Issues: " +
+                                                                   "\nCamera Shake and targeting Tags / Component type in Effect Groups."));
+                        }
+
+                        EditorGUI.BeginChangeCheck();
+                        var previewModeTemp = desc.PreviewMode;
+                        desc.PreviewMode = GUILayout.Toolbar(desc.PreviewMode,
+                            new[] {"Off", "Scene Mode", "Preview Window"});
+
+                        if (EditorGUI.EndChangeCheck())
+                        {
+                            //If it changed and came from Scene Mode, clear lingering effects.
+                            if (previewModeTemp == 1)
+                            {
+                                GameFeelEffectExecutor.ClearLingeringEffects();
+                            }
+                            //If it changed and came from Preview window, clear/close that window.
+                            else if (previewModeTemp == 2)
+                            {
+                                if (EditorWindow.HasOpenInstances<PreviewWindow>())
+                                {
+                                    var window = EditorWindow.GetWindow<PreviewWindow>();
+                                    window.Close();
+                                }
+                            }
+
+                            if (desc.PreviewMode > 0)
+                            {
+                                EditorApplication.QueuePlayerLoopUpdate();
+                            }
+                        }
+
+                        //Always do this check, in order to open the window, when switching to a different description.
+                        if (desc.PreviewMode == 2 && !EditorWindow.HasOpenInstances<PreviewWindow>())
+                        {
+                            //var window = EditorWindow.GetWindow<PreviewWindow>();
+                            PreviewWindow.ShowWindow();
+                        }
+
+
+                        if (desc.PreviewTriggerInterval > 0 && desc.PreviewMode > 0 &&
+                            Time.realtimeSinceStartup - LastPreviewTime > desc.PreviewTriggerInterval)
+                        {
+                            LastPreviewTime = Time.realtimeSinceStartup;
+
+                            var targetInAList = new List<GameObject>();
+                            if (desc.PreviewMode == 2 && PreviewWindow.target != null)
+                            {
+                                targetInAList.Add(PreviewWindow.target);
+                            }
+                            else if(desc.PreviewMode == 1 && previewObject != null)
+                            {
+                                targetInAList.Add(previewObject);
+                            }
+
+                            //Grab the first available attachTarget.
+                            if (targetInAList.Count == 0)
+                            {
+                                //Grab the first available attachTarget.
+                                var attachTargets = desc.FindGameObjectsToAttach();
+
+                                if (attachTargets.Count > 0)
+                                {
+                                    targetInAList = attachTargets.GetRange(0, 1);
+
+                                    targetInAList[0] = Instantiate(targetInAList[0],
+                                        GameFeelEffectExecutor.Instance.transform, true);
+
+                                    //In Scene Mode
+                                    if (desc.PreviewMode == 1)
+                                    {
+                                        //Uniformly Scale the object up a tiny bit, so it "hides" the original object.  
+                                        targetInAList[0].transform.localScale *= 1.001f;
+                                        previewObject = targetInAList[0];
+                                    }
+                                }
+                            }
+
+                            foreach (var trigger in desc.TriggerList)
+                            {
+                                foreach (var effectGroup in trigger.EffectGroups)
+                                {
+                                    var position = Vector3.zero;
+                                    if (targetInAList.Count > 0)
+                                    {
+                                        position = targetInAList[0].transform.position;
+                                    }
+
+                                    effectGroup.InitializeAndQueueEffects(null, targetInAList,
+                                        new PositionalData(
+                                            position + desc.PreviewPositionOffset,
+                                            desc.PreviewDirection));
+                                }
                             }
                         }
                     }
-                    
-                    
+                    else
+                    {
+                        GUILayout.Label("Preview Disabled during PlayMode!");
+                    }
                     GUILayout.Space(20);
+                    
 
                     GUILayout.Label("Effect Tree (Click elements to edit, or right click for options):", EditorStyles.boldLabel);
 
@@ -864,13 +995,18 @@ namespace GameFeelDescriptions
                         //     RemovePropertyCallback();
                         // }
                         
-                        if (GUI.Button(new Rect(indented.x + indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, indented.y, 50f, indented.height),">"))
+                        var desc = (GameFeelDescription)target;
+                        
+                        if (desc.PreviewMode > 0 && GUI.Button(new Rect(indented.x + indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, indented.y, 50f, indented.height),">"))
                         {
+                            //If there's no lingering effects
+                            if (GameFeelEffectExecutor.Instance.activeEffects.Count == 0)
+                            {
+                                GameFeelEffectExecutor.DestroyInstance();
+                            }
                             
                             //Ignore resetting the state for now! TODO: actually reset the state or use a preview window!
 
-                            var desc = (GameFeelDescription)target;
-                        
                             var targetInAList = new List<GameObject>();
                             if (EditorWindow.HasOpenInstances<PreviewWindow>() && PreviewWindow.target != null)
                             {
@@ -887,11 +1023,18 @@ namespace GameFeelDescriptions
                                     targetInAList = attachTargets.GetRange(0, 1);
 
                                     targetInAList[0] = Instantiate(targetInAList[0], GameFeelEffectExecutor.Instance.transform, true);
-                                
-                                    Undo.RecordObject(attachTargets[0], "preview effect");
-                                    //TODO: maybe hide the original object, and show it again after the preview is done!
-                                    previewObject = attachTargets[0];
-                                    previewObject.SetActive(false);
+                                    
+                                    //In Scene Mode
+                                    if (desc.PreviewMode == 1)
+                                    {
+                                        //Uniformly Scale the object up a tiny bit, so it "hides" the original object.  
+                                        targetInAList[0].transform.localScale *= 1.001f;    
+                                    }
+                                    
+                                    // Undo.RecordObject(attachTargets[0], "preview effect");
+                                    // //TODO: maybe hide the original object, and show it again after the preview is done!
+                                    // previewObject = attachTargets[0];
+                                    // previewObject.SetActive(false);
                                 }
                             }
                             

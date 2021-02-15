@@ -47,7 +47,7 @@ namespace GameFeelDescriptions
         /// <summary>
         /// disallow spawning new instances when application is shutting down.
         /// </summary>
-        private static bool applicationIsQuitting;
+        public static bool applicationIsQuitting;
 
         /// <summary>
         /// Determines whether to clear the current active tweens when a new level is loaded.
@@ -80,10 +80,8 @@ namespace GameFeelDescriptions
                     var obj = new GameObject("GameFeelEffectExecution");
                     instance = obj.AddComponent<GameFeelEffectExecutor>();
                 }
-
-
-#if UNITY_EDITOR
                 
+#if UNITY_EDITOR
                 if(EditorApplication.isPlayingOrWillChangePlaymode)
 #endif
                 {
@@ -144,7 +142,6 @@ namespace GameFeelDescriptions
         public void OnDestroy()
         {
             OnCustomEventTriggered = null;
-
 
             EditorApplication.update -= Update;
         }
@@ -300,62 +297,66 @@ namespace GameFeelDescriptions
 
         public static GameObject Instantiate(PrimitiveType primitive)
         {
-            var editMode = false;
-            
-#if UNITY_EDITOR
-            editMode = EditorApplication.isPlayingOrWillChangePlaymode == false;
-#endif
-      
-            //Only try to use preview, when running from the editor, and not in playmode.
-            if (editMode)
-            {
+            //NOTE: Commented out, because we now simply move the executor into the preview scene.
+//             var editMode = false;
+//             
+// #if UNITY_EDITOR
+//             editMode = EditorApplication.isPlayingOrWillChangePlaymode == false;
+// #endif
+//       
+//             //Only try to use preview, when running from the editor, and not in playmode.
+//             if (editMode)
+//             {
+//                 var gameObject = GameObject.CreatePrimitive(primitive);
+//                 gameObject.transform.parent = Instance.transform;
+//                 
+//                 
+//                 //NOTE: Move the intantiated object to the preview scene, when previewing! 
+//                 // if (previewScene.IsValid())
+//                 // {
+//                 //     SceneManager.MoveGameObjectToScene(gameObject, previewScene);
+//                 // }
+//
+//                 return gameObject;
+//             }
+//             else
+//             {
                 var gameObject = GameObject.CreatePrimitive(primitive);
                 gameObject.transform.parent = Instance.transform;
-                
-                //NOTE: Move the intantiated object to the preview scene, when previewing! 
-                // if (previewScene.IsValid())
-                // {
-                //     SceneManager.MoveGameObjectToScene(gameObject, previewScene);
-                // }
 
                 return gameObject;
-            }
-            else
-            {
-                var gameObject = GameObject.CreatePrimitive(primitive);
-                gameObject.transform.parent = Instance.transform;
-
-                return gameObject;
-            }
+            // }
         }
         
         public static GameObject Instantiate(GameObject prefab)
         {
-            var editMode = false;
-            
-#if UNITY_EDITOR
-            editMode = EditorApplication.isPlayingOrWillChangePlaymode == false;
-#endif
-      
-            //Only try to use preview, when running from the editor, and not in playmode.
-            if (editMode)
-            {
+            //NOTE: Commented out, because we now simply move the executor into the preview scene.
+//             var editMode = false;
+//             
+// #if UNITY_EDITOR
+//             editMode = EditorApplication.isPlayingOrWillChangePlaymode == false;
+// #endif
+//       
+//             //Only try to use preview, when running from the editor, and not in playmode.
+//             if (editMode)
+//             {
+//                 var gameObject = GameObject.Instantiate(prefab, Instance.transform);
+//
+//                  
+//                 //NOTE: Move the intantiated object to the preview scene, when previewing! 
+//                 // if (previewScene.IsValid())
+//                 // {
+//                 //     SceneManager.MoveGameObjectToScene(gameObject, previewScene);
+//                 // }
+//
+//                 return gameObject;
+//             }
+//             else
+//             {
                 var gameObject = GameObject.Instantiate(prefab, Instance.transform);
 
-                //NOTE: Move the intantiated object to the preview scene, when previewing! 
-                // if (previewScene.IsValid())
-                // {
-                //     SceneManager.MoveGameObjectToScene(gameObject, previewScene);
-                // }
-
                 return gameObject;
-            }
-            else
-            {
-                var gameObject = GameObject.Instantiate(prefab, Instance.transform);
-
-                return gameObject;
-            }
+            // }
             
         }
         

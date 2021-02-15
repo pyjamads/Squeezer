@@ -3,6 +3,7 @@ using GameFeelDescriptions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 
@@ -35,7 +36,7 @@ public class PreviewWindow : SceneView
     public static void ShowWindow()
     {
         // Create the window
-        PreviewWindow window = CreateWindow<PreviewWindow>();
+        PreviewWindow window = GetWindow<PreviewWindow>(typeof(SceneView));
  
         // Get the object you're selecting in the Unity Editor
         window.titleContent = window.GetName();
@@ -62,12 +63,12 @@ public class PreviewWindow : SceneView
  
     public override void OnEnable()
     {
-        base.OnEnable();
-
         // Set title name
         titleContent = GetName();
 
         Selection.selectionChanged += OnSelectionChanged;
+        
+        base.OnEnable();
     }
 
     // private void OnFocus()
@@ -114,10 +115,21 @@ public class PreviewWindow : SceneView
             var desc = go.GetComponent<GameFeelDescription>();
             if (desc != null)
             {
-                selectedDescription = desc;
+                //If preview mode is not preview window, close the window.
+                if (desc.PreviewMode != 2)
+                {
+                    Close();
+                    return;
+                }
 
-                //Refresh the preview scene!
-                SetupScene();
+                //If selection changed back to the same description, we don't need to reset the view!
+                if (selectedDescription != desc)
+                {
+                    selectedDescription = desc;
+
+                    //Refresh the preview scene!
+                    SetupScene();    
+                }
             }
         }
     }
@@ -144,30 +156,37 @@ public class PreviewWindow : SceneView
         //Move lighting obj into scene
         EditorSceneManager.MoveGameObjectToScene(lightingObj, customScene);
 
+        //TODO: try inserting the camera from the main scene, and set it as Camera.main ... also maybe align with main view!! 2021-02-15
+        
         // Create the object we're selecting
         var attachedObjects = selectedDescription.FindGameObjectsToAttach();
         if (attachedObjects.Count == 0)
         {
-            //TODO: make a primitive or search of the object in prefabs or something... 2021-02-08
-            return;
+            //TODO: consider searching for the object in prefabs or something... 2021-02-15
+            //First round: a primitive cuboid with different scales.
+            var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            gameObject.transform.localScale = new Vector3(0.5f, 1f, 0.2f);
+
+            target = gameObject;
+        }
+        else
+        {
+            target = Instantiate(attachedObjects[0]);
         }
         
-        target = Instantiate(attachedObjects[0]);
- 
         // Move the objects to the preview scene
         EditorSceneManager.MoveGameObjectToScene(target, customScene);
         
-        //Ignore this selection change!
-        //var tempSelection = Selection.activeObject;
-        //Selection.activeObject = obj;
-        
-        //titleContent = GetName();
-
         // Zoom the scene view into the new object
         //TODO: FrameSelection better!
         var biggerBounds = target.transform.lossyScale;
         biggerBounds *= 2f;
-        Frame(new Bounds(target.transform.position, biggerBounds));
+
+        biggerBounds.x += Mathf.Abs(selectedDescription.PreviewPositionOffset.x);
+        biggerBounds.y += Mathf.Abs(selectedDescription.PreviewPositionOffset.y);
+        biggerBounds.z += Mathf.Abs(selectedDescription.PreviewPositionOffset.z);
+        
+        Frame(new Bounds(target.transform.position + selectedDescription.PreviewPositionOffset, biggerBounds));
 
 
         //Selection.activeObject = tempSelection;
