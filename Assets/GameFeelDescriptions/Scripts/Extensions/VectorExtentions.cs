@@ -45,6 +45,27 @@ namespace GameFeelDescriptions
         {
             return new Vector3(vec.x * scaleBy.x, vec.y * scaleBy.y, vec.z * scaleBy.z);
         }
+
+        public static Vector3 QuadrantAlign(this Vector3 vec, Vector3 alignTo)
+        {
+            var result = new Vector3(vec.x, vec.y, vec.z);
+            if (Mathf.Sign(vec.x) != Mathf.Sign(alignTo.x))
+            {
+                result.x = -1 * vec.x;
+            }
+            
+            if (Mathf.Sign(vec.y) != Mathf.Sign(alignTo.y))
+            {
+                result.y = -1 * vec.y;
+            }
+            
+            if (Mathf.Sign(vec.z) != Mathf.Sign(alignTo.z))
+            {
+                result.z = -1 * vec.z;
+            }
+
+            return result;
+        }
         
         public static float getAvg(this Vector3 vec)
         {

@@ -1,17 +1,13 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
-using Random = UnityEngine.Random;
 
 namespace GameFeelDescriptions
 {
-    public class ParticlePuffEffect : SpawningGameFeelEffect
+    public class ParticleScatterEffect : SpawningGameFeelEffect
     {
-        public ParticlePuffEffect()
+        public ParticleScatterEffect()
         {
-            Description = "Particle puff creates a cloud of particles emanating from a point/area, in a selected shape.";
+            Description = "Particle scatter creates an amount of particles in a scatter pattern based on the direction of the interaction and the angle settings.";
             
             //NOTE: these probably have to be added during construction!
             //TODO: Add rotation, scaling, coloring and velocity over the lifetime 2020-09-16
@@ -51,17 +47,6 @@ namespace GameFeelDescriptions
             //TODO: adjust velocity over time... 2020-09-16 
         }
 
-        public enum PuffShapes
-        {
-            SemiSphere, //Normal based half sphere
-            InverseSemiSphere, //Inverted Normal based half sphere
-            Cylinder, //Normal based half sphere, with extra height.
-            Sphere, //Sphere.
-            ConeFlat, //Cone shape, expanding in normal direction
-            ConeRound, //Cone shape, expanding in normal direction
-            InverseCone, //Inverted Cone shape, pointy end in normal direction
-        }
-
         [Tooltip(
             "Number of Pieces to spawn, if amount is different from the items in the list, they will be randomly chosen.")]
         public int AmountOfParticles = Random.Range(5, 10);
@@ -75,17 +60,6 @@ namespace GameFeelDescriptions
         [HideFieldIf("usePrimitiveParticles", false)]
         public PrimitiveType ParticlePrimitive;
 
-        //TODO: make this scale "exponential" in nature,
-        //TODO: 1-3 is the footfall to land like effects,
-        //TODO: 4-6 also adds shaking and color changes etc,
-        //TODO: 7-9 debris and positionalFlashes,
-        //TODO: 10 NUKE!
-        // [Range(1, 10)] 
-        // public int Magnitude = Random.Range(1, 11);
-        
-        [Tooltip("The shape of the particle blast")]
-        public PuffShapes ExpansionShape = EnumExtensions.GetRandomValue<PuffShapes>();
-        
         [DisableFieldIf("setParticleForward", true)]
         [Header("Set the particle's transform.up to the expansion direction.")]
         public bool setParticleUp = true;
@@ -94,26 +68,27 @@ namespace GameFeelDescriptions
         [Header("Set the particle's transform.forward to the expansion direction.")]
         public bool setParticleForward;
         
+        //[AdjustableRange(0, 360, lockMin = true, lockMax = true)]
+        public Vector3 ScatterAngle = Vector3.one * Random.Range(0, 360);
+
         [Header("The size of the area to spawn particles in.")]
         public Vector3 Area = Vector3.zero;
-        
-        [Tooltip("The height of the shape, in the normal direction")]
+
+        [Header("The initial speed of the particle.")]
         [AdjustableRange(0.01f, 5f, lockMin = true)]
-        public float Height = Random.Range(0.1f, 2f);
+        public float Speed = Random.Range(0.1f, 2f);
         
-        [AdjustableRange(0.01f, 5f, lockMin = true)]
-        public float Radius = Random.Range(0.1f, 2f);
+        [Header("The deceleration of the particle each time step. (negative values = acceleration)")]
+        [AdjustableRange(-0.1f, 0.1f)]
+        public float Drag = Random.Range(0.02f, 0.1f);
+
+        public bool ApplyGravity = false;
 
         //Size of the puff, max size determined by Magnitude
         //[DynamicRange(0.01f, "Magnitude")]
         [AdjustableRange(0.01f, 5f, lockMin = true)]
         public float ParticleScale = Random.Range(0.1f, 1.5f);
         
-        //Duration slider min/max duration can be adjusted, but it can never be set to a negative number.
-        [AdjustableRange(0.01f, 1f, lockMin = true)]
-        public float ParticleLifetime = Random.Range(0.1f, 1.5f);
-
-
         public override void Mutate(float amount = 0.05f)
         {
             base.Mutate(amount);
@@ -135,11 +110,6 @@ namespace GameFeelDescriptions
 
             if (RandomExtensions.Boolean(amount))
             {
-                ExpansionShape = EnumExtensions.GetRandomValue<PuffShapes>();
-            }
-
-            if (RandomExtensions.Boolean(amount))
-            {
                 setParticleForward = !setParticleForward;
             }
 
@@ -150,12 +120,12 @@ namespace GameFeelDescriptions
 
             if (RandomExtensions.Boolean())
             {
-                Height = Mathf.Max(0.1f, Height + RandomExtensions.MutationAmount(amount));    
+                Speed = Mathf.Max(0.01f, Speed + RandomExtensions.MutationAmount(amount));    
             }
 
             if (RandomExtensions.Boolean())
             {
-                Radius = Mathf.Max(0.1f, Radius + RandomExtensions.MutationAmount(amount));
+                Drag = Mathf.Max(-1f, Drag + RandomExtensions.MutationAmount(amount));
             }
 
             if (RandomExtensions.Boolean())
@@ -165,28 +135,33 @@ namespace GameFeelDescriptions
 
             if (RandomExtensions.Boolean())
             {
-                ParticleLifetime = Mathf.Max(0.1f, ParticleLifetime + RandomExtensions.MutationAmount(amount));
+                ScatterAngle.x = Mathf.Max(0, Mathf.RoundToInt(ScatterAngle.x + RandomExtensions.MutationAmount(amount, ScatterAngle.x)));
+                ScatterAngle.y = Mathf.Max(0, Mathf.RoundToInt(ScatterAngle.y + RandomExtensions.MutationAmount(amount, ScatterAngle.y)));
+                ScatterAngle.z = Mathf.Max(0, Mathf.RoundToInt(ScatterAngle.z + RandomExtensions.MutationAmount(amount, ScatterAngle.z)));
             }
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
             GameFeelTriggerData triggerData)
         {
-            var cp = new ParticlePuffEffect();
+            var cp = new ParticleScatterEffect();
             
             cp.ParticlePrefabs = ParticlePrefabs;
             cp.AmountOfParticles = AmountOfParticles;
             cp.usePrimitiveParticles = usePrimitiveParticles;
             cp.ParticlePrimitive = ParticlePrimitive;
-
-            cp.ExpansionShape = ExpansionShape;
+            
             cp.setParticleUp = setParticleUp;
             cp.setParticleForward = setParticleForward;
             cp.Area = Area;
-            cp.Height = Height;
-            cp.Radius = Radius;
+            cp.Speed = Speed;
+            cp.Drag = Drag;
+            cp.ApplyGravity = ApplyGravity;
+            cp.ScatterAngle = ScatterAngle;
             cp.ParticleScale = ParticleScale;
-            cp.ParticleLifetime = ParticleLifetime;
+
+            
+            
 
             if (target != null)
             {
@@ -246,10 +221,7 @@ namespace GameFeelDescriptions
                 //NOTE: this normalization might not be necessary.
                 normal = directionalData.DirectionDelta.normalized;
             }
-            
-            //Make triggerData for particles
-            //var particleTriggerData = new DirectionalData(normal){ InCollisionUpdate = triggerData.InCollisionUpdate };
-            
+
             //STEP 2: Spawn primitives or prefabs.
             var particles = new List<GameObject>();
             
@@ -343,194 +315,29 @@ namespace GameFeelDescriptions
                 //STEP 3: Get random directions on the tangent plane from position + direction (maybe add a fraction of the direction vector as well), and set them on their way
                 //Normal direction Fallback: Random.onUnitSphere per piece
                 //Add the movement either as a translation effect
-                var translate = new TranslateEffect();
-                translate.relative = true;
+                // var translate = new TranslateEffect();
+                // translate.relative = true;
+
+                var angleX = RandomExtensions.MutationAmount(ScatterAngle.x/2f);
+                var angleY = RandomExtensions.MutationAmount(ScatterAngle.y/2f);
+                var angleZ = RandomExtensions.MutationAmount(ScatterAngle.z/2f);
+                var quat = Quaternion.Euler(angleX, angleY, angleZ);
                 
-                var direction = Random.onUnitSphere * Radius;
+                var direction = quat * normal;
 
-                //NOTE: Sphere and SemiSphere does not take Height into account.
-                switch (ExpansionShape)
-                {
-                    case PuffShapes.SemiSphere:
-                    {
-                        //If the direction is opposite the normal, flip it!
-                        if (Vector3.Dot(direction, normal) < 0)
-                        {
-                            direction *= -1f;
-                        }
-                        
-                        var dot = Vector3.Dot(direction, normal);
-                        
-                        //Scale the Normal, based on the projection onto the normal (meaning scale more towards the center).
-                        var normalScaled = normal * dot;
-                        
-                        //Adjust the scaling based on the height.
-                        normalScaled *= Height - 1f;
-                        
-                        direction += normalScaled;
-
-                        break;
-                    }
-                    case PuffShapes.Sphere:
-                    {
-                        var dot = Vector3.Dot(direction, normal);
-                        
-                        //Scale the Normal, based on the projection onto the normal (meaning scale more towards the center).
-                        var normalScaled = normal * dot;
-                        
-                        //Adjust the scaling based on the height.
-                        normalScaled *= Height - 1f;
-                        
-                        direction += normalScaled;
-
-                        break;
-                    }
-                    case PuffShapes.InverseSemiSphere:
-                    {
-                        //If the direction is same as the normal, flip it!
-                        if (Vector3.Dot(direction, normal) > 0)
-                        {
-                            direction *= -1f;
-                        }
-                        
-                        //Then move it up by the radius.
-                        var normalScaled = Radius * normal;
-                        direction += normalScaled;
-                        
-                        //Lastly squish it by the dot projection.
-                        var dot = Vector3.Dot(direction, normal);
-                        
-                        //Scale the Normal, based on the projection onto the normal (meaning scale more towards the center).
-                        normalScaled = normal * dot;
-                        
-                        //Adjust the scaling based on the height.
-                        normalScaled *= Height - 1f;
-                        
-                        direction += normalScaled;
-
-                        break;
-                    }
-                    //TODO: maybe make this flat wide semi circle an option as well! 2020-09-23
-                    // case PuffShapes.: //Flat-Wide semi circle..
-                    // {
-                    //     //If the direction is opposite the normal, flip it!
-                    //     if (Vector3.Dot(direction, normal) < 0)
-                    //     {
-                    //         direction *= -1f;
-                    //     }
-                    //     
-                    //     var dot = Vector3.Dot(direction, normal);
-                    //     
-                    //     //Scale the Normal, based on the projection onto the normal (meaning scale more towards the center).
-                    //     var normalScaled = normal * dot;
-                    //     
-                    //     //Adjust the scaling based on the height.
-                    //     normalScaled *= (Height - dot) * Radius; //this plus R=2 and H=1 results in reverseSemiSphere
-                    //
-                    //     direction += normalScaled;
-                    //
-                    //     break;
-                    // }
-                    case PuffShapes.Cylinder:
-                    {
-                        //If the direction is opposite the normal, flip it!
-                        if (Vector3.Dot(direction, normal) < 0)
-                        {
-                            direction *= -1f;
-                        }
-
-                        //First make the semi-sphere into a disc. 
-                        var dot = Vector3.Dot(direction, normal);
-                        
-                        //Scale the normal based on the directions projection onto the normal
-                        //We add this to the directions, to make the shape completely flat, at the "Height". 
-                        var normalScaled = normal * (Height - dot);
-                        direction += normalScaled;
-
-                        //And remove a random amount of normal * height, this makes a Cylinder shape with a flat top.
-                        direction -= normal * Height * Random.value;
-
-                        break;
-                    }
-                    case PuffShapes.ConeFlat:
-                    {
-                        //If the direction is opposite the normal, flip it!
-                        if (Vector3.Dot(direction, normal) < 0)
-                        {
-                            direction *= -1f;
-                        }
-                        
-                        //First make the semi-sphere into a disc. 
-                        var dot = Vector3.Dot(direction, normal);
-                        
-                        //Scale the normal based on the directions projection onto the normal
-                        //We add this to the directions, to make the shape completely flat, at the bottom. 
-                        var normalScaled = normal * -dot;
-                        direction += normalScaled;
-
-                        //Move up to the height, based on how close it is to the center.
-                        direction += normal * Height * direction.magnitude + normal * ParticleScale * 0.5f;
-                        
-                        break;
-                    }
-                    case PuffShapes.ConeRound:
-                    {
-                        //If the direction is opposite the normal, flip it!
-                        if (Vector3.Dot(direction, normal) < 0)
-                        {
-                            direction *= -1f;
-                        }
-                        
-                        //And add the normal, this makes a small semi-sphere at the end of the normal,
-                        //which makes a cone with a semi-circle at the top.
-                        direction += normal * Height;
-                        
-                        //Make some of the directions not reach the full distance.
-                        direction *= RandomExtensions.Boolean(0.7f) ? Random.Range(0.1f, 1f) : 1f;
-                        
-                        break;
-                    }
-                    case PuffShapes.InverseCone:
-                    {
-                        //If the direction is opposite the normal, flip it!
-                        if (Vector3.Dot(direction, normal) < 0)
-                        {
-                            direction *= -1f;
-                        }
-                        
-                        //First make the semi-sphere into a disc. 
-                        var dot = Vector3.Dot(direction, normal);
-                        
-                        //Scale the normal based on the directions projection onto the normal
-                        //We add this to the directions, to make the shape completely flat, at the bottom. 
-                        var normalScaled = normal * -dot;
-                        direction += normalScaled;
-
-                        //Move up to the height, based on the dot product.
-                        direction += normal * Height * (Radius - direction.magnitude) + normal * ParticleScale * 0.5f;
-                        
-                        //TODO: get more of the center points out to the edge 2020-09-23
-
-                        break;
-                    }
-                }
-                
                 //Randomize spawn position in the spawn area.
                 var bounds = new Bounds(position, Area);
                 var areaPos = RandomExtensions.PositionInBounds(bounds);
 
                 //Check against direction, so they spawn on the same side as the direction they're going.
-                var diff = areaPos - position;
+                // var diff = areaPos - position;
                 
                 //Align it to the same quadrant as the direction.
-                areaPos = position + diff.QuadrantAlign(direction);
+                // areaPos = position + diff.QuadrantAlign(direction);
 
                 //Set the new position.
                 particle.transform.position = areaPos;
                 
-                //Also scale direction by the cube root and the user determined size scale.
-                translate.to = direction;
-
                 if (setParticleUp)
                 {
                     //Set initial rotation based on direction.
@@ -542,22 +349,32 @@ namespace GameFeelDescriptions
                     particle.transform.forward = direction;
                 }
 
-                //translate.RandomizeDelay = true;
-                //translate.Delay = Random.Range(0, 0.1f * ParticleLifetime);
+                var movement = particle.AddComponent<SimplePhysicsMovement>();
+                movement.Velocity = direction * (Speed * Random.Range(0.5f, 1f));
+                movement.Drag = Drag;
+                movement.TimeScaleIndependent = UnscaledTime;
+                movement.ApplyGravity = ApplyGravity;
                 
-                // translate.RandomizeDuration = true;
-                // translate.DurationMin = 0.5f * ParticleLifetime;
-                translate.Duration = ParticleLifetime;
-                    
-                //TODO: Make better easing curve, that starts fast and slows down over time... 2020-09-17
-                translate.easing = EasingHelper.EaseType.QuadOut;
-
-                //Maybe destroy it as well.
-                //translate.OnComplete(new DestroyEffect());
-                var translateTriggerData = new PositionalData (particle.transform.position, direction) { InCollisionUpdate = triggerData.InCollisionUpdate };
-                translate.Init(origin, particle, translateTriggerData);
-                translate.SetElapsed();
-                translate.QueueExecution();
+                
+                // //Also scale direction by the cube root and the user determined size scale.
+                // translate.to = direction;
+                //
+                // //translate.RandomizeDelay = true;
+                // //translate.Delay = Random.Range(0, 0.1f * ParticleLifetime);
+                //
+                // // translate.RandomizeDuration = true;
+                // // translate.DurationMin = 0.5f * ParticleLifetime;
+                // translate.Duration = Random.Range(0.75f, 1.5f); //TODO: remove this, and add the speed thingy instead!
+                //     
+                // //TODO: Make better easing curve, that starts fast and slows down over time... 2020-09-17
+                // translate.easing = EasingHelper.EaseType.QuadOut;
+                //
+                // //Maybe destroy it as well.
+                // //translate.OnComplete(new DestroyEffect());
+                // var translateTriggerData = new PositionalData (particle.transform.position, direction) { InCollisionUpdate = triggerData.InCollisionUpdate };
+                // translate.Init(origin, particle, translateTriggerData);
+                // translate.SetElapsed();
+                // translate.QueueExecution();
                 
                 //NOTE: If we do this instead of queuing them all, the waitForAbove won't wait for all particles to finish.
                 //NOTE: However, now each particle will also transmit it's own direction down the tree. 2020-10-22 

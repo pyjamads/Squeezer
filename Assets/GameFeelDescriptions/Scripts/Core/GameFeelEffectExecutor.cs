@@ -176,7 +176,7 @@ namespace GameFeelDescriptions
 // #endif
 
         private double lastUpdateTime;
-        
+
         private float GetUnscaledDeltaTime()
         {
 #if UNITY_EDITOR
@@ -194,7 +194,6 @@ namespace GameFeelDescriptions
                 return (float)deltaTime;
             }
 #endif
-            
             return Time.unscaledDeltaTime;
         }
 

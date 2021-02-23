@@ -18,7 +18,11 @@ namespace GameFeelDescriptions
             return Boolean(posProp) ? 1 : -1;
         }
 
-
+        public static Vector3 PositionInBounds(Bounds bounds)
+        {
+            return bounds.min + new Vector3(Random.value * bounds.size.x, Random.value * bounds.size.y, Random.value * bounds.size.z);
+        }
+        
         public static float MutationAmount(float amount, float value = 1f)
         {
             //Make sure the value is actually something.

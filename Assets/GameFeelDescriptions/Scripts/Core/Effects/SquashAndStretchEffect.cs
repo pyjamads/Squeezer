@@ -138,6 +138,20 @@ namespace GameFeelDescriptions
                 //     throw new ArgumentOutOfRangeException(nameof(eventData), "EventType and useInteractionDirection not handled by CameraShakeEffect");
             }
 
+            //TODO: look at this 2021-02-22: https://stackoverflow.com/questions/52062221/rotating-a-3d-vector-90-degrees-relative-to-another-3d-vector
+            
+            /*
+             Check for magnitudes of vector components.
+
+            Then make component with the smallest absolute value zero, and exchange the largest and the second components, negating the largest. This approach produces valid perpendicular for all non-zero vectors
+
+            For example, for case
+
+            Abs(n.x) >= Abs(n.z) >= Abs(n.y)
+            make
+            Perp = (n.z, 0, -n.x) 
+             */
+            
             //Calculate direction to squash!
             var forward = target.transform.forward;
             var up = target.transform.up;
