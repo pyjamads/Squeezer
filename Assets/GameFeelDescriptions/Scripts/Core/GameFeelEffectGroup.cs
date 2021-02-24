@@ -269,7 +269,7 @@ namespace GameFeelDescriptions
                             waitForAboveEffect.WaitFor(queuedEffects.ToList());
                         }
                         
-                        copy.QueueExecution();
+                        GameFeelEffectExecutor.Instance.QueueEffect(copy);
 
                         queuedEffects.Add(copy);
                     }
@@ -318,12 +318,12 @@ namespace GameFeelDescriptions
                                 if (waitForAboveEffect.WaitForAllTargets && inner != targets.Count - 1) continue;
                                 
                                 waitForAboveEffect.WaitFor(queuedEffects.Where(item => waitForAboveEffect.WaitForAllTargets || item.target == targets[inner]));
-                                waitForAboveEffect.QueueExecution();
+                                GameFeelEffectExecutor.Instance.QueueEffect(waitForAboveEffect);
                                 queuedEffects.Add(waitForAboveEffect);
                             }
                             else
                             {
-                                copy.QueueExecution();
+                                GameFeelEffectExecutor.Instance.QueueEffect(copy);
                                 queuedEffects.Add(copy);
                             }
                         }

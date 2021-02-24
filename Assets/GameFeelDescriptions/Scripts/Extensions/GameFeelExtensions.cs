@@ -75,11 +75,6 @@ namespace GameFeelDescriptions
 
             waitFor.ExecuteAfterCompletion.AddRange(effects);
         }
-        
-        public static void QueueExecution(this GameFeelEffect effect)
-        {
-            GameFeelEffectExecutor.Instance.QueueEffect(effect);
-        }
 
         public static GameFeelEffect CurrentActiveEffect(this GameFeelEffect effect)
         {

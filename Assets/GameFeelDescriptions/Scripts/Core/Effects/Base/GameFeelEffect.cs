@@ -346,7 +346,7 @@ namespace GameFeelDescriptions
                   waitForAboveEffect.WaitFor(queuedEffects.ToList());
                }
 
-               copy.QueueExecution();
+               GameFeelEffectExecutor.Instance.QueueEffect(copy);
                
                queuedEffects.Add(copy);
             }

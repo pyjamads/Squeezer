@@ -42,10 +42,7 @@ namespace GameFeelDescriptions
             color.Duration = Random.Range(0.4f, 1.6f);
             this.OnOffspring(color);
             
-            var destroy = new DestroyEffect();
-            destroy.Delay = color.Duration;
-            destroy.RandomizeDelay = RandomExtensions.Boolean();
-            this.OnOffspring(destroy);
+            color.OnComplete(new DestroyEffect());
 
             //TODO: maybe have a lifetime value, that adjusts the Durations above. 2020-09-23
             //TODO: adjust velocity over time... 2020-09-16 
@@ -543,21 +540,24 @@ namespace GameFeelDescriptions
                 }
 
                 //translate.RandomizeDelay = true;
-                //translate.Delay = Random.Range(0, 0.1f * ParticleLifetime);
+                translate.Delay = Random.Range(0, 0.1f * ParticleLifetime);
                 
                 // translate.RandomizeDuration = true;
                 // translate.DurationMin = 0.5f * ParticleLifetime;
-                translate.Duration = ParticleLifetime;
+                translate.Duration = ParticleLifetime - translate.Delay;
                     
                 //TODO: Make better easing curve, that starts fast and slows down over time... 2020-09-17
                 translate.easing = EasingHelper.EaseType.QuadOut;
 
                 //Maybe destroy it as well.
-                //translate.OnComplete(new DestroyEffect());
-                var translateTriggerData = new PositionalData (particle.transform.position, direction) { InCollisionUpdate = triggerData.InCollisionUpdate };
-                translate.Init(origin, particle, translateTriggerData);
-                translate.SetElapsed();
-                translate.QueueExecution();
+                translate.OnComplete(new DestroyEffect());
+                
+                Squeezer.Trigger(translate, particle, direction);
+                
+                //var translateTriggerData = new PositionalData (particle.transform.position, direction) { InCollisionUpdate = triggerData.InCollisionUpdate };
+                // translate.Init(origin, particle, translateTriggerData);
+                // translate.SetElapsed();
+                // translate.QueueExecution();
                 
                 //NOTE: If we do this instead of queuing them all, the waitForAbove won't wait for all particles to finish.
                 //NOTE: However, now each particle will also transmit it's own direction down the tree. 2020-10-22 

@@ -535,8 +535,8 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -607,6 +607,7 @@ MonoBehaviour:
         ExpansionShape: 5
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.35
         ParticleScale: 0.2
@@ -1262,8 +1263,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -1484,8 +1485,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -2058,8 +2059,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -2389,8 +2390,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -2864,8 +2865,8 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -2936,6 +2937,7 @@ MonoBehaviour:
         ExpansionShape: 2
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.35
         ParticleScale: 0.2
@@ -3298,8 +3300,8 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -3370,6 +3372,7 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.35
         ParticleScale: 0.2
@@ -3626,8 +3629,8 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -3698,6 +3701,7 @@ MonoBehaviour:
         ExpansionShape: 4
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.35
         ParticleScale: 0.2
@@ -3953,8 +3957,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -4100,6 +4104,7 @@ MonoBehaviour:
         ExpansionShape: 5
         setParticleUp: 1
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 1
         Radius: 0.8
         ParticleScale: 0.1
@@ -5044,8 +5049,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -5796,8 +5801,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -5965,6 +5970,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 646041298}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &656201583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 656201584}
+  - component: {fileID: 656201586}
+  - component: {fileID: 656201585}
+  m_Layer: 0
+  m_Name: ball(Clone)(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &656201584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656201583}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
+  m_Children: []
+  m_Father: {fileID: 1953755208}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &656201585
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656201583}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 54db4f0b2a45944d685ba2c276e5c213, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &656201586
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656201583}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &658062241
 GameObject:
   m_ObjectHideFlags: 0
@@ -6019,8 +6103,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -6347,8 +6431,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -6570,8 +6654,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 1
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -6626,10 +6710,11 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.25
         Radius: 0.3
         ParticleScale: 0.1
-        ParticleLifetime: 0.7
+        ParticleLifetime: 1
     00000002:
       type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -6736,8 +6821,7 @@ MonoBehaviour:
         Delay: 0
         RandomizeDelay: 0
         Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 6
+        ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -6779,7 +6863,7 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
-        - id: 7
+        - id: 6
         FlashColor: {r: 0.8867924, g: 0.8867924, b: 0.8867924, a: 0.7529412}
         FlashTransparency: 1
         FlashPrefab: {fileID: 0}
@@ -6787,22 +6871,6 @@ MonoBehaviour:
         Scale: {x: 0.3, y: 0.3, z: 0.3}
         PositionOffset: {x: 0, y: 0, z: 0}
     00000006:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-    00000007:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -6815,7 +6883,7 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 8
+        - id: 7
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -6840,7 +6908,7 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000008:
+    00000007:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -6939,8 +7007,8 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -7011,6 +7079,7 @@ MonoBehaviour:
         ExpansionShape: 6
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.35
         ParticleScale: 0.2
@@ -7491,8 +7560,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -7949,8 +8018,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -8748,8 +8817,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -9076,8 +9145,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 1
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -9107,6 +9176,39 @@ MonoBehaviour:
         type: 0
         ContextType: 1
     00000001:
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
+        UnscaledTime: 0
+        Delay: 0.1
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 5
+        - id: 6
+        - id: 7
+        AmountOfParticles: 15
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 0, y: 0, z: 120}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 4
+        Drag: 1.4
+        ApplyGravity: 0
+        ParticleScale: 0.05
+    00000002:
       type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9123,15 +9225,15 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
-        - id: 5
-        - id: 6
+        - id: 8
+        - id: 9
         FlashColor: {r: 1, g: 1, b: 1, a: 1}
         FlashTransparency: 1
         FlashPrefab: {fileID: 0}
         FlashPrimitive: 0
         Scale: {x: 1.16, y: 1.16, z: 1.16}
         PositionOffset: {x: 0, y: 0, z: 0}
-    00000002:
+    00000003:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9149,9 +9251,9 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
-        - id: 7
-        - id: 8
-        - id: 9
+        - id: 10
+        - id: 11
+        - id: 12
         AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
@@ -9159,11 +9261,12 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.6
         Radius: 1
         ParticleScale: 0.05
         ParticleLifetime: 1.5
-    00000003:
+    00000004:
       type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9214,14 +9317,14 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000004:
-      type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+    00000005:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
         Lock: 0
-        Description: Particle puff creates anything from a dust cloud from a footfall
-          to nuclear explosion.
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
         UnscaledTime: 0
         Delay: 0
         RandomizeDelay: 0
@@ -9231,22 +9334,89 @@ MonoBehaviour:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
         isComplete: 0
-        ExecuteOnOffspring:
-        - id: 10
-        - id: 11
-        - id: 12
-        AmountOfParticles: 35
-        ParticlePrefabs: []
-        usePrimitiveParticles: 1
-        ParticlePrimitive: 3
-        ExpansionShape: 5
-        setParticleUp: 0
-        setParticleForward: 0
-        Height: 0.8
-        Radius: 2
-        ParticleScale: 0.1
-        ParticleLifetime: 0.8
-    00000005:
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: 2.230116, y: -29.346727, z: 61.1594}
+    00000006:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.3
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.34666568
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 1.7870495, y: 1.7870495, z: 1.7870495}
+        easing: 12
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 13
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.639
+        Duration: 1
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0.19063781, g: 0.45938903, b: 0.28497458, a: 1}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 0
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9258,7 +9428,7 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 13
+        - id: 14
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -9281,7 +9451,7 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000006:
+    00000009:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9294,7 +9464,7 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 14
+        - id: 15
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -9319,7 +9489,7 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000007:
+    0000000A:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9353,7 +9523,7 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000008:
+    0000000B:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9366,7 +9536,7 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 15
+        - id: 16
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -9391,7 +9561,7 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000009:
+    0000000C:
       type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9408,113 +9578,30 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
-        - id: 16
+        - id: 17
         FlashColor: {r: 0.1509434, g: 0.1509434, b: 0.1509434, a: 0.95686275}
         FlashTransparency: 1
         FlashPrefab: {fileID: 0}
         FlashPrimitive: 0
         Scale: {x: 0.3, y: 0.3, z: 0.3}
         PositionOffset: {x: 0, y: 0, z: 0}
-    0000000A:
-      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+    0000000D:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
         Lock: 0
-        Description: Continuous Rotation Effect allows you to rotate an object continuously
-          over a duration.
-        UnscaledTime: 0
-        Delay: 0.3
-        RandomizeDelay: 1
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 2
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        useGlobalRotation: 0
-        RandomizeInitialRotation: 0
-        RotationPerSecond: {x: 96.19507, y: -20.264887, z: -81.31085}
-    0000000B:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        UnscaledTime: 0
-        Delay: 0.3
-        RandomizeDelay: 1
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 1
-        DurationMin: 0.6
-        Duration: 0.892437
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 0
-        to: {x: 0, y: 0, z: 0}
-        easing: 6
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-    0000000C:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
+        Description: Simple destruction effect.
         UnscaledTime: 0
         Delay: 0
         RandomizeDelay: 0
         Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 17
+        ExecuteAfterCompletion: []
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
         isComplete: 0
-        RandomizeDuration: 1
-        DurationMin: 0.7
-        Duration: 1.291363
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0.012731435, g: 0.013885858, b: 0.013680069, a: 1}
-        relative: 0
-        to: {r: 0.012731435, g: 0.013885858, b: 0.013680069, a: 0}
-        easing: 2
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    0000000D:
+    0000000E:
       type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9539,22 +9626,6 @@ MonoBehaviour:
         FlashPrimitive: 0
         Scale: {x: 1, y: 1, z: 1}
         PositionOffset: {x: 0, y: 0, z: 0}
-    0000000E:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
     0000000F:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -9572,6 +9643,22 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
     00000010:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    00000011:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -9609,22 +9696,6 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000011:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
     00000012:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -9889,8 +9960,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -10401,8 +10472,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -10572,8 +10643,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -10958,8 +11029,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -11640,8 +11711,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -11695,6 +11766,40 @@ MonoBehaviour:
         Scale: {x: 1.16, y: 1.16, z: 1.16}
         PositionOffset: {x: 0, y: 0, z: 0}
     00000002:
+      type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle puff creates anything from a dust cloud from a footfall
+          to nuclear explosion.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 6
+        - id: 7
+        - id: 8
+        - id: 9
+        AmountOfParticles: 30
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 0
+        ExpansionShape: 5
+        setParticleUp: 0
+        setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
+        Height: 2
+        Radius: 0.2
+        ParticleScale: 0.2
+        ParticleLifetime: 1.5
+    00000003:
       type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -11745,39 +11850,6 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000003:
-      type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Particle puff creates anything from a dust cloud from a footfall
-          to nuclear explosion.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 6
-        - id: 7
-        - id: 8
-        - id: 9
-        AmountOfParticles: 30
-        ParticlePrefabs: []
-        usePrimitiveParticles: 1
-        ParticlePrimitive: 0
-        ExpansionShape: 5
-        setParticleUp: 0
-        setParticleForward: 0
-        Height: 2
-        Radius: 0.2
-        ParticleScale: 0.2
-        ParticleLifetime: 1
     00000004:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -11979,6 +12051,7 @@ MonoBehaviour:
         ExpansionShape: 6
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.4
         Radius: 1.5
         ParticleScale: 0.1
@@ -12025,22 +12098,6 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
     0000000C:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-    0000000D:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -12067,10 +12124,27 @@ MonoBehaviour:
         ExpansionShape: 3
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.7
         ParticleScale: 0.2
         ParticleLifetime: 0.8
+    0000000D:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
     0000000E:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -12170,6 +12244,7 @@ MonoBehaviour:
         ExpansionShape: 3
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.5
         ParticleScale: 0.2
@@ -12614,8 +12689,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -13111,8 +13186,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -13388,8 +13463,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -13847,8 +13922,8 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -13919,6 +13994,7 @@ MonoBehaviour:
         ExpansionShape: 1
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.35
         ParticleScale: 0.2
@@ -14741,8 +14817,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -15127,8 +15203,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -15561,8 +15637,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 1
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -15644,10 +15720,11 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.7
         Radius: 0.5
         ParticleScale: 0.1
-        ParticleLifetime: 0.7
+        ParticleLifetime: 0.9
     00000003:
       type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -15727,6 +15804,7 @@ MonoBehaviour:
         ExpansionShape: 5
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 1.5
         ParticleScale: 0.1
@@ -16551,8 +16629,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -16669,8 +16747,8 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -16741,6 +16819,7 @@ MonoBehaviour:
         ExpansionShape: 3
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.55
         Radius: 0.35
         ParticleScale: 0.2
@@ -17101,8 +17180,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -17218,8 +17297,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -17281,6 +17360,151 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
+--- !u!1 &1400181128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1400181129}
+  - component: {fileID: 1400181134}
+  - component: {fileID: 1400181133}
+  - component: {fileID: 1400181132}
+  - component: {fileID: 1400181131}
+  - component: {fileID: 1400181130}
+  m_Layer: 0
+  m_Name: ball(Clone)
+  m_TagString: ball
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1400181129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400181128}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
+  m_LocalScale: {x: 0.2002, y: 0.2002, z: 0.2002}
+  m_Children: []
+  m_Father: {fileID: 1953755208}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1400181130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400181128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7eb8a884ce84d72b9146352c33a15e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 1.01
+  velocity: {x: 0, y: 0}
+  maxSpeed: 6
+  ballReady: 1
+--- !u!61 &1400181131
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400181128}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!50 &1400181132
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400181128}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!23 &1400181133
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400181128}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 54db4f0b2a45944d685ba2c276e5c213, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1400181134
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400181128}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1405037150
 GameObject:
   m_ObjectHideFlags: 0
@@ -17335,8 +17559,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -17756,8 +17980,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -18247,8 +18471,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -18363,8 +18587,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -18691,8 +18915,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -18855,7 +19079,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499500738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0018491538, y: 0.004499589, z: -9.999577}
+  m_LocalPosition: {x: 0.7437688, y: -0.78438234, z: -9.683669}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -19117,8 +19341,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -19235,10 +19459,10 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 1
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
-  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0.2, z: 0}
   references:
     version: 1
     00000000:
@@ -19307,10 +19531,11 @@ MonoBehaviour:
         ExpansionShape: 6
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.25
         Radius: 0.35
         ParticleScale: 0.2
-        ParticleLifetime: 0.7
+        ParticleLifetime: 1
     00000003:
       type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -19668,8 +19893,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -20313,8 +20538,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -20590,8 +20815,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -21851,6 +22076,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1953755206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1953755208}
+  - component: {fileID: 1953755207}
+  m_Layer: 0
+  m_Name: GameFeelEffectExecution
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1953755207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953755206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcf331dcee374098aa21cdf39db0c4c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentlyExecuting: 1
+  shouldRemoveTweensOnLevelLoad: 0
+--- !u!4 &1953755208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953755206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1400181129}
+  - {fileID: 656201584}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968682569
 GameObject:
   m_ObjectHideFlags: 0
@@ -21904,8 +22176,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -22688,8 +22960,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
@@ -22835,6 +23107,7 @@ MonoBehaviour:
         ExpansionShape: 5
         setParticleUp: 1
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 1
         Radius: 0.8
         ParticleScale: 0.1
@@ -23112,8 +23385,8 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewEnabled: 0
-  PreviewCooldown: 2
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:

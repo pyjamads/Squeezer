@@ -3,9 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace GameFeelDescriptions
 {
@@ -113,7 +111,7 @@ namespace GameFeelDescriptions
             }
         }
         
-        #region Preview stuff
+        #region tiny Preview stuff
 
         //TODO: make custom preview renderer! 09/06/2020
         // public override bool HasPreviewGUI() { return showAttach; }
@@ -156,7 +154,7 @@ namespace GameFeelDescriptions
         // }
         
         #endregion
-
+        
         public override void OnInspectorGUI()
         {   
             EditorGUI.BeginChangeCheck();
@@ -740,18 +738,18 @@ namespace GameFeelDescriptions
                                     PreviewWindow.target.SetActive(!PreviewWindow.target.activeSelf);
                                 }
                             }
-                        }
+                            
+                            using (new EditorGUILayout.HorizontalScope())
+                            {
+                                EditorGUILayout.HelpBox(new GUIContent(
+                                    "Scene Mode previews the effect directly in the scene. " +
+                                    "\nThis will alter the scene itself, which can lead to lingering " +
+                                    "\nObject Transformations, Color Changes and Components."));
 
-                        using (new EditorGUILayout.HorizontalScope())
-                        {
-                            EditorGUILayout.HelpBox(new GUIContent(
-                                "Scene Mode previews the effect directly in the scene. " +
-                                "\nThis will alter the scene itself, which can lead to lingering " +
-                                "\nObject Transformations, Color Changes and Components."));
-
-                            EditorGUILayout.HelpBox(new GUIContent("Preview Window Mode opens a preview scene " +
-                                                                   "\nwith a copy og the target object. Known Issues: " +
-                                                                   "\nCamera Shake and targeting Tags / Component type in Effect Groups."));
+                                EditorGUILayout.HelpBox(new GUIContent("Preview Window Mode opens a preview scene " +
+                                                                       "\nwith a copy og the target object. Known Issues: " +
+                                                                       "\nCamera Shake and targeting Tags / Component type in Effect Groups."));
+                            }
                         }
 
                         EditorGUI.BeginChangeCheck();
