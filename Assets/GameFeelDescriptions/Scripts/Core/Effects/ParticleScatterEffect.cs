@@ -24,7 +24,7 @@ namespace GameFeelDescriptions
             var scale = new ScaleEffect();
             scale.relative = true;
             scale.to = Vector3.one * (Random.value * 2);
-            scale.Delay = 0.3f;
+            scale.Delay = Random.Range(0, 0.3f);
             scale.RandomizeDelay = true;
             scale.Duration = Random.Range(0.3f, 1.3f);
             this.OnOffspring(scale);
@@ -37,11 +37,13 @@ namespace GameFeelDescriptions
             color.DurationMin = 0.3f;
             color.Duration = Random.Range(0.4f, 1.6f);
             this.OnOffspring(color);
-            
-            var destroy = new DestroyEffect();
-            destroy.Delay = color.Duration;
-            destroy.RandomizeDelay = RandomExtensions.Boolean();
-            this.OnOffspring(destroy);
+
+            color.OnComplete(new DestroyEffect());
+            //
+            // var destroy = new DestroyEffect();
+            // destroy.Delay = color.Duration;
+            // destroy.RandomizeDelay = RandomExtensions.Boolean();
+            // this.OnOffspring(destroy);
 
             //TODO: maybe have a lifetime value, that adjusts the Durations above. 2020-09-23
             //TODO: adjust velocity over time... 2020-09-16 

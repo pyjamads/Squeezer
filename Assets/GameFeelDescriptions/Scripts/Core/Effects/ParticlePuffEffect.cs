@@ -28,7 +28,7 @@ namespace GameFeelDescriptions
             var scale = new ScaleEffect();
             scale.relative = true;
             scale.to = Vector3.one * (Random.value * 2);
-            scale.Delay = 0.3f;
+            scale.Delay = Random.Range(0, 0.3f);
             scale.RandomizeDelay = true;
             scale.Duration = Random.Range(0.3f, 1.3f);
             this.OnOffspring(scale);
@@ -550,7 +550,7 @@ namespace GameFeelDescriptions
                 translate.easing = EasingHelper.EaseType.QuadOut;
 
                 //Maybe destroy it as well.
-                translate.OnComplete(new DestroyEffect());
+                //translate.OnComplete(new DestroyEffect());
                 
                 Squeezer.Trigger(translate, particle, direction);
                 

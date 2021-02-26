@@ -374,6 +374,317 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26173078}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &73351687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 73351688}
+  - component: {fileID: 73351689}
+  m_Layer: 0
+  m_Name: trailEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &73351688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73351687}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 619137525}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &73351689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 73351687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ballEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [ball]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: ball
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnMoveTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 1
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Ball Trail
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+        type: 1
+    00000001:
+      type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a trail of copies of the game object, which slowly fades.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 2
+        - id: 3
+        - id: 4
+        - id: 5
+        TrailPrefab: {fileID: 0}
+        TrailPositionOffset: {x: 0, y: 0, z: 1}
+    00000002:
+      type: {class: ShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple shake effect. Can be used for shaking camera or other
+          things.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 3
+        loopType: 0
+        repeat: 0
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
+        amount: 0.03
+        easeAmountInOut:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.099246226
+            inSlope: -1.4302279
+            outSlope: -1.4302279
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.04391892
+          - serializedVersion: 3
+            time: 1
+            value: 0.7
+            inSlope: -1.2165108
+            outSlope: -1.2165108
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.0472973
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+    00000003:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 6
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.68
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 0.7830189, g: 0, b: 0.7830189, a: 1}
+        relative: 0
+        to: {r: 0, g: 0.98, b: 1, a: 0}
+        easing: 0
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000004:
+      type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Translate Effect allows you to move an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: -1}
+        easing: 0
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
+    00000005:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.9
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.5, y: 0.5, z: 0.5}
+        easing: 8
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000006:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+--- !u!1 &87157223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 87157224}
+  m_Layer: 0
+  m_Name: Ball Trail Alternative
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &87157224
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87157223}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1259459963}
+  m_Father: {fileID: 859956545}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &111458616
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +820,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 717186169}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &124161840
 MonoBehaviour:
@@ -535,7 +846,7 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -600,7 +911,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 4
         - id: 5
-        AmountOfParticles: 25
+        AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
@@ -608,8 +919,8 @@ MonoBehaviour:
         setParticleUp: 0
         setParticleForward: 0
         Area: {x: 0, y: 0, z: 0}
-        Height: 0.5
-        Radius: 0.35
+        Height: 1
+        Radius: 1
         ParticleScale: 0.2
         ParticleLifetime: 0.7
     00000003:
@@ -1485,7 +1796,7 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewMode: 0
+  PreviewMode: 2
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -1897,7 +2208,7 @@ Transform:
   - {fileID: 1569761963}
   - {fileID: 1231672644}
   m_Father: {fileID: 859956545}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &264979374
 GameObject:
@@ -2821,7 +3132,7 @@ GameObject:
   - component: {fileID: 360786356}
   - component: {fileID: 360786357}
   m_Layer: 0
-  m_Name: Cylinder Shape
+  m_Name: Cylinder Shape Alt
   m_TagString: Untagged
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2839,7 +3150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 717186169}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &360786357
 MonoBehaviour:
@@ -2865,7 +3176,7 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -2930,16 +3241,16 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 4
         - id: 5
-        AmountOfParticles: 25
+        AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
         ExpansionShape: 2
         setParticleUp: 0
         setParticleForward: 0
-        Area: {x: 0, y: 0, z: 0}
-        Height: 0.5
-        Radius: 0.35
+        Area: {x: 0.5, y: 0.5, z: 0.5}
+        Height: 1
+        Radius: 0.1
         ParticleScale: 0.2
         ParticleLifetime: 0.7
     00000003:
@@ -3300,7 +3611,7 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -3365,7 +3676,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 4
         - id: 5
-        AmountOfParticles: 25
+        AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
@@ -3373,8 +3684,8 @@ MonoBehaviour:
         setParticleUp: 0
         setParticleForward: 0
         Area: {x: 0, y: 0, z: 0}
-        Height: 0.5
-        Radius: 0.35
+        Height: 1
+        Radius: 1
         ParticleScale: 0.2
         ParticleLifetime: 0.7
     00000003:
@@ -3603,7 +3914,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 717186169}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &418821359
 MonoBehaviour:
@@ -3629,7 +3940,7 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -3694,7 +4005,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 4
         - id: 5
-        AmountOfParticles: 25
+        AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
@@ -3702,8 +4013,8 @@ MonoBehaviour:
         setParticleUp: 0
         setParticleForward: 0
         Area: {x: 0, y: 0, z: 0}
-        Height: 0.5
-        Radius: 0.35
+        Height: 1
+        Radius: 1
         ParticleScale: 0.2
         ParticleLifetime: 0.7
     00000003:
@@ -4329,6 +4640,379 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427061522}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &430089001
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 430089002}
+  - component: {fileID: 430089003}
+  m_Layer: 0
+  m_Name: blockEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430089002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430089001}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1194563097}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &430089003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430089001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: blockEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [block]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: block
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Effects triggered OnCollision
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+          - id: 3
+          - id: 4
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 2
+          TargetTag: block
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 5
+        ReactTo:
+        - ball
+        type: 0
+        ContextType: 0
+    00000001:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.561644
+        loopType: 0
+        repeat: 0
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        soundGeneratorBase: 2
+        synthParameters: 3,.05,,.279,.569,.412,.285,.194,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
+        mutateOnExecution: 0
+        latestSynthParameters:
+        - 3,.1,,.2903,.6886,.406,.2613,.7744,,-.244,,,,.0163,,,,,-.0016,,.0269,,,-.0994,-.0952,1,-.0386,,,,,
+        - 3,.1,,.2903,.6423,.406,.3,.7744,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
+        - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
+        - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
+    00000002:
+      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Shatter an object into pieces and add a the Ragdoll effect to
+          the pieces.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 6
+        - id: 7
+        - id: 8
+        AmountOfPieces: 25
+        PrefabPieces: []
+        usePrimitivePieces: 1
+        PiecePrimitive: 3
+    00000003:
+      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a positional flash which quickly fades away.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 9
+        FlashColor: {r: 1, g: 1, b: 1, a: 1}
+        FlashTransparency: 1
+        FlashPrefab: {fileID: 0}
+        FlashPrimitive: 0
+        Scale: {x: 1, y: 1, z: 1}
+        PositionOffset: {x: 0, y: 0, z: 0}
+    00000004:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    00000005:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.2
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.5, y: 0.5, z: 0.5}
+        easing: 0
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000006:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2627451}
+        easing: 1
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000007:
+      type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Add a Rigidbody that's affected by gravity to the target, and
+          set an initial velocity based on the interaction.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ForceMultiplier: 5
+        RandomizeAdditionalForce: 0
+        AdditionalForce: {x: 0, y: 0, z: 0}
+        MaxVelocity: 0
+        ApplyGravity: 1
+    00000008:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.5, y: 0.5, z: 0.5}
+        easing: 6
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000009:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 10
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.14273116
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    0000000A:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
 --- !u!1 &454647249
 GameObject:
   m_ObjectHideFlags: 0
@@ -5642,6 +6326,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 613879260}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &619137524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 619137525}
+  m_Layer: 0
+  m_Name: Ball Trail (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &619137525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619137524}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 73351688}
+  m_Father: {fileID: 1194563097}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &634749237
 GameObject:
   m_ObjectHideFlags: 0
@@ -5969,85 +6684,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 646041298}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &656201583
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 656201584}
-  - component: {fileID: 656201586}
-  - component: {fileID: 656201585}
-  m_Layer: 0
-  m_Name: ball(Clone)(Clone)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &656201584
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656201583}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
-  m_Children: []
-  m_Father: {fileID: 1953755208}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &656201585
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656201583}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 54db4f0b2a45944d685ba2c276e5c213, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &656201586
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656201583}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &658062241
 GameObject:
@@ -6657,7 +7293,7 @@ MonoBehaviour:
   PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
-  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0.2, z: 0}
   references:
     version: 1
     00000000:
@@ -6959,12 +7595,13 @@ Transform:
   - {fileID: 1375630407}
   - {fileID: 407102008}
   - {fileID: 1285268343}
+  - {fileID: 1524189878}
   - {fileID: 360786356}
   - {fileID: 418821358}
   - {fileID: 124161839}
   - {fileID: 723905350}
   m_Father: {fileID: 859956545}
-  m_RootOrder: 10
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &723905348
 GameObject:
@@ -7007,7 +7644,7 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -7072,7 +7709,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 4
         - id: 5
-        AmountOfParticles: 25
+        AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
@@ -7080,8 +7717,8 @@ MonoBehaviour:
         setParticleUp: 0
         setParticleForward: 0
         Area: {x: 0, y: 0, z: 0}
-        Height: 0.5
-        Radius: 0.35
+        Height: 1
+        Radius: 1
         ParticleScale: 0.2
         ParticleLifetime: 0.7
     00000003:
@@ -7293,7 +7930,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 717186169}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &742218115
 GameObject:
@@ -7641,7 +8278,7 @@ MonoBehaviour:
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
-        Duration: 1
+        Duration: 1.2
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
@@ -8278,11 +8915,13 @@ Transform:
   - {fileID: 1054621353}
   - {fileID: 862220059}
   - {fileID: 2063960443}
+  - {fileID: 87157224}
   - {fileID: 236463919}
   - {fileID: 1629175858}
   - {fileID: 1711634720}
   - {fileID: 904491713}
   - {fileID: 945617964}
+  - {fileID: 1194563097}
   - {fileID: 717186169}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -8306,12 +8945,15 @@ MonoBehaviour:
   - {fileID: 1405572560}
   - {fileID: 899324507}
   - {fileID: 1054621352}
+  - {fileID: 862220058}
   - {fileID: 2063960442}
+  - {fileID: 87157223}
   - {fileID: 236463918}
   - {fileID: 1629175857}
   - {fileID: 1711634719}
   - {fileID: 904491712}
   - {fileID: 945617963}
+  - {fileID: 1194563096}
   currentGroup: 0
 --- !u!114 &859956547
 MonoBehaviour:
@@ -8333,10 +8975,10 @@ MonoBehaviour:
   - {fileID: 716123980}
   - {fileID: 1327238928}
   - {fileID: 917693013}
-  - {fileID: 1154096071}
   - {fileID: 1375630406}
   - {fileID: 407102007}
   - {fileID: 1285268342}
+  - {fileID: 1524189877}
   - {fileID: 360786355}
   - {fileID: 418821357}
   - {fileID: 124161838}
@@ -8761,7 +9403,7 @@ Transform:
   - {fileID: 908704065}
   - {fileID: 419066610}
   m_Father: {fileID: 859956545}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &908704064
 GameObject:
@@ -9148,7 +9790,7 @@ MonoBehaviour:
   PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
-  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0.2, z: 0}
   references:
     version: 1
     00000000:
@@ -10124,7 +10766,7 @@ MonoBehaviour:
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
-        to: {x: 1.2, y: 1.2, z: 1.2}
+        to: {x: 0.5, y: 0.5, z: 0.5}
         easing: 0
         curve:
           serializedVersion: 2
@@ -10310,7 +10952,7 @@ Transform:
   - {fileID: 944763789}
   - {fileID: 2065991576}
   m_Father: {fileID: 859956545}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &948432252
 GameObject:
@@ -11711,10 +12353,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
-  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0.2, z: 0}
   references:
     version: 1
     00000000:
@@ -12529,6 +13171,40 @@ MonoBehaviour:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
         isComplete: 0
+--- !u!1 &1194563096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1194563097}
+  m_Layer: 0
+  m_Name: Paddle Reaction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1194563097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1194563096}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 619137525}
+  - {fileID: 430089002}
+  - {fileID: 1241298539}
+  - {fileID: 1700201658}
+  m_Father: {fileID: 859956545}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1195170230
 GameObject:
   m_ObjectHideFlags: 0
@@ -12713,7 +13389,6 @@ MonoBehaviour:
           EffectsToExecute:
           - id: 1
           - id: 2
-          - id: 3
         ReactTo:
         - '*'
         type: 0
@@ -12810,223 +13485,6 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000003:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.95
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0.6698113, g: 0.07983915, b: 0.0473923, a: 1}
-        easing: 13
-        curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 0
-            inSlope: 1.5691819
-            outSlope: 1.5691819
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.05
-            value: 0.0784591
-            inSlope: 1.5643446
-            outSlope: 1.5643446
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.1
-            value: 0.15643448
-            inSlope: 1.5498629
-            outSlope: 1.5498629
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.15
-            value: 0.23344539
-            inSlope: 1.5258253
-            outSlope: 1.5258253
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.2
-            value: 0.309017
-            inSlope: 1.4923807
-            outSlope: 1.4923807
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.25
-            value: 0.38268346
-            inSlope: 1.4497354
-            outSlope: 1.4497354
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.3
-            value: 0.45399055
-            inSlope: 1.3981509
-            outSlope: 1.3981509
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.35
-            value: 0.52249855
-            inSlope: 1.337947
-            outSlope: 1.337947
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.4
-            value: 0.58778524
-            inSlope: 1.269495
-            outSlope: 1.269495
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.45
-            value: 0.64944804
-            inSlope: 1.1932154
-            outSlope: 1.1932154
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.5
-            value: 0.70710677
-            inSlope: -0.112703145
-            outSlope: -0.112703145
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.5458313
-            value: 0.6439246
-            inSlope: -1.1554699
-            outSlope: -1.1554699
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.6375
-            value: 0.5584565
-            inSlope: -0.9781706
-            outSlope: -0.9781706
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.71667176
-            value: 0.477386
-            inSlope: 6.186436
-            outSlope: 6.186436
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.75
-            value: 0.9238795
-            inSlope: 6.9701977
-            outSlope: 6.9701977
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.8
-            value: 0.95105654
-            inSlope: 0.48490393
-            outSlope: 0.48490393
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.85
-            value: 0.9723699
-            inSlope: 0.36631835
-            outSlope: 0.36631835
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.9
-            value: 0.98768836
-            inSlope: 0.2454741
-            outSlope: 0.2454741
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.95
-            value: 0.9969173
-            inSlope: 0.123116344
-            outSlope: 0.123116344
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 1
-            value: 1
-            inSlope: 0.061653838
-            outSlope: 0.061653838
-            tangentMode: 35
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
 --- !u!1 &1238064693
 GameObject:
   m_ObjectHideFlags: 0
@@ -13133,6 +13591,326 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238064693}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1241298538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1241298539}
+  - component: {fileID: 1241298540}
+  m_Layer: 0
+  m_Name: ballEffects (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1241298539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241298538}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.78, z: -7.24}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1194563097}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1241298540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1241298538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ballEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [ball]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: ball
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+          - id: 3
+        ReactTo:
+        - '*'
+        type: 0
+        ContextType: 0
+    00000001:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0
+        loopType: 0
+        repeat: 0
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        soundGeneratorBase: 4
+        synthParameters: 1,.1,,.0932,,.2115,.3,.3612,,-.3725,,,,,,,,,,,,,,,,1,,,,,,
+        mutateOnExecution: 0
+        latestSynthParameters:
+        - 1,.1,,.0932,,.2115,.3,.3612,,-.3725,,,,,,,,,,,,,,,,1,,,,,,
+    00000002:
+      type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple camera shake effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.13
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        cameraToModify: {fileID: 0}
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 0
+        amount: 1
+        easeAmountInOut:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0.5
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.5
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000003:
+      type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle puff creates anything from a dust cloud from a footfall
+          to nuclear explosion.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 4
+        - id: 5
+        - id: 6
+        - id: 7
+        AmountOfParticles: 15
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        ExpansionShape: 5
+        setParticleUp: 1
+        setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
+        Height: 1
+        Radius: 0.8
+        ParticleScale: 0.1
+        ParticleLifetime: 0.8
+    00000004:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: 43.432007, y: -44.52872, z: -149.46024}
+    00000005:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.3
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0
+        Duration: 1.0528075
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.10483171, y: 0.10483171, z: 0.10483171}
+        easing: 8
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000006:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0
+        Duration: 0.8
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 1, g: 0.72158635, b: 0.0990566, a: 1}
+        relative: 0
+        to: {r: 1, g: 0.72156864, b: 0.10196079, a: 0}
+        easing: 12
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000007:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0.58864
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
 --- !u!1 &1242146888
 GameObject:
   m_ObjectHideFlags: 0
@@ -13303,6 +14081,381 @@ Transform:
   m_Father: {fileID: 904491713}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1259459962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1259459963}
+  - component: {fileID: 1259459964}
+  m_Layer: 0
+  m_Name: trailEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1259459963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259459962}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 87157224}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1259459964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259459962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ballEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [ball]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: ball
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 0.3
+  PreviewDirection: {x: 1, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnMoveTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 1
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Ball Trail
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+        type: 1
+    00000001:
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0.03
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 3
+        - id: 4
+        - id: 5
+        AmountOfParticles: 2
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 45, y: 45, z: 45}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 1.6360717
+        Drag: 0.1
+        ApplyGravity: 0
+        ParticleScale: 0.1
+    00000002:
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0.01
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 6
+        - id: 7
+        - id: 8
+        AmountOfParticles: 2
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 45, y: 45, z: 45}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 1.6360717
+        Drag: 0.1
+        ApplyGravity: 0
+        ParticleScale: 0.07
+    00000003:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: 10.508324, y: -1.2047621, z: -40.847603}
+    00000004:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.3
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.7
+        Duration: 1.2
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.2, y: 0.2, z: 0.2}
+        easing: 1
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000005:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 9
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 1
+        Duration: 2
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 0.031772893, g: 0.9474945, b: 0.9622642, a: 1}
+        relative: 0
+        to: {r: 0, g: 0.97647065, b: 0.96470594, a: 0}
+        easing: 6
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000006:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: 10.508324, y: -1.2047621, z: -40.847603}
+    00000007:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.3
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 1
+        Duration: 1.5
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.2, y: 0.2, z: 0.2}
+        easing: 1
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000008:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 10
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 1.2
+        Duration: 2
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 1, g: 0, b: 0.96470594, a: 1}
+        relative: 0
+        to: {r: 1, g: 0, b: 0.9803922, a: 0}
+        easing: 6
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000009:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    0000000A:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
 --- !u!1 &1266399998
 GameObject:
   m_ObjectHideFlags: 0
@@ -13922,7 +15075,7 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -13987,7 +15140,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 4
         - id: 5
-        AmountOfParticles: 25
+        AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
@@ -13995,8 +15148,8 @@ MonoBehaviour:
         setParticleUp: 0
         setParticleForward: 0
         Area: {x: 0, y: 0, z: 0}
-        Height: 0.5
-        Radius: 0.35
+        Height: 1
+        Radius: 0.7
         ParticleScale: 0.2
         ParticleLifetime: 0.7
     00000003:
@@ -15640,7 +16793,7 @@ MonoBehaviour:
   PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
-  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0.2, z: 0}
   references:
     version: 1
     00000000:
@@ -16747,7 +17900,7 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
-  PreviewMode: 0
+  PreviewMode: 1
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -16812,7 +17965,7 @@ MonoBehaviour:
         ExecuteOnOffspring:
         - id: 4
         - id: 5
-        AmountOfParticles: 25
+        AmountOfParticles: 100
         ParticlePrefabs: []
         usePrimitiveParticles: 1
         ParticlePrimitive: 0
@@ -16820,8 +17973,8 @@ MonoBehaviour:
         setParticleUp: 0
         setParticleForward: 0
         Area: {x: 0, y: 0, z: 0}
-        Height: 0.55
-        Radius: 0.35
+        Height: 1
+        Radius: 0.7
         ParticleScale: 0.2
         ParticleLifetime: 0.7
     00000003:
@@ -17320,6 +18473,7 @@ MonoBehaviour:
           TargetList: []
           EffectsToExecute:
           - id: 1
+          - id: 2
         localPositionOffset: {x: 0, y: 0, z: 0}
         useForwardForPositionOffset: 0
         forwardRotationOffset: {x: 0, y: 0, z: 0}
@@ -17360,151 +18514,43 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
---- !u!1 &1400181128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1400181129}
-  - component: {fileID: 1400181134}
-  - component: {fileID: 1400181133}
-  - component: {fileID: 1400181132}
-  - component: {fileID: 1400181131}
-  - component: {fileID: 1400181130}
-  m_Layer: 0
-  m_Name: ball(Clone)
-  m_TagString: ball
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1400181129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400181128}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3, z: 0}
-  m_LocalScale: {x: 0.2002, y: 0.2002, z: 0.2002}
-  m_Children: []
-  m_Father: {fileID: 1953755208}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1400181130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400181128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc7eb8a884ce84d72b9146352c33a15e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: 1.01
-  velocity: {x: 0, y: 0}
-  maxSpeed: 6
-  ballReady: 1
---- !u!61 &1400181131
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400181128}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!50 &1400181132
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400181128}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 4
---- !u!23 &1400181133
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400181128}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 54db4f0b2a45944d685ba2c276e5c213, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &1400181134
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1400181128}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    00000002:
+      type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Translate Effect allows you to move an object using easing.
+        UnscaledTime: 1
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.5
+        Duration: 1
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {x: 0, y: 10, z: 0}
+        relative: 1
+        to: {x: 0, y: 0, z: 0}
+        easing: 11
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 1
 --- !u!1 &1405037150
 GameObject:
   m_ObjectHideFlags: 0
@@ -18996,7 +20042,7 @@ MonoBehaviour:
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
-        Duration: 1
+        Duration: 1.2
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
@@ -19079,7 +20125,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499500738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7437688, y: -0.78438234, z: -9.683669}
+  m_LocalPosition: {x: -1.0054417, y: -0.40239733, z: -9.988362}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -19341,7 +20387,7 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
-  PreviewMode: 0
+  PreviewMode: 2
   PreviewTriggerInterval: 2
   PreviewDirection: {x: 0, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
@@ -19404,6 +20450,335 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
+--- !u!1 &1524189877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1524189878}
+  - component: {fileID: 1524189879}
+  m_Layer: 0
+  m_Name: Cylinder Shape
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1524189878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524189877}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 717186169}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1524189879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524189877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: ballEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [ball]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: ball
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  - id: 1
+  PreviewMode: 1
+  PreviewTriggerInterval: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 4
+          selectedIntensity: 6
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 2
+        ReactTo:
+        - '*'
+        type: 0
+        ContextType: 1
+    00000001:
+      type: {class: OnMoveTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 1
+        Disabled: 1
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 3
+        type: 1
+    00000002:
+      type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle Puff creates anything from a dust cloud from a footfall
+          to nuclear explosion.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 4
+        - id: 5
+        AmountOfParticles: 100
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 0
+        ExpansionShape: 2
+        setParticleUp: 0
+        setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
+        Height: 1
+        Radius: 0.5
+        ParticleScale: 0.2
+        ParticleLifetime: 0.7
+    00000003:
+      type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a trail of copies of the game object, which slowly fades.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0.1
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 6
+        - id: 7
+        TrailPrefab: {fileID: 0}
+        TrailPositionOffset: {x: 0, y: 0, z: 0}
+    00000004:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.3
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.2
+        Duration: 0.56679225
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.2901438, y: 0.2901438, z: 0.2901438}
+        easing: 3
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000005:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 8
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 1
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 0.9
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 1, g: 0.8968139, b: 0.5424528, a: 1}
+        relative: 0
+        to: {r: 0.5188679, g: 0.44653097, b: 0.19335172, a: 0}
+        easing: 7
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000006:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.52
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0.05, y: 0.05, z: 0.05}
+        relative: 0
+        to: {x: 0.05, y: 0.05, z: 0.05}
+        easing: 5
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0.1
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 9
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 2.15
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 4
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    00000009:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
 --- !u!1 &1550174402
 GameObject:
   m_ObjectHideFlags: 0
@@ -19917,8 +21292,6 @@ MonoBehaviour:
           EffectsToExecute:
           - id: 1
           - id: 2
-          - id: 3
-          - id: 4
         ReactTo:
         - ball
         type: 0
@@ -19956,202 +21329,6 @@ MonoBehaviour:
         - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
         - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
     00000002:
-      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 1
-        Lock: 0
-        Description: Shatter an object into pieces and add a the Ragdoll effect to
-          the pieces.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 5
-        - id: 6
-        - id: 7
-        AmountOfPieces: 25
-        PrefabPieces: []
-        usePrimitivePieces: 1
-        PiecePrimitive: 3
-    00000003:
-      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 1
-        Lock: 0
-        Description: Make a positional flash which quickly fades away.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 8
-        FlashColor: {r: 1, g: 1, b: 1, a: 1}
-        FlashTransparency: 1
-        FlashPrefab: {fileID: 0}
-        FlashPrimitive: 0
-        Scale: {x: 1, y: 1, z: 1}
-        PositionOffset: {x: 0, y: 0, z: 0}
-    00000004:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-    00000005:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 1
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2627451}
-        easing: 1
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    00000006:
-      type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Add a Rigidbody that's affected by gravity to the target, and
-          set an initial velocity based on the interaction.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ForceMultiplier: 5
-        RandomizeAdditionalForce: 0
-        AdditionalForce: {x: 0, y: 0, z: 0}
-        MaxVelocity: 0
-        ApplyGravity: 1
-    00000007:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 0.5, y: 0.5, z: 0.5}
-        easing: 6
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-    00000008:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 9
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.14273116
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0, g: 0, b: 0, a: 0}
-        easing: 9
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    00000009:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -20482,7 +21659,7 @@ Transform:
   - {fileID: 267278535}
   - {fileID: 1647335498}
   m_Father: {fileID: 859956545}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1647335497
 GameObject:
@@ -21015,6 +22192,348 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1690288186}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1700201657
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1700201658}
+  - component: {fileID: 1700201659}
+  m_Layer: 0
+  m_Name: paddleEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1700201658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700201657}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1194563097}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1700201659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1700201657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: paddleEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [paddle]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: paddle
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
+  PreviewDirection: {x: 0, y: -1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0.3, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 4
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+          - id: 3
+          - id: 4
+        ReactTo:
+        - '*'
+        type: 0
+        ContextType: 0
+    00000001:
+      type: {class: SquashAndStretchEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Squash and Stretch Effect allows you to scale an object using
+          easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.7
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        Stretch: 0
+        Amount: 0.309
+        useCollisionNormal: 0
+        easeIn: 8
+        easeOut: 2
+        lockLocalPosition: 0
+        resetSizeAfterEffect: 0
+        resetSize: {x: 0, y: 0, z: 0}
+    00000002:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.499879
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        soundGeneratorBase: 2
+        synthParameters: 3,.055,,.147,.2374,.4458,.3,.0395,,.0186,,,,,,,,,,,,,,.27,-.0629,1,,,,,,
+        mutateOnExecution: 0
+        latestSynthParameters:
+        - 3,.055,,.147,.2374,.4458,.3,.0395,,.0186,,,,,,,,,,,,,,.27,-.0629,1,,,,,,
+        - 3,.055,,.3795,.5795,.1666,.3,.0328,,.0701,,,,,,,.7985,.7119,,,,,,.4811,-.1217,1,,,,,,
+        - 3,.055,,.3208,.3261,.1308,.3,.7727,,-.26,,,,,,,.7891,.8556,,,,,,-.2401,-.1941,1,,,,,,
+        - 3,.055,,.1123,.2935,.419,.3,.2276,,.1405,,,,,,,,,,,,,.5516,.459,-.0128,1,,,,,,
+        - 3,.055,,.1123,.4267,.0456,.3,.5563,,-.3778,,,,,,,,,,,,,,.4228,-.1959,1,,,,,,
+        - 3,.055,,.3591,.3624,.1302,.3,.0763,,,,,,,,,,,,,,,.4051,,,1,,,,,,
+        - 3,.055,,.3145,.7074,.289,.3,.0649,,-.3026,,,,,,,,,,,,,.7957,,,1,,,,,,
+        - 3,.055,,.1235,.797,.3536,.3,.0843,,.1621,,,,,,,,,,,,,,,,1,,,,,,
+        - 3,.055,,.2502,.4635,.1718,.3,.1719,,-.2688,,,,,,,,,,,,,,-.129,-.0374,1,,,,,,
+        - 3,.055,,.166,.4887,.3289,.3,.07,,-.2115,,,,,,,,,,,,,,,,1,,,,,,
+        - 0,.055,,.0253,.2094,.195,.3,.402,,-.1807,,.1301,.0527,,,.0384,-.1682,,-.085,,.1239,,,,,1,,,.2045,,,
+        - 0,.055,,.0253,,.195,.3,.402,,-.4031,,,,,,,,,,,.3647,,,,,1,,,,,,
+        - 0,.09,,.0176,.3399,.1131,.3,.4241,,,,,,,,,.4545,.512,,,,,,,,1,,,,,,
+    00000003:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.35
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0.71155864, g: 0.0261478, b: 0.11592848, a: 1}
+        easing: 2
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000004:
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 5
+        - id: 6
+        - id: 7
+        AmountOfParticles: 50
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 360, y: 360, z: 360}
+        Area: {x: 1.5, y: 0.3, z: 0}
+        Speed: 2.57
+        Drag: 0.072734244
+        ApplyGravity: 0
+        ParticleScale: 0.1748592
+    00000005:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: -97.62311, y: 6.084765, z: 93.71644}
+    00000006:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.3
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.8911551
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.2884567, y: 0.2884567, z: 0.2884567}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 8
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.581
+        Duration: 1.5330449
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 1, g: 0, b: 0.09067249, a: 1}
+        relative: 0
+        to: {r: 1, g: 0, b: 0.01845169, a: 0}
+        easing: 5
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
 --- !u!1 &1703972779
 GameObject:
   m_ObjectHideFlags: 0
@@ -21152,7 +22671,7 @@ Transform:
   - {fileID: 1312135790}
   - {fileID: 971634731}
   m_Father: {fileID: 859956545}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1732196171
 GameObject:
@@ -22075,53 +23594,6 @@ Transform:
   - {fileID: 948432253}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1953755206
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1953755208}
-  - component: {fileID: 1953755207}
-  m_Layer: 0
-  m_Name: GameFeelEffectExecution
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1953755207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953755206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcf331dcee374098aa21cdf39db0c4c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentlyExecuting: 1
-  shouldRemoveTweensOnLevelLoad: 0
---- !u!4 &1953755208
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953755206}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1400181129}
-  - {fileID: 656201584}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968682569
 GameObject:

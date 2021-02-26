@@ -155,6 +155,8 @@ namespace GameFeelDescriptions
             //Draw line to all the things this Description is attaching to!
             foreach (var go in attachingTo)
             {
+                if(go == null) continue;
+                
                 var descPos = transform.position;
                 var attachPos = go.transform.position;
 

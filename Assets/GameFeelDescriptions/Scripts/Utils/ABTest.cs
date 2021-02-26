@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 
 
 namespace GameFeelDescriptions
@@ -56,8 +52,11 @@ namespace GameFeelDescriptions
         {
             if (displayCurrent)
             {
+                var yPos = Screen.height / 10f;
+
                 //GUI.Box(new Rect(Screen.width / 2f - 75, 0, 150, 100), "Current active effect tree: " + ABGroups[currentGroup].name);
-                GUI.Label(new Rect(Screen.width / 2f - 75, 50, 150, 100), "Current active effect tree: " + ABGroups[currentGroup].name);    
+                GUI.Box(new Rect(Screen.width / 2f - 80, 0, 160, 50), "");
+                GUI.Label(new Rect(Screen.width / 2f - 75, 0, 150, 50), "Current active effect tree: \n\n" + ABGroups[currentGroup].name);    
             }
         }
 

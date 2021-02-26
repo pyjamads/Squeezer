@@ -428,6 +428,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 2
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -500,6 +504,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 2
         synthParameters: 3,.05,,.279,.569,.412,.285,.194,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
         mutateOnExecution: 0
@@ -594,6 +599,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
@@ -653,6 +659,7 @@ MonoBehaviour:
         loopType: 1
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -687,6 +694,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -746,6 +754,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -4212,6 +4221,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -4264,6 +4277,7 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.25
         Radius: 0.3
         ParticleScale: 0.1
@@ -4290,6 +4304,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         cameraToModify: {fileID: 0}
         useInteractionDirection: 1
         interactionDirectionMultiplier: 0.02
@@ -4349,6 +4364,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -4384,6 +4400,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 1, g: 0.747421, b: 0.5411765, a: 1}
         relative: 0
@@ -4461,6 +4478,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -5098,7 +5116,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859956544}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37042ad8cb11d428c89388433dbaddfa, type: 3}
   m_Name: 
@@ -5117,7 +5135,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859956544}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37042ad8cb11d428c89388433dbaddfa, type: 3}
   m_Name: 
@@ -5504,6 +5522,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -5583,6 +5605,7 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.6
         Radius: 1
         ParticleScale: 0.05
@@ -5609,6 +5632,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1.5
@@ -5665,6 +5689,7 @@ MonoBehaviour:
         ExpansionShape: 5
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.8
         Radius: 2
         ParticleScale: 0.1
@@ -5692,6 +5717,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -5727,6 +5753,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -5762,6 +5789,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -5797,6 +5825,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.9150943, g: 0.9150943, b: 0.9150943, a: 1}
         relative: 0
@@ -5857,6 +5886,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useGlobalRotation: 0
         RandomizeInitialRotation: 0
         RotationPerSecond: {x: 96.19507, y: -20.264887, z: -81.31085}
@@ -5882,6 +5912,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -5917,6 +5948,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0.012731435, g: 0.013885858, b: 0.013680069, a: 1}
         relative: 0
@@ -6011,6 +6043,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -6062,6 +6095,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -6097,6 +6131,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -6514,6 +6549,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 2
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: -0.5, y: -1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -6562,6 +6601,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 7
         synthParameters: 3,.1,,.1864,.7305,.1524,.3,.0533,,-.2598,,,,,,,,,,,,,.4295,,,1,,,,,,
         mutateOnExecution: 0
@@ -6709,6 +6749,7 @@ MonoBehaviour:
         loopType: 1
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -6747,6 +6788,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -6782,6 +6824,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {x: 2, y: 2, z: 2}
         relative: 0
@@ -6972,6 +7015,10 @@ MonoBehaviour:
   - id: 1
   - id: 2
   - id: 3
+  PreviewMode: 2
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -7084,6 +7131,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
     00000005:
       type: {class: SpawnCopyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -7133,6 +7181,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 4
         synthParameters: 1,.1,,.0244,,.2332,.3,.347,,-.4234,,,,.06,,,,,,,,,,,,1,,,.1591,,,
         mutateOnExecution: 0
@@ -7182,6 +7231,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         includingChildren: 0
         enableAfterDuration: 1
     00000009:
@@ -7207,6 +7257,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         OnlyDisableRenderers: 1
         Interval: 0.05
     0000000A:
@@ -7282,6 +7333,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7348,6 +7400,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         Stretch: 0
         Amount: 0.4
         useCollisionNormal: 0
@@ -7380,6 +7433,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7416,6 +7470,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
@@ -7470,6 +7525,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.7830189, g: 0, b: 0.7830189, a: 1}
         relative: 0
@@ -7505,6 +7561,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -7541,6 +7598,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -7575,6 +7633,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1
         amount: 0.05
@@ -7629,6 +7688,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7666,6 +7726,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useInteractionDirection: 1
         interactionDirectionMultiplier: 1
         amount: 0
@@ -7718,6 +7779,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -7752,6 +7814,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -7893,6 +7956,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.38679248, g: 0.30149746, b: 0.0054734685, a: 1}
         relative: 0
@@ -8455,6 +8519,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -8527,6 +8595,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1.5
@@ -8584,6 +8653,7 @@ MonoBehaviour:
         ExpansionShape: 5
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 2
         Radius: 0.2
         ParticleScale: 0.2
@@ -8611,6 +8681,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -8646,6 +8717,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -8682,6 +8754,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useGlobalRotation: 0
         RandomizeInitialRotation: 0
         RotationPerSecond: {x: 96.19507, y: -20.264887, z: -81.31085}
@@ -8707,6 +8780,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -8743,6 +8817,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
         relative: 0
@@ -8784,6 +8859,7 @@ MonoBehaviour:
         ExpansionShape: 6
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.4
         Radius: 1.5
         ParticleScale: 0.1
@@ -8872,6 +8948,7 @@ MonoBehaviour:
         ExpansionShape: 3
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.7
         ParticleScale: 0.2
@@ -8898,6 +8975,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -8933,6 +9011,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
         relative: 0
@@ -8973,6 +9052,7 @@ MonoBehaviour:
         ExpansionShape: 3
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 0.5
         ParticleScale: 0.2
@@ -8999,6 +9079,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -9034,6 +9115,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -9069,6 +9151,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -9104,6 +9187,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
         relative: 0
@@ -9155,6 +9239,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -9190,6 +9275,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
         relative: 0
@@ -10581,6 +10667,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -10660,6 +10750,7 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.7
         Radius: 0.5
         ParticleScale: 0.1
@@ -10686,6 +10777,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         cameraToModify: {fileID: 0}
         useInteractionDirection: 1
         interactionDirectionMultiplier: 0.7
@@ -10742,6 +10834,7 @@ MonoBehaviour:
         ExpansionShape: 5
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.5
         Radius: 1.5
         ParticleScale: 0.1
@@ -10769,6 +10862,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -10804,6 +10898,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -10839,6 +10934,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -10874,6 +10970,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 1, g: 0.8968139, b: 0.5424528, a: 1}
         relative: 0
@@ -10934,6 +11031,7 @@ MonoBehaviour:
         loopType: 3
         repeat: -1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useGlobalRotation: 0
         RandomizeInitialRotation: 0
         RotationPerSecond: {x: 96.19507, y: -20.264887, z: -81.31085}
@@ -10959,6 +11057,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -10994,6 +11093,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 1, g: 1, b: 1, a: 1}
         relative: 0
@@ -11087,6 +11187,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -11140,6 +11241,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -12480,6 +12582,10 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -12548,6 +12654,7 @@ MonoBehaviour:
         ExpansionShape: 6
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.25
         Radius: 0.35
         ParticleScale: 0.2
@@ -12595,6 +12702,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -12630,6 +12738,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 1, g: 0.8968139, b: 0.5424528, a: 1}
         relative: 0
@@ -12665,6 +12774,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0.05, y: 0.05, z: 0.05}
         relative: 0
@@ -12700,6 +12810,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -13688,6 +13799,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -13737,6 +13852,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         Stretch: 0
         Amount: 0.1
         useCollisionNormal: 0
@@ -13768,6 +13884,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 4
         synthParameters: 1,.1,,.0932,,.2115,.3,.3612,,-.3725,,,,,,,,,,,,,,,,1,,,,,,
         mutateOnExecution: 0
@@ -13796,6 +13913,7 @@ MonoBehaviour:
         loopType: 1
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -13854,6 +13972,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -13889,6 +14008,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -14500,6 +14620,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 2
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -14561,6 +14685,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         Stretch: 0
         Amount: 0.09999
         useCollisionNormal: 0
@@ -14592,6 +14717,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 4
         synthParameters: 3,.1,,.0865,,.1083,.3,.7075,,-.424,,,,,,,,,,,,,,,,1,,,,,,
         mutateOnExecution: 0
@@ -14620,6 +14746,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -14694,6 +14821,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -14731,6 +14859,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -14766,6 +14895,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 0
@@ -14800,6 +14930,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {r: 0, g: 0, b: 0, a: 0}
         relative: 0
@@ -15949,249 +16080,14 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        Disabled: 0
-        EffectGroups:
-        - selectedCategory: 0
-          selectedIntensity: 1
-          GroupName: 
-          Disabled: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          EffectsToExecute:
-          - id: 1
-          - id: 2
-          - id: 3
-          - id: 4
-          - id: 5
-        ReactTo:
-        - '*'
-        type: 0
-        ContextType: 1
-    00000001:
-      type: {class: BlinkEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Disable game object, unless onlyRenderer and/or onlyCollider
-          is set, in which case it'll disable collisions and/or rendering.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 6
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.8871226
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        OnlyDisableRenderers: 1
-        Interval: 0.02
-    00000002:
-      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 1
-        Description: Make a positional flash which quickly fades away.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring: []
-        FlashColor: {r: 0.83382887, g: 0.6338577, b: 0.8785535, a: 1}
-        FlashTransparency: 0
-        FlashPrefab: {fileID: 0}
-        FlashPrimitive: 0
-        Scale: {x: 1.69, y: 1.69, z: 1.69}
-        PositionOffset: {x: 0, y: 0, z: 0}
-    00000003:
-      type: {class: SpawnCopyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 1
-        Description: Make a copy of the target.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring: []
-        SetTag: Untagged
-        RemoveColliders: 1
-        RemoveRigidbodies: 1
-        RemoveScripts: 1
-        FollowTarget: 0
-        SmoothTime: 0.01
-        ScaleFactor: 1
-        PositionOffset: {x: 0, y: 0, z: 0}
-    00000004:
-      type: {class: TrailEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Make a trail of copies of the game object, which slowly fades.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 1
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 7
-        TrailPrefab: {fileID: 0}
-        TrailPositionOffset: {x: 0, y: 0, z: 0}
-    00000005:
-      type: {class: WaitForAboveEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Delay any subsequent effect by an amount, or until all effects
-          above it are complete. NB does not include nested effects
-        UnscaledTime: 0
-        Delay: 0.1790036
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        WaitForAllTargets: 0
-    00000006:
-      type: {class: BlinkEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Disable game object, unless onlyRenderer and/or onlyCollider
-          is set, in which case it'll disable collisions and/or rendering.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 1.16
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        OnlyDisableRenderers: 1
-        Interval: 0.02
-    00000007:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0.096222326
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 8
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 1.0251427
-        loopType: 1
-        repeat: 1
-        DelayBetweenLoops: 0
-        setFromValue: 0
-        from: {r: 0.1300331, g: 0.1853703, b: 0.17176554, a: -0.18187523}
-        relative: 0
-        to: {r: -0.08628724, g: -0.16095717, b: -0.17245749, a: -0.21456656}
-        easing: 6
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    00000008:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 9
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-    00000009:
-      type: {class: SpawnCopyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Make a copy of the target.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring: []
-        SetTag: Untagged
-        RemoveColliders: 1
-        RemoveRigidbodies: 1
-        RemoveScripts: 1
-        FollowTarget: 0
-        SmoothTime: 0.01
-        ScaleFactor: 1
-        PositionOffset: {x: 0, y: 0, z: 0}
+      type: {class: , ns: , asm: }
 --- !u!1 &2135478521
 GameObject:
   m_ObjectHideFlags: 0

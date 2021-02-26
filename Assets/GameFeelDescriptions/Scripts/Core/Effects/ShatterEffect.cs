@@ -129,7 +129,7 @@ namespace GameFeelDescriptions
                     }
                     else
                     {
-                        renderer.sharedMaterial.color = targetRenderer.material.color;
+                        renderer.sharedMaterial.color = targetRenderer.sharedMaterial.color;
                     }
                 }
                 
@@ -161,7 +161,7 @@ namespace GameFeelDescriptions
                         }
                         else
                         {
-                            renderer.sharedMaterial.color = targetRenderer.material.color;
+                            renderer.sharedMaterial.color = targetRenderer.sharedMaterial.color;
                         }
                     }
 

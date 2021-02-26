@@ -62,6 +62,13 @@ namespace GameFeelDescriptions
         {
             get
             {
+#if UNITY_EDITOR
+                if (!EditorApplication.isPlayingOrWillChangePlaymode)
+                {
+                    applicationIsQuitting = false;
+                }
+#endif
+                
                 if (instance || applicationIsQuitting) return instance;
                 
                 // check if there is an instance available already
@@ -272,7 +279,7 @@ namespace GameFeelDescriptions
                     effect.triggerData.InCollisionUpdate = false;
                 }
                 
-                // update tween
+                // update tween / effect
                 if(effect.Tick(unscaledDeltaTime))
                 {
                     // tween completed

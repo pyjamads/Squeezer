@@ -831,7 +831,7 @@ namespace GameFeelDescriptions
                                 foreach (var effectGroup in trigger.EffectGroups)
                                 {
                                     var position = Vector3.zero;
-                                    if (targetInAList.Count > 0)
+                                    if (targetInAList.Count > 0 && targetInAList[0] != null)
                                     {
                                         position = targetInAList[0].transform.position;
                                     }
@@ -1039,7 +1039,7 @@ namespace GameFeelDescriptions
                             foreach (var effectGroup in trigger.EffectGroups)
                             {
                                 var previewTargetPosition = Vector3.zero;
-                                if (targetInAList.Count > 0)
+                                if (targetInAList.Count > 0 && targetInAList[0] != null)
                                 {
                                     previewTargetPosition = targetInAList[0].transform.position;
                                 }
