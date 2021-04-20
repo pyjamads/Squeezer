@@ -1,0 +1,2665 @@
+{
+ "recipes": [
+  {"id": 1,
+  "EffectsToExecute": [
+   {"WiggleEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"WaitForAbove": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 2,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"SpawnCopyEffect": {
+     "ExecuteAfterCompletion": [
+      {"DisableRendererEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ],
+     "ExecuteOnOffspring": [
+      {"DestroyEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraBackgroundColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 3,
+  "EffectsToExecute": [
+   {"BlinkEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"RotateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 4,
+  "EffectsToExecute": [
+   {"ScaleEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ContinuousRotationEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"BlinkEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 5,
+  "EffectsToExecute": [
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 6,
+  "EffectsToExecute": [
+   {"ScaleEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"Delay": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 7,
+  "EffectsToExecute": [
+   {"RotateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"FullscreenFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 8,
+  "EffectsToExecute": [
+   {"FreezeFrameEffect": {
+     "ExecuteAfterCompletion": [
+      {"TranslateEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"Looper": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 9,
+  "EffectsToExecute": [
+   {"ScaleEffect": {
+     "ExecuteAfterCompletion": [
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 10,
+  "EffectsToExecute": [
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"SpawnCopyEffect": {
+        "ExecuteAfterCompletion": [
+         {"DisableRendererEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ],
+        "ExecuteOnOffspring": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 11,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 12,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 13,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 14,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 15,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 16,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 17,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 18,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 19,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 20,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 21,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 22,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 23,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 24,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 25,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 26,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 27,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 28,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 29,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 30,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 31,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 32,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 33,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 34,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 35,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 36,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 37,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 38,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 39,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 40,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 41,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 42,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 43,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 44,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 45,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 46,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 47,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 48,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 49,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 50,
+  "EffectsToExecute": [
+   {"SquashAndStretchEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"MaterialColorChangeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"ParticlePuffEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"ContinuousRotationEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 51,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 52,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 53,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 54,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 55,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 56,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 57,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 58,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 59,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 60,
+  "EffectsToExecute": [
+   {"AudioSynthPlayEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"PositionalFlashEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"ScaleEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"ShatterEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {"CameraShakeEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   },
+   {"TranslateEffect": {
+     "ExecuteAfterCompletion": [
+     ]
+    }
+   }
+  ]},
+  {"id": 61,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 62,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 63,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 64,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 65,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 66,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 67,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ShakeEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 68,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ShakeEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 69,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ShakeEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 70,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      },
+      {"RagdollEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      },
+      {"ShakeEffect": {
+        "ExecuteAfterCompletion": [
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 71,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 72,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 73,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 74,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 75,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 76,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 77,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 78,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 79,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]},
+  {"id": 80,
+  "EffectsToExecute": [
+   {"TrailEffect": {
+     "ExecuteAfterCompletion": [
+     ],
+     "ExecuteOnOffspring": [
+      {"MaterialColorChangeEffect": {
+        "ExecuteAfterCompletion": [
+         {"DestroyEffect": {
+           "ExecuteAfterCompletion": [
+           ]
+          }
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  ]}
+ ]
+}
