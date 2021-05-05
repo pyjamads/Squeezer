@@ -111,7 +111,14 @@ namespace GameFeelDescriptions
             end = GetEndValue();
             SetValue(target, start);
 
-            diffAmount = GetDifference(start, end);
+            if (relative)
+            {
+                diffAmount = GetDifference(start, GetRelativeValue(start, end));
+            }
+            else
+            {
+                diffAmount = GetDifference(start, end);
+            }
         }
 
         protected override bool ExecuteTick()

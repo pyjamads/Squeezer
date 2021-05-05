@@ -150,7 +150,6 @@ namespace GameFeelDescriptions
             var easeFunc = GetEaseFunc();
             if (relative)
             {
-                //TODO: clean up and expand this to all the tweens. 2021-03-07
                 var progress = elapsed / Duration;
                 var prevProgress = oldElapsed / Duration;
 
@@ -160,23 +159,13 @@ namespace GameFeelDescriptions
                     prevProgress = 1 - prevProgress;
                 }
 
-                if (true) // alternative calculation, that works for discrete values as well!
-                {
-                    var prev = diffAmount * easeFunc.Invoke(prevProgress);
-                    var current = diffAmount * easeFunc.Invoke(progress);
-                    
-                    //amount = end - start;
-                    //current + (amount * easing(t1)) - (amount * - easing(t0));
-                    SetValue(target, GetValue(target) + (reverse ? -1 : 1) * (current - prev));
-                }
-                else
-                {
-                    var easingDelta = easeFunc.Invoke(reverse ? 1 - elapsed / Duration : elapsed / Duration) 
-                                      - easeFunc.Invoke(reverse ? 1 - oldElapsed / Duration : oldElapsed / Duration);
                 
-                    //current + (to - @from) * (easing(t1) - easing(t0));
-                    SetValue(target, GetValue(target) + diffAmount * ((reverse ? -1 : 1) * easingDelta));
-                }
+                var prev = diffAmount * easeFunc.Invoke(prevProgress);
+                var current = diffAmount * easeFunc.Invoke(progress);
+                
+                //amount = end - start;
+                //current + (amount * easing(t1)) - (amount * - easing(t0));
+                SetValue(target, GetValue(target) + (reverse ? -1 : 1) * (current - prev));
             }
             else
             {

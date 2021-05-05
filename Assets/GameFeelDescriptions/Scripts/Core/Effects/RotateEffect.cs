@@ -65,7 +65,31 @@ namespace GameFeelDescriptions
                 return true;
             }
             
-            SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
+            var easeFunc = GetEaseFunc();
+            if (relative)
+            {
+                var progress = elapsed / Duration;
+                var prevProgress = oldElapsed / Duration;
+
+                if (reverse)
+                {
+                    progress = 1 - progress;
+                    prevProgress = 1 - prevProgress;
+                }
+                
+                var prev = diffAmount * easeFunc.Invoke(prevProgress);
+                var current = diffAmount * easeFunc.Invoke(progress);
+                
+                //amount = end - start;
+                //current + (amount * easing(t1)) - (amount * - easing(t0));
+                SetValue(target, GetValue(target) + (reverse ? -1 : 1) * (current - prev));
+            }
+            else
+            {
+                //@from  + (to - @from) * easing(t);
+                SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, easeFunc));    
+            }
+            //SetValue(target, TweenHelper.Interpolate(start, elapsed / Duration, end, GetEaseFunc()));
 
             return false;
         }
