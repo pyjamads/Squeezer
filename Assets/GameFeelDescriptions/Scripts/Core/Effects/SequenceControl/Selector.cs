@@ -10,11 +10,11 @@ namespace GameFeelDescriptions
         }
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new Selector();
             cp.Init(origin, target, triggerData);
-            cp = DeepCopy(cp);
+            cp = DeepCopy(cp, ignoreCooldown);
 
             if (cp.ExecuteAfterCompletion.Count > 1)
             {

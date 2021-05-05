@@ -35,7 +35,7 @@ namespace GameFeelDescriptions
         //TODO: Add 2D option, and maybe a camera reference?, so we can make quad/sprite instead. 2020-08-13
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new ShatterEffect();
 
@@ -46,13 +46,18 @@ namespace GameFeelDescriptions
             
             cp.Init(origin, target, triggerData);
 
-            cp.targetPos = target != null
-                ? target.transform.position
-                : (origin != null ? origin.transform.position : Vector3.zero);
+            if (target == null && origin == null)
+            {
+                cp.targetPos = Vector3.zero;
+            }
+            else
+            {
+                cp.targetPos = target != null ? target.transform.position : origin.transform.position;    
+            }
             
             
 
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         //TODO: add mutate!!!

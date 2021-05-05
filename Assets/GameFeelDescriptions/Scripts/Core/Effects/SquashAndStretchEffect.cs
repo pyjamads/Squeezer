@@ -42,7 +42,7 @@ namespace GameFeelDescriptions
         private Vector3 collisionPos;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new SquashAndStretchEffect();
             cp.Stretch = Stretch;
@@ -54,7 +54,7 @@ namespace GameFeelDescriptions
             cp.resetSize = resetSize;
             cp.useCollisionNormal = useCollisionNormal;
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         //TODO: add mutate!!

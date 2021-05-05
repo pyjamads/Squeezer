@@ -5,7 +5,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using JetBrains.Annotations;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using AsyncOperation = UnityEngine.AsyncOperation;
@@ -19,6 +22,7 @@ namespace GameFeelDescriptions
     public class EffectTreeEvaluation : MonoBehaviour
     {
         private string SavePath = Path.Combine(GameFeelDescription.savePath, "EffectAnalysis");
+        private string ImagePath = Path.Combine(GameFeelDescription.savePath, Path.Combine("EffectAnalysis", "Images"));
         
         [ReadOnly]
         public string SceneName;
@@ -35,7 +39,7 @@ namespace GameFeelDescriptions
 
         [ReadOnly]
         [Header("Time left evaluating this tree!")]
-        public float TimeLeft = 5f;
+        public float TimeLeft = 0;
         
         private int evaluationIndex;
         private GameFeelEffectGroup[] generatedGroups; 
@@ -46,25 +50,42 @@ namespace GameFeelDescriptions
         
         [Header("Do static analysis")] 
         public bool staticAnalysis;
+
+        [Header("Load each effect and capture screenshots")]
+        public bool captureScreenshots;
+        [Header("Amount of frames to capture per second.")]
+        public float CaptureFPS;
+        
         
         [Header("Threading for the static analysis")]
         public bool multiThreaded = true;
 
         [Range(1, 16)] public int threads = 8;
 
+        [UsedImplicitly]
         public string EstimatedTimeLeft;
+        [UsedImplicitly]
         public float progress;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread1;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread2;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread3;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread4;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread5;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread6;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread7;
+        [UsedImplicitly]
         [Indent(5)] public float progressThread8;
 
         private float[] distanceMatrix;
-        
+        private PositionalData positionalData;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -81,6 +102,12 @@ namespace GameFeelDescriptions
             //Make base and current folder
             MakeFolder(path);
             SavePath = path;
+
+            if (captureScreenshots)
+            {
+                ImagePath = Path.Combine(path, "Images");
+                MakeFolder(ImagePath);
+            }
             
             //TODO: handle No desc, trigger or group! 2020-12-18
             description = transform.GetComponentInChildren<GameFeelDescription>();
@@ -94,12 +121,13 @@ namespace GameFeelDescriptions
 
             GameFeelEffectExecutor.Instance.shouldRemoveTweensOnLevelLoad = true;
             
-            SetupNextEffect();
+            //SetupNextEffect();
+            ReloadScene();
 
             if (staticAnalysis)
             {
                 //Evaluates the effects, statically and writes out a distance matrix.
-                StartCoroutine(EvaluateMany());    
+                StartCoroutine(EvaluateMany());
             }
 
             //Writes out the structure of the list of effects
@@ -155,33 +183,55 @@ namespace GameFeelDescriptions
         private void SetupNextEffect()
         {
             evaluationIndex++;
+
+            if (evaluationIndex >= generatedGroups.Length)
+            {
+                Debug.Log("Capture Complete!");
+#if UNITY_EDITOR
+                EditorApplication.ExitPlaymode();
+#endif
+                Debug.Break();
+                return;
+            }
             
             effectGroup.ReplaceEffectsWithRecipe(generatedGroups[evaluationIndex].EffectsToExecute);
-
-            var path = Path.Combine(SavePath, "id" + evaluationIndex);
             
-            //Create new folder!
-            MakeFolder(path);
+            var targets = new List<GameObject> {description.attachedTriggers[0].gameObject};
+            positionalData = new PositionalData(targets[0].transform.position + targets[0].transform.localScale / 2f, Vector3.one);
+            effectGroup.InitializeAndQueueEffects(null, targets, positionalData);
         }
 
+        private int ss_index = 0;
+
+        private float last_ss = -1;
         // Update is called once per frame
         void Update()
         {
             //Skip updates while reloading;
             if (reloadingScene) return;
+
+            if (!captureScreenshots) return;
             
-            TimeLeft -= Time.unscaledDeltaTime;
+            TimeLeft -= Time.deltaTime;
 
             //Group switching
             if (TimeLeft <= 0)
             {
                 ReloadScene();
-                SetupNextEffect();
+                //SetupNextEffect();
                 TimeLeft = EvaluationTime;
+                ss_index = 0;
             }
             else
             {
-                //TODO: save screen shot here, every x frames!!! 2020-12-18
+                if (evaluationIndex > -1 && last_ss + (1f / CaptureFPS) < Time.time)
+                {
+                    //Debug.Log("Saving "+"id" + evaluationIndex + "_" + ss_index + ".png");
+                    //TODO: save screen shot here, every x frames!!! 2020-12-18
+                    ScreenCapture.CaptureScreenshot(Path.Combine(ImagePath, "id" + evaluationIndex + "_" + ss_index + ".png"));
+                    last_ss = Time.time;
+                    ss_index++;
+                }
             }
         }
 
@@ -221,6 +271,11 @@ namespace GameFeelDescriptions
 
                 //Reattach triggers
                 CustomMenus.AttachAllTriggers();
+
+                if (captureScreenshots)
+                {
+                    SetupNextEffect();
+                }
                 
                 reloadingScene = false;
             }

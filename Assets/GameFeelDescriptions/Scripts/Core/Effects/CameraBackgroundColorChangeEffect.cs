@@ -16,7 +16,7 @@ namespace GameFeelDescriptions
         public Camera cameraToModify;   
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new CameraBackgroundColorChangeEffect{cameraToModify = cameraToModify};
             cp.Init(origin, target, triggerData);
@@ -42,7 +42,7 @@ namespace GameFeelDescriptions
                 }
             }
             
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         protected override void SetValue(GameObject target, Color value)

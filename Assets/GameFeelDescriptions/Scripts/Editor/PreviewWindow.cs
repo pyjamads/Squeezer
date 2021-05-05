@@ -1,10 +1,80 @@
-﻿using System;
+﻿using System.Reflection;
 using GameFeelDescriptions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.Events;
+
 using UnityEngine.SceneManagement;
+
+public class PreviewCameraWindow : EditorWindow
+{
+    RenderTexture renderTexture;
+    public static Camera camera;
+
+    void OnEnable()
+    {
+        int w = (int)position.width;
+        int h = (int)position.height;
+
+        renderTexture = new RenderTexture(w, h, 32, RenderTextureFormat.ARGB32);
+        if(camera == null) 
+        {
+            camera = Camera.main;
+        }
+    }
+
+    
+    
+    void OnInspectorUpdate()
+    {
+        this.Repaint();
+    }
+
+    void OnGUI()
+    {
+        // if (GUILayout.Button("Close"))
+        // {
+        //     //camera.orthographic = false;
+        //     this.Close();
+        // }
+        //if (GUILayout.Button("Close!")) this.Close();
+        
+        if (renderTexture != null)
+        {
+            float w = position.width;
+            float h = position.height;
+            GUI.DrawTexture(new Rect(0, 0, w, h), renderTexture);
+        }
+    }
+
+    void OnFocus()
+    {
+        //Selection.activeTransform = camera.transform;
+        //camera.orthographic = true;
+    }
+
+    void Update()
+    {
+        if (camera != null)
+        {
+            camera.targetTexture = renderTexture;
+            camera.Render();
+            camera.targetTexture = null;
+        }
+
+        int w = (int)position.width;
+        int h = (int)position.height;
+        if (renderTexture.width != w || renderTexture.height != h)
+        {
+            renderTexture = new RenderTexture(w, h, 32, RenderTextureFormat.ARGB32);
+        }
+    }
+
+    // void OnLostFocus()
+    // {
+    //     camera.orthographic = false;
+    // }
+}
 
 
 /// <summary>
@@ -14,12 +84,30 @@ using UnityEngine.SceneManagement;
 /// Adding selection changed subscription does allow us to change the object being shown in the preview window,
 /// but doesn't work super well, once you want to take a look around the scene in the preview window. 
 /// </summary>
+
 public class PreviewWindow : SceneView
 {
     public GameFeelDescription selectedDescription;
     public Scene sceneLoaded;
 
     public static GameObject target;
+    private static PreviewCameraWindow previewCameraWindow;
+    
+    //UI options!
+    private bool captureImages;
+    private float captureFPS;
+    
+    // TODO: Add Reset preview button, toggle visibility, and zoom in/out buttons
+    // TODO: Add Screen Capture interface (might be temporary if it doesn't seem useful beyond analysis purposes)
+    // TODO: Consider adding optional movement to the object, when the effect is triggered. 
+    // TODO: Add select effect group interface
+    // TODO: Add generator interface
+    
+    // TODO: Add interactive evolution interface (same as the interactive evolution scene)
+    // TODO: Improve algorithm, by generating way more than 8 individuals for the next generation, and selecting novel ones.
+    // TODO: Improve algorithm, by adding a guiding "direction" which can be used to determine fitness of the next generation. 
+    
+    // TODO: Make the preview camera in the corner the target of camera effects... 2021-03-22
     
     [MenuItem("GameFeelDescriptions/EffectPreview", true)]
     public static bool ValidateShowWindow()
@@ -37,14 +125,45 @@ public class PreviewWindow : SceneView
     {
         // Create the window
         PreviewWindow window = GetWindow<PreviewWindow>(typeof(SceneView));
- 
+        //Important so we don't break the Window layout, when re-opening the project
+        window.name = "PreviewWindow";
+        PreviewCameraWindow.camera = window.camera;
+        
+        if (Camera.main != null)
+        {
+            window.camera.backgroundColor = Camera.main.backgroundColor;
+            window.orthographic = Camera.main.orthographic;
+        }
+        else
+        {
+            window.orthographic = false;
+        }
+
+        //TODO: This doesn't work, so how do we make sure the camera targeting effects actually target this camera? 
+        window.camera.transform.tag = "MainCamera";
+        Camera.SetupCurrent(window.camera);
+
+        //TODO: Make Preview camera better, by fixing camera effects, !
+        // previewCameraWindow = CreateInstance<PreviewCameraWindow>();
+        // var previewPos = new Rect(previewCameraWindow.position);
+        //
+        // var screenPos = window.ScreenPosition();
+        //
+        // previewPos.position = new Vector2(screenPos.x - 5, screenPos.y +10) + (window.position.size - window.position.size / 4f);
+        // previewPos.size = window.position.size / 4f;
+        // previewCameraWindow.minSize = previewPos.size;
+        // previewCameraWindow.maxSize = previewPos.size;
+        // previewCameraWindow.position = previewPos;
+        //
+        // //TODO: Deal with moving editor window!!! 2021-03-22
+        // previewCameraWindow.ShowPopup();
+
         // Get the object you're selecting in the Unity Editor
-        window.titleContent = window.GetName();
+        //window.titleContent = window.GetName();
  
         // Load a new preview scene
         scene = EditorSceneManager.NewPreviewScene();
         
-     
         window.sceneLoaded = scene;
         window.sceneLoaded.name = window.name;
         window.customScene = window.sceneLoaded;
@@ -63,22 +182,34 @@ public class PreviewWindow : SceneView
  
     public override void OnEnable()
     {
-        // Set title name
-        titleContent = GetName();
+        //TODO: This is messing with us! [EditorWindowTitle(title = "Scene", useTypeNameAsIconName = true)]
+        // var editorWindowTitleAttribute = TypeDescriptor.GetAttributes(typeof(PreviewWindow))[0];
+        //
+        // editorWindowTitleAttribute.GetType().GetMember("icon")[0].SetValue(editorWindowTitleAttribute, "preAudioAutoPlayOff");
+        // //Console.WriteLine(ca.GetType().GetValue(ca)); // <=== nice
+        // TypeDescriptor.AddAttributes(typeof(PreviewWindow), editorWindowTitleAttribute);
+        // ca = TypeDescriptor.GetAttributes(typeof(Foo))
+        //     .OfType<CategoryAttribute>().FirstOrDefault();
+        // Console.WriteLine(ca.Category); // <=== naughty
 
+        // var typ = this.GetType();
+        // var att = this.GetType().GetCustomAttributes(this)[0];
+        // att.GetType().GetMember("title", BindingFlags.Public | BindingFlags.Instance)[0].SetValue(att, "Preview...");
+        
+        //NOTE: might not be worth it, seems like the previewSceneStage in 2020, is probably the right choice for this... 
+        
         Selection.selectionChanged += OnSelectionChanged;
         
         base.OnEnable();
+        
+        titleContent = GetName();
+        name = "PreviewWindow";
     }
-
-    // private void OnFocus()
-    // {
-    //     SetupScene();
-    // }
-
+    
     public override void OnDisable()
     {
         base.OnDisable();
+        previewCameraWindow?.Close();
     }
  
     private new void OnDestroy()
@@ -87,6 +218,7 @@ public class PreviewWindow : SceneView
         Selection.selectionChanged -= OnSelectionChanged;
         
         GameFeelEffectExecutor.DestroyInstance();
+        previewCameraWindow?.Close();
         EditorSceneManager.ClosePreviewScene(customScene);
     }
 
@@ -112,6 +244,7 @@ public class PreviewWindow : SceneView
         
         if (Selection.activeObject is GameObject go)
         {
+
             var desc = go.GetComponent<GameFeelDescription>();
             if (desc != null)
             {
@@ -131,9 +264,17 @@ public class PreviewWindow : SceneView
                     SetupScene();    
                 }
             }
+            else
+            {
+                //Ignore selecting internal objects, but otherwise close the preview!
+                if (go.scene != customScene)
+                {
+                    Close();
+                }
+            }
         }
     }
-    
+
     void SetupScene()
     {
         if (selectedDescription == null) return;
@@ -152,11 +293,11 @@ public class PreviewWindow : SceneView
         // Create lighting
         GameObject lightingObj = new GameObject("Lighting");
         lightingObj.transform.eulerAngles = new Vector3(50, -30, 0);
-        
+        lightingObj.transform.position = Vector3.up*100; 
+        lightingObj.AddComponent<Light>().type = LightType.Directional;
+
         //Move lighting obj into scene
         EditorSceneManager.MoveGameObjectToScene(lightingObj, customScene);
-
-        //TODO: try inserting the camera from the main scene, and set it as Camera.main ... also maybe align with main view!! 2021-02-15
         
         // Create the object we're selecting
         var attachedObjects = selectedDescription.FindGameObjectsToAttach();
@@ -166,7 +307,7 @@ public class PreviewWindow : SceneView
             //First round: a primitive cuboid with different scales.
             var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             gameObject.transform.localScale = new Vector3(0.5f, 1f, 0.2f);
-
+            
             target = gameObject;
         }
         else
@@ -178,7 +319,7 @@ public class PreviewWindow : SceneView
         EditorSceneManager.MoveGameObjectToScene(target, customScene);
         
         // Zoom the scene view into the new object
-        //TODO: FrameSelection better!
+        //TODO: FrameSelection better! 2020-06-01
         var biggerBounds = target.transform.lossyScale;
         biggerBounds *= 2f;
 
@@ -187,7 +328,22 @@ public class PreviewWindow : SceneView
         biggerBounds.z += Mathf.Abs(selectedDescription.PreviewPositionOffset.z);
         
         Frame(new Bounds(target.transform.position + selectedDescription.PreviewPositionOffset, biggerBounds));
-
+        camera.transform.position = camera.transform.position + Vector3.back * 10; 
+        Camera.SetupCurrent(camera);
+        
+        // Create camera
+        // previewCamera = camera;
+        // previewCamera.transform.tag = "MainCamera";
+        // Camera.SetupCurrent(previewCamera);
+        // // var cameraObj = Instantiate(camera.gameObject);
+        // // EditorSceneManager.MoveGameObjectToScene(cameraObj, customScene);
+        // // cameraObj.transform.position = cameraObj.transform.position + Vector3.back * 10; 
+        // //
+        // // const float cameraScale = 4f;
+        // renderTarget = new RenderTexture(Mathf.FloorToInt(position.width), Mathf.FloorToInt(position.height), 32, RenderTextureFormat.ARGB32);
+        // //
+        // // // previewCamera = cameraObj.GetComponent<Camera>();
+        // previewCamera.targetTexture = renderTarget;
 
         //Selection.activeObject = tempSelection;
 
@@ -199,6 +355,7 @@ public class PreviewWindow : SceneView
         // Setup the title GUI Content (Image, Text, Tooltip options) for the window
          GUIContent titleContent = new GUIContent("Effect Preview");
         
+         //EditorGUIUtility.Load("Assets/TestFolder/TestIcon.png") as Texture2D;
          //TODO: maybe find/make better icon 2021-02-08
          titleContent.image = EditorGUIUtility.IconContent("preAudioAutoPlayOff").image;
          //titleContent.image = EditorGUIUtility.IconContent("Motion Icon").image;
@@ -207,9 +364,34 @@ public class PreviewWindow : SceneView
         
          return titleContent;
     }
- 
-    new void OnGUI()
+    
+    // void OnInspectorUpdate()
+    // {
+    //     this.Repaint();
+    //     
+    //     
+    //     
+    // }
+    
+    protected override void OnGUI()
     {
         base.OnGUI();
+
+        // previewCamera.Render();
+        //
+        // var size = new Vector2(renderTarget.width, renderTarget.height);
+        // var rect = new Rect(position.max - size, size);
+        // GUI.DrawTexture(rect, renderTarget);
     }
+
+    public Rect ScreenPosition()
+    {
+        //var showModeField = containerWinType.GetField("m_ShowMode", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+        var parentInfo = GetType().GetField("m_Parent", BindingFlags.NonPublic | BindingFlags.Instance);
+        var parent = parentInfo.GetValue(this);
+        var screenPosInfo = parent.GetType().GetMember("screenPosition")[0];
+        var screenPos = screenPosInfo.GetValue(parent);
+        return (Rect)screenPos;
+    }
+
 }

@@ -14,11 +14,12 @@ namespace GameFeelDescriptions
             ExecuteEffectsOnLooping = true;
         }
         
-        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target, GameFeelTriggerData triggerData)
+        public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new Looper();
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         protected override bool ExecuteTick()

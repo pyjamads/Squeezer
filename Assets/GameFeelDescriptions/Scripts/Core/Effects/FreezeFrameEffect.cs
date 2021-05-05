@@ -58,32 +58,33 @@ namespace GameFeelDescriptions
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new FreezeFrameEffect();
             //Always uses unscaled time, because this sets Time.timeScale to 0.
             cp.Init(origin, target, triggerData);
-            cp = DeepCopy(cp);
+            cp = DeepCopy(cp, ignoreCooldown);
 
-            var (queueCopy, isOverlapping) = cp.HandleEffectOverlapping(singletonCopy);
-            if (queueCopy)
+            return cp;
+        }
+        
+        public override (bool queueCopy, bool isOverlapping) HandleEffectOverlapping(GameFeelEffect previous)
+        {
+            var (queueCopy, isOverlapping) = base.HandleEffectOverlapping(singletonCopy);
+            if(queueCopy)
             {
                 //Handling StackEffectType.Add locally
                 if (isOverlapping && StackingType == StackEffectType.Add)
                 {
-                    Debug.LogWarning("FreezeFrameEffect: StackingType == Add, will be handled like Queue.");
-                    singletonCopy.OnComplete(cp);
-
-                }
-                else
-                {
-                    singletonCopy = cp;
+                    Debug.LogWarning("FreezeFrameEffect: StackingType == Add, will be handled like Replace.");
+                    singletonCopy.StopExecution();
                 }
 
-                return cp;
+                singletonCopy = this;
+                return (true, false);
             }
 
-            return null;
+            return (false, isOverlapping);
         }
     }
 }

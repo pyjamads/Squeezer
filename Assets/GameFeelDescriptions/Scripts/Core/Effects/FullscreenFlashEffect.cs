@@ -25,7 +25,7 @@ namespace GameFeelDescriptions
         private GameObject flash;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new FullscreenFlashEffect{cameraToModify = cameraToModify};
             cp.Init(origin, target, triggerData);
@@ -47,7 +47,7 @@ namespace GameFeelDescriptions
                 }
             }
            
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         protected override void SetValue(GameObject target, Color value)
@@ -75,8 +75,10 @@ namespace GameFeelDescriptions
             flash = GameObject.CreatePrimitive(PrimitiveType.Quad);
             flash.name = "Flash";
             flash.transform.parent = GameFeelEffectExecutor.Instance.transform;
-            //Put the flash right in front of the near clipping plane. 
-            flash.transform.position = cameraToModify.transform.position + cameraToModify.transform.forward * cameraToModify.nearClipPlane;
+            //Put the flash right in front of the near clipping plane.
+            flash.transform.rotation = cameraToModify.transform.rotation;
+            flash.transform.position = cameraToModify.transform.position + cameraToModify.transform.forward * (cameraToModify.nearClipPlane + 0.1f);
+            
 
             if (cameraToModify.orthographic)
             { 

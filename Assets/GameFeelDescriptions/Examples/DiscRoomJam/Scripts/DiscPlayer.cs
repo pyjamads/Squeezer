@@ -15,13 +15,14 @@ namespace GameFeelDescriptions.Examples
 
         public float Speed;
         
+        
         // Start is called before the first frame update
         void Start()
         {
             if (animator == null)
             {
                 animator = GetComponent<Animator>();
-
+                    
                 if (animator == null)
                 {
                     Debug.Log("Failed to find Animator on game object: "+gameObject.name);

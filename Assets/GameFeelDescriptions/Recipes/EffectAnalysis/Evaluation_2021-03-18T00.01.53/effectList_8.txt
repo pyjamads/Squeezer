@@ -1,9 +1,0 @@
-[WiggleEffect([]), WaitForAbove([]), AudioSynthPlayEffect([])]
-[TrailEffect([],[MaterialColorChangeEffect([DestroyEffect([])])]), SpawnCopyEffect([DisableRendererEffect([]), ContinuousRotationEffect([])],[DestroyEffect([])]), TrailEffect([],[MaterialColorChangeEffect([DestroyEffect([])])]), CameraBackgroundColorChangeEffect([]), AudioSynthPlayEffect([])]
-[BlinkEffect([]), RotateEffect([]), AudioSynthPlayEffect([])]
-[ScaleEffect([]), ContinuousRotationEffect([]), CameraShakeEffect([]), BlinkEffect([]), AudioSynthPlayEffect([])]
-[ShatterEffect([],[RagdollEffect([DestroyEffect([])])]), AudioSynthPlayEffect([])]
-[ScaleEffect([]), CameraShakeEffect([]), ParticlePuffEffect([],[ContinuousRotationEffect([]), ScaleEffect([]), MaterialColorChangeEffect([DestroyEffect([])])]), Delay([]), AudioSynthPlayEffect([])]
-[RotateEffect([]), FullscreenFlashEffect([]), AudioSynthPlayEffect([])]
-[FreezeFrameEffect([TranslateEffect([])]), Looper([]), ShatterEffect([],[RagdollEffect([DestroyEffect([])])]), TranslateEffect([]), AudioSynthPlayEffect([])]
-

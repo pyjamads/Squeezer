@@ -12,7 +12,8 @@ namespace GameFeelDescriptions
     [RequireComponent(typeof(ABTest))]
     public class InteractiveEvolution : MonoBehaviour
     {
-        private KeyCode[] keyCodes = {
+        private KeyCode[] keyCodes =
+        {
             KeyCode.Alpha1,
             KeyCode.Alpha2,
             KeyCode.Alpha3,
@@ -26,29 +27,29 @@ namespace GameFeelDescriptions
         };
 
         private string SessionSavePath = Path.Combine(GameFeelDescription.savePath, "EvolvedDescriptions");
-        
+
         public string SceneName;
-        
+
         public ABTest activeEffectSwitcher;
         public KeyCode selectNextEffect = KeyCode.N;
         public KeyCode selectPrevEffect = KeyCode.P;
-        
+
         public GameObject InitialVariation;
         private List<GameFeelDescription> lastEvolvedDescriptions = new List<GameFeelDescription>();
-        
+
         //public int VariationCount = 8;
-        
+
         [Header("How long in seconds, to show each individual setup for")]
         public float displayTimer = 10f;
 
         public KeyCode increaseDisplayTime = KeyCode.Plus;
         public KeyCode decreaseDisplayTime = KeyCode.Minus;
-        
+
         public bool autoSwithcing = true;
         public KeyCode toggleAutoSwitching = KeyCode.Space;
-        
+
         public KeyCode evolveSelectedEffect = KeyCode.Return;
-        
+
         public KeyCode saveSelectedEffect = KeyCode.S;
         // [Header("Whether to initialize all descriptions with the settings below.")]
         // public bool initializeDescriptions;
@@ -60,7 +61,7 @@ namespace GameFeelDescriptions
         //
         // public StepThroughModeWindow.EffectGeneratorCategories category;
         //
-        
+
         private int selectedVariationIndex = 0;
 
         private float lastSwitchTime = 3f; //3f allows for a 3 second grace period after pressing Run.
@@ -71,16 +72,16 @@ namespace GameFeelDescriptions
 
         private int selectedDescriptionIndex = 0;
         private int selectedTriggerIndex = 0;
-        
+
         private int generationIndex;
-        
+
         // Start is called before the first frame update
         void Start()
         {
             var name = gameObject.scene.name;
             DontDestroyOnLoad(gameObject);
             SceneManager.UnloadSceneAsync(name);
-            
+
             var scene = SceneManager.GetActiveScene();
             SceneName = scene.name;
 
@@ -89,10 +90,10 @@ namespace GameFeelDescriptions
             activeEffectSwitcher.displayCurrent = false;
 
             lastEvolvedDescriptions.Replace(InitialVariation.GetComponentsInChildren<GameFeelDescription>());
-            
+
             //AddDescriptionsToSwitcher();
             AddChildrenToSwitcher();
-            
+
             var timeStamp = DateTime.Now.ToString("s").Replace(':', '.');
             SessionSavePath = Path.Combine(SessionSavePath, "Session_" + timeStamp);
         }
@@ -116,18 +117,19 @@ namespace GameFeelDescriptions
                 for (int descriptionIndex = 0; descriptionIndex < descriptions.Length; descriptionIndex++)
                 {
                     //Skip unselected descriptions.
-                    if(selectedDescriptionIndex != -1 && selectedDescriptionIndex != descriptionIndex) continue;
-                    
+                    if (selectedDescriptionIndex != -1 && selectedDescriptionIndex != descriptionIndex) continue;
+
                     var description = descriptions[descriptionIndex];
                     for (int triggerIndex = 0; triggerIndex < description.TriggerList.Count; triggerIndex++)
                     {
                         //Skip unselected triggers.
-                        if(selectedTriggerIndex != -1 && selectedTriggerIndex != triggerIndex) continue;
-                        
+                        if (selectedTriggerIndex != -1 && selectedTriggerIndex != triggerIndex) continue;
+
                         var trigger = description.TriggerList[triggerIndex];
                         if (trigger.EffectGroups == null || trigger.EffectGroups.Count == 0)
                         {
-                            trigger.EffectGroups.Add(new GameFeelEffectGroup(){GroupName = trigger.GetType().Name+"Group"});
+                            trigger.EffectGroups.Add(new GameFeelEffectGroup()
+                                {GroupName = trigger.GetType().Name + "Group"});
                         }
 
                         for (int groupIndex = 0; groupIndex < trigger.EffectGroups.Count; groupIndex++)
@@ -142,66 +144,17 @@ namespace GameFeelDescriptions
                     }
                 }
             }
-            
+
             activeEffectSwitcher.Initialize();
         }
-        
-        // private void AddDescriptionsToSwitcher()
-        // {
-        //     //Add children to switcher Groups.
-        //     var descriptions = transform.GetComponentsInChildren<GameFeelDescription>(true);
-        //     for (int i = 0; i < descriptions.Length; i++)
-        //     {
-        //         var description = descriptions[i];
-        //         activeEffectSwitcher.ABGroups.Add(description.gameObject);
-        //
-        //         if (initializeDescriptions)
-        //         {
-        //             if (SeedDescription != null)
-        //             {
-        //                 try
-        //                 {
-        //                     var desc = GameFeelDescription.LoadDescriptionFromJson(SeedDescription.text);
-        //                     description.OverrideDescriptionData(desc, false);
-        //                     
-        //                     foreach (var trigger in description.TriggerList)
-        //                     {
-        //                         foreach (var effectGroup in trigger.EffectGroups)
-        //                         {
-        //                             //Take the seeded tree, and mutate it!
-        //                             MutateGroup(effectGroup, 0.25f, 0.25f, 0.10f);
-        //                         }
-        //                     }
-        //                     continue;
-        //                 }
-        //                 catch (Exception)
-        //                 {
-        //                     Debug.LogWarning(SeedDescription.name + " is not a serialized Game Feel Description.");
-        //                 }
-        //             }
-        //             
-        //             foreach (var trigger in description.TriggerList)
-        //             {
-        //                 foreach (var effectGroup in trigger.EffectGroups)
-        //                 {
-        //                     var recipe = StepThroughModeWindow.GenerateRecipe(category, intensity);
-        //
-        //                     effectGroup.ReplaceEffectsWithRecipe(recipe);
-        //
-        //                     //Take the handcrafted tree, and mutate it!
-        //                     MutateGroup(effectGroup, 0.25f, 0.25f, 0.10f);
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        
+
         private void OnGUI()
         {
-            if (transform.childCount != activeEffectSwitcher.ABGroups.Count && transform.childCount < activeEffectSwitcher.currentGroup) return;
-            
+            if (transform.childCount != activeEffectSwitcher.ABGroups.Count &&
+                transform.childCount < activeEffectSwitcher.currentGroup) return;
+
             var currentGroup = transform.GetChild(activeEffectSwitcher.currentGroup);
-            
+
             if (Time.unscaledTime - lastEvolveTime < 2f)
             {
                 GUI.Label(new Rect(Screen.width / 2f - 50, 100, 100, 100), "Mutation complete!");
@@ -214,30 +167,33 @@ namespace GameFeelDescriptions
 
                 if (selectedDescriptionIndex != -1 && selectedTriggerIndex != -1)
                 {
-                    selectedDescription = InitialVariation.GetComponentsInChildren<GameFeelDescription>()[selectedDescriptionIndex];
+                    selectedDescription =
+                        InitialVariation.GetComponentsInChildren<GameFeelDescription>()[selectedDescriptionIndex];
                     selectedTrigger = selectedDescription.TriggerList[selectedTriggerIndex];
                     trigName = selectedDescription.name + "_" + selectedTrigger.GetType().Name;
                 }
-                
+
                 var fullWidth = Screen.width - 80f;
                 var buttonWidth = fullWidth / 4f - 10f;
 
                 for (var i = 0; i < transform.childCount; i++)
                 {
                     var selected = i == activeEffectSwitcher.currentGroup;
-                 
-                    if (selected 
-                        ? GUI.Button(new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 10+ 40 * (i / 4), buttonWidth, 30),
-                            "Select Variation " + (i+1), EditorStyles.helpBox) //HELP BOX STYLE WHEN SELECTED! 
-                        : GUI.Button(new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 10+ 40 * (i / 4), buttonWidth, 30),
-                            "Select Variation " + (i+1)))
+
+                    if (selected
+                        ? GUI.Button(
+                            new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 10 + 40 * (i / 4), buttonWidth, 30),
+                            "Select Variation " + (i + 1), EditorStyles.helpBox) //HELP BOX STYLE WHEN SELECTED! 
+                        : GUI.Button(
+                            new Rect(40 + buttonWidth * (i % 4) + 10 * (i % 4), 10 + 40 * (i / 4), buttonWidth, 30),
+                            "Select Variation " + (i + 1)))
                     {
                         ReloadScene();
                         activeEffectSwitcher.SwitchToGroup(i);
-                        autoSwithcing = false;    
+                        autoSwithcing = false;
                     }
                 }
-                
+
                 // if (GUI.Button(new Rect(40, Screen.height / 2f, 80, 30),
                 //     "Previous"))
                 // {
@@ -252,43 +208,43 @@ namespace GameFeelDescriptions
                 {
                     GUILayout.Space(50);
                     GUILayout.Label("Select trigger to evolve effects for:");
-                    
+
                     var descriptions = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
 
                     for (var descriptionIndex = 0; descriptionIndex < descriptions.Length; descriptionIndex++)
                     {
                         var description = descriptions[descriptionIndex];
-                        
+
                         GUILayout.Label(description.name);
 
                         for (var triggerIndex = 0; triggerIndex < description.TriggerList.Count; triggerIndex++)
                         {
                             var trigger = description.TriggerList[triggerIndex];
-                            
+
                             if (selectedDescriptionIndex == descriptionIndex && selectedTriggerIndex == triggerIndex)
                             {
-                                GUILayout.Toggle(true, "Evolve "+trigger.GetType().Name); 
+                                GUILayout.Toggle(true, "Evolve " + trigger.GetType().Name);
                             }
                             else
                             {
-                                if (GUILayout.Toggle(false, "Evolve "+trigger.GetType().Name))
+                                if (GUILayout.Toggle(false, "Evolve " + trigger.GetType().Name))
                                 {
                                     selectedDescriptionIndex = descriptionIndex;
                                     selectedTriggerIndex = triggerIndex;
 
                                     //Copy the currently selected individual to all
                                     CopySelected(activeEffectSwitcher.currentGroup);
-                                    
+
                                     descriptions = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
-                                    
+
                                     //Reinitialize the selected triggers!
                                     AddChildrenToSwitcher();
                                 }
                             }
                         }
                     }
-                    
-                    if(selectedDescriptionIndex == -1 && selectedTriggerIndex == -1)
+
+                    if (selectedDescriptionIndex == -1 && selectedTriggerIndex == -1)
                     {
                         GUILayout.Space(25);
                         GUILayout.Toggle(true, "Evolve Everything!");
@@ -303,29 +259,30 @@ namespace GameFeelDescriptions
 
                             //Copy the currently selected individual to all
                             CopySelected(activeEffectSwitcher.currentGroup);
-                                
+
                             AddChildrenToSwitcher();
                         }
                     }
                 }
+
                 GUILayout.EndArea();
-                
-                
-                var timer = " ("+(displayTimer - (Time.unscaledTime - lastSwitchTime)).ToString("F1")+"s)";
+
+
+                var timer = " (" + (displayTimer - (Time.unscaledTime - lastSwitchTime)).ToString("F1") + "s)";
                 if (GUI.Button(new Rect(Screen.width - 40 - 100, Screen.height / 2f - 35f, 100, 30),
-                    "Next"+(autoSwithcing ? timer : "")))
+                    "Next" + (autoSwithcing ? timer : "")))
                 {
                     ReloadScene();
                     activeEffectSwitcher.SwitchToNextGroup();
                     lastSwitchTime = Time.unscaledTime;
                 }
-                
+
                 if (GUI.Button(new Rect(Screen.width - 40 - 100, Screen.height / 2f, 100, 30),
                     (autoSwithcing ? "Pause" : "Resume")))
                 {
                     autoSwithcing = !autoSwithcing;
                 }
-                
+
                 //Evaluation time adjustment
                 if (autoSwithcing)
                 {
@@ -334,7 +291,7 @@ namespace GameFeelDescriptions
                         lastSwitchTime = Time.unscaledTime;
                         displayTimer += 5f;
                     }
-                    
+
                     if (GUI.Button(new Rect(Screen.width - 80, Screen.height / 2f + 35f, 40, 30), "-5s"))
                     {
                         lastSwitchTime = Time.unscaledTime;
@@ -342,46 +299,47 @@ namespace GameFeelDescriptions
                     }
                 }
 
-                var variationID = activeEffectSwitcher.currentGroup +1;
-                
+                var variationID = activeEffectSwitcher.currentGroup + 1;
+
                 if (GUI.Button(new Rect(40f, Screen.height - 65f, 300, 30),
-                    "Regenerate "+trigName+"!"))
+                    "Regenerate " + trigName + "!"))
                 {
                     autoSwithcing = false;
                     ResetEvolution();
                 }
-                
+
                 if (GUI.Button(new Rect(40f, Screen.height - 30f, 300, 30),
-                    "Clear "+trigName+"!"))
+                    "Clear " + trigName + "!"))
                 {
                     autoSwithcing = false;
                     ClearEffects();
                 }
-                
-                
-                
+
+
+
                 if (GUI.Button(new Rect((Screen.width / 2f) + 355f, Screen.height - 30, 100, 30),
                     "Re-Roll"))
                 {
                     autoSwithcing = false;
                     EvolveSelected(true);
                 }
-                
+
                 //TODO: maybe only save the current selected description and/or trigger, when bookmarking!
                 if (GUI.Button(new Rect((Screen.width / 2f) - 205f, Screen.height - 30, 200, 30),
-                    "Save Variation "+variationID))
+                    "Save Variation " + variationID))
                 {
                     var currentDescriptions = currentGroup.GetComponentsInChildren<GameFeelDescription>(true);
-                    
+
                     foreach (var description in currentDescriptions)
                     {
-                        var name = "Generation"+generationIndex+" Variation_"+variationID +"_"+ description.name+ ".txt";
-                        Debug.Log("THE DESCRIPTION IS SAVED!!\n"+SessionSavePath+"/"+name);
+                        var name = "Generation" + generationIndex + " Variation_" + variationID + "_" +
+                                   description.name + ".txt";
+                        Debug.Log("THE DESCRIPTION IS SAVED!!\n" + SessionSavePath + "/" + name);
 
-                        GameFeelDescription.SaveToFile(description, name, SessionSavePath);    
+                        GameFeelDescription.SaveToFile(description, name, SessionSavePath);
                     }
                 }
-                
+
                 if (GUI.Button(new Rect((Screen.width / 2f) + 5f, Screen.height - 30, 300, 30),
                     "Evolve Variation " + variationID))
                 {
@@ -403,10 +361,10 @@ namespace GameFeelDescriptions
                     activeEffectSwitcher.ABGroups.Clear();
                     for (int i = 0; i < transform.childCount; i++)
                     {
-                        activeEffectSwitcher.ABGroups.Add(transform.GetChild(i).gameObject);    
+                        activeEffectSwitcher.ABGroups.Add(transform.GetChild(i).gameObject);
                     }
                 }
-                
+
                 lastSwitchTime = Time.unscaledTime;
                 ReloadScene();
                 activeEffectSwitcher.SwitchToNextGroup();
@@ -433,32 +391,32 @@ namespace GameFeelDescriptions
             {
                 displayTimer += 1f;
             }
-            
+
             if (Input.GetKeyDown(decreaseDisplayTime))
             {
                 displayTimer = Mathf.Max(3f, displayTimer - 1f);
             }
-            
+
             if (Input.GetKeyDown(selectNextEffect))
             {
                 lastSwitchTime = Time.unscaledTime;
                 ReloadScene();
                 activeEffectSwitcher.SwitchToNextGroup();
             }
-            
+
             if (Input.GetKeyDown(selectPrevEffect))
             {
                 lastSwitchTime = Time.unscaledTime;
                 ReloadScene();
                 activeEffectSwitcher.SwitchToPrevGroup();
             }
-            
+
             if (Input.GetKeyDown(evolveSelectedEffect))
             {
                 autoSwithcing = false;
                 EvolveSelected();
             }
-            
+
             if (Input.GetKeyDown(toggleAutoSwitching))
             {
                 autoSwithcing = !autoSwithcing;
@@ -470,15 +428,16 @@ namespace GameFeelDescriptions
                 autoSwithcing = false;
                 var currentDescriptions = activeEffectSwitcher.ABGroups[activeEffectSwitcher.currentGroup]
                     .GetComponentsInChildren<GameFeelDescription>();
-                    
+
                 foreach (var description in currentDescriptions)
                 {
-                    var name = "Generation"+generationIndex+" Variation"+activeEffectSwitcher.currentGroup +"_"+ description.name+ ".txt";
-                    Debug.Log("THE DESCRIPTION IS SAVED!!\n"+SessionSavePath+"/"+name);
+                    var name = "Generation" + generationIndex + " Variation" + activeEffectSwitcher.currentGroup + "_" +
+                               description.name + ".txt";
+                    Debug.Log("THE DESCRIPTION IS SAVED!!\n" + SessionSavePath + "/" + name);
 
-                    GameFeelDescription.SaveToFile(description, name, SessionSavePath);    
+                    GameFeelDescription.SaveToFile(description, name, SessionSavePath);
                 }
-                
+
                 autoSwithcing = autoOn;
             }
 
@@ -492,10 +451,10 @@ namespace GameFeelDescriptions
                 //Evolve cooldown of 1 second!
                 return;
             }
-            
+
             lastSwitchTime = Time.unscaledTime;
-            lastEvolveTime = Time.unscaledTime;    
-                
+            lastEvolveTime = Time.unscaledTime;
+
             // if (autoSwithcing)
             // {
             //     //NOTE: Nothing was selected, so we're gonna just mutate all of them...
@@ -505,13 +464,13 @@ namespace GameFeelDescriptions
             // {
             Evolve(activeEffectSwitcher.currentGroup, reroll);
             // }
-            
+
             ReloadScene();
 
             //Re-enable autoSwitching...
             autoSwithcing = true;
         }
-        
+
         private void ResetEvolution()
         {
             if (Time.unscaledTime < lastEvolveTime + 1f)
@@ -519,13 +478,13 @@ namespace GameFeelDescriptions
                 //Evolve cooldown of 1 second!
                 return;
             }
-            
+
             lastSwitchTime = Time.unscaledTime;
             lastEvolveTime = Time.unscaledTime - 30f; //We don't want it to say Mutation Complete here!
-            
+
             //Randomize all descriptions based on their trigger groups selected category and intensity.
             Randomize();
-            
+
             ReloadScene();
 
             //Re-enable autoSwitching...
@@ -539,13 +498,13 @@ namespace GameFeelDescriptions
                 //Evolve cooldown of 1 second!
                 return;
             }
-            
+
             lastSwitchTime = Time.unscaledTime;
             lastEvolveTime = Time.unscaledTime - 30f; //We don't want it to say Mutation Complete here!
-            
+
             //Clear the effects from the selected trigger!
             Clear();
-            
+
             ReloadScene();
 
             //Re-enable autoSwitching...
@@ -555,14 +514,14 @@ namespace GameFeelDescriptions
         private void ReloadScene()
         {
             if (reloadingScene) return;
-            
+
             reloadingScene = true;
-            
+
             //Stop all current effects!
             GameFeelEffectExecutor.Instance.activeEffects.Clear();
             //Reset timeScale!
             Time.timeScale = 1f;
-            
+
             //Remove all the current effect generated gameObjects
             var childCount = GameFeelEffectExecutor.Instance.transform.childCount;
             for (int i = 0; i < childCount; i++)
@@ -570,23 +529,30 @@ namespace GameFeelDescriptions
                 var child = GameFeelEffectExecutor.Instance.transform.GetChild(i);
                 Destroy(child.gameObject);
             }
-            
+
             //Reload the main scene...
             if (SceneName != null)
             {
-                var unload = SceneManager.UnloadSceneAsync(SceneName);
-                StartCoroutine(LoadAndReattachTriggers(unload));
+                if (SceneManager.sceneCount <= 1)
+                {
+                    StartCoroutine(LoadAndReattachTriggers(null));
+                }
+                else
+                {
+                    var unload = SceneManager.UnloadSceneAsync(SceneName);
+                    StartCoroutine(LoadAndReattachTriggers(unload));    
+                }
             }
 
             IEnumerator LoadAndReattachTriggers(AsyncOperation unloadOperation)
             {
                 yield return unloadOperation;
-                
+
                 yield return SceneManager.LoadSceneAsync(SceneName, LoadSceneMode.Single);
 
                 //Reattach triggers
                 CustomMenus.AttachAllTriggers();
-                
+
                 reloadingScene = false;
             }
         }
@@ -594,7 +560,7 @@ namespace GameFeelDescriptions
         public void CopySelected(int index)
         {
             var individuals = activeEffectSwitcher.ABGroups.Count;
-            
+
             //If an individual is selected!
             if (0 <= index && index < individuals)
             {
@@ -603,20 +569,20 @@ namespace GameFeelDescriptions
                 var selectedIndividual = transform.GetChild(index).gameObject;
                 InitialVariation = selectedIndividual;
                 lastEvolvedDescriptions.Replace(InitialVariation.GetComponentsInChildren<GameFeelDescription>());
-                
+
                 //Destoy all other individuals
                 for (int i = 0; i < individuals; i++)
                 {
                     if (i != index)
                     {
-                        DestroyImmediate(activeEffectSwitcher.ABGroups[i]);  
+                        DestroyImmediate(activeEffectSwitcher.ABGroups[i]);
                     }
                 }
-                
+
                 //Clear AB list and add the selected individual again.
                 activeEffectSwitcher.ABGroups.Clear();
                 activeEffectSwitcher.ABGroups.Add(selectedIndividual);
-                
+
                 //Select the previous selection.
                 activeEffectSwitcher.currentGroup = 0;
 
@@ -633,11 +599,11 @@ namespace GameFeelDescriptions
 
                 //Increase generation index when selecting a new trigger to evolve for.
                 generationIndex++;
-                
+
                 //Gently mutate the selected individual...
                 //NOTE: we're ignoring the inactive descriptions here!
                 var descriptions = selectedIndividual.GetComponentsInChildren<GameFeelDescription>();
-                
+
                 var evolveName = "Saved_Everything";
 
                 if (selectedDescriptionIndex != -1 && selectedTriggerIndex != -1)
@@ -646,12 +612,12 @@ namespace GameFeelDescriptions
                     var selectedTrigger = description.TriggerList[selectedTriggerIndex];
                     evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Saved.txt";
                 }
-                
+
                 //Also save the selected individual!
                 foreach (var description in descriptions)
                 {
-                    var name = "Generation"+generationIndex+" "+ description.name + ".txt";
-                    
+                    var name = "Generation" + generationIndex + " " + description.name + ".txt";
+
                     GameFeelDescription.SaveToFile(description, name, SessionSavePath);
                 }
 
@@ -663,7 +629,7 @@ namespace GameFeelDescriptions
         public void Evolve(int index, bool reroll = false)
         {
             var individuals = activeEffectSwitcher.ABGroups.Count;
-            
+
             //If an individual is selected!
             if (0 <= index && index < individuals)
             {
@@ -671,7 +637,7 @@ namespace GameFeelDescriptions
                 //var selectedIndividual = descriptions[index];
                 var selectedIndividual = transform.GetChild(index).gameObject;
                 InitialVariation = selectedIndividual;
-                
+
                 if (reroll)
                 {
                     //Re-initialize selected individual with the last evolved descriptions
@@ -685,22 +651,22 @@ namespace GameFeelDescriptions
                 else
                 {
                     //Otherwise save selected individual as the last evolved.
-                    lastEvolvedDescriptions.Replace(InitialVariation.GetComponentsInChildren<GameFeelDescription>());    
+                    lastEvolvedDescriptions.Replace(InitialVariation.GetComponentsInChildren<GameFeelDescription>());
                 }
-                
+
                 //Destoy all other individuals
                 for (int i = 0; i < individuals; i++)
                 {
                     if (i != index)
                     {
-                        DestroyImmediate(activeEffectSwitcher.ABGroups[i]);  
+                        DestroyImmediate(activeEffectSwitcher.ABGroups[i]);
                     }
                 }
-                
+
                 //Clear AB list and add the selected individual again.
                 activeEffectSwitcher.ABGroups.Clear();
                 activeEffectSwitcher.ABGroups.Add(selectedIndividual);
-                
+
                 //Select the previous selection.
                 activeEffectSwitcher.currentGroup = 0;
 
@@ -711,15 +677,24 @@ namespace GameFeelDescriptions
 
                 for (int i = 0; i < individuals - 1; i++)
                 {
+                    //NOTE: Copying the game object, copies all descriptions in the object hierarchy.
                     var individualCopy = Instantiate(selectedIndividual, transform);
                     activeEffectSwitcher.ABGroups.Add(individualCopy);
-                    
-                    //NOTE: This is sub-optimal, but it creates a "deep" copy of the object.
+
+                    //NOTE: This is an alternative, that creates a "deep" copy of the description.
                     // var data = GameFeelDescription.LoadDescriptionFromJson(json);
                     // desc.OverrideDescriptionData(data);
-                    
-                    //NOTE: we're ignoring the inactive descriptions here!
-                    var descs = individualCopy.GetComponentsInChildren<GameFeelDescription>();
+
+
+                    var descs = individualCopy.GetComponentsInChildren<GameFeelDescription>(true);
+
+                    //TODO: add Novelty search here, using the treeEditDistance as a measure.
+                    //TODO: First generate more individuals than needed, then select them based on novelty.
+
+                    //TODO: add Custom directed fitness, using user input selecting a direction
+                    //TODO: Eg. more/less particles, specific colors, intensity / size of things.
+                    //TODO: First generate more individuals than needed, then sort them by fitness, select the top 4.
+                    //TODO: Then use Novelty to find 4 individuals furthest from the selected 4.
 
                     if (selectedDescriptionIndex <= -1 && selectedTriggerIndex <= -1 ||
                         selectedDescriptionIndex >= descs.Length)
@@ -727,6 +702,9 @@ namespace GameFeelDescriptions
                         //Mutate all the descriptions on the copy.
                         foreach (var desc in descs)
                         {
+                            //NOTE: we're ignoring the inactive descriptions here!
+                            if (desc.gameObject.activeSelf == false) continue;
+
                             foreach (var trigger in desc.TriggerList)
                             {
                                 foreach (var effectGroup in trigger.EffectGroups)
@@ -735,28 +713,41 @@ namespace GameFeelDescriptions
                                     MutateGroup(effectGroup, 0.05f, 0.4f, 0.4f);
                                 }
                             }
-                        }    
+                        }
                     }
                     else
                     {
                         //Mutate the selected description and trigger.
                         var description = descs[selectedDescriptionIndex];
                         var trigger = description.TriggerList[selectedTriggerIndex];
+
+                        //TODO: move this Novelty generation out of here, then make the new fitness functions (order by, particle count, color association, sound etc...)
+                        //TODO: then select the top 4 with with the best fitness, and select 4 that have the biggest distance to others, make sure they are distinct.
+                        var populationToEvaluate = 20;
+                        var population = new List<List<GameFeelEffect>>();
+                        for (int j = 0; j < populationToEvaluate; j++)
+                        {
+                            var effects = trigger.EffectGroups[0].GetRecipeCopy();
+                            MutateGroup(effects, 0.05f, 0.4f, 0.4f);
+                            population.Add(effects);
+                        }
                         
+                        var mostNovel = Novelty(population);
+                        
+                        trigger.EffectGroups[0].ReplaceEffectsWithRecipe(mostNovel);
                         foreach (var effectGroup in trigger.EffectGroups)
                         {
                             MutateGroup(effectGroup, 0.05f, 0.4f, 0.4f);
                         }
                     }
                 }
-                
+
                 //Increment before saving, so first generation is gen 1 instead of gen 0. 
                 generationIndex++;
 
                 //Gently mutate the selected individual...
-                //NOTE: we're ignoring the inactive descriptions here!
-                var descriptions = selectedIndividual.GetComponentsInChildren<GameFeelDescription>();
-                
+                var descriptions = selectedIndividual.GetComponentsInChildren<GameFeelDescription>(true);
+
                 var evolveName = "Evolved_Everything";
 
                 if (selectedDescriptionIndex != -1 && selectedTriggerIndex != -1)
@@ -766,24 +757,27 @@ namespace GameFeelDescriptions
                     evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Evolved.txt";
                 }
 
-                
+
                 //Also save the selected individual!
                 foreach (var description in descriptions)
                 {
-                    var name = "Generation"+generationIndex+" "+description.name + ".txt";
-                    
+                    var name = "Generation" + generationIndex + " " + description.name + ".txt";
+
                     GameFeelDescription.SaveToFile(description, name, SessionSavePath);
                 }
 
                 //TODO: save a "seperator" text file with the status and name, but don't make the path deeper 2020-10-30 
                 //SessionSavePath = Path.Combine(SessionSavePath, evolveName);
-                
+
                 if (selectedDescriptionIndex <= -1 && selectedTriggerIndex <= -1 ||
                     selectedDescriptionIndex >= descriptions.Length)
                 {
                     //Mutate all the descriptions on the copy.
                     foreach (var description in descriptions)
                     {
+                        //NOTE: we're ignoring the inactive descriptions here!
+                        if (description.gameObject.activeSelf == false) continue;
+
                         foreach (var trigger in description.TriggerList)
                         {
                             foreach (var effectGroup in trigger.EffectGroups)
@@ -798,15 +792,16 @@ namespace GameFeelDescriptions
                     //Mutate the selected description and trigger.
                     var description = descriptions[selectedDescriptionIndex];
                     var trigger = description.TriggerList[selectedTriggerIndex];
-                        
+
                     foreach (var effectGroup in trigger.EffectGroups)
                     {
                         MutateGroup(effectGroup, 0.05f, 0, 0);
                     }
                 }
-                
+
                 activeEffectSwitcher.Initialize();
             }
+
             // else
             // {
             //     //NOTE: we're ignoring the inactive descriptions here!
@@ -860,10 +855,73 @@ namespace GameFeelDescriptions
             // }
         }
 
+        public List<GameFeelEffect> Novelty(List<List<GameFeelEffect>> population)
+        {
+            var distanceMatrix = new float[population.Count * population.Count];
+            var maxSum = 0f;
+            var indexOfMax = 0;
+            for (int i = 0; i < population.Count; i++)
+            {
+                float[] distances;
+                CalculateDistanceRow(i, population, out distances);
+
+                for (int j = i + 1; j < population.Count; j++)
+                {
+                    var index = i + j * population.Count;
+
+                    distanceMatrix[index] = distances[j];
+
+                    //Also reflect the distance around the diagonal
+                    distanceMatrix[j + i * population.Count] = distanceMatrix[index];
+                }
+
+                var sum = CalculateDistanceRowSum(i, distanceMatrix, population.Count);
+                if (sum > maxSum)
+                {
+                    maxSum = sum;
+                    indexOfMax = i;
+                }
+            }
+            
+            //Return the "noblest" or most novel of individuals, eg. the one with the highest distance score across the board.
+            return population[indexOfMax];
+        }
+
+        private float CalculateDistanceRowSum(int i, float[] distanceMatrix, int rowLength)
+        {
+            var sum = 0f;
+            for (int j = 0; j < rowLength; j++)
+            {
+                var index = i + j * rowLength;
+                sum += distanceMatrix[index];
+            }
+            return sum;
+        }
+        private void CalculateDistanceRow(int i, IReadOnlyList<List<GameFeelEffect>> recipesToEvaluate,
+            out float[] distanceMatrix)
+        {
+            distanceMatrix = new float[recipesToEvaluate.Count];
+            for (int j = i + 1; j < recipesToEvaluate.Count; j++)
+            {
+                // if (i == j) continue;
+
+                var nodeSum =
+                    1f; // = generatedRandomRecipes[i].EffectsToExecute.Count + generatedRandomRecipes[j].EffectsToExecute.Count;
+                var distance = EffectTreeDistance.TreeEditDistance(recipesToEvaluate[i],
+                    recipesToEvaluate[j]);
+                distanceMatrix[j] = 1f / nodeSum * distance;
+
+                // if (distance > longestDistance)
+                // {
+                //     longestDistance = distance;
+                // }
+            }
+        }
+
         public void Randomize(bool useGroupCategories = true)
         {
             var evolveName = "Reset_Everything";
-                
+
             if (selectedDescriptionIndex != -1 && selectedTriggerIndex != -1)
             {
                 var descriptions = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
@@ -872,14 +930,14 @@ namespace GameFeelDescriptions
                 evolveName = description.name + "_" + selectedTrigger.GetType().Name + "_Reset.txt";
             }
 
-            
+
             //TODO: save a "seperator" text file with the status and name, but don't make the path deeper 2020-10-30 
             //SessionSavePath = Path.Combine(SessionSavePath, evolveName);
-            
+
             //DO THE RESET!!
             foreach (var individual in activeEffectSwitcher.ABGroups)
             {
-                var descs = individual.GetComponentsInChildren<GameFeelDescription>(true);                            
+                var descs = individual.GetComponentsInChildren<GameFeelDescription>(true);
 
                 if (selectedDescriptionIndex <= -1 && selectedTriggerIndex <= -1 ||
                     selectedDescriptionIndex >= descs.Length)
@@ -891,27 +949,29 @@ namespace GameFeelDescriptions
                         {
                             if (trigger.EffectGroups == null || trigger.EffectGroups.Count == 0)
                             {
-                                trigger.EffectGroups.Add(new GameFeelEffectGroup(){GroupName = trigger.GetType().Name+"Group"});
+                                trigger.EffectGroups.Add(new GameFeelEffectGroup()
+                                    {GroupName = trigger.GetType().Name + "Group"});
                             }
-                            
+
                             foreach (var effectGroup in trigger.EffectGroups)
                             {
                                 ReplaceRecipeOnGroup(effectGroup, useGroupCategories);
                             }
                         }
-                    }    
+                    }
                 }
                 else
                 {
                     //Regenerate the selected description and trigger.
                     var description = descs[selectedDescriptionIndex];
                     var trigger = description.TriggerList[selectedTriggerIndex];
-                        
+
                     if (trigger.EffectGroups == null || trigger.EffectGroups.Count == 0)
                     {
-                        trigger.EffectGroups.Add(new GameFeelEffectGroup(){GroupName = trigger.GetType().Name+"Group"});
+                        trigger.EffectGroups.Add(new GameFeelEffectGroup()
+                            {GroupName = trigger.GetType().Name + "Group"});
                     }
-                    
+
                     foreach (var effectGroup in trigger.EffectGroups)
                     {
                         ReplaceRecipeOnGroup(effectGroup, useGroupCategories);
@@ -919,11 +979,11 @@ namespace GameFeelDescriptions
                 }
             }
         }
-        
+
         public void Clear()
         {
             var evolveName = "Clear_Everything";
-                
+
             if (selectedDescriptionIndex != -1 && selectedTriggerIndex != -1)
             {
                 var descriptions = InitialVariation.GetComponentsInChildren<GameFeelDescription>();
@@ -935,7 +995,7 @@ namespace GameFeelDescriptions
             //DO THE CLEAR!!
             foreach (var individual in activeEffectSwitcher.ABGroups)
             {
-                var descs = individual.GetComponentsInChildren<GameFeelDescription>(true);                            
+                var descs = individual.GetComponentsInChildren<GameFeelDescription>(true);
 
                 if (selectedDescriptionIndex <= -1 && selectedTriggerIndex <= -1 ||
                     selectedDescriptionIndex >= descs.Length)
@@ -947,27 +1007,29 @@ namespace GameFeelDescriptions
                         {
                             if (trigger.EffectGroups == null || trigger.EffectGroups.Count == 0)
                             {
-                                trigger.EffectGroups.Add(new GameFeelEffectGroup(){GroupName = trigger.GetType().Name+"Group"});
+                                trigger.EffectGroups.Add(new GameFeelEffectGroup()
+                                    {GroupName = trigger.GetType().Name + "Group"});
                             }
-                            
+
                             foreach (var effectGroup in trigger.EffectGroups)
                             {
                                 effectGroup.EffectsToExecute.Clear();
                             }
                         }
-                    }    
+                    }
                 }
                 else
                 {
                     //Clear the selected description and trigger.
                     var description = descs[selectedDescriptionIndex];
                     var trigger = description.TriggerList[selectedTriggerIndex];
-                        
+
                     if (trigger.EffectGroups == null || trigger.EffectGroups.Count == 0)
                     {
-                        trigger.EffectGroups.Add(new GameFeelEffectGroup(){GroupName = trigger.GetType().Name+"Group"});
+                        trigger.EffectGroups.Add(new GameFeelEffectGroup()
+                            {GroupName = trigger.GetType().Name + "Group"});
                     }
-                    
+
                     foreach (var effectGroup in trigger.EffectGroups)
                     {
                         effectGroup.EffectsToExecute.Clear();
@@ -978,41 +1040,49 @@ namespace GameFeelDescriptions
 
         private void ReplaceRecipeOnGroup(GameFeelEffectGroup group, bool useGroupCategories = true)
         {
-            var recipe = StepThroughModeWindow.GenerateRecipe(useGroupCategories ? group.selectedCategory : StepThroughModeWindow.EffectGeneratorCategories.RANDOM, group.selectedIntensity, group.EffectsToExecute);
-            
+            var recipe = StepThroughModeWindow.GenerateRecipe(
+                useGroupCategories ? group.selectedCategory : StepThroughModeWindow.EffectGeneratorCategories.RANDOM,
+                group.selectedIntensity, group.EffectsToExecute);
+
             group.ReplaceEffectsWithRecipe(recipe);
-            
+
             MutateGroup(group, 0.25f, 0.25f, 0.10f);
         }
 
 
-        public static void MutateGroup(GameFeelEffectGroup gameFeelEffectGroup, float mutateAmount = 0.05f,
+    public static void MutateGroup(GameFeelEffectGroup gameFeelEffectGroup, float mutateAmount = 0.05f,
+            float addProbability = 0.05f, float removeProbability = 0.05f)
+    {
+        MutateGroup(gameFeelEffectGroup.EffectsToExecute, mutateAmount, addProbability, removeProbability);
+    }
+
+    public static void MutateGroup(List<GameFeelEffect> effectsToExecute, float mutateAmount = 0.05f,
             float addProbability = 0.05f, float removeProbability = 0.05f)
         {
             var constructors = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();
 
-            if (gameFeelEffectGroup.EffectsToExecute.Count > 2)
+            if (effectsToExecute.Count > 2)
             {
                 //Group level remove, then mutate, then add!
-                var unlockedEffects = gameFeelEffectGroup.EffectsToExecute.Where(item => !item.Lock);
+                var unlockedEffects = effectsToExecute.Where(item => !item.Lock);
                 if (RandomExtensions.Boolean(removeProbability))
                 {
                     var effectToRemove = unlockedEffects.GetRandomElement();
-                    gameFeelEffectGroup.EffectsToExecute.Remove(effectToRemove);
+                    effectsToExecute.Remove(effectToRemove);
                     //TODO: Consider whether this should be a "replace",
                     //TODO: because currently it's addProb * removeProb that a replace happens. 2020-07-15
                 }    
             }
 
             //Mutate all effects in the list recursively. Also drop the probabilities for adding and removing by 10% per layer.
-            gameFeelEffectGroup.EffectsToExecute.ForEach(item =>
+            effectsToExecute.ForEach(item =>
                 MutateEffectsRecursive(constructors, item, mutateAmount, addProbability * 0.9f, removeProbability * 0.9f));
 
             //Add new effect to group...
             if (RandomExtensions.Boolean(addProbability))
             {
                 var instance = constructors.GetRandomElement().Invoke();
-                gameFeelEffectGroup.EffectsToExecute.Add(instance);
+                effectsToExecute.Add(instance);
             }
         }
 

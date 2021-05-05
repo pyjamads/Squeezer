@@ -34,11 +34,11 @@ namespace GameFeelDescriptions
         //TODO: Add mutate!!
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new RotateTowardsDirectionEffect{useGlobalRotation = useGlobalRotation, relativeAmount = relativeAmount, only2D = only2D};
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
 
         protected void SetValue(GameObject target, Quaternion value)

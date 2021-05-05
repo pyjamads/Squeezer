@@ -175,6 +175,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 0
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -183,20 +187,189 @@ MonoBehaviour:
         TriggerType: 0
         Disabled: 0
         EffectGroups:
-        - selectedCategory: 0
+        - selectedCategory: 4
           selectedIntensity: 1
           GroupName: 
           Disabled: 0
           StepThroughMode: 0
           AppliesTo: 0
-          TargetTag: 
+          TargetTag: Player
           TargetComponentType: {fileID: 0}
           TargetList: []
-          EffectsToExecute: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+          - id: 3
+          - id: 4
         ReactTo:
         - '*'
         type: 0
         ContextType: 0
+    00000001:
+      type: {class: CameraShakeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Lock: 0
+        Description: Simple camera shake effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.68
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 1
+        amount: 5
+        axis: {x: 1, y: 1, z: 1}
+        easeAmountInOut:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
+    00000002:
+      type: {class: CameraBackgroundColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Lock: 0
+        Description: Camera Background Color change Effect allows you to change a
+          camera background color field using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.54
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 1
+        to: {r: 0.38362023, g: 0.32794458, b: 0.4024238, a: 1}
+        easing: 1
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        cameraToModify: {fileID: 0}
+    00000003:
+      type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 2
+        Disabled: 0
+        Lock: 0
+        Description: Translate Effect allows you to move an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.64
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 2, y: 0, z: 0}
+        easing: 3
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 1
+    00000004:
+      type: {class: TranslateEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 2
+        Disabled: 0
+        Lock: 0
+        Description: Translate Effect allows you to move an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1.83
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: -1, y: 3, z: 0}
+        easing: 8
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        useGlobalPosition: 0
+        useInteractionDirection: 0
+        interactionDirectionMultiplier: 1
 --- !u!1 &169225112
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,11 +415,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneName: 
-  EvaluationTime: 5
-  EvaluationAmount: 17
-  RandomAmount: 10
-  TimeLeft: 5
-  staticAnalysis: 1
+  EvaluationTime: 2
+  EvaluationAmount: 100
+  RandomAmount: 80
+  TimeLeft: 0
+  staticAnalysis: 0
+  captureScreenshots: 1
+  CaptureFPS: 16.6667
   multiThreaded: 1
   threads: 8
   EstimatedTimeLeft: 

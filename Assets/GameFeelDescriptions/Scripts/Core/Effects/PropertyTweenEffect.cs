@@ -37,14 +37,14 @@ namespace GameFeelDescriptions
         public new string to;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new PropertyTweenEffect();
             cp.Init(origin, target, triggerData);
             cp.Component = Component;
             cp.Field = Field;
 
-            cp = DeepCopy(cp);
+            cp = DeepCopy(cp, ignoreCooldown);
 
             cp.@from = @from;
             cp.to = to;

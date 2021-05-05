@@ -144,7 +144,7 @@ namespace GameFeelDescriptions
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new ParticleScatterEffect();
             
@@ -161,18 +161,19 @@ namespace GameFeelDescriptions
             cp.ApplyGravity = ApplyGravity;
             cp.ScatterAngle = ScatterAngle;
             cp.ParticleScale = ParticleScale;
-
             
-            
-
-            if (target != null)
+            if (target == null && origin == null)
             {
-                cp.targetPos = target.transform.position;
+                cp.targetPos = Vector3.zero;
+            }
+            else
+            {
+                cp.targetPos = target != null ? target.transform.position : origin.transform.position;    
             }
                 
             cp.Init(origin, target, triggerData);
             
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
 
         //TODO: This Effect might need it's own custom "editor" like the SFXR editor... to generate the various kinds of puffs, and mutate/randomize 2020-09-16

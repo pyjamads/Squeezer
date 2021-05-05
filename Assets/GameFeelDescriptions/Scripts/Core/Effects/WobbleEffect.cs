@@ -10,6 +10,7 @@ namespace GameFeelDescriptions
         }
         
         public float amount;
+        public Vector3 axis = Vector3.one;
 
         public AnimationCurve easeAmountInOut = AnimationCurve.Constant(0, 1, 1f);
         
@@ -19,20 +20,27 @@ namespace GameFeelDescriptions
         [HideFieldIf("useResetPositionAfterShake", true)]
         public bool doNotResetScale;
         
-        private float scaleOffset = 1f;
+        private float scaleOffset = 0f;
+        
+        //Jitter control, eg. how often it switches target.
+        private const float jitterCooldown = 0.01f;
+        private float timeSinceLastJitter;
+        private float jitterTarget;
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new WobbleEffect
             {
                 amount = amount,
+                axis = axis,
+                easeAmountInOut = easeAmountInOut,
                 useResetScaleAfterShake = useResetScaleAfterShake, 
                 resetScale = resetScale,
                 doNotResetScale = doNotResetScale
             };
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         //TODO: add mutate!!!
@@ -41,6 +49,8 @@ namespace GameFeelDescriptions
         {
             if (target == null) return;
 
+            jitterTarget = 1 + (Random.value * amount * 2 - amount);
+            
             base.ExecuteSetup();
         }
 
@@ -58,16 +68,29 @@ namespace GameFeelDescriptions
             //var deltaTime = 1;//Time.deltaTime;
             //if (unscaledTime) deltaTime = Time.unscaledDeltaTime;
             
-            var easedAmount = 1 + (Random.value * amount * 2f - amount) * deltaTime;
+            timeSinceLastJitter += deltaTime;
+            
+            if (timeSinceLastJitter > jitterCooldown)
+            {
+                timeSinceLastJitter = 0;
+                jitterTarget = Random.value * amount * 2 - amount;
+
+                target.transform.localScale = target.transform.localScale - axis * scaleOffset;
+                
+                scaleOffset = 0f;
+            }
+            
+            var easedAmount = deltaTime;
             if (Duration > 0)
             {
                 easedAmount = easeAmountInOut.Evaluate(elapsed / Duration) * easedAmount;
             }
 
-            var scale = easedAmount;
-            scaleOffset *= scale;
+            var scale = jitterTarget * easedAmount;
             
-            target.transform.localScale = target.transform.localScale * scale;
+            scaleOffset += scale;
+            
+            target.transform.localScale = target.transform.localScale + axis * scale;
 
             return false;
         }
@@ -75,8 +98,19 @@ namespace GameFeelDescriptions
         public override void ExecuteCleanUp()
         {
             if (target == null) return;
-            
-            target.transform.localScale = target.transform.localScale * (1f/scaleOffset);
+
+            if (doNotResetScale == false)
+            {
+                //Guarantee we end up at initialPosition.
+                if (useResetScaleAfterShake)
+                {
+                    target.transform.localScale = resetScale;
+                }
+                else
+                {
+                    target.transform.localScale = target.transform.localScale - axis * scaleOffset;
+                }
+            }
         }
     }
 }

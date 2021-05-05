@@ -71,11 +71,11 @@ namespace GameFeelDescriptions
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new RotateEffect{useGlobalRotation = useGlobalRotation};
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
 
         public override void Mutate(float amount = 0.05f)

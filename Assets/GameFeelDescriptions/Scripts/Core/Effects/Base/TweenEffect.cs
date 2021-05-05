@@ -15,6 +15,8 @@ namespace GameFeelDescriptions
         public TTween @from;
         
         public bool relative = true;
+        //Relative difference between to and from.
+        protected TTween diffAmount;
         
         [Tooltip("If @relative is true, this will be added to the initial value.")]
         public TTween to = (TTween)TweenHelper.GetRandomValue(typeof(TTween), Random.Range(0f, 5f));
@@ -42,7 +44,7 @@ namespace GameFeelDescriptions
         protected TTween start;
         protected TTween end;
         
-        protected override T DeepCopy<T>(T shallow)
+        protected override T DeepCopy<T>(T shallow, bool ignoreCooldown)
         {
             //If the shallow is not TweenEffect, return null instead. 
             if (!(shallow is TweenEffect<TTween> cp)) return null;
@@ -54,7 +56,7 @@ namespace GameFeelDescriptions
             cp.easing = easing;
             cp.curve = curve;
                 
-            return base.DeepCopy(cp as T);
+            return base.DeepCopy(cp as T, ignoreCooldown);
 
         }
 
@@ -63,172 +65,6 @@ namespace GameFeelDescriptions
             return other is TweenEffect<TTween> && base.CompareTo(other);
         }
         
-        // public override bool Tick(float unscaledDeltaTime)
-        // {
-        //     //If this is the first Tick, after the delay, run setup
-        //     if (firstTick && elapsed >= 0)
-        //     {
-        //         ExecuteSetup();
-        //         firstTick = false;
-        //     }
-        //     
-        //     var complete = false;
-        //  
-        //     var elapsedTimeExcess = 0f;
-        //     if(!reverse && elapsed >= duration)
-        //     {
-        //         elapsedTimeExcess = elapsed - duration;
-        //         elapsed = duration;
-        //         complete = true;
-        //     }
-        //     else if(reverse && elapsed <= 0)
-        //     {
-        //         elapsedTimeExcess = 0 - elapsed;
-        //         elapsed = 0f;
-        //         complete = true;
-        //     }
-        //     
-        //     //negative elapsed, is used for setting delays.
-        //     if(elapsed >= 0 && elapsed <= duration)
-        //     {
-        //         //ExecuteTick can finish early, due to missing targets or other settings.
-        //         complete = ExecuteTick() || complete;
-        //     }
-        //     
-        //     // if we have a loopType and we are complete (meaning we reached 0 or duration) handle the loop.
-        //     if (complete && (repeat > 0 || repeat == -1))
-        //     {
-        //         complete = HandleLooping( elapsedTimeExcess );
-        //
-        //         //In case the tween is not complete, update the tween with the excess time.
-        //         if (!complete && elapsedTimeExcess > 0)
-        //         {
-        //             //ExecuteTick can finish early, due to missing targets or other settings.
-        //             complete = ExecuteTick() || complete;
-        //         }
-        //     }
-        //     
-        //     var deltaTime = UnscaledTime ? unscaledDeltaTime : Time.timeScale * unscaledDeltaTime;
-        //
-        //     // running in reverse? then we need to subtract deltaTime
-        //     if (reverse)
-        //     {
-        //         elapsed -= deltaTime;
-        //     }
-        //     else
-        //     {
-        //         elapsed += deltaTime;
-        //     }
-        //
-        //     if (!complete) return false;
-        //     
-        //     //Queue effects in the ExecuteAfterCompletion list
-        //     ExecuteComplete();
-        //     
-        //     return true;
-        // }
-        //
-        // private bool HandleLooping(float excessTime)
-        // {
-        //     //If repeat is -1, we repeat infinitely.
-        //     if (repeat != -1)
-        //     {
-        //         repeat--;
-        //     }
-        //     
-        //     switch (loopType)
-        //     {
-        //         case LoopType.Yoyo:
-        //             //Start and End are still the same.
-        //             //Elapsed is either 0 or duration.
-        //             //Flip direction of the tween.
-        //             reverse = !reverse;
-        //             break;
-        //         case LoopType.Restart:
-        //             //Start and End are still the same.
-        //             //Reset elapsed time
-        //             elapsed = 0;
-        //             break;
-        //         case LoopType.Relative:
-        //             //Update Start and End values, relative to the current value.
-        //             end = GetRelativeValue(GetValue(target), GetDifference(start, end));
-        //             start = GetValue(target);
-        //             //Reset elapsed time
-        //             elapsed = 0;
-        //             break;
-        //     }
-        //     
-        //     //if we have a delay between loops, add or remove that value to/from elapsed.
-        //     if (DelayBetweenLoops > 0)
-        //     {
-        //         if (reverse)
-        //         {
-        //             elapsed += DelayBetweenLoops;
-        //         }
-        //         else
-        //         {
-        //             elapsed -= DelayBetweenLoops;
-        //         }
-        //     }
-        //
-        //     // if we have loops left to process reset our state with the excess time and continue
-        //     if(loopType != LoopType.None && (repeat >= 0 || repeat == -1))
-        //     {
-        //         // now we need to set our elapsed time and factor in our excess time
-        //         if (reverse)
-        //         {
-        //             elapsed -= excessTime;
-        //         }
-        //         else
-        //         {    
-        //             elapsed += excessTime;
-        //         }
-					   //
-        //         //Signal that we're not quite done yet.
-        //         return false;
-        //     }
-        //
-        //     //If we got here, the loops are done!
-        //     return true;
-        // }
-        //
-        // public override float GetRemainingTime()
-        // {
-        //     var total = duration - elapsed;
-        //     
-        //     if (loopType == LoopType.None)
-        //     {
-        //         return total;
-        //     }
-        //     
-        //     if (repeat > 0)
-        //     {
-        //         total += repeat * duration + repeat * DelayBetweenLoops;
-        //     }
-        //     else if (repeat == -1)
-        //     {
-        //         total = float.PositiveInfinity;
-        //     }
-        //
-        //     return total;
-        // }
-        //
-        // public void SetupLooping()
-        // {
-        //     //TODO: Does this still make sense? (this was mostly to handle yoyo duration) 2020-09-03
-        //     //NOTE: also doesn't include DelayBetweenLoops here.
-        //     //Setup looping.
-        //     if (loopType != LoopType.None && repeat > 0)
-        //     {
-        //         duration = Duration / (repeat + 1);
-        //     }
-        //     else
-        //     {
-        //         //No loops, means use Duration directly.
-        //         duration = Duration;
-        //     }
-        // }
-
         public Func<float, float> GetEaseFunc()
         {
             if (easing != EasingHelper.EaseType.Curve)
@@ -242,7 +78,13 @@ namespace GameFeelDescriptions
             
             return t => curve.Evaluate(t);
         }
-    
+
+        protected override void UpdateRestartValues()
+        {
+            //Reset it back to the start!
+            SetValue(target, start);
+        }
+
         protected override void UpdateRelativeValues()
         {
             //Update Start and End values, relative to the current value.
@@ -268,6 +110,8 @@ namespace GameFeelDescriptions
             start = GetStartValue();
             end = GetEndValue();
             SetValue(target, start);
+
+            diffAmount = GetDifference(start, end);
         }
 
         protected override bool ExecuteTick()

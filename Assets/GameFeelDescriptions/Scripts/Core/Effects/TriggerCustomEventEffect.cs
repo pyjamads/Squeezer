@@ -13,19 +13,21 @@ namespace GameFeelDescriptions
         }
       
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
-            //This effect does nothing, when no event name is specified!
+            var cp = new TriggerCustomEventEffect();
+            cp.EventName = EventName;
+            
+            //This effect does nothing, when no event name is specified, make it trigger anything!
             if (string.IsNullOrEmpty(EventName))
             {
                 Debug.LogWarning("No EventName specified on TriggerCustomEventEffect! Description: "+origin+" target: "+target);
-                return null;
+                //return null;
+                cp.EventName = "*";
             }
-
-            var cp = new TriggerCustomEventEffect();
-            cp.EventName = EventName;
+            
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
 
         protected override bool ExecuteTick()

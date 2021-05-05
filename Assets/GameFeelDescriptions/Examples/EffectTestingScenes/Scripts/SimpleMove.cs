@@ -4,8 +4,10 @@ namespace GameFeelDescriptions.Examples
 {
     public class SimpleMove : MonoBehaviour
     {
-        private Vector3 initialPosition;
-        private Vector3 targetPosition;
+
+        public bool staticPositions;
+        public Vector3 initialPosition;
+        public Vector3 targetPosition;
         private Vector3 currentVelocity;
 
         public bool MovementOnly2D;
@@ -19,8 +21,17 @@ namespace GameFeelDescriptions.Examples
         // Start is called before the first frame update
         void Start()
         {
-            initialPosition = transform.position;
-            targetPosition = initialPosition + (MovementOnly2D ? Random.insideUnitCircle.AsVector3() : Random.onUnitSphere) * movementScale;
+            if (!staticPositions)
+            {
+                initialPosition = transform.position;
+                targetPosition = initialPosition +
+                                 (MovementOnly2D ? Random.insideUnitCircle.AsVector3() : Random.onUnitSphere) *
+                                 movementScale;
+            }
+            else
+            {
+                transform.position = initialPosition;
+            }
         }
 
         // Update is called once per frame
@@ -29,13 +40,27 @@ namespace GameFeelDescriptions.Examples
             //If close to target, find new target
             if ((transform.position - targetPosition).magnitude < 0.2f)
             {
-                pauseStartTime = Time.unscaledTime;
+                pauseStartTime = Time.time;
                 //currentVelocity = Vector3.zero;
-                targetPosition = initialPosition + (MovementOnly2D ? Random.insideUnitCircle.normalized.AsVector3() : Random.insideUnitSphere) * movementScale;
+                if (staticPositions)
+                {
+                    //Swap them around.
+                    var temp = targetPosition;
+                    targetPosition = initialPosition;
+                    initialPosition = temp;
+                }
+                else
+                {
+                    //Find new target!
+                    targetPosition = initialPosition +
+                                     (MovementOnly2D
+                                         ? Random.insideUnitCircle.normalized.AsVector3()
+                                         : Random.insideUnitSphere) * movementScale;
+                }
             }
 
             //Move after a short pause
-            if (Time.unscaledTime > pauseStartTime + PauseTime)
+            if (Time.time > pauseStartTime + PauseTime)
             {
                 //Smooth damp follow target!
                 transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref currentVelocity, SmoothTime);    

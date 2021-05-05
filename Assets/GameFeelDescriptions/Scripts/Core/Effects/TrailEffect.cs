@@ -42,7 +42,7 @@ namespace GameFeelDescriptions
         
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new TrailEffect();
 
@@ -54,11 +54,16 @@ namespace GameFeelDescriptions
             // cp.CustomFadeEffects = CustomFadeEffects;
             cp.Init(origin, target, triggerData);
 
-            if (target == null && origin == null) return null;
+            if (target == null && origin == null)
+            {
+                cp.targetPos = Vector3.zero;
+            }
+            else
+            {
+                cp.targetPos = target != null ? target.transform.position : origin.transform.position;    
+            }
             
-            cp.targetPos = target != null ? target.transform.position : origin.transform.position;
-            
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         //TODO: add mutate
@@ -77,7 +82,7 @@ namespace GameFeelDescriptions
             
                 if (!target.GetComponent<Renderer>())
                 {
-                    Debug.LogError("No renderer attached to object: " + target.name);
+                    Debug.LogWarning("No renderer attached to object: " + target.name);
                     ExecuteOnOffspring.Clear();
                     ExecuteAfterCompletion.Clear();
                     return true;

@@ -48,7 +48,7 @@ namespace GameFeelDescriptions
         //TODO: add mutate!!
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new RagdollEffect();
 
@@ -62,11 +62,11 @@ namespace GameFeelDescriptions
             // cp.DestroyDelay = DestroyDelay;
             cp.Init(origin, target, triggerData);
             
-            if (target == null && origin == null) return null;
+            //if (target == null && origin == null) return null;
             
             // cp.targetPos = target != null ? target.transform.position : origin.transform.position;
             
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
 
         protected override bool ExecuteTick()

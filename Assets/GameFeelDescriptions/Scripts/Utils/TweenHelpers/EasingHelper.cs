@@ -200,8 +200,6 @@ namespace GameFeelDescriptions
 
             return Mathf.Sin((t * Mathf.PI) / 2);
         }
-        
-        
 
         public static float SineInOut(float t)
         {
@@ -243,17 +241,23 @@ namespace GameFeelDescriptions
         
         public static float BackIn(float t)
         {
+	        //Clamp value between 0 and 1.
+	        t = Mathf.Clamp01(t);
+	        
             return BezierEvaluator(new Vector2[3] {Vector2.zero, new Vector2(0.25f,-0.5f), Vector2.one}, t).y;
         }
 	    
         public static float BackOut(float t)
         {
+	        //Clamp value between 0 and 1.
+	        t = Mathf.Clamp01(t);
+	        
             return BezierEvaluator(new Vector2[3] {Vector2.zero, new Vector2(0.75f,1.5f), Vector2.one}, t).y;
         }
 
         public static float BackInOut(float t)
         {
-            return SimpleBezierEvaluator(new Vector2(0.25f,-0.5f), t,new Vector2(0.75f,1.5f));
+	        return SimpleBezierEvaluator(new Vector2(0.25f,-0.5f), t,new Vector2(0.75f,1.5f));
         }
         
 

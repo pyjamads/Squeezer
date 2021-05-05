@@ -1,4 +1,0 @@
-[WiggleEffect([]), WaitForAbove([]), AudioSynthPlayEffect([])]
-[TrailEffect([],[MaterialColorChangeEffect([DestroyEffect([])])]), SpawnCopyEffect([DisableRendererEffect([]), ContinuousRotationEffect([])],[DestroyEffect([])]), TrailEffect([],[MaterialColorChangeEffect([DestroyEffect([])])]), CameraBackgroundColorChangeEffect([]), AudioSynthPlayEffect([])]
-[BlinkEffect([]), RotateEffect([]), AudioSynthPlayEffect([])]
-

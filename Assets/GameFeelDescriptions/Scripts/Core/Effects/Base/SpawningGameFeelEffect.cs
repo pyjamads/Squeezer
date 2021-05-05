@@ -14,14 +14,22 @@ namespace GameFeelDescriptions
 
         protected Vector3 targetPos;
         
-        protected override T DeepCopy<T>(T shallow) 
+        protected override T DeepCopy<T>(T shallow, bool ignoreCooldown) 
         {
             //If the shallow is not SpawningGameFeelEffect, return null instead. 
             if (!(shallow is SpawningGameFeelEffect cp)) return null;
+
+            if (ignoreCooldown)
+            {
+                cp.ExecuteOnOffspring = new List<GameFeelEffect>();
+            }
+            else
+            {
+                cp.ExecuteOnOffspring = new List<GameFeelEffect>(ExecuteOnOffspring);    
+            }
             
-            cp.ExecuteOnOffspring = new List<GameFeelEffect>(ExecuteOnOffspring);
                     
-            return base.DeepCopy(cp as T);
+            return base.DeepCopy(cp as T, ignoreCooldown);
 
         }
 

@@ -16,32 +16,42 @@ namespace GameFeelDescriptions
         public float interactionDirectionMultiplier = 1f;
         
         public float amount;
+        public Vector3 axis = Vector3.one;
 
         public AnimationCurve easeAmountInOut = AnimationCurve.Constant(0, 1, 1f);
-
         
         public bool useResetPositionAfterShake;
         public Vector3 resetPosition;
 
         [HideFieldIf("useResetPositionAfterShake", true)]
-        public bool doNotResetPosition;
-            
-        private Vector3 initialPosition;
+        public bool doNotResetPosition; 
+        
+        
+        private Vector3 positionOffset;
 
         private Vector3 interactionDirection = Vector3.zero;
 
+        //Jitter control, eg. how often it switches target.
+        private const float jitterCooldown = 0.01f;
+        private float timeSinceLastJitter;
+        private Vector3 jitterTarget;
+        
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new ShakeEffect
             {
                 useInteractionDirection = useInteractionDirection, 
+                interactionDirectionMultiplier = interactionDirectionMultiplier,
                 amount = amount,
+                axis = axis,
+                easeAmountInOut = easeAmountInOut,
                 useResetPositionAfterShake = useResetPositionAfterShake, 
-                resetPosition = resetPosition
+                resetPosition = resetPosition,
+                doNotResetPosition = doNotResetPosition
             };
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         //TODO: add mutate!!!
@@ -49,9 +59,6 @@ namespace GameFeelDescriptions
         protected override void ExecuteSetup()
         {
             if (target == null) return;
-            
-            var position = target.transform.position;
-            initialPosition = new Vector3(position.x, position.y, position.z);
             
             interactionDirection = Vector3.zero;
 
@@ -79,26 +86,33 @@ namespace GameFeelDescriptions
                 return true;
             }
             
-            var direction = Random.onUnitSphere;
+            timeSinceLastJitter += deltaTime;
             
-            if(useInteractionDirection)
+            if (timeSinceLastJitter > jitterCooldown)
             {
-                direction *= 0.5f;
-                direction += interactionDirection * interactionDirectionMultiplier * 0.5f;
-            }
-
-            var deltaTime = 1;//Time.deltaTime;
-            //if (unscaledTime) deltaTime = Time.unscaledDeltaTime;
+                timeSinceLastJitter = 0;
+                
+                var direction = Random.onUnitSphere;
             
-            var easedAmount = amount * deltaTime;
+                if(useInteractionDirection)
+                {
+                    direction += interactionDirection * interactionDirectionMultiplier;
+                }
+                jitterTarget = axis.multiplyElements(direction * amount);
+
+                target.transform.position = target.transform.position - positionOffset;
+                
+                positionOffset = Vector3.zero;
+            }
+            
+            var easedAmount = deltaTime;
             if (Duration > 0)
             {
                 easedAmount = easeAmountInOut.Evaluate(elapsed / Duration) * easedAmount;
             }
-
-            direction *= easedAmount; //* Random.value 
             
-            target.transform.position = target.transform.position + direction;
+            positionOffset += jitterTarget * easedAmount;
+            target.transform.position = target.transform.position + jitterTarget * easedAmount;
 
             return false;
         }
@@ -116,7 +130,7 @@ namespace GameFeelDescriptions
                 }
                 else
                 {
-                    target.transform.position = initialPosition;
+                    target.transform.position = target.transform.position - positionOffset;
                 }
             }
         }

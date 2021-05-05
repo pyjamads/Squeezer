@@ -6,13 +6,11 @@ namespace GameFeelDescriptions
     {
         public WiggleEffect()
         {
-            Description = "Simple shake effect. Can be used for shaking camera or other things.";
+            Description = "Simple rotation shake effect. Can be used for shaking camera or other things.";
         }
 
-        public bool useInteractionDirection;
-        public float interactionDirectionMultiplier = 1f;
-        
         public float amount;
+        public Vector3 axis = Vector3.one;
 
         public AnimationCurve easeAmountInOut = AnimationCurve.Constant(0, 1, 1f);
         
@@ -20,24 +18,29 @@ namespace GameFeelDescriptions
         public Vector3 resetRotation;
 
         [HideFieldIf("useResetPositionAfterShake", true)]
-        public bool doNotResetPosition;
-            
-        private Vector3 initialRotation;
+        public bool doNotResetRotation;
+        
+        private Quaternion rotationOffset = Quaternion.identity;
 
-        private Vector3 interactionDirection = Vector3.zero;
-
+        //Jitter control, eg. how often it switches target.
+        private const float jitterCooldown = 0.01f;
+        private float timeSinceLastJitter;
+        private Quaternion jitterTarget;
+        
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new WiggleEffect
             {
-                useInteractionDirection = useInteractionDirection, 
                 amount = amount,
+                axis = axis,
+                easeAmountInOut = easeAmountInOut,
                 useResetRotationAfterShake = useResetRotationAfterShake, 
-                resetRotation = resetRotation
+                resetRotation = resetRotation,
+                doNotResetRotation = doNotResetRotation
             };
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         //TODO: add mutate!!!
@@ -45,22 +48,9 @@ namespace GameFeelDescriptions
         protected override void ExecuteSetup()
         {
             if (target == null) return;
-            
-            var rotation = target.transform.rotation;
-            initialRotation = rotation.eulerAngles;
-            
-            interactionDirection = Vector3.zero;
 
-            switch (triggerData)
-            {
-                case CollisionData collisionEvent:
-                    interactionDirection = collisionEvent.GetInteractionDirection();
-                    break;
-                case PositionalData positionalEvent:
-                    interactionDirection = positionalEvent.DirectionDelta;
-                    break;
-            }
-            
+            jitterTarget = Random.rotation;
+
             base.ExecuteSetup();
         }
 
@@ -75,26 +65,31 @@ namespace GameFeelDescriptions
                 return true;
             }
             
-            var direction = Random.onUnitSphere;
-            
-            if(useInteractionDirection)
-            {
-                direction *= 0.5f;
-                direction += interactionDirection * interactionDirectionMultiplier * 0.5f;
-            }
+            //Reset every step
+            //target.transform.rotation = Quaternion.Euler(target.transform.rotation.eulerAngles - rotationOffset);
+            //rotationOffset = Vector3.zero;
 
-            var deltaTime = 1;//Time.deltaTime;
-            //if (unscaledTime) deltaTime = Time.unscaledDeltaTime;
+            timeSinceLastJitter += deltaTime;
+
+            if (timeSinceLastJitter > jitterCooldown)
+            {
+                timeSinceLastJitter = 0;
+                jitterTarget = Quaternion.AngleAxis(Random.value * 360 - 180, axis);
+
+                target.transform.rotation = target.transform.rotation * Quaternion.Inverse(rotationOffset);
+                
+                rotationOffset = Quaternion.identity;
+            }
             
-            var easedAmount = amount * deltaTime;
+            var easedAmount = amount * deltaTime; 
             if (Duration > 0)
             {
                 easedAmount = easeAmountInOut.Evaluate(elapsed / Duration) * easedAmount;
             }
 
-            direction *= easedAmount; //* Random.value 
-            
-            target.transform.rotation = Quaternion.Euler(target.transform.rotation.eulerAngles + direction);
+            var rotation = Quaternion.SlerpUnclamped(target.transform.rotation, jitterTarget, easedAmount);
+            rotationOffset *= Quaternion.Inverse(target.transform.rotation) * rotation;
+            target.transform.rotation = rotation;
 
             return false;
         }
@@ -103,7 +98,7 @@ namespace GameFeelDescriptions
         {
             if (target == null) return;
 
-            if (doNotResetPosition == false)
+            if (doNotResetRotation == false)
             {
                 //Guarantee we end up at initialPosition.
                 if (useResetRotationAfterShake)
@@ -112,7 +107,7 @@ namespace GameFeelDescriptions
                 }
                 else
                 {
-                    target.transform.position = initialRotation;
+                    target.transform.rotation = target.transform.rotation * Quaternion.Inverse(rotationOffset);
                 }
             }
         }

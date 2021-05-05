@@ -404,8 +404,8 @@ namespace GameFeelDescriptions
             //If Delay is Zero, execute the Effect immediately to avoid one frame of lag.
             if (effect.Delay == 0)
             {
-                //Tick it, but if it's not done, then add it to active effects.
-                if (!effect.Tick(GetUnscaledDeltaTime()))
+                //Tick it with deltaTime = 0, if it's not done, then add it to active effects.
+                if (!effect.Tick(0))
                 {
                     activeEffects.Add(effect);
                 }

@@ -99,6 +99,8 @@ namespace GameFeelDescriptions
       
       //TODO: Consider INSTEAD OF THE ABOVE LIST: make a GameFeelEffect ref, that's called ExecuteAfter,
       //TODO: and it'll just calculate the added delay on execution by traversing that tree backwards. 04/07/2020
+      //TODO: Alternatively, each effect should have an ID, and a List like the above, it could be called ExecuteAfter,
+      //TODO: or WaitFor, and it'll wait for all of them to complete, before executing. 2021-03-13
       
       // Progression tracker
       protected float elapsed;
@@ -118,14 +120,15 @@ namespace GameFeelDescriptions
       /// <param name="origin"></param>
       /// <param name="target"></param>
       /// <param name="triggerData"></param>
+      /// <param name="ignoreCooldown"></param>
       /// <returns>A copy of the effect or null if copies are suspended.</returns>
       public abstract GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-         GameFeelTriggerData triggerData);
+         GameFeelTriggerData triggerData, bool ignoreCooldown = false);
 
-      protected virtual T DeepCopy<T>(T shallow) where T : GameFeelEffect
+      protected virtual T DeepCopy<T>(T shallow, bool ignoreCooldown) where T : GameFeelEffect
       {
          //If the cooldown is not over, disallow the copy.
-         if (Time.unscaledTime < lastCopyTime + Cooldown)
+         if (!ignoreCooldown && Time.unscaledTime < lastCopyTime + Cooldown)
          {
             return null;
          }
@@ -140,8 +143,15 @@ namespace GameFeelDescriptions
          shallow.Cooldown = Cooldown;
          
          shallow.StackingType = StackingType;
-         shallow.ExecuteAfterCompletion = new List<GameFeelEffect>(ExecuteAfterCompletion);
-         
+         if (ignoreCooldown)
+         {
+            shallow.ExecuteAfterCompletion = new List<GameFeelEffect>();
+         }
+         else
+         {
+            shallow.ExecuteAfterCompletion = new List<GameFeelEffect>(ExecuteAfterCompletion);   
+         }
+
          //Initialize elapsed
          shallow.SetElapsed();
          
@@ -205,7 +215,7 @@ namespace GameFeelDescriptions
       /// Function for handling when one effect overrides another running effect.
       /// </summary>
       /// <returns>Returns true if the copy should be created, and false otherwise.</returns>
-      public (bool queueCopy, bool isOverlapping) HandleEffectOverlapping(GameFeelEffect previous)
+      public virtual (bool queueCopy, bool isOverlapping) HandleEffectOverlapping(GameFeelEffect previous)
       {
          //If there's nothing to override, allow the copy to be created. 
          if (previous == null || previous.isComplete) return (true, false);
@@ -264,6 +274,9 @@ namespace GameFeelDescriptions
       /// <returns></returns>
       public virtual bool Tick(float unscaledDeltaTime)
       {
+         //Update elapsed
+         elapsed += UnscaledTime ? unscaledDeltaTime : Time.timeScale * unscaledDeltaTime;
+         
          //If this is the first Tick, after the delay, run setup
          if (firstTick && elapsed >= 0)
          {
@@ -286,8 +299,6 @@ namespace GameFeelDescriptions
                return true;
             }
          }
-         
-         elapsed += UnscaledTime ? unscaledDeltaTime : Time.timeScale * unscaledDeltaTime;
 
          return false;
       }

@@ -84,27 +84,32 @@ namespace GameFeelDescriptions
         }
 
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new TimeScaleEffect();
             cp.Init(origin, target, triggerData);
-            cp = DeepCopy(cp);
+            cp = DeepCopy(cp, ignoreCooldown);
 
-            var (queueCopy, isOverlapping) = cp.HandleEffectOverlapping(singletonCopy);
+            return cp;
+        }
+
+        public override (bool queueCopy, bool isOverlapping) HandleEffectOverlapping(GameFeelEffect previous)
+        {
+            var (queueCopy, isOverlapping) = base.HandleEffectOverlapping(singletonCopy);
             if(queueCopy)
             {
                 //Handling StackEffectType.Add locally
                 if (isOverlapping && StackingType == StackEffectType.Add)
                 {
-                   Debug.LogWarning("TimeScaleEffect: StackingType == Add, will be handled like Replace.");
-                   singletonCopy.StopExecution();
+                    Debug.LogWarning("TimeScaleEffect: StackingType == Add, will be handled like Replace.");
+                    singletonCopy.StopExecution();
                 }
 
-                singletonCopy = cp;
-                return cp;
+                singletonCopy = this;
+                return (true, false);
             }
-            
-            return null;
+
+            return (false, isOverlapping);
         }
     }
 }

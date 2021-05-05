@@ -18,7 +18,7 @@ namespace GameFeelDescriptions
         private float lastBlinkTime;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new BlinkEffect
             {
@@ -26,7 +26,7 @@ namespace GameFeelDescriptions
                 Interval = Interval,
             };
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
 
         public override void Mutate(float amount = 0.05f)

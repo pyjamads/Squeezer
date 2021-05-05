@@ -38,7 +38,7 @@ namespace GameFeelDescriptions
         public Vector3 PositionOffset;
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var cp = new PositionalFlashEffect();
 
@@ -50,11 +50,16 @@ namespace GameFeelDescriptions
             cp.Scale = Scale;
             cp.Init(origin, target, triggerData);
 
-            if (target == null && origin == null) return null;
-            
-            cp.targetPos = target != null ? target.transform.position : origin.transform.position;
-            
-            return DeepCopy(cp);
+            if (target == null && origin == null)
+            {
+                cp.targetPos = Vector3.zero;
+            }
+            else
+            {
+                cp.targetPos = target != null ? target.transform.position : origin.transform.position;    
+            }
+
+            return DeepCopy(cp, ignoreCooldown);
         }
 
         public override void Mutate(float amount = 0.05f)

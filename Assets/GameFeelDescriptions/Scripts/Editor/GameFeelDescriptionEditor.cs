@@ -154,7 +154,9 @@ namespace GameFeelDescriptions
         // }
         
         #endregion
-        
+
+        private Vector2 scrollPosition = Vector2.zero;
+
         public override void OnInspectorGUI()
         {   
             EditorGUI.BeginChangeCheck();
@@ -196,10 +198,17 @@ namespace GameFeelDescriptions
             }
             else
             {
-                //----------------------------//
-                DrawDefaultInspector();
-                //----------------------------//    
+                
+                using (var scrollViewScope = new EditorGUILayout.ScrollViewScope(scrollPosition))
+                {
+                    //----------------------------//
+                    DrawDefaultInspector();
+                    //----------------------------//
+                    
+                    scrollPosition = scrollViewScope.scrollPosition;
+                }
             }
+                
             #endregion
 
             GUILayout.Space(20);
@@ -623,10 +632,10 @@ namespace GameFeelDescriptions
                             EditorGUILayout.PropertyField(serializedObject.FindProperty("Description"));
 
                             GUILayout.Label("Choose how to attach the description to objects:", EditorStyles.boldLabel);
-                            EditorGUI.indentLevel += 1;
+                            //EditorGUI.indentLevel += 1;
                             
                             //showAttach = EditorGUILayout.Foldout(showAttach, "AttachTo");
-                            EditorGUI.indentLevel -= 1;
+                            //EditorGUI.indentLevel -= 1;
 
                             //if (showAttach) //Don't do foldout inside foldout here!
                             {
@@ -824,6 +833,16 @@ namespace GameFeelDescriptions
                                         previewObject = targetInAList[0];
                                     }
                                 }
+                                else
+                                {
+                                    //TODO: consider searching for the object in prefabs or something... 2021-02-15
+                                    //First round: a primitive cuboid with different scales.
+                                    var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                                    gameObject.transform.localScale = new Vector3(0.5f, 1f, 0.2f);
+                                    gameObject.transform.parent = GameFeelEffectExecutor.Instance.transform;
+                                    targetInAList.Add(gameObject);
+                                    previewObject = gameObject;
+                                }
                             }
 
                             foreach (var trigger in desc.TriggerList)
@@ -852,7 +871,7 @@ namespace GameFeelDescriptions
                     
 
                     GUILayout.Label("Effect Tree (Click elements to edit, or right click for options):", EditorStyles.boldLabel);
-
+                    
 //                    desc.StepThroughMode = EditorGUILayout.Toggle("Step Through Mode", desc.StepThroughMode);
 //                    
                     if (copiedObject is GameFeelTrigger)
@@ -864,52 +883,61 @@ namespace GameFeelDescriptions
                         canPaste = false;
                     }
 
-                    
-                    var clickArea = ClickAreaWithContextMenu(desc, false);
-                    if (desc.TriggerList.Count == 0)
+                    using (var scrollViewScope = new EditorGUILayout.ScrollViewScope(scrollPosition))
                     {
-                        if (desc.StepThroughMode)
+                        var clickArea = ClickAreaWithContextMenu(desc, false);
+                        if (desc.TriggerList.Count == 0)
                         {
-                            EditorGUI.LabelField(clickArea,
-                                "Trigger List is Empty, hit play to begin StepThroughMode!");
+                            if (desc.StepThroughMode)
+                            {
+                                EditorGUI.LabelField(clickArea,
+                                    "Trigger List is Empty, hit play to begin StepThroughMode!");
+                            }
+                            else
+                            {
+                                EditorGUI.LabelField(clickArea,
+                                    "Trigger List is Empty, right click to add a Trigger or enable StepThroughMode!");
+                            }
                         }
                         else
                         {
-                            EditorGUI.LabelField(clickArea,
-                                "Trigger List is Empty, right click to add a Trigger or enable StepThroughMode!");
+                            var seperator = !string.IsNullOrEmpty(desc.AttachToTag) && !string.IsNullOrEmpty(desc.AttachToComponentType)
+                                ? " and "
+                                : "";
+
+                            var andList = desc.AttachToObjects?.Length > 0
+                                ? (string.IsNullOrEmpty(seperator) ? "list" : " and list")
+                                : "";
+
+                            EditorGUI.LabelField(new Rect(clickArea.x, clickArea.y, clickArea.width - 50f, clickArea.height), "Trigger List [Attaching "
+                                                                                                                              + desc.TriggerList.Count + " trigger(s) to " +
+                                                                                                                              desc.AttachToTag +
+                                                                                                                              seperator +
+                                                                                                                              desc.AttachToComponentType +
+                                                                                                                              andList + "]");
+                            
+                            if (GUI.Button(new Rect(clickArea.x + clickArea.width - 50f, clickArea.y, 50f, clickArea.height),"+"))
+                            {
+                                PlusMenuDropdown(desc);
+                            }
+                            
+                            indent++;
+                            
+                            for (var i = 0; i < desc.TriggerList.Count; i++)
+                            {
+                                if (desc.TriggerList[i] == null) continue;
+
+                                GenerateSimpleInterface(desc.TriggerList[i], ref index, indent,
+                                    "TriggerList", i);
+                                index++;
+                            }
+                            
+                            indent--;
                         }
-                    }
-                    else
-                    {
-                        var seperator = !string.IsNullOrEmpty(desc.AttachToTag) && !string.IsNullOrEmpty(desc.AttachToComponentType)
-                            ? " and "
-                            : "";
-
-                        var andList = desc.AttachToObjects?.Length > 0
-                            ? (string.IsNullOrEmpty(seperator) ? "list" : " and list")
-                            : "";
-
-                        EditorGUI.LabelField(new Rect(clickArea.x, clickArea.y, clickArea.width - 50f, clickArea.height), "Trigger List [Attaching "
-                                                                                                                          + desc.TriggerList.Count + " trigger(s) to " +
-                                                                                                                          desc.AttachToTag +
-                                                                                                                          seperator +
-                                                                                                                          desc.AttachToComponentType +
-                                                                                                                          andList + "]");
                         
-                        if (GUI.Button(new Rect(clickArea.x + clickArea.width - 50f, clickArea.y, 50f, clickArea.height),"+"))
-                        {
-                            PlusMenuDropdown(desc);
-                        }
-                        
-                        for (var i = 0; i < desc.TriggerList.Count; i++)
-                        {
-                            if (desc.TriggerList[i] == null) continue;
-
-                            GenerateSimpleInterface(desc.TriggerList[i], ref index, indent,
-                                "TriggerList", i);
-                            index++;
-                        }
+                        scrollPosition = scrollViewScope.scrollPosition;
                     }
+                    
 
                     break;
             }
@@ -1033,6 +1061,16 @@ namespace GameFeelDescriptions
                                     // //TODO: maybe hide the original object, and show it again after the preview is done!
                                     // previewObject = attachTargets[0];
                                     // previewObject.SetActive(false);
+                                }
+                                else
+                                {
+                                    //TODO: consider searching for the object in prefabs or something... 2021-02-15
+                                    //First round: a primitive cuboid with different scales.
+                                    var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                                    gameObject.transform.localScale = new Vector3(0.5f, 1f, 0.2f);
+                                    gameObject.transform.parent = GameFeelEffectExecutor.Instance.transform;
+                                    targetInAList.Add(gameObject);
+                                    previewObject = gameObject;
                                 }
                             }
                             
@@ -1177,7 +1215,7 @@ namespace GameFeelDescriptions
                         else
                         {
                             showGenerators =
-                                EditorGUI.Foldout(new Rect(indented.x + indented.width - 210f - EditorGUIUtility.standardVerticalSpacing, 
+                                EditorGUI.Foldout(new Rect(indented.x + indented.width - 220f - EditorGUIUtility.standardVerticalSpacing, 
                                                                     indented.y, 110f, indented.height), 
                                     showGenerators, "Generator", true);
                             if (showGenerators)
@@ -1323,8 +1361,19 @@ namespace GameFeelDescriptions
                     {
                         suffix += " (Total: "+totalExecutionTime.ToString("F") + (totalExecutionTime == float.PositiveInfinity ? "" : "s")+")";
                     }
+
+                    var effectVars = "";
                     
-                    var effectLabel = prefix + ObjectNames.NicifyVariableName(effect.GetType().Name) + suffix;
+                    if(effect is ParticlePuffEffect puff)
+                    {
+                        effectVars += " {particles: " + puff.AmountOfParticles + "}";
+                    }
+                    else if(effect is ParticleScatterEffect scatter)
+                    {
+                        effectVars += " {particles: " + scatter.AmountOfParticles + "}";
+                    }
+                    
+                    var effectLabel = prefix + ObjectNames.NicifyVariableName(effect.GetType().Name) + effectVars + suffix;
 
                     EditorGUILayout.BeginHorizontal();
 
@@ -1387,10 +1436,36 @@ namespace GameFeelDescriptions
                         //         EditorGUI.Foldout(new Rect(clickArea.x + 100f, clickArea.y, clickArea.width - 100f, clickArea.height),
                         //             showAttach, "Custom Fade Effect");
                         // }
-                        
                         ExpandedDescriptionNames[target.GetInstanceID()][index] = EditorGUI.Foldout(
                             new Rect(clickArea.x, clickArea.y, indented.width - 100f - EditorGUIUtility.standardVerticalSpacing, clickArea.height),
                             ExpandedDescriptionNames[target.GetInstanceID()][index], effectLabel, toggleOnLabel);
+                        
+                        //EditorGUI.indentLevel = 1;
+                        
+                        
+                        if (effect is ColorChangeEffect colorChangeEffect)
+                        {
+                            var rect = new Rect(EditorGUI.IndentedRect(clickArea).x, clickArea.y + clickArea.height - EditorGUIUtility.standardVerticalSpacing,
+                                indented.width - 105f - EditorGUIUtility.standardVerticalSpacing, EditorGUIUtility.standardVerticalSpacing * 3);
+                            // rect.height = EditorGUIUtility.standardVerticalSpacing;
+                            // rect.y = clickArea.y + clickArea.height - EditorGUIUtility.standardVerticalSpacing;
+
+                            var gradient = new Gradient();
+                            gradient.mode = GradientMode.Blend;
+                            if (colorChangeEffect.setFromValue)
+                            {
+                                gradient.colorKeys = new[]{new GradientColorKey(colorChangeEffect.@from,0), new GradientColorKey(colorChangeEffect.to, 1)};
+                                //gradient.alphaKeys = new[]{new GradientAlphaKey(colorChangeEffect.@from.a,0), new GradientAlphaKey(colorChangeEffect.to.a, 1)};
+                            }
+                            else
+                            {
+                                gradient.colorKeys = new[]{new GradientColorKey(colorChangeEffect.to, 0), new GradientColorKey(colorChangeEffect.to, 1)};
+                                //gradient.alphaKeys = new[]{new GradientAlphaKey(1,0), new GradientAlphaKey(colorChangeEffect.to.a, 1)};
+                            }
+                            
+                            EditorGUI.GradientField(rect, gradient);
+                            //EditorHelpers.DrawColoredRect(rect, colorChangeEffect.to);
+                        }
                     }
                     
                     EditorGUILayout.EndHorizontal();
@@ -1987,8 +2062,19 @@ namespace GameFeelDescriptions
                     case GameFeelEffectGroup group:
                     {
                         var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
-                        foreach (var type in types)
+                        Type baseType = null;
+                        foreach (var type in types.OrderBy(t => t.BaseType.IsAbstract ? t.BaseType.FullName : t.BaseType.BaseType.FullName))
                         {
+                            if (type.BaseType != baseType && type.BaseType.IsAbstract)
+                            {
+                                if (baseType != null && !baseType.IsGenericType)
+                                {
+                                    menu.AddSeparator("Add Effect/");
+                                }
+                                
+                                menu.AddDisabledItem(new GUIContent("Add Effect/"+ObjectNames.NicifyVariableName(type.BaseType.Name)), false);
+                                baseType = type.BaseType;
+                            }
                             // Skip abstract classes because they should not be instantiated
                             if (type.IsAbstract)
                                 continue;
@@ -2024,13 +2110,35 @@ namespace GameFeelDescriptions
                         break;
                     case GameFeelEffect effect:
                     {
+                        var spawner = effect as SpawningGameFeelEffect;
+                        
                         var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
-                        foreach (var type in types)
+                        Type baseType = null;
+                        foreach (var type in types.OrderBy(t => t.BaseType.IsAbstract ? t.BaseType.FullName : t.BaseType.BaseType.FullName))
                         {
+                            if (type.BaseType != baseType && type.BaseType.IsAbstract)
+                            {
+                                if (baseType != null && !baseType.IsGenericType)
+                                {
+                                    menu.AddSeparator("Add OnComplete Effect/");
+                                    if (spawner != null)
+                                    {
+                                        menu.AddSeparator("Add OnOffspring Effect/");
+                                    }
+                                }
+                                
+                                menu.AddDisabledItem(new GUIContent("Add OnComplete Effect/"+ObjectNames.NicifyVariableName(type.BaseType.Name)), false);
+                                if (spawner != null)
+                                {
+                                    menu.AddDisabledItem(new GUIContent("Add OnOffspring Effect/"+ObjectNames.NicifyVariableName(type.BaseType.Name)), false);
+                                }
+                                baseType = type.BaseType;
+                            }
+
                             // Skip abstract classes because they should not be instantiated
                             if (type.IsAbstract)
                                 continue;
-
+                            
                             //Block to separate variable names
                             {
                                 var data = new addCallbackStruct
@@ -2042,7 +2150,7 @@ namespace GameFeelDescriptions
                                     AddPropertyCallback, data);
                             }
 
-                            if (effect is SpawningGameFeelEffect spawner)
+                            if (spawner != null)
                             {
                                 var data = new addCallbackStruct
                                 {
@@ -2069,7 +2177,7 @@ namespace GameFeelDescriptions
                                     AddPropertyCallback, pasteData);
                             }
 
-                            if (effect is SpawningGameFeelEffect spawner)
+                            if (spawner != null)
                             {
                                 var pasteData = new addCallbackStruct
                                 {

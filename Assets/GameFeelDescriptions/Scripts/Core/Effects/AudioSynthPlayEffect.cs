@@ -103,7 +103,7 @@ namespace GameFeelDescriptions
         }
         
         public override GameFeelEffect CopyAndSetElapsed(GameObject origin, GameObject target,
-            GameFeelTriggerData triggerData)
+            GameFeelTriggerData triggerData, bool ignoreCooldown = false)
         {
             var nextParameterSet = synthParameters;
             
@@ -123,7 +123,7 @@ namespace GameFeelDescriptions
             };
             
             cp.Init(origin, target, triggerData);
-            return DeepCopy(cp);
+            return DeepCopy(cp, ignoreCooldown);
         }
         
         public void PlaySound()

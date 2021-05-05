@@ -397,6 +397,31 @@ namespace GameFeelDescriptions
             //Override effects with the ones from recipe
             EffectsToExecute = new List<GameFeelEffect>(recipe.EffectsToExecute);
         }
+
+        public List<GameFeelEffect> GetRecipeCopy()
+        {
+            return new List<GameFeelEffect>(DeepCopyEffects(EffectsToExecute));
+        }
+
+        public static List<GameFeelEffect> DeepCopyEffects(IEnumerable<GameFeelEffect> effects)
+        {
+            var result = new List<GameFeelEffect>();
+            foreach (var effect in effects)
+            {
+                var copy = effect.CopyAndSetElapsed(null, null, null, true);
+                copy.ExecuteAfterCompletion = DeepCopyEffects(effect.ExecuteAfterCompletion);
+
+                if (effect is SpawningGameFeelEffect spawner)
+                {
+                    var sCopy = copy as SpawningGameFeelEffect;
+                    sCopy.ExecuteOnOffspring = DeepCopyEffects(spawner.ExecuteOnOffspring);
+                }
+                
+                result.Add(copy);
+            }
+
+            return result;
+        }
         
 
         public GameFeelRecipe SaveToRecipe(bool saveToFile = false, string description = "", string filename = null)
