@@ -305,5 +305,10 @@ namespace GameFeelDescriptions
             //We return false, so it waits for the duration.
             return false;
         }
+        
+        public override bool CompareTo(GameFeelEffect other)
+        {
+            return other is AudioSynthPlayEffect audio && other.target == target && audio.synthParameters == synthParameters;
+        }
     }
 }

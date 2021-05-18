@@ -94,7 +94,9 @@ namespace GameFeelDescriptions
 
         protected virtual TTween GetStartValue()
         {
-            return setFromValue ? @from : GetValue(target);
+            return setFromValue ? 
+                relative ? GetRelativeValue(GetValue(target), @from) : @from : 
+                GetValue(target);
         }
 
         protected virtual TTween GetEndValue()
@@ -110,15 +112,8 @@ namespace GameFeelDescriptions
             start = GetStartValue();
             end = GetEndValue();
             SetValue(target, start);
-
-            if (relative)
-            {
-                diffAmount = GetDifference(start, GetRelativeValue(start, end));
-            }
-            else
-            {
-                diffAmount = GetDifference(start, end);
-            }
+            
+            diffAmount = GetDifference(start, end);
         }
 
         protected override bool ExecuteTick()

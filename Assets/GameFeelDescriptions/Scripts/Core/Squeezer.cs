@@ -26,29 +26,70 @@ namespace GameFeelDescriptions
             return Trigger(target, effect, direction, position);
         }
         
+        public static GameFeelEffect Trigger(this GameFeelEffect effect, GameObject target)
+        {
+            return Trigger(target, effect);
+        }
+
+        public static GameFeelEffect Trigger(this Behaviour target, GameFeelEffect effect)
+        {
+            return Trigger(target.gameObject, effect);
+        }
+        
+        public static GameFeelEffect Trigger(this Behaviour target, GameFeelEffect effect, Vector3 direction)
+        {
+            return Trigger(target.gameObject, effect, direction);
+        }
+        
+        public static GameFeelEffect Trigger(this Behaviour target, GameFeelEffect effect, Vector3 direction, Vector3 position)
+        {
+            return Trigger(target.gameObject, effect, direction, position);
+        }
+        
+        public static GameFeelEffect Trigger(this GameObject target, GameFeelEffect effect)
+        {
+            var triggerData = new GameFeelTriggerData();
+            return QueueExecution(effect, target, triggerData);
+        }
+        
         public static GameFeelEffect Trigger(this GameObject target, GameFeelEffect effect, Vector3 direction)
         {
             var triggerData = new DirectionalData (direction);
-            effect.Init(null, target, triggerData);
-            effect.SetElapsed();
-            GameFeelEffectExecutor.Instance.QueueEffect(effect);
-            return effect;
+            return QueueExecution(effect, target, triggerData);
         }
         
         public static GameFeelEffect Trigger(this GameObject target, GameFeelEffect effect, Vector3 direction, Vector3 position)
         {
             var triggerData = new PositionalData (position, direction);
-            effect.Init(null, target, triggerData);
-            effect.SetElapsed();
-            GameFeelEffectExecutor.Instance.QueueEffect(effect);
-
-            return effect;
+            return QueueExecution(effect, target, triggerData);
         }
         
-        // public static void QueueExecution(this GameFeelEffect effect)
-        // {
-        //     GameFeelEffectExecutor.Instance.QueueEffect(effect);
-        // }
+        public static GameFeelEffect QueueExecution(GameFeelEffect effect, GameObject target, GameFeelTriggerData data)
+        {
+            //If the effect is disabled, skip it.
+            if(effect.Disabled) return null;
+        
+            //Copy and initialize effect.
+            var copy = effect.CopyAndSetElapsed(null, target, data);
+        
+            //Singleton Effects might return null, to avoid copies.
+            if(copy == null) return null;
+        
+            //Find previously active copy
+            var previous = copy.CurrentActiveEffect();
+
+            //Handle overlapping
+            var (queueCopy, _) = copy.HandleEffectOverlapping(previous);
+
+            //Queue the effect
+            if (queueCopy)
+            {
+                GameFeelEffectExecutor.Instance.QueueEffect(copy);
+                return copy;
+            }
+
+            return null;
+        }
         
         #endregion
         

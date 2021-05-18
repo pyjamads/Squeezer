@@ -128,6 +128,9 @@ namespace GameFeelDescriptions
                     case PositionalData positionalEvent:
                         interactionDirection = positionalEvent.DirectionDelta;
                         break;
+                    case DirectionalData positionalEvent:
+                        interactionDirection = positionalEvent.DirectionDelta;
+                        break;
                 }
 
                 end += interactionDirection * interactionDirectionMultiplier;
