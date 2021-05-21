@@ -9,7 +9,7 @@ namespace GameFeelDescriptions
             Description = "Simple rotation shake effect. Can be used for shaking camera or other things.";
         }
 
-        public float amount;
+        public float amount = Random.Range(0.1f, 10f);
         public Vector3 axis = Vector3.one;
 
         public AnimationCurve easeAmountInOut = AnimationCurve.Constant(0, 1, 1f);
