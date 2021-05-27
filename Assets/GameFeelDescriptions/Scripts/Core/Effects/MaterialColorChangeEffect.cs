@@ -110,6 +110,7 @@ namespace GameFeelDescriptions
             if (MaterialPropertyBlock.isEmpty)
             {
                 renderer.GetPropertyBlock(MaterialPropertyBlock);
+                MaterialPropertyBlock.SetColor(ColorPropId, renderer.sharedMaterial.GetColor(ColorPropId));
             }
 
             return MaterialPropertyBlock.isEmpty
