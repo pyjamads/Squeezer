@@ -23,7 +23,7 @@ In [Squeezer - A Tool for Designing Juicy Effects](https://doi.org/10.1145/33836
 - N/A         -> Player Move}
 
 
-[Inspector Generator](inspectorGenerator.png) shows the generator interface, where the category and intensity can be selected. The intensity value controls size, severity and sound volume, on a scale between one and ten (where one is the least intense). The intensity scale is split internally into four levels, [1-3] is low intensity variations, [4-6] is medium intensity, [7-9] is high intensity, and [10] is extreme intensity. The different intensity levels, have slightly altered effect sequences for some categories, but otherwise scale parameters linearly.
+[Inspector Generator](Showcase/inspectorGenerator.png) shows the generator interface, where the category and intensity can be selected. The intensity value controls size, severity and sound volume, on a scale between one and ten (where one is the least intense). The intensity scale is split internally into four levels, [1-3] is low intensity variations, [4-6] is medium intensity, [7-9] is high intensity, and [10] is extreme intensity. The different intensity levels, have slightly altered effect sequences for some categories, but otherwise scale parameters linearly.
 
 #### Generation, Mutation and Evolution
 
@@ -31,7 +31,7 @@ We handcrafted base sequences for each category. These sequences are the foundat
 
 Additionally, the sequences themselves are mutated at initialisation by randomly adding and removing effects in the sequence. The idea is that even significant mutations maintain some traits from the base sequence of the specified category. The logic for mutating effect trees combines genetic programming's tree mutations with effect parameter mutations. This means that when mutating the effect sequence, a control parameter is used as a probability measure for adding or removing effects to the tree. While mutating each individual effect, the control parameter controls the probability that a value changes and how much it should be adjusted.
 
-However, Squeezer is a design tool, and that means having a designer in the loop to determine fitness and guide the mutations along. To assist in this process, the user interface offers a locking mechanism (The padlock icons in [Inspector Generator](inspectorGenerator.png) image indicate which elements are locked). Locked effects will not be mutated or removed while the rest of the tree gets mutated. This allows designers to `freeze' parts of the effect sequence they like while evolving the remaining tree (one-armed bandit style). Designers can use this functionality and repeatedly mutate selected parts of the effect tree, gradually homing in on a final result.
+However, Squeezer is a design tool, and that means having a designer in the loop to determine fitness and guide the mutations along. To assist in this process, the user interface offers a locking mechanism (The padlock icons in [Inspector Generator](Showcase/inspectorGenerator.png) image indicate which elements are locked). Locked effects will not be mutated or removed while the rest of the tree gets mutated. This allows designers to `freeze' parts of the effect sequence they like while evolving the remaining tree (one-armed bandit style). Designers can use this functionality and repeatedly mutate selected parts of the effect tree, gradually homing in on a final result.
 
 
 ## Papers
