@@ -20,7 +20,7 @@ namespace GameFeelDescriptions
     public class GameFeelEffectGroup
     {
         [HideInInspector]
-        public StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
+        public EffectGenerator.EffectGeneratorCategories selectedCategory;
         [HideInInspector]
         public int selectedIntensity = 1;
 
@@ -397,7 +397,7 @@ namespace GameFeelDescriptions
             //Override effects with the ones from recipe
             EffectsToExecute = new List<GameFeelEffect>(recipe.EffectsToExecute);
         }
-
+        
         public List<GameFeelEffect> GetRecipeCopy()
         {
             return new List<GameFeelEffect>(DeepCopyEffects(EffectsToExecute));

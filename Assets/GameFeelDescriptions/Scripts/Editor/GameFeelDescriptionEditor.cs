@@ -1176,7 +1176,7 @@ namespace GameFeelDescriptions
                                 using (new EditorGUILayout.VerticalScope())
                                 {
                                     group.selectedCategory =
-                                        (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
+                                        (EffectGenerator.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
                                             "Category", group.selectedCategory);
                                     group.selectedIntensity =
                                         EditorGUILayout.IntSlider("Intensity", group.selectedIntensity, 1, 10);
@@ -1188,13 +1188,13 @@ namespace GameFeelDescriptions
                                     {
                                         Undo.RecordObject(target, "Generate " + group.selectedCategory.GetName());
                                         var recipe =
-                                            StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
+                                            EffectGenerator.GenerateRecipe(group.selectedCategory,
                                                 group.selectedIntensity);
 
                                         group.EffectsToExecute.AddRange(recipe);
 
                                         //Take the handcrafted tree, and mutate it!
-                                        InteractiveEvolution.MutateGroup(group, 0.25f, 0.25f, 0.10f);
+                                        EffectGenerator.MutateGroup(group, 0.25f, 0.25f, 0.10f);
 
                                         serializedObject.ApplyModifiedProperties();
                                     }
@@ -1203,7 +1203,7 @@ namespace GameFeelDescriptions
                                     {
                                         Undo.RecordObject(target, "Handcrafted " + group.selectedCategory.GetName());
                                         var recipe =
-                                            StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
+                                            EffectGenerator.GenerateRecipe(group.selectedCategory,
                                                 group.selectedIntensity);
                                     
                                         group.EffectsToExecute.AddRange(recipe);
@@ -1225,7 +1225,7 @@ namespace GameFeelDescriptions
                                     using (new EditorGUILayout.VerticalScope())
                                     {
                                         group.selectedCategory =
-                                            (StepThroughModeWindow.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
+                                            (EffectGenerator.EffectGeneratorCategories) EditorGUILayout.EnumPopup(
                                                 "Category", group.selectedCategory);
                                         group.selectedIntensity =
                                             EditorGUILayout.IntSlider("Intensity", group.selectedIntensity, 1, 10);
@@ -1240,7 +1240,7 @@ namespace GameFeelDescriptions
                                                     ? "EffectGroup"
                                                     : group.GroupName));
 
-                                            InteractiveEvolution.MutateGroup(group);
+                                            EffectGenerator.MutateGroup(group);
                                         }
 
                                         if (GUILayout.Button("Regenerate"))
@@ -1248,13 +1248,13 @@ namespace GameFeelDescriptions
                                             Undo.RecordObject(target, "Regenerate " + group.selectedCategory.GetName());
                                             //group.EffectsToExecute.Clear();
                                             group.EffectsToExecute.RemoveAll(item => item.Lock == false);
-                                            var recipe = StepThroughModeWindow.GenerateRecipe(group.selectedCategory,
+                                            var recipe = EffectGenerator.GenerateRecipe(group.selectedCategory,
                                                 group.selectedIntensity, group.EffectsToExecute);
 
                                             group.EffectsToExecute.AddRange(recipe);
 
                                             //Take the handcrafted tree, and mutate it!
-                                            InteractiveEvolution.MutateGroup(group, 0.25f, 0.25f, 0.10f);
+                                            EffectGenerator.MutateGroup(group, 0.25f, 0.25f, 0.10f);
 
                                             serializedObject.ApplyModifiedProperties();
                                         }
@@ -1301,7 +1301,7 @@ namespace GameFeelDescriptions
                         {
                             Undo.RecordObject(target, "Mutate " + (string.IsNullOrEmpty(group.GroupName) ? "EffectGroup" : group.GroupName));
 
-                            InteractiveEvolution.MutateGroup(group);
+                            EffectGenerator.MutateGroup(group);
                         }
 
                         for (var i = 0; i < group.EffectsToExecute.Count; i++)
@@ -1424,7 +1424,7 @@ namespace GameFeelDescriptions
                         {
                             Undo.RecordObject(target, "Mutate " + (string.IsNullOrEmpty(ObjectNames.NicifyVariableName(effect.GetType().Name))));
 
-                            InteractiveEvolution.MutateEffectsRecursive(GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects(), effect);
+                            EffectGenerator.MutateEffectsRecursive(EffectGenerator.GetGameFeelEffects(), effect);
                         }
                     }
                     

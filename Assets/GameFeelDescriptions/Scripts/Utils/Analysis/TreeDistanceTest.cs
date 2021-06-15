@@ -253,9 +253,9 @@ namespace GameFeelDescriptions
             var effectGroup2 = new GameFeelEffectGroup();
 
             effectGroup1.EffectsToExecute =
-                StepThroughModeWindow.GenerateRecipe(StepThroughModeWindow.EffectGeneratorCategories.EXPLODE, 1);
+                EffectGenerator.GenerateRecipe(EffectGenerator.EffectGeneratorCategories.EXPLODE, 1);
             effectGroup2.EffectsToExecute =
-                StepThroughModeWindow.GenerateRecipe(StepThroughModeWindow.EffectGeneratorCategories.EXPLODE, 10);
+                EffectGenerator.GenerateRecipe(EffectGenerator.EffectGeneratorCategories.EXPLODE, 10);
 
             stopwatch = Stopwatch.StartNew();
 
@@ -266,8 +266,8 @@ namespace GameFeelDescriptions
             Debug.Log("Comparing high and low intensity explosions! Time = " + stopwatch.Elapsed.TotalSeconds +
                       "s, Distance = " + dist);
 
-            InteractiveEvolution.MutateGroup(effectGroup1, 0.4f, 0.25f, 0.25f);
-            InteractiveEvolution.MutateGroup(effectGroup2, 0.4f, 0.25f, 0.25f);
+            EffectGenerator.MutateGroup(effectGroup1, 0.4f, 0.25f, 0.25f);
+            EffectGenerator.MutateGroup(effectGroup2, 0.4f, 0.25f, 0.25f);
 
             stopwatch = Stopwatch.StartNew();
 
@@ -281,8 +281,8 @@ namespace GameFeelDescriptions
 
             var effectGroup3 = new GameFeelEffectGroup();
             effectGroup3.EffectsToExecute =
-                StepThroughModeWindow.GenerateRecipe(StepThroughModeWindow.EffectGeneratorCategories.RANDOM, 6);
-            InteractiveEvolution.MutateGroup(effectGroup3, 0.4f, 0.25f, 0.25f);
+                EffectGenerator.GenerateRecipe(EffectGenerator.EffectGeneratorCategories.RANDOM, 6);
+            EffectGenerator.MutateGroup(effectGroup3, 0.4f, 0.25f, 0.25f);
 
 
             stopwatch = Stopwatch.StartNew();
@@ -336,7 +336,7 @@ namespace GameFeelDescriptions
                 generatedRandomRecipes[i] = new GameFeelEffectGroup
                 {
                     EffectsToExecute =
-                        StepThroughModeWindow.GenerateRecipe((StepThroughModeWindow.EffectGeneratorCategories) category,
+                        EffectGenerator.GenerateRecipe((EffectGenerator.EffectGeneratorCategories) category,
                             (i % 10) + 1)
                 };
             }

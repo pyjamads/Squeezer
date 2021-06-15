@@ -102,7 +102,7 @@ namespace GameFeelDescriptions
         private static List<Func<GameFeelEffect>> constructors;
         
         public static GameFeelEffect Trigger(this GameObject target,
-            StepThroughModeWindow.EffectGeneratorCategories selectedCategory, int selectedIntensity,
+            EffectGenerator.EffectGeneratorCategories selectedCategory, int selectedIntensity,
             GameFeelTriggerData direction, float delay = 0, bool randomizeDelay = false)
         {
             //TODO: maybe make this smarter! 2020-10-30
@@ -110,19 +110,19 @@ namespace GameFeelDescriptions
 
             if (constructors == null)
             {
-                constructors = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();    
+                constructors = EffectGenerator.GetGameFeelEffects();    
             }
 
             //Generate recipe for the selected category and intensity.
             var recipe =
-                StepThroughModeWindow.GenerateRecipe(selectedCategory,
+                EffectGenerator.GenerateRecipe(selectedCategory,
                     selectedIntensity);
             
             //Add the generated tree to the delay.
             root.OnComplete(recipe);
             
             //Take the handcrafted tree, and mutate it!
-            InteractiveEvolution.MutateEffectsRecursive(constructors, root);
+            EffectGenerator.MutateEffectsRecursive(constructors, root);
             
             root.Delay = delay;
             root.RandomizeDelay = randomizeDelay;
@@ -141,7 +141,7 @@ namespace GameFeelDescriptions
             return root;
         }
 
-        public static GameFeelEffect Trigger(StepThroughModeWindow.EffectGeneratorCategories selectedCategory,
+        public static GameFeelEffect Trigger(EffectGenerator.EffectGeneratorCategories selectedCategory,
             int selectedIntensity, GameFeelTriggerData location, GameObject target = null, float delay = 0,
             bool randomizeDelay = false)
         {
@@ -150,19 +150,19 @@ namespace GameFeelDescriptions
 
             if (constructors == null)
             {
-                constructors = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();
+                constructors = EffectGenerator.GetGameFeelEffects();
             }
 
             //Generate recipe for the selected category and intensity.
             var recipe =
-                StepThroughModeWindow.GenerateRecipe(selectedCategory,
+                EffectGenerator.GenerateRecipe(selectedCategory,
                     selectedIntensity);
 
             //Add the generated tree to the delay.
             root.OnComplete(recipe);
 
             //Take the handcrafted tree, and mutate it!
-            InteractiveEvolution.MutateEffectsRecursive(constructors, root);
+            EffectGenerator.MutateEffectsRecursive(constructors, root);
 
             root.Delay = delay;
             root.RandomizeDelay = randomizeDelay;

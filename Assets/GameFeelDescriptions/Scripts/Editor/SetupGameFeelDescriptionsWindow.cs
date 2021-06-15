@@ -21,7 +21,7 @@ namespace GameFeelDescriptions
         private OnMoveTrigger.MovementActivationType movementActivationType;
         private string eventName;
 
-        private StepThroughModeWindow.EffectGeneratorCategories selectedCategory;
+        private EffectGenerator.EffectGeneratorCategories selectedCategory;
         
         private string selectedTag;
         private string selectedComponentType;

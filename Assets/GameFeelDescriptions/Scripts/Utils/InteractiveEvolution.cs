@@ -710,7 +710,7 @@ namespace GameFeelDescriptions
                                 foreach (var effectGroup in trigger.EffectGroups)
                                 {
                                     //Aggressively mutate copies
-                                    MutateGroup(effectGroup, 0.05f, 0.4f, 0.4f);
+                                    EffectGenerator.MutateGroup(effectGroup, 0.05f, 0.4f, 0.4f);
                                 }
                             }
                         }
@@ -728,7 +728,7 @@ namespace GameFeelDescriptions
                         for (int j = 0; j < populationToEvaluate; j++)
                         {
                             var effects = trigger.EffectGroups[0].GetRecipeCopy();
-                            MutateGroup(effects, 0.05f, 0.4f, 0.4f);
+                            EffectGenerator.MutateGroup(effects, 0.05f, 0.4f, 0.4f);
                             population.Add(effects);
                         }
                         
@@ -737,7 +737,7 @@ namespace GameFeelDescriptions
                         trigger.EffectGroups[0].ReplaceEffectsWithRecipe(mostNovel);
                         foreach (var effectGroup in trigger.EffectGroups)
                         {
-                            MutateGroup(effectGroup, 0.05f, 0.4f, 0.4f);
+                            EffectGenerator.MutateGroup(effectGroup, 0.05f, 0.4f, 0.4f);
                         }
                     }
                 }
@@ -782,7 +782,7 @@ namespace GameFeelDescriptions
                         {
                             foreach (var effectGroup in trigger.EffectGroups)
                             {
-                                MutateGroup(effectGroup, 0.05f, 0, 0);
+                                EffectGenerator.MutateGroup(effectGroup, 0.05f, 0, 0);
                             }
                         }
                     }
@@ -795,7 +795,7 @@ namespace GameFeelDescriptions
 
                     foreach (var effectGroup in trigger.EffectGroups)
                     {
-                        MutateGroup(effectGroup, 0.05f, 0, 0);
+                        EffectGenerator.MutateGroup(effectGroup, 0.05f, 0, 0);
                     }
                 }
 
@@ -1037,188 +1037,16 @@ namespace GameFeelDescriptions
                 }
             }
         }
-
+        
         private void ReplaceRecipeOnGroup(GameFeelEffectGroup group, bool useGroupCategories = true)
         {
-            var recipe = StepThroughModeWindow.GenerateRecipe(
-                useGroupCategories ? group.selectedCategory : StepThroughModeWindow.EffectGeneratorCategories.RANDOM,
+            var recipe = EffectGenerator.GenerateRecipe(
+                useGroupCategories ? group.selectedCategory : EffectGenerator.EffectGeneratorCategories.RANDOM,
                 group.selectedIntensity, group.EffectsToExecute);
 
             group.ReplaceEffectsWithRecipe(recipe);
 
-            MutateGroup(group, 0.25f, 0.25f, 0.10f);
-        }
-
-
-    public static void MutateGroup(GameFeelEffectGroup gameFeelEffectGroup, float mutateAmount = 0.05f,
-            float addProbability = 0.05f, float removeProbability = 0.05f)
-    {
-        MutateGroup(gameFeelEffectGroup.EffectsToExecute, mutateAmount, addProbability, removeProbability);
-    }
-
-    public static void MutateGroup(List<GameFeelEffect> effectsToExecute, float mutateAmount = 0.05f,
-            float addProbability = 0.05f, float removeProbability = 0.05f)
-        {
-            var constructors = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();
-
-            if (effectsToExecute.Count > 2)
-            {
-                //Group level remove, then mutate, then add!
-                var unlockedEffects = effectsToExecute.Where(item => !item.Lock);
-                if (RandomExtensions.Boolean(removeProbability))
-                {
-                    var effectToRemove = unlockedEffects.GetRandomElement();
-                    effectsToExecute.Remove(effectToRemove);
-                    //TODO: Consider whether this should be a "replace",
-                    //TODO: because currently it's addProb * removeProb that a replace happens. 2020-07-15
-                }    
-            }
-
-            //Mutate all effects in the list recursively. Also drop the probabilities for adding and removing by 10% per layer.
-            effectsToExecute.ForEach(item =>
-                MutateEffectsRecursive(constructors, item, mutateAmount, addProbability * 0.9f, removeProbability * 0.9f));
-
-            //Add new effect to group...
-            if (RandomExtensions.Boolean(addProbability))
-            {
-                var instance = constructors.GetRandomElement().Invoke();
-                effectsToExecute.Add(instance);
-            }
-        }
-
-        public static void MutateEffectsRecursive(List<Func<GameFeelEffect>> effectConstructors,
-            GameFeelEffect outerEffect,
-            float amount = 0.05f, float addProb = 0.05f, float removeProb = 0.05f, List<GameFeelEffect> traversed = null)
-        {
-            //Make a visited list!
-            var visited = new List<GameFeelEffect>();
-            if(traversed != null && !(outerEffect is ParticlePuffEffect || outerEffect is ShatterEffect)) visited.AddRange(traversed);
-            visited.Add(outerEffect);
-            
-            //Remove an unlocked child
-            if (RandomExtensions.Boolean(removeProb))
-            {
-                //If it's a spawner effect, add it to the offspring effects instead.
-                if (outerEffect is SpawningGameFeelEffect spawner && spawner.ExecuteOnOffspring.Count > 0)
-                {
-                    var element = spawner.ExecuteOnOffspring.Where(item => !item.Lock).GetRandomElement();
-
-                    //Don't remove Destroy effects from spawner offspring effects.
-                    if (element is DestroyEffect || element.ExecuteAfterCompletion.Any(item => item is DestroyEffect))
-                    {
-                        //TODO: figure out if we should do something else instead. 2020-09-29
-                    }
-                    else
-                    {
-                        spawner.ExecuteOnOffspring.Remove(element);    
-                    }
-                }
-                else if(outerEffect.ExecuteAfterCompletion.Count > 0)
-                {
-                    var element = outerEffect.ExecuteAfterCompletion.Where(item => !item.Lock).GetRandomElement();
-
-                    //Don't remove Destroy effects from spawner offspring effects.
-                    if ((element is DestroyEffect || element.ExecuteAfterCompletion.Any(item => item is DestroyEffect)) && 
-                        visited.Any(item => item is SpawningGameFeelEffect))
-                    {
-                        //TODO: figure out if we should do something else instead. 2020-09-29
-                    }
-                    else
-                    {
-                        outerEffect.ExecuteAfterCompletion.Remove(element);    
-                    }
-                }
-            }
-
-            //Run mutate on the children.
-            foreach (var innerEffect in outerEffect.ExecuteAfterCompletion)
-            {
-                if (!innerEffect.Lock)
-                {
-                    innerEffect.Mutate(amount);
-                }
-
-                MutateEffectsRecursive(effectConstructors, innerEffect, amount, addProb * 0.9f, removeProb * 0.9f, visited);
-            }
-
-            if (outerEffect is SpawningGameFeelEffect spawnerEffect)
-            {
-                //Run mutate on the children.
-                foreach (var innerEffect in spawnerEffect.ExecuteOnOffspring)
-                {
-                    if (!innerEffect.Lock)
-                    {
-                        innerEffect.Mutate(amount);
-                    }
-
-                    MutateEffectsRecursive(effectConstructors, innerEffect, amount, addProb * 0.9f, removeProb * 0.9f, visited);
-                }
-            }
-
-            //TODO: Consider moving this to only unlocked effects 2020-08-20
-            //Always allow a small probability for adding an extra effect?
-            if (RandomExtensions.Boolean(addProb))
-            {
-                var instance = effectConstructors.GetRandomElement().Invoke();
-
-                var isParticleSpawner = instance is ShatterEffect || instance is ParticlePuffEffect;
-
-                //Don't add Shatter or Particle puff effects to other shatter/puff offspring
-                if (isParticleSpawner && visited.Any(item => item is ShatterEffect || item is ParticlePuffEffect))
-                {
-                    //TODO: figure out if we should do anything else here. 2020-09-29
-                }
-                else
-                {
-                    //If it's a spawner effect, add it to the offspring effects instead.
-                    if (outerEffect is SpawningGameFeelEffect spawner)
-                    {
-                        //If a destroy effect exists, don't add the effect unless it's a spawningEffect.
-                        if (spawner.ExecuteOnOffspring.Any(item => item is DestroyEffect) || 
-                            visited.Any(item => item is DestroyEffect))
-                        {
-                            if (instance is SpawningGameFeelEffect)
-                            {
-                                spawner.ExecuteOnOffspring.Add(instance); 
-                            }
-                        }
-                        else
-                        {
-                            spawner.ExecuteOnOffspring.Add(instance);    
-                        }
-                    }
-                    else
-                    {
-                        //If a destroy effect exists, don't add the effect unless it's a spawningEffect.
-                        if (outerEffect.ExecuteAfterCompletion.Any(item => item is DestroyEffect) || 
-                            visited.Any(item => item is DestroyEffect))
-                        {
-                            if (instance is SpawningGameFeelEffect)
-                            {
-                                outerEffect.ExecuteAfterCompletion.Add(instance); 
-                            }
-                        }
-                        else
-                        {
-                            outerEffect.ExecuteAfterCompletion.Add(instance);
-                        }
-                    }
-                }
-            }
-
-            if (!outerEffect.Lock)
-            {
-                outerEffect.Mutate(amount);
-                
-                //Check if this effect is looping infinitely...
-                var loopingInfinitely = outerEffect.GetRemainingTime() == float.PositiveInfinity;
-
-                if (loopingInfinitely)
-                {
-                    //Remove all execute after completion effects if looping infinitely.
-                    outerEffect.ExecuteAfterCompletion.Clear();
-                }
-            }
+            EffectGenerator.MutateGroup(group, 0.25f, 0.25f, 0.10f);
         }
     }
 }

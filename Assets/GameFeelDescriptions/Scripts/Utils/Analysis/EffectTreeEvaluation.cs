@@ -165,7 +165,7 @@ namespace GameFeelDescriptions
                 generatedGroups[i] = new GameFeelEffectGroup
                 {
                     EffectsToExecute =
-                        StepThroughModeWindow.GenerateRecipe((StepThroughModeWindow.EffectGeneratorCategories) category,
+                        EffectGenerator.GenerateRecipe((EffectGenerator.EffectGeneratorCategories) category,
                             intensity)
                 };
                 
@@ -431,7 +431,7 @@ namespace GameFeelDescriptions
         public static void MutateGroup(GameFeelEffectGroup gameFeelEffectGroup, float mutateAmount = 0.05f,
             float addProbability = 0.05f, float removeProbability = 0.05f)
         {
-            var constructors = GameFeelBehaviorBase<GameFeelTrigger>.GetGameFeelEffects();
+            var constructors = EffectGenerator.GetGameFeelEffects();
 
             if (gameFeelEffectGroup.EffectsToExecute.Count > 2)
             {

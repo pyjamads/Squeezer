@@ -40,6 +40,11 @@ namespace GameFeelDescriptions
         #endregion
     }
     
+    
+    //Rename this to: effect sequence descriptions maybe?
+    //They contain effect sequences,
+    //The triggers that trigger individual effect sequences,
+    //as well as a list of targets (self, list, component, etc.) for each sequence.
     [DisallowMultipleComponent]
     [HelpURL("https://github.com/pyjamads/Squeezer")]
     [Serializable]

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
-using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -214,216 +213,193 @@ namespace GameFeelDescriptions
             SceneView.lastActiveSceneView.LookAt(this.transform.position + Vector3.forward, this.transform.rotation, 2f);
             SceneView.lastActiveSceneView.Focus();
             
-            StepThroughModeWindow.ShowWindow(message, this, effectGroup, context);
+            
+            //StepThroughModeWindow.ShowWindow(message, this, effectGroup, context);
         }
 
-        public static List<Func<GameFeelEffect>> GetGameFeelEffects(GameFeelTriggerType triggerType = GameFeelTriggerType.OnCollision, params object[] context)
-            {
-                var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
-                var gameFeelEffects = new List<Func<GameFeelEffect>>();
-
-                foreach (var type in types)
-                {
-                    // Skip abstract classes because they should not be instantiated
-                    if (type.IsAbstract)
-                        continue;
-                    
-                    //Determine (aka hardcode for first iteration) which effects can be applied to each trigger type.
-                    //Later this might be better determined by adding Attributes to each effect
-                    //based on the Triggers we'd like them to show up for.
-                    switch (triggerType)
-                    {
-                        case GameFeelTriggerType.OnStart when 
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
-//                            type == typeof(AudioSynthPlayEffect) ||
-                            type == typeof(PropertyTweenEffect) ||
-                            //type == typeof(FollowOriginEffect) ||
-                            type == typeof(RotateTowardsDirectionEffect) ||
-                            type == typeof(SquashAndStretchEffect):
-                        {
-                            break;        
-                        }
-
-                        case GameFeelTriggerType.OnDestroy when
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
-//                            type == typeof(AudioSynthPlayEffect) ||
-                            type == typeof(PropertyTweenEffect) ||
-                            //type == typeof(FollowOriginEffect) ||
-                            type == typeof(RotateTowardsDirectionEffect) ||
-                            type == typeof(SquashAndStretchEffect):
-                        {
-                            break;
-                        }
-                        
-                        case GameFeelTriggerType.OnDisable when
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
-                            //type == typeof(AudioSynthPlayEffect) ||
-                            type == typeof(PropertyTweenEffect) ||
-                            //type == typeof(FollowOriginEffect) ||
-                            type == typeof(RotateTowardsDirectionEffect) ||
-                            type == typeof(SquashAndStretchEffect):
-                        {
-                            break;
-                        }
-                        
-                        case GameFeelTriggerType.OnMove when
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
-                            type == typeof(PropertyTweenEffect):// ||
-//                            type == typeof(AudioSynthPlayEffect):// ||
-                            //type == typeof(FollowOriginEffect) ||
-                            //type == typeof(RotateTowardsDirectionEffect) ||
-                            //type == typeof(SquashAndStretchEffect):
-                        {
-                            break;
-                        }
-                        case GameFeelTriggerType.OnRotate when
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
-//                            type == typeof(AudioSynthPlayEffect) ||
-                            type == typeof(PropertyTweenEffect) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            //type == typeof(FollowOriginEffect) ||
-                            type == typeof(RotateTowardsDirectionEffect):// ||
-                            //type == typeof(SquashAndStretchEffect):
-                        {
-                            break;
-                        }
-                        case GameFeelTriggerType.OnCustomEvent when
-//                            type == typeof(DisableEffect) ||
-//                            type == typeof(EnableEffect) ||
-//                            type == typeof(DestroyEffect) ||
-                            //type == typeof(FollowOriginEffect) ||
-//                            type == typeof(AudioSynthPlayEffect) ||
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(PropertyTweenEffect) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(RotateTowardsDirectionEffect) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            type == typeof(SquashAndStretchEffect):
-                        {
-                            break;
-                        }
-                        case GameFeelTriggerType.OnCollision when
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(RotateTowardsDirectionEffect) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            type == typeof(PropertyTweenEffect):// ||
-//                            type == typeof(AudioSynthPlayEffect):
-                        {
-                            break;
-                        }
-                        case GameFeelTriggerType.OnStateChanged when
-                            type == typeof(DisableEffect) ||
-                            type == typeof(EnableEffect) ||
-                            type == typeof(DestroyEffect) ||
-                            type == typeof(InvokeUnityEvent) ||
-                            type == typeof(RotateTowardsDirectionEffect) ||
-                            type == typeof(AudioClipModulationEffect) ||
-                            type == typeof(AudioClipPlayEffect) ||
-                            type == typeof(DisableRendererEffect) ||
-                            type == typeof(TriggerCustomEventEffect) ||
-                            type == typeof(PropertyTweenEffect):// ||
-//                            type == typeof(AudioSynthPlayEffect):
-                        {
-                            break;
-                        }
-                        default:
-                        {
-                            gameFeelEffects.Add(() =>
-                            {
-                                var instance = (GameFeelEffect) Activator.CreateInstance(type);
-                                
-                                //Reasonable default values will be set in the effects themselves for now.
-                                
-                                //TODO: verify that the effect is compatible with the target. 11/05/2020
-                                
-                                return instance;
-                            });
-                            break;
-                        }
-                    }
-                }
-
-//                var gameFeelEffectNames = new string[gameFeelEffects.Count];
-//                for (var index = 0; index < gameFeelEffects.Count; index++)
-//                {
-//                    gameFeelEffectNames[index] = gameFeelEffects[index].Name;
-//                }
-                return gameFeelEffects;
-            }
-
-        public static List<GameFeelEffect> MakeRecipe(List<Func<GameFeelEffect>> effectTypes, int maxEffects = 5, float queueProp = 0.2f)
-        {
-            //Min 1, max = maxEffects
-            var elements = 1 + Random.Range(0, maxEffects);
-            var list = new List<GameFeelEffect>();
-            for (int i = 0; i < elements; i++)
-            {
-                //TODO: consider making a factory function on GameFeelEffects that returns a randomized instance. 30/04/2020
-                //TODO: consider making sure random elements don't repeat, such as multiple destroy / disables. 2020-08-13 
-                var instance = effectTypes.GetRandomElement().Invoke();
-                
-                if (list.Count > 0 &&  Random.value < queueProp)
-                {
-                    list.GetRandomElement().OnComplete(instance);
-                }
-                else
-                {
-                    list.Add(instance);    
-                }
-            }
-
-            return list;
-        }
+//         public static List<Func<GameFeelEffect>> GetGameFeelEffects(GameFeelTriggerType triggerType = GameFeelTriggerType.OnCollision, params object[] context)
+//             {
+//                 var types = TypeCache.GetTypesDerivedFrom(typeof(GameFeelEffect));
+//                 var gameFeelEffects = new List<Func<GameFeelEffect>>();
+//
+//                 foreach (var type in types)
+//                 {
+//                     // Skip abstract classes because they should not be instantiated
+//                     if (type.IsAbstract)
+//                         continue;
+//                     
+//                     //Determine (aka hardcode for first iteration) which effects can be applied to each trigger type.
+//                     //Later this might be better determined by adding Attributes to each effect
+//                     //based on the Triggers we'd like them to show up for.
+//                     switch (triggerType)
+//                     {
+//                         case GameFeelTriggerType.OnStart when 
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
+// //                            type == typeof(AudioSynthPlayEffect) ||
+//                             type == typeof(PropertyTweenEffect) ||
+//                             //type == typeof(FollowOriginEffect) ||
+//                             type == typeof(RotateTowardsDirectionEffect) ||
+//                             type == typeof(SquashAndStretchEffect):
+//                         {
+//                             break;        
+//                         }
+//
+//                         case GameFeelTriggerType.OnDestroy when
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
+// //                            type == typeof(AudioSynthPlayEffect) ||
+//                             type == typeof(PropertyTweenEffect) ||
+//                             //type == typeof(FollowOriginEffect) ||
+//                             type == typeof(RotateTowardsDirectionEffect) ||
+//                             type == typeof(SquashAndStretchEffect):
+//                         {
+//                             break;
+//                         }
+//                         
+//                         case GameFeelTriggerType.OnDisable when
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
+//                             //type == typeof(AudioSynthPlayEffect) ||
+//                             type == typeof(PropertyTweenEffect) ||
+//                             //type == typeof(FollowOriginEffect) ||
+//                             type == typeof(RotateTowardsDirectionEffect) ||
+//                             type == typeof(SquashAndStretchEffect):
+//                         {
+//                             break;
+//                         }
+//                         
+//                         case GameFeelTriggerType.OnMove when
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
+//                             type == typeof(PropertyTweenEffect):// ||
+// //                            type == typeof(AudioSynthPlayEffect):// ||
+//                             //type == typeof(FollowOriginEffect) ||
+//                             //type == typeof(RotateTowardsDirectionEffect) ||
+//                             //type == typeof(SquashAndStretchEffect):
+//                         {
+//                             break;
+//                         }
+//                         case GameFeelTriggerType.OnRotate when
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(RagdollEffect) || //Ragdoll is destructive as a default
+// //                            type == typeof(AudioSynthPlayEffect) ||
+//                             type == typeof(PropertyTweenEffect) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             //type == typeof(FollowOriginEffect) ||
+//                             type == typeof(RotateTowardsDirectionEffect):// ||
+//                             //type == typeof(SquashAndStretchEffect):
+//                         {
+//                             break;
+//                         }
+//                         case GameFeelTriggerType.OnCustomEvent when
+// //                            type == typeof(DisableEffect) ||
+// //                            type == typeof(EnableEffect) ||
+// //                            type == typeof(DestroyEffect) ||
+//                             //type == typeof(FollowOriginEffect) ||
+// //                            type == typeof(AudioSynthPlayEffect) ||
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(PropertyTweenEffect) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(RotateTowardsDirectionEffect) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             type == typeof(SquashAndStretchEffect):
+//                         {
+//                             break;
+//                         }
+//                         case GameFeelTriggerType.OnCollision when
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(RotateTowardsDirectionEffect) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             type == typeof(PropertyTweenEffect):// ||
+// //                            type == typeof(AudioSynthPlayEffect):
+//                         {
+//                             break;
+//                         }
+//                         case GameFeelTriggerType.OnStateChanged when
+//                             type == typeof(DisableEffect) ||
+//                             type == typeof(EnableEffect) ||
+//                             type == typeof(DestroyEffect) ||
+//                             type == typeof(InvokeUnityEvent) ||
+//                             type == typeof(RotateTowardsDirectionEffect) ||
+//                             type == typeof(AudioClipModulationEffect) ||
+//                             type == typeof(AudioClipPlayEffect) ||
+//                             type == typeof(DisableRendererEffect) ||
+//                             type == typeof(TriggerCustomEventEffect) ||
+//                             type == typeof(PropertyTweenEffect):// ||
+// //                            type == typeof(AudioSynthPlayEffect):
+//                         {
+//                             break;
+//                         }
+//                         default:
+//                         {
+//                             gameFeelEffects.Add(() =>
+//                             {
+//                                 var instance = (GameFeelEffect) Activator.CreateInstance(type);
+//                                 
+//                                 //Reasonable default values will be set in the effects themselves for now.
+//                                 
+//                                 //TODO: verify that the effect is compatible with the target. 11/05/2020
+//                                 
+//                                 return instance;
+//                             });
+//                             break;
+//                         }
+//                     }
+//                 }
+//
+// //                var gameFeelEffectNames = new string[gameFeelEffects.Count];
+// //                for (var index = 0; index < gameFeelEffects.Count; index++)
+// //                {
+// //                    gameFeelEffectNames[index] = gameFeelEffects[index].Name;
+// //                }
+//                 return gameFeelEffects;
+//             }
 
 
 #endif
