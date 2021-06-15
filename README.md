@@ -10,7 +10,7 @@ A tool for generating, attaching and executing Juice effects in Unity.
 
 Please note that the current version has saving data for studying usage enabled (it tracks any changes and saves them locally), this can be disabled by changing the value of saveDataForUserStudy to false in [GameFeelDescription.cs](/Assets/GameFeelDescriptions/Scripts/Core/GameFeelDescription.cs)
 
-### Effect Sequence Generator
+### [Effect Sequence Generator](Assets/GameFeelDescriptions/Scripts/Core/EffectGenerator.cs)
 
 In [Squeezer - A Tool for Designing Juicy Effects](https://doi.org/10.1145/3383668.3419862) we identified and proposed the idea of generating effect sequences based on different categories. We started out with SFXR's eight categories of effects but removed Blip/Select, Coin/Pickup and Power-up. We limited the Squeezer categories to a set of simple arcade game mechanics, that suited our test cases. We added two new options: Player Move and Projectile Move. Meant for continuous triggers and have no counterpart in SFXR. Finally we renamed some of them to make their use clearer. The set of categories is a starting point for effect sequence generation, and we expect this list to be expanded in the future. In the end we ended up with the following content categories (SFXR name on the left, Squeezer name on the right):
     
