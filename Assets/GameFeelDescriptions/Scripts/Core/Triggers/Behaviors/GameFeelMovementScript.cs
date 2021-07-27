@@ -8,6 +8,7 @@ namespace GameFeelDescriptions
         // public OnMoveTrigger.MovementActivationType type;
 
         private Vector3 lastPosition;
+        private float lastMoved;
 
         private bool isMoving;
         private Vector3 lastDirection;
@@ -28,6 +29,20 @@ namespace GameFeelDescriptions
             var justChangedDirection = false;
             var justBeganMoving = false;
             
+            //Check for begin/end movement
+            if (isMoving == false && (Time.unscaledTime - lastMoved) > 0.05f && lastPosition.CompareTo(transform.position, .001f) == false)
+            {
+                isMoving = true;
+                //signal the change
+                justBeganMoving = true;
+            }
+            else if (isMoving && (Time.unscaledTime - lastMoved) > 0.05f && lastPosition.CompareTo(transform.position, .001f))
+            {
+                isMoving = false;
+                //signal the change
+                justStoppedMoving = true;
+            }
+            
             //Update last known direction if we're moving.
             if (lastPosition.CompareTo(transform.position, .0001f) == false)
             {
@@ -38,20 +53,8 @@ namespace GameFeelDescriptions
                     justChangedDirection = true;
                     lastDirection = direction;
                 }
-            }
-
-            //Check for begin/end movement
-            if (isMoving == false && lastPosition.CompareTo(transform.position, .001f) == false)
-            {
-                isMoving = true;
-                //signal the change
-                justBeganMoving = true;
-            }
-            else if (isMoving && lastPosition.CompareTo(transform.position, .001f))
-            {
-                isMoving = false;
-                //signal the change
-                justStoppedMoving = true;
+                
+                lastMoved = Time.unscaledTime;
             }
             
             //React according to movement type.
@@ -106,12 +109,8 @@ namespace GameFeelDescriptions
                     throw new ArgumentOutOfRangeException();
             }
             
-            //Update last known position if we've moved enough.
-            if (lastPosition.CompareTo(transform.position, .001f) == false)
-            {
-                //update last known position
-                lastPosition = transform.position;
-            }
+            //update last known position
+            lastPosition = transform.position;
         }
 
         public void ExecuteEffectGroups(OnMoveTrigger.MovementActivationType activationType)

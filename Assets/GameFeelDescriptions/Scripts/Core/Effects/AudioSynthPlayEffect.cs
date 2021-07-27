@@ -228,6 +228,12 @@ namespace GameFeelDescriptions
                 mutateOnExecution = !mutateOnExecution;
             }
             
+            if (RandomExtensions.Boolean(amount))
+            {
+               var cooldownAmount = RandomExtensions.MutationAmount(amount);
+               Cooldown = Mathf.Max(0,Cooldown + cooldownAmount);
+            }
+            
             //This also fixes the duration!
             synthParameters = MutateSynthParameters(false, amount);
             

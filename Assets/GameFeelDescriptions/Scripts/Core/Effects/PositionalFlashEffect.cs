@@ -77,7 +77,7 @@ namespace GameFeelDescriptions
 
             if (RandomExtensions.Boolean(amount))
             {
-                FlashPrimitive = RandomExtensions.GetRandomElement(new List<PrimitiveType> {PrimitiveType.Plane});
+                FlashPrimitive = RandomExtensions.GetRandomElement(new List<PrimitiveType> {PrimitiveType.Plane, PrimitiveType.Quad});
             }
 
             if (RandomExtensions.Boolean())
@@ -150,6 +150,18 @@ namespace GameFeelDescriptions
             else
             {
                 flashObject = GameFeelEffectExecutor.Instantiate(FlashPrimitive, targetPos);
+                
+                //TODO: figure out how to make better primitive particles,
+                //TODO: because having the collider causes a physics separation impulse when the objects are spawned, 
+                //TODO: and will also disrupt physics based simulations ... 2020-09-17
+                if (triggerData.InCollisionUpdate)
+                {
+                    GameObject.Destroy(flashObject.GetComponent<Collider>());
+                }
+                else
+                {
+                    GameObject.DestroyImmediate(flashObject.GetComponent<Collider>());
+                }
                 
                 var renderer = flashObject.GetComponent<Renderer>();
                 renderer.sharedMaterial = new Material(Shader.Find("Particles/Standard Unlit"));

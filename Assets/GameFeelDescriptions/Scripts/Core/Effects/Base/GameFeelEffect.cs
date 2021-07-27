@@ -184,12 +184,12 @@ namespace GameFeelDescriptions
             StackingType = EnumExtensions.GetRandomValue(new List<StackEffectType>{StackEffectType.Queue, StackEffectType.Add});   
          }
          
-         //NOTE: For spawning effects, this is not super awesome, so we're gonna reduce the chance that it happens. 
-         if (RandomExtensions.Boolean(amount))
-         {
-            var cooldownAmount = RandomExtensions.MutationAmount(amount);
-            Cooldown = Mathf.Max(0,Cooldown + cooldownAmount);
-         }
+         //NOTE: For spawning effects, this is not super awesome, so we're gonna remove the chance that it happens. 
+         // if (RandomExtensions.Boolean(amount))
+         // {
+         //    var cooldownAmount = RandomExtensions.MutationAmount(amount);
+         //    Cooldown = Mathf.Max(0,Cooldown + cooldownAmount);
+         // }
 
          //If called on an already initialized Effect, this makes sure the elapsed is set correctly.
          SetElapsed();

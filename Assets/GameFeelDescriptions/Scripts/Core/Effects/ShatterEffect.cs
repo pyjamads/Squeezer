@@ -14,6 +14,7 @@ namespace GameFeelDescriptions
             var destroy = new DestroyEffect();
             destroy.Delay = Random.Range(0.2f, 1.5f);
             destroy.RandomizeDelay = true;
+            destroy.Cooldown = 0;
             ragdoll.OnComplete(destroy);
 
             this.OnOffspring(ragdoll);

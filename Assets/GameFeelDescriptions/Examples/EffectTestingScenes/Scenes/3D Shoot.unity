@@ -736,10 +736,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 7224199160719532273, guid: 71ff15c2f514148c092012d58b56edf2,
     type: 3}
-  projectileSpeed: 12
+  projectileSpeed: 6
   ShootKey: 32
   autoShoot: 1
-  timeBetweenShots: 0.1
+  timeBetweenShots: 0.3
   accuracy: 2
   charge: 0
 --- !u!23 &1911741707

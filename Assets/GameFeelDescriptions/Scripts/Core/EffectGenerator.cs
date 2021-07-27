@@ -218,11 +218,12 @@ namespace GameFeelDescriptions
 
                 if (intensity > 6)
                 {
-                    //TODO: MAKE BETTER smoke poof (particle poof, might be better than this once implemented, because it wouldn't ragdoll)
-                    var particles = (ParticlePuffEffect) Activator.CreateInstance(typeof(ParticlePuffEffect));
+                    var particles = (ParticleScatterEffect) Activator.CreateInstance(typeof(ParticleScatterEffect));
                     particles.usePrimitiveParticles = true;
                     particles.ParticlePrimitive = PrimitiveType.Sphere;
-                    particles.AmountOfParticles = 3 * intensity; //TODO: make the severity scale less linear?
+                    particles.AmountOfParticles = 3 * intensity;
+                    particles.ApplyGravity = true;
+                    particles.ScatterAngle = Vector3.one * 45f;
 
                     if (locked.Any(item => item is ShatterEffect) == false)
                     {
@@ -348,14 +349,9 @@ namespace GameFeelDescriptions
                             particles.usePrimitiveParticles = true;
                             particles.ApplyGravity = true;
                             particles.ParticlePrimitive = PrimitiveType.Cube;
-                            particles.AmountOfParticles = 3 * intensity; //TODO: make the severity scale less linear?
+                            particles.AmountOfParticles = 3 * intensity; 
 
-                            var scale = new ScaleEffect();
-                            scale.setFromValue = true;
-                            scale.to = Vector3.one * Random.Range(0.01f, 0.2f);
-                            scale.Duration = 1f;
-
-                            particles.OnOffspring(scale);
+                            particles.ScatterAngle = Vector3.one * 36 * intensity;
                             
                             recipe.Add(particles);
                         } 
