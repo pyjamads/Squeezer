@@ -82,9 +82,15 @@ namespace GameFeelDescriptions
                 if (Random.value > 0.5f)
                 {
                     //TODO: add a particle poof instead of trail! once copying is moved to effects!
-                    var particle = (TrailEffect) Activator.CreateInstance(typeof(TrailEffect));
-                    
-                    if (locked.Any(item => item is TrailEffect) == false)
+                    var particle = (ParticleScatterEffect) Activator.CreateInstance(typeof(ParticleScatterEffect));
+                    particle.ApplyGravity = true;
+                    particle.ScatterAngle = Vector3.one * 360;
+                    particle.AmountOfParticles = 5 * intensity;
+                    particle.ParticleScale = 0.01f;
+                    particle.ParticlePrimitive = PrimitiveType.Sphere;
+                    particle.Speed = 0.2f * intensity;
+
+                    if (locked.Any(item => item is ParticleScatterEffect) == false)
                     {
                         recipe.Add(particle);    
                     }
@@ -147,6 +153,7 @@ namespace GameFeelDescriptions
                     {
                         var camShake = (CameraShakeEffect) Activator.CreateInstance(typeof(CameraShakeEffect));
                         camShake.amount = 0.05f * intensity;
+                        camShake.axis = Random.onUnitSphere * 2;
 
                         recipe.Add(camShake);
                     }
@@ -212,10 +219,10 @@ namespace GameFeelDescriptions
                 if (intensity > 6)
                 {
                     //TODO: MAKE BETTER smoke poof (particle poof, might be better than this once implemented, because it wouldn't ragdoll)
-                    var particles = (ShatterEffect) Activator.CreateInstance(typeof(ShatterEffect));
-                    particles.usePrimitivePieces = true;
-                    particles.PiecePrimitive = PrimitiveType.Sphere;
-                    particles.AmountOfPieces = 3 * intensity; //TODO: make the severity scale less linear?
+                    var particles = (ParticlePuffEffect) Activator.CreateInstance(typeof(ParticlePuffEffect));
+                    particles.usePrimitiveParticles = true;
+                    particles.ParticlePrimitive = PrimitiveType.Sphere;
+                    particles.AmountOfParticles = 3 * intensity; //TODO: make the severity scale less linear?
 
                     if (locked.Any(item => item is ShatterEffect) == false)
                     {
@@ -225,6 +232,7 @@ namespace GameFeelDescriptions
                     var camShake = (CameraShakeEffect) Activator.CreateInstance(typeof(CameraShakeEffect));
                     
                     camShake.amount = 0.05f * intensity;
+                    camShake.axis = Random.onUnitSphere * 2;
                     
                     if (locked.Any(item => item is CameraShakeEffect) == false)
                     {
@@ -315,19 +323,44 @@ namespace GameFeelDescriptions
                 
                 if (intensity > 6)
                 {
-                    if (locked.Any(item => item is ShatterEffect) == false)
+                    if (Random.value > 0.5f)
                     {
-                        var particles = (ShatterEffect) Activator.CreateInstance(typeof(ShatterEffect));
-                        particles.usePrimitivePieces = true;
-                        particles.PiecePrimitive = PrimitiveType.Cube;
-                        particles.AmountOfPieces = 3 * intensity; //TODO: make the severity scale less linear?
+                        if (locked.Any(item => item is ShatterEffect) == false)
+                        {
+                            var particles = (ShatterEffect) Activator.CreateInstance(typeof(ShatterEffect));
+                            particles.usePrimitivePieces = true;
+                            particles.PiecePrimitive = PrimitiveType.Cube;
+                            particles.AmountOfPieces = 3 * intensity; //TODO: make the severity scale less linear?
 
-                        var scale = new ScaleEffect();
-                        scale.setFromValue = true;
-                        scale.to = scale.@from = Vector3.one * Random.Range(0.01f, 0.2f);
+                            var scale = new ScaleEffect();
+                            scale.setFromValue = true;
+                            scale.to = scale.@from = Vector3.one * Random.Range(0.01f, 0.2f);
 
-                        recipe.Add(particles);
+                            particles.OnOffspring(scale);
+                            recipe.Add(particles);
+                        }    
                     }
+                    else
+                    {
+                        if (locked.Any(item => item is ParticleScatterEffect) == false)
+                        {
+                            var particles = (ParticleScatterEffect) Activator.CreateInstance(typeof(ParticleScatterEffect));
+                            particles.usePrimitiveParticles = true;
+                            particles.ApplyGravity = true;
+                            particles.ParticlePrimitive = PrimitiveType.Cube;
+                            particles.AmountOfParticles = 3 * intensity; //TODO: make the severity scale less linear?
+
+                            var scale = new ScaleEffect();
+                            scale.setFromValue = true;
+                            scale.to = Vector3.one * Random.Range(0.01f, 0.2f);
+                            scale.Duration = 1f;
+
+                            particles.OnOffspring(scale);
+                            
+                            recipe.Add(particles);
+                        } 
+                    }
+                    
                 }
 
                 if (locked.Any(item => item is CameraShakeEffect) == false)
@@ -335,6 +368,7 @@ namespace GameFeelDescriptions
                     var camShake = (CameraShakeEffect) Activator.CreateInstance(typeof(CameraShakeEffect));
                     
                     camShake.amount = 0.05f * intensity;
+                    camShake.axis = Random.onUnitSphere * 2;
                     
                     recipe.Add(camShake);
                 }

@@ -600,10 +600,10 @@ MonoBehaviour:
         repeat: 0
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -637,6 +637,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000006:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -4305,10 +4309,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 1
         interactionDirectionMultiplier: 0.02
         amount: 0.02
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -4342,6 +4346,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000003:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -5116,7 +5124,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859956544}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37042ad8cb11d428c89388433dbaddfa, type: 3}
   m_Name: 
@@ -5633,10 +5641,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1.5
         amount: 1.5
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -5661,6 +5669,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000004:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -7474,6 +7486,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -7637,6 +7650,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1
         amount: 0.05
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -7730,6 +7744,7 @@ MonoBehaviour:
         useInteractionDirection: 1
         interactionDirectionMultiplier: 1
         amount: 0
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -8596,10 +8611,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1.5
         amount: 1.5
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -8624,6 +8639,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000003:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -10772,16 +10791,16 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
         RandomizeDuration: 1
-        DurationMin: 0.05
+        DurationMin: 0.1
         Duration: 0.15
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 1
         interactionDirectionMultiplier: 0.7
-        amount: 0.7
+        amount: 1.2
+        axis: {x: 1, y: 1, z: 1}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -10806,6 +10825,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000004:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -12319,7 +12342,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499500738}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10.000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
