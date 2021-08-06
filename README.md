@@ -1,5 +1,5 @@
 # Squeezer - (formerly Game Feel Descriptions)
-A tool for generating, attaching and executing Juice effects in Unity.
+A tool for generating, attaching and executing Juice effects in Unity. __(IMPORTANT NOTICE: Only tested on Unity 2019.4 LTS)__
 
 - React to Collisions, Movement, custom events and more, and execute sequences of effects, that can be generated based on event type, or manually edited.
 - Includes an effect based on an SFXR variant usfxr (https://github.com/zeh/usfxr), for sound effects.
@@ -8,7 +8,16 @@ A tool for generating, attaching and executing Juice effects in Unity.
 
 [More details under Assets/GameFeelDescriptions](Assets/GameFeelDescriptions/)
 
-Please note that the current version has saving data for studying usage enabled (it tracks any changes and saves them locally), this can be disabled by changing the value of saveDataForUserStudy to false in [GameFeelDescription.cs](/Assets/GameFeelDescriptions/Scripts/Core/GameFeelDescription.cs)
+Please note that the current version may have saving data for studying usage enabled (it tracks any changes and saves them locally), this can be disabled by changing the value of saveDataForUserStudy to false in [GameFeelDescription.cs](/Assets/GameFeelDescriptions/Scripts/Core/GameFeelDescription.cs)
+
+### [EXAMPLES](Assets/GameFeelDescriptions/Examples/)
+
+1. [Breakout Demo](/Assets/GameFeelDescriptions/Examples/JuicyBreakout) - A simple breakout clone, the "Original" scene contains no effects, I recommend checking out the "StepByStep" scene and stepping through all the versions of effects by pressing the "Return key" after hitting play in the editor. NOTE: Some of the scenes have been left in rough states after code has changed within the past year.  
+
+2. Platformer Demo - NOTE: Don't even try these ones, it was an early demo, and it has not been kept updated.
+
+3. [DISC ROOM Demo](/Assets/GameFeelDescriptions/Examples/DiscRoomJam/) - a DISC ROOM clone, made from assets provided in the DISC ROOM launch GAME JAM, it has a Jam version, with all effects and sounds implemented using Squeezer, but using the assets from the tutorial package. Besides it has an "evolution" version, which has no effects, and an Evolution Load in scene, meant to be dropped into the scene heirarchy with the Evolution scene, this allows you to run the Interactive Evolution mode of Squeezer, and evolve effects for the game's various triggers.
+
 
 ### [Effect Sequence Generator](Assets/GameFeelDescriptions/Scripts/Core/EffectGenerator.cs)
 
@@ -39,3 +48,6 @@ However, Squeezer is a design tool, and that means having a designer in the loop
 
 Mads Johansen, Martin Pichlmair, and Sebastian Risi. 2020. Squeezer - A Tool for Designing Juicy Effects. In Extended Abstracts of the 2020 Annual Symposium on Computer-Human Interaction in Play (CHI PLAY '20). Association for Computing Machinery, New York, NY, USA, 282–286. DOI:https://doi.org/10.1145/3383668.3419862
 
+Mads Johansen, Martin Pichlmair, and Sebastian Risi. 2021. Squeezer - A Mixed-Initiative Tool for Designing Juice Effects. In The 16th International Conference on the Foundations of Digital Games (FDG) 2021 (FDG’21), August 3–6, 2021, Montreal, QC, Canada. ACM, New York, NY, USA, 11 pages. DOI:https://doi.org/10.1145/3472538.3472575
+
+Mads Johansen and Michael Cook. 2021. Challenges in Generating Juice Effects For Automatically Designed Games. In The Seventeenth AAAI Conference on Artificial Intelligence and Interactive Digital Entertainment (AIIDE-21), October 11-15, 2021.
