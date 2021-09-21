@@ -374,6 +374,409 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26173078}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &56174242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 56174243}
+  - component: {fileID: 56174244}
+  m_Layer: 0
+  m_Name: blockEffects (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &56174243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56174242}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1194563097}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &56174244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56174242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: blockEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [block]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: block
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Effects triggered OnCollision
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+          - id: 3
+          - id: 4
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: 
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 2
+          TargetTag: block
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 5
+        ReactTo:
+        - ball
+        type: 0
+        ContextType: 0
+    00000001:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.561644
+        loopType: 0
+        repeat: 0
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        soundGeneratorBase: 2
+        synthParameters: 3,.05,,.279,.569,.412,.285,.194,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
+        mutateOnExecution: 0
+        latestSynthParameters:
+        - 3,.1,,.2903,.6886,.406,.2613,.7744,,-.244,,,,.0163,,,,,-.0016,,.0269,,,-.0994,-.0952,1,-.0386,,,,,
+        - 3,.1,,.2903,.6423,.406,.3,.7744,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
+        - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
+        - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
+    00000002:
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 6
+        - id: 7
+        - id: 8
+        AmountOfParticles: 25
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 67, y: 67, z: 67}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 5
+        Drag: 0.023041038
+        ApplyGravity: 1
+        ParticleScale: 0.1
+    00000003:
+      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a positional flash which quickly fades away.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 9
+        FlashColor: {r: 1, g: 1, b: 1, a: 1}
+        FlashTransparency: 1
+        FlashPrefab: {fileID: 0}
+        FlashPrimitive: 0
+        Scale: {x: 1, y: 1, z: 1}
+        PositionOffset: {x: 0, y: 0, z: 0}
+    00000004:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    00000005:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.2
+        loopType: 1
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.5, y: 0.5, z: 0.5}
+        easing: 0
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000006:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: -75.66327, y: -28.08444, z: 59.4502}
+    00000007:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.113830544
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.5044592
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.1710489, y: 0.1710489, z: 0.1710489}
+        easing: 7
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000008:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 10
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 1.4907624
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 0, g: 1, b: 0.74509805, a: 1}
+        relative: 0
+        to: {r: 0, g: 1, b: 0.74509805, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000009:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 11
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.14273116
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    0000000A:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    0000000B:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
 --- !u!1 &73351687
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +905,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -4349,10 +4753,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 1
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -4386,6 +4790,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000003:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -4640,379 +5048,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 427061522}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &430089001
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 430089002}
-  - component: {fileID: 430089003}
-  m_Layer: 0
-  m_Name: blockEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &430089002
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 430089001}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1194563097}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &430089003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 430089001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: blockEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [block]
-  DontDestroyOnLoad: 0
-  DynamicReattachRate: 0
-  AttachToTag: block
-  AttachToObjects: []
-  AttachToComponentType: 
-  StepThroughMode: 0
-  TriggerList:
-  - id: 0
-  PreviewMode: 0
-  PreviewTriggerInterval: 2
-  PreviewDirection: {x: 0, y: 1, z: 0}
-  PreviewPositionOffset: {x: 0, y: 0, z: 0}
-  references:
-    version: 1
-    00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        Disabled: 0
-        EffectGroups:
-        - selectedCategory: 0
-          selectedIntensity: 1
-          GroupName: Effects triggered OnCollision
-          Disabled: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          EffectsToExecute:
-          - id: 1
-          - id: 2
-          - id: 3
-          - id: 4
-        - selectedCategory: 0
-          selectedIntensity: 1
-          GroupName: 
-          Disabled: 0
-          StepThroughMode: 0
-          AppliesTo: 2
-          TargetTag: block
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          EffectsToExecute:
-          - id: 5
-        ReactTo:
-        - ball
-        type: 0
-        ContextType: 0
-    00000001:
-      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Audio Synth Effect, use for finding the sound you want, generate
-          actual sound clips using the Editor window.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.561644
-        loopType: 0
-        repeat: 0
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        soundGeneratorBase: 2
-        synthParameters: 3,.05,,.279,.569,.412,.285,.194,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
-        mutateOnExecution: 0
-        latestSynthParameters:
-        - 3,.1,,.2903,.6886,.406,.2613,.7744,,-.244,,,,.0163,,,,,-.0016,,.0269,,,-.0994,-.0952,1,-.0386,,,,,
-        - 3,.1,,.2903,.6423,.406,.3,.7744,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
-        - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
-        - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
-    00000002:
-      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Shatter an object into pieces and add a the Ragdoll effect to
-          the pieces.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 6
-        - id: 7
-        - id: 8
-        AmountOfPieces: 25
-        PrefabPieces: []
-        usePrimitivePieces: 1
-        PiecePrimitive: 3
-    00000003:
-      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Make a positional flash which quickly fades away.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 9
-        FlashColor: {r: 1, g: 1, b: 1, a: 1}
-        FlashTransparency: 1
-        FlashPrefab: {fileID: 0}
-        FlashPrimitive: 0
-        Scale: {x: 1, y: 1, z: 1}
-        PositionOffset: {x: 0, y: 0, z: 0}
-    00000004:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-    00000005:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.2
-        loopType: 1
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 0.5, y: 0.5, z: 0.5}
-        easing: 0
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-    00000006:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 1
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2627451}
-        easing: 1
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    00000007:
-      type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Add a Rigidbody that's affected by gravity to the target, and
-          set an initial velocity based on the interaction.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ForceMultiplier: 5
-        RandomizeAdditionalForce: 0
-        AdditionalForce: {x: 0, y: 0, z: 0}
-        MaxVelocity: 0
-        ApplyGravity: 1
-    00000008:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 0.5, y: 0.5, z: 0.5}
-        easing: 6
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-    00000009:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 10
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.14273116
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0, g: 0, b: 0, a: 0}
-        easing: 9
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    0000000A:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
 --- !u!1 &454647249
 GameObject:
   m_ObjectHideFlags: 0
@@ -7374,10 +7409,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 1
         interactionDirectionMultiplier: 0.02
         amount: 0.02
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -7411,6 +7446,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000003:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -8729,6 +8768,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -9400,339 +9440,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1242473772}
-  - {fileID: 908704065}
+  - {fileID: 1317069088}
   - {fileID: 419066610}
   m_Father: {fileID: 859956545}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &908704064
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 908704065}
-  - component: {fileID: 908704066}
-  m_Layer: 0
-  m_Name: blockEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &908704065
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908704064}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 904491713}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &908704066
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 908704064}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: blockEffects
-  Description: Description of all effects triggered by game objects with the tag
-    [block]
-  DontDestroyOnLoad: 0
-  DynamicReattachRate: 0
-  AttachToTag: block
-  AttachToObjects: []
-  AttachToComponentType: 
-  StepThroughMode: 0
-  TriggerList:
-  - id: 0
-  PreviewMode: 0
-  PreviewTriggerInterval: 2
-  PreviewDirection: {x: 0, y: 1, z: 0}
-  PreviewPositionOffset: {x: 0, y: 0, z: 0}
-  references:
-    version: 1
-    00000000:
-      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        TriggerType: 0
-        Disabled: 0
-        EffectGroups:
-        - selectedCategory: 0
-          selectedIntensity: 1
-          GroupName: Effects triggered OnCollision
-          Disabled: 0
-          StepThroughMode: 0
-          AppliesTo: 0
-          TargetTag: 
-          TargetComponentType: {fileID: 0}
-          TargetList: []
-          EffectsToExecute:
-          - id: 1
-          - id: 2
-          - id: 3
-          - id: 4
-        ReactTo:
-        - ball
-        type: 0
-        ContextType: 0
-    00000001:
-      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Audio Synth Effect, use for finding the sound you want, generate
-          actual sound clips using the Editor window.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.561644
-        loopType: 0
-        repeat: 0
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        soundGeneratorBase: 2
-        synthParameters: 3,.05,,.279,.569,.412,.285,.194,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
-        mutateOnExecution: 0
-        latestSynthParameters:
-        - 3,.1,,.2903,.6886,.406,.2613,.7744,,-.244,,,,.0163,,,,,-.0016,,.0269,,,-.0994,-.0952,1,-.0386,,,,,
-        - 3,.1,,.2903,.6423,.406,.3,.7744,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
-        - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
-        - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
-    00000002:
-      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Shatter an object into pieces and add a the Ragdoll effect to
-          the pieces.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 5
-        - id: 6
-        - id: 7
-        AmountOfPieces: 25
-        PrefabPieces: []
-        usePrimitivePieces: 1
-        PiecePrimitive: 3
-    00000003:
-      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Make a positional flash which quickly fades away.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ExecuteOnOffspring:
-        - id: 8
-        FlashColor: {r: 1, g: 1, b: 1, a: 1}
-        FlashTransparency: 1
-        FlashPrefab: {fileID: 0}
-        FlashPrimitive: 0
-        Scale: {x: 1, y: 1, z: 1}
-        PositionOffset: {x: 0, y: 0, z: 0}
-    00000004:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-    00000005:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 1
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2627451}
-        easing: 1
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    00000006:
-      type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Add a Rigidbody that's affected by gravity to the target, and
-          set an initial velocity based on the interaction.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ForceMultiplier: 5
-        RandomizeAdditionalForce: 0
-        AdditionalForce: {x: 0, y: 0, z: 0}
-        MaxVelocity: 0
-        ApplyGravity: 1
-    00000007:
-      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Scale Effect allows you to scale an object using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {x: 0, y: 0, z: 0}
-        relative: 1
-        to: {x: 0.5, y: 0.5, z: 0.5}
-        easing: 6
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-    00000008:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion:
-        - id: 9
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        RandomizeDuration: 0
-        DurationMin: 0
-        Duration: 0.14273116
-        loopType: 0
-        repeat: 1
-        DelayBetweenLoops: 0
-        ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0, g: 0, b: 0, a: 0}
-        easing: 9
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
-    00000009:
-      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Simple destruction effect.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
 --- !u!1 &917693013
 GameObject:
   m_ObjectHideFlags: 0
@@ -9931,10 +9643,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1.5
         amount: 1.5
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -9959,6 +9671,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000005:
       type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -10676,13 +10392,13 @@ MonoBehaviour:
         - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
         - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
     00000002:
-      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
         Lock: 0
-        Description: Shatter an object into pieces and add a the Ragdoll effect to
-          the pieces.
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
         UnscaledTime: 0
         Delay: 0
         RandomizeDelay: 0
@@ -10696,10 +10412,18 @@ MonoBehaviour:
         - id: 6
         - id: 7
         - id: 8
-        AmountOfPieces: 25
-        PrefabPieces: []
-        usePrimitivePieces: 1
-        PiecePrimitive: 3
+        AmountOfParticles: 25
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 67, y: 67, z: 67}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 5
+        Drag: 0.023041038
+        ApplyGravity: 1
+        ParticleScale: 0.1
     00000003:
       type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -10775,13 +10499,13 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
     00000006:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
         Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
         UnscaledTime: 0
         Delay: 0
         RandomizeDelay: 0
@@ -10794,46 +10518,14 @@ MonoBehaviour:
         RandomizeDuration: 0
         DurationMin: 0
         Duration: 1
-        loopType: 0
-        repeat: 1
+        loopType: 2
+        repeat: -1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2627451}
-        easing: 1
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: -75.66327, y: -28.08444, z: 59.4502}
     00000007:
-      type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Add a Rigidbody that's affected by gravity to the target, and
-          set an initial velocity based on the interaction.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ForceMultiplier: 5
-        RandomizeAdditionalForce: 0
-        AdditionalForce: {x: 0, y: 0, z: 0}
-        MaxVelocity: 0
-        ApplyGravity: 1
-    00000008:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -10841,8 +10533,8 @@ MonoBehaviour:
         Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
+        Delay: 0.113830544
+        RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
         triggerData:
@@ -10851,7 +10543,7 @@ MonoBehaviour:
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
-        Duration: 0
+        Duration: 0.5044592
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
@@ -10859,15 +10551,15 @@ MonoBehaviour:
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
-        to: {x: 0.5, y: 0.5, z: 0.5}
-        easing: 6
+        to: {x: 0.1710489, y: 0.1710489, z: 0.1710489}
+        easing: 7
         curve:
           serializedVersion: 2
           m_Curve: []
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000009:
+    00000008:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -10881,6 +10573,44 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 10
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 1.4907624
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 0, g: 1, b: 0.74509805, a: 1}
+        relative: 0
+        to: {r: 0, g: 1, b: 0.74509805, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000009:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 11
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -10906,6 +10636,22 @@ MonoBehaviour:
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
     0000000A:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    0000000B:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -11194,10 +10940,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 1
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -11231,6 +10977,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
 --- !u!1 &974941248
 GameObject:
   m_ObjectHideFlags: 0
@@ -11359,6 +11109,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -12464,10 +12215,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 1.5
         amount: 1.5
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -12492,6 +12243,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000004:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -13199,8 +12954,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 619137525}
-  - {fileID: 430089002}
   - {fileID: 1241298539}
+  - {fileID: 56174243}
   - {fileID: 1700201658}
   m_Father: {fileID: 859956545}
   m_RootOrder: 11
@@ -13448,10 +13203,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 1
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -13485,6 +13240,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
 --- !u!1 &1238064693
 GameObject:
   m_ObjectHideFlags: 0
@@ -13620,7 +13379,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1194563097}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1241298540
 MonoBehaviour:
@@ -13726,10 +13485,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 1
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -13763,6 +13522,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000003:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -14690,6 +14453,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -16044,6 +15808,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -16358,7 +16123,7 @@ MonoBehaviour:
   - id: 0
   PreviewMode: 0
   PreviewTriggerInterval: 2
-  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewDirection: {x: 1, y: 1, z: 0}
   PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
@@ -16419,13 +16184,13 @@ MonoBehaviour:
         - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
         - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
     00000002:
-      type: {class: ShatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
         Lock: 0
-        Description: Shatter an object into pieces and add a the Ragdoll effect to
-          the pieces.
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
         UnscaledTime: 0
         Delay: 0
         RandomizeDelay: 0
@@ -16439,10 +16204,18 @@ MonoBehaviour:
         - id: 5
         - id: 6
         - id: 7
-        AmountOfPieces: 25
-        PrefabPieces: []
-        usePrimitivePieces: 1
-        PiecePrimitive: 3
+        AmountOfParticles: 25
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 67, y: 67, z: 67}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 5
+        Drag: 0.023041038
+        ApplyGravity: 1
+        ParticleScale: 0.1
     00000003:
       type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -16451,7 +16224,7 @@ MonoBehaviour:
         Lock: 0
         Description: Make a positional flash which quickly fades away.
         UnscaledTime: 0
-        Delay: 0
+        Delay: 0.01
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion: []
@@ -16484,13 +16257,13 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
     00000005:
-      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
         Disabled: 0
         Lock: 0
-        Description: Material Color change Effect allows you to change the color
-          of a material using easing.
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
         UnscaledTime: 0
         Delay: 0
         RandomizeDelay: 0
@@ -16503,46 +16276,14 @@ MonoBehaviour:
         RandomizeDuration: 0
         DurationMin: 0
         Duration: 1
-        loopType: 0
-        repeat: 1
+        loopType: 2
+        repeat: -1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        setFromValue: 0
-        from: {r: 0, g: 0, b: 0, a: 0}
-        relative: 0
-        to: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.2627451}
-        easing: 1
-        curve:
-          serializedVersion: 2
-          m_Curve: []
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        materialToModify: {fileID: 0}
-        applyToAllInstances: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: -75.66327, y: -28.08444, z: 59.4502}
     00000006:
-      type: {class: RagdollEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
-      data:
-        StackingType: 0
-        Disabled: 0
-        Lock: 0
-        Description: Add a Rigidbody that's affected by gravity to the target, and
-          set an initial velocity based on the interaction.
-        UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
-        Cooldown: 0
-        ExecuteAfterCompletion: []
-        triggerData:
-          Origin: {fileID: 0}
-          InCollisionUpdate: 0
-        isComplete: 0
-        ForceMultiplier: 5
-        RandomizeAdditionalForce: 0
-        AdditionalForce: {x: 0, y: 0, z: 0}
-        MaxVelocity: 0
-        ApplyGravity: 1
-    00000007:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -16550,8 +16291,8 @@ MonoBehaviour:
         Lock: 0
         Description: Scale Effect allows you to scale an object using easing.
         UnscaledTime: 0
-        Delay: 0
-        RandomizeDelay: 0
+        Delay: 0.113830544
+        RandomizeDelay: 1
         Cooldown: 0
         ExecuteAfterCompletion: []
         triggerData:
@@ -16560,7 +16301,7 @@ MonoBehaviour:
         isComplete: 0
         RandomizeDuration: 0
         DurationMin: 0
-        Duration: 0
+        Duration: 0.5044592
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
@@ -16568,15 +16309,15 @@ MonoBehaviour:
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
-        to: {x: 0.5, y: 0.5, z: 0.5}
-        easing: 6
+        to: {x: 0.1710489, y: 0.1710489, z: 0.1710489}
+        easing: 7
         curve:
           serializedVersion: 2
           m_Curve: []
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000008:
+    00000007:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -16590,6 +16331,44 @@ MonoBehaviour:
         Cooldown: 0
         ExecuteAfterCompletion:
         - id: 9
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 1.4907624
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 0, g: 1, b: 0.74509805, a: 1}
+        relative: 0
+        to: {r: 0, g: 1, b: 0.74509805, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 10
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -16615,6 +16394,380 @@ MonoBehaviour:
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
     00000009:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    0000000A:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+--- !u!1 &1317069087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1317069088}
+  - component: {fileID: 1317069089}
+  m_Layer: 0
+  m_Name: blockEffects (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1317069088
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317069087}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 904491713}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1317069089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317069087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d54d85d746f419f9d3a18ecb8e99f28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: blockEffects
+  Description: Description of all effects triggered by game objects with the tag
+    [block]
+  DontDestroyOnLoad: 0
+  DynamicReattachRate: 0
+  AttachToTag: block
+  AttachToObjects: []
+  AttachToComponentType: 
+  StepThroughMode: 0
+  TriggerList:
+  - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: 2
+  PreviewDirection: {x: 1, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
+  references:
+    version: 1
+    00000000:
+      type: {class: OnCollisionTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        TriggerType: 0
+        Disabled: 0
+        EffectGroups:
+        - selectedCategory: 0
+          selectedIntensity: 1
+          GroupName: Effects triggered OnCollision
+          Disabled: 0
+          StepThroughMode: 0
+          AppliesTo: 0
+          TargetTag: 
+          TargetComponentType: {fileID: 0}
+          TargetList: []
+          EffectsToExecute:
+          - id: 1
+          - id: 2
+          - id: 3
+          - id: 4
+        ReactTo:
+        - ball
+        type: 0
+        ContextType: 0
+    00000001:
+      type: {class: AudioSynthPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Audio Synth Effect, use for finding the sound you want, generate
+          actual sound clips using the Editor window.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.561644
+        loopType: 0
+        repeat: 0
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        soundGeneratorBase: 2
+        synthParameters: 3,.05,,.279,.569,.412,.285,.194,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
+        mutateOnExecution: 0
+        latestSynthParameters:
+        - 3,.1,,.2903,.6886,.406,.2613,.7744,,-.244,,,,.0163,,,,,-.0016,,.0269,,,-.0994,-.0952,1,-.0386,,,,,
+        - 3,.1,,.2903,.6423,.406,.3,.7744,,-.2378,,,,,,,,,,,,,,-.1161,-.0952,1,,,,,,
+        - 3,.1,,.2469,.6123,.0097,.3,.5575,,-.3249,,,,,,,,,,,,,,-.2851,-.2169,1,,,,,,
+        - 3,.1,.3127,.2947,.2313,.8473,.9364,.1508,,.2737,-.1179,-.0007,.417,.3291,.4753,.028,.105,.8512,.7566,.7668,.6186,-.8222,-.0106,-.0797,-.833,.9995,.3149,.3629,.4144,-.0702,.2125,.574
+    00000002:
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 5
+        - id: 6
+        - id: 7
+        AmountOfParticles: 25
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 3
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 67, y: 67, z: 67}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 5
+        Drag: 0.023041038
+        ApplyGravity: 1
+        ParticleScale: 0.1
+    00000003:
+      type: {class: PositionalFlashEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Make a positional flash which quickly fades away.
+        UnscaledTime: 0
+        Delay: 0.01
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 8
+        FlashColor: {r: 1, g: 1, b: 1, a: 1}
+        FlashTransparency: 1
+        FlashPrefab: {fileID: 0}
+        FlashPrimitive: 0
+        Scale: {x: 1, y: 1, z: 1}
+        PositionOffset: {x: 0, y: 0, z: 0}
+    00000004:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    00000005:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: -75.66327, y: -28.08444, z: 59.4502}
+    00000006:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.113830544
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.5044592
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 0.1710489, y: 0.1710489, z: 0.1710489}
+        easing: 7
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    00000007:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 9
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 1.4907624
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 0, g: 1, b: 0.74509805, a: 1}
+        relative: 0
+        to: {r: 0, g: 1, b: 0.74509805, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000008:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 10
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.14273116
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {r: 0, g: 0, b: 0, a: 0}
+        relative: 0
+        to: {r: 0, g: 0, b: 0, a: 0}
+        easing: 9
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    00000009:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    0000000A:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -16901,10 +17054,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 1
         interactionDirectionMultiplier: 0.7
         amount: 0.7
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -16929,6 +17082,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000004:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -18679,6 +18836,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -19100,6 +19258,7 @@ MonoBehaviour:
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 0.03
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -21795,10 +21954,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 1
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -21832,6 +21991,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
 --- !u!1 &1655097620
 GameObject:
   m_ObjectHideFlags: 0
@@ -24513,10 +24676,10 @@ MonoBehaviour:
         repeat: 1
         DelayBetweenLoops: 0
         ExecuteEffectsOnLooping: 0
-        cameraToModify: {fileID: 0}
         useInteractionDirection: 0
         interactionDirectionMultiplier: 0
         amount: 1
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -24550,6 +24713,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000003:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:

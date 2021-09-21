@@ -62,6 +62,8 @@ namespace GameFeelDescriptions
         // public StepThroughModeWindow.EffectGeneratorCategories category;
         //
 
+        private const bool performNoveltySearch = false;
+
         private int selectedVariationIndex = 0;
 
         private float lastSwitchTime = 3f; //3f allows for a 3 second grace period after pressing Run.
@@ -721,20 +723,27 @@ namespace GameFeelDescriptions
                         var description = descs[selectedDescriptionIndex];
                         var trigger = description.TriggerList[selectedTriggerIndex];
 
-                        //TODO: move this Novelty generation out of here, then make the new fitness functions (order by, particle count, color association, sound etc...)
-                        //TODO: then select the top 4 with with the best fitness, and select 4 that have the biggest distance to others, make sure they are distinct.
-                        var populationToEvaluate = 20;
-                        var population = new List<List<GameFeelEffect>>();
-                        for (int j = 0; j < populationToEvaluate; j++)
+                        //NOTE: Be aware the current implementation is very slow, because it creates 20 individuals, 
+                        //and then makes a distance calculation for each individual. 
+                        //TODO: It does this for each selection option in the UI, it should only do this once, and show a progress bar!
+                        if(performNoveltySearch)
                         {
-                            var effects = trigger.EffectGroups[0].GetRecipeCopy();
-                            EffectGenerator.MutateGroup(effects, 0.05f, 0.4f, 0.4f);
-                            population.Add(effects);
+                            //TODO: move this Novelty generation out of here, then make the new fitness functions (order by, particle count, color association, sound etc...)
+                            //TODO: then select the top 4 with with the best fitness, and select 4 that have the biggest distance to others, make sure they are distinct.
+                            var populationToEvaluate = 20;
+                            var population = new List<List<GameFeelEffect>>();
+                            for (int j = 0; j < populationToEvaluate; j++)
+                            {
+                                var effects = trigger.EffectGroups[0].GetRecipeCopy();
+                                EffectGenerator.MutateGroup(effects, 0.05f, 0.4f, 0.4f);
+                                population.Add(effects);
+                            }
+                            
+                            var mostNovel = Novelty(population);
+                            
+                            trigger.EffectGroups[0].ReplaceEffectsWithRecipe(mostNovel);
                         }
-                        
-                        var mostNovel = Novelty(population);
-                        
-                        trigger.EffectGroups[0].ReplaceEffectsWithRecipe(mostNovel);
+
                         foreach (var effectGroup in trigger.EffectGroups)
                         {
                             EffectGenerator.MutateGroup(effectGroup, 0.05f, 0.4f, 0.4f);

@@ -229,6 +229,10 @@ MonoBehaviour:
   StepThroughMode: 0
   TriggerList:
   - id: 0
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -249,6 +253,9 @@ MonoBehaviour:
           EffectsToExecute:
           - id: 1
           - id: 2
+        localPositionOffset: {x: 0, y: 0, z: 0}
+        useForwardForPositionOffset: 0
+        forwardRotationOffset: {x: 0, y: 0, z: 0}
     00000001:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -611,6 +618,10 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
+  PreviewMode: 0
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -686,6 +697,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         soundGeneratorBase: 2
         synthParameters: 3,.5,,.2071,.7013,.4628,.3,.0218,,-.2382,.1441,,,.1618,,,-.0529,.9809,,,,,.2768,.1197,,.8163,,,,,,
         mutateOnExecution: 0
@@ -723,6 +735,7 @@ MonoBehaviour:
         ExpansionShape: 0
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.9770247
         Radius: 0.692093
         ParticleScale: 0.981973
@@ -779,10 +792,11 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
-        cameraToModify: {fileID: 0}
+        ExecuteEffectsOnLooping: 0
         useInteractionDirection: 1
         interactionDirectionMultiplier: 5
         amount: 5
+        axis: {x: 0, y: 0, z: 0}
         easeAmountInOut:
           serializedVersion: 2
           m_Curve:
@@ -807,6 +821,10 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
+        useResetPositionAfterShake: 0
+        resetPosition: {x: 0, y: 0, z: 0}
+        doNotResetPosition: 0
+        cameraToModify: {fileID: 0}
     00000006:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -835,6 +853,7 @@ MonoBehaviour:
         ExpansionShape: 6
         setParticleUp: 0
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.2
         Radius: 0.15
         ParticleScale: 0.1
@@ -894,6 +913,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 0
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useGlobalRotation: 1
         RandomizeInitialRotation: 1
         RotationPerSecond: {x: 0, y: 0, z: -31.28114}
@@ -919,6 +939,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 2
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0.019790739, y: 0.019790739, z: 0.019790739}
         relative: 1
@@ -954,6 +975,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 1, g: 1, b: 1, a: 1}
         relative: 0
@@ -989,6 +1011,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: 0
         relative: 0
@@ -1023,6 +1046,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         useGlobalRotation: 0
         RandomizeInitialRotation: 1
         RotationPerSecond: {x: -106.47355, y: -65.140114, z: -11.205202}
@@ -1048,6 +1072,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -1083,6 +1108,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 0.667, g: 0.65768224, b: 0.359513, a: 1}
         relative: 0
@@ -1363,6 +1389,10 @@ MonoBehaviour:
   TriggerList:
   - id: 0
   - id: 1
+  PreviewMode: 2
+  PreviewTriggerInterval: -1
+  PreviewDirection: {x: 0, y: 1, z: 0}
+  PreviewPositionOffset: {x: 0, y: 0, z: 0}
   references:
     version: 1
     00000000:
@@ -1383,6 +1413,7 @@ MonoBehaviour:
           EffectsToExecute:
           - id: 2
           - id: 3
+          - id: 4
         selectedComponent: {fileID: -8929175817383945524, guid: 0735a9db873da4055a52323359c4bb3b,
           type: 3}
         field: direction
@@ -1391,7 +1422,7 @@ MonoBehaviour:
         Value: 
         localPositionOffset: {x: 0, y: 0, z: 0}
         useForwardForPositionOffset: 0
-        forwardRotationOffset: {x: 0, y: 0, z: 0}
+        forwardRotationOffset: {x: 90, y: 0, z: 0}
     00000001:
       type: {class: OnStartTrigger, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -1408,7 +1439,10 @@ MonoBehaviour:
           TargetComponentType: {fileID: 0}
           TargetList: []
           EffectsToExecute:
-          - id: 4
+          - id: 5
+        localPositionOffset: {x: 0, y: 0, z: 0}
+        useForwardForPositionOffset: 0
+        forwardRotationOffset: {x: 0, y: 0, z: 0}
     00000002:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
@@ -1439,12 +1473,12 @@ MonoBehaviour:
         pitchResetDelay: 1
         playLoop: 0
         currentPitch: 1
-        lastPitchChangeTime: 0
+        lastPitchChangeTime: 52.402145
     00000003:
       type: {class: ParticlePuffEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
-        Disabled: 0
+        Disabled: 1
         Lock: 0
         Description: Particle puff creates anything from a dust cloud from a footfall
           to nuclear explosion.
@@ -1458,8 +1492,8 @@ MonoBehaviour:
           InCollisionUpdate: 0
         isComplete: 0
         ExecuteOnOffspring:
-        - id: 5
         - id: 6
+        - id: 7
         AmountOfParticles: 15
         ParticlePrefabs: []
         usePrimitiveParticles: 1
@@ -1467,11 +1501,45 @@ MonoBehaviour:
         ExpansionShape: 2
         setParticleUp: 1
         setParticleForward: 0
+        Area: {x: 0, y: 0, z: 0}
         Height: 0.3260671
         Radius: 0.7
         ParticleScale: 0.16018061
         ParticleLifetime: 0.5
     00000004:
+      type: {class: ParticleScatterEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Particle scatter creates an amount of particles in a scatter
+          pattern based on the direction of the interaction and the angle settings.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        ExecuteOnOffspring:
+        - id: 8
+        - id: 9
+        - id: 10
+        AmountOfParticles: 15
+        ParticlePrefabs: []
+        usePrimitiveParticles: 1
+        ParticlePrimitive: 2
+        setParticleUp: 1
+        setParticleForward: 0
+        ScatterAngle: {x: 0, y: 0, z: 360}
+        Area: {x: 0, y: 0, z: 0}
+        Speed: 2.98
+        Drag: 0.1
+        ApplyGravity: 0
+        ParticleScale: 0.1
+    00000005:
       type: {class: AudioClipPlayEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -1502,7 +1570,7 @@ MonoBehaviour:
         playLoop: 0
         currentPitch: 1
         lastPitchChangeTime: 0
-    00000005:
+    00000006:
       type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -1524,6 +1592,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 0
         from: {x: 0, y: 0, z: 0}
         relative: 1
@@ -1535,7 +1604,7 @@ MonoBehaviour:
           m_PreInfinity: 2
           m_PostInfinity: 2
           m_RotationOrder: 4
-    00000006:
+    00000007:
       type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
@@ -1548,7 +1617,7 @@ MonoBehaviour:
         RandomizeDelay: 0
         Cooldown: 0
         ExecuteAfterCompletion:
-        - id: 7
+        - id: 11
         triggerData:
           Origin: {fileID: 0}
           InCollisionUpdate: 0
@@ -1559,6 +1628,7 @@ MonoBehaviour:
         loopType: 0
         repeat: 1
         DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
         setFromValue: 1
         from: {r: 1, g: 0.868332, b: 0, a: 1}
         relative: 0
@@ -1572,7 +1642,122 @@ MonoBehaviour:
           m_RotationOrder: 4
         materialToModify: {fileID: 0}
         applyToAllInstances: 0
-    00000007:
+    00000008:
+      type: {class: ContinuousRotationEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 1
+        Lock: 0
+        Description: Continuous Rotation Effect allows you to rotate an object continuously
+          over a duration.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 1
+        loopType: 2
+        repeat: -1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        useGlobalRotation: 0
+        RandomizeInitialRotation: 1
+        RotationPerSecond: {x: 24.213985, y: -23.877281, z: 10.870676}
+    00000009:
+      type: {class: ScaleEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Scale Effect allows you to scale an object using easing.
+        UnscaledTime: 0
+        Delay: 0.2200479
+        RandomizeDelay: 1
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 0
+        DurationMin: 0
+        Duration: 0.5272166
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 0
+        from: {x: 0, y: 0, z: 0}
+        relative: 1
+        to: {x: 1.2714974, y: 1.2714974, z: 1.2714974}
+        easing: 7
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    0000000A:
+      type: {class: MaterialColorChangeEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Material Color change Effect allows you to change the color
+          of a material using easing.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion:
+        - id: 12
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+        RandomizeDuration: 1
+        DurationMin: 0.3
+        Duration: 0.5
+        loopType: 0
+        repeat: 1
+        DelayBetweenLoops: 0
+        ExecuteEffectsOnLooping: 0
+        setFromValue: 1
+        from: {r: 1, g: 0.868332, b: 0, a: 1}
+        relative: 0
+        to: {r: 1, g: 0.86666673, b: 0, a: 0}
+        easing: 0
+        curve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        materialToModify: {fileID: 0}
+        applyToAllInstances: 0
+    0000000B:
+      type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
+      data:
+        StackingType: 0
+        Disabled: 0
+        Lock: 0
+        Description: Simple destruction effect.
+        UnscaledTime: 0
+        Delay: 0
+        RandomizeDelay: 0
+        Cooldown: 0
+        ExecuteAfterCompletion: []
+        triggerData:
+          Origin: {fileID: 0}
+          InCollisionUpdate: 0
+        isComplete: 0
+    0000000C:
       type: {class: DestroyEffect, ns: GameFeelDescriptions, asm: Assembly-CSharp}
       data:
         StackingType: 0
