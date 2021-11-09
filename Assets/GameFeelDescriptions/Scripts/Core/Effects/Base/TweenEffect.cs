@@ -24,6 +24,12 @@ namespace GameFeelDescriptions
         [Tooltip("Easing adjusts the value non-linearly over the duration.")]
         public EasingHelper.EaseType easing = EnumExtensions.GetRandomValue(except: new List<EasingHelper.EaseType>{EasingHelper.EaseType.Curve});
 
+        [HideFieldIf("easing", EasingHelper.EaseType.ABInOut, negate:true)]
+        public float EasingParamA;
+        
+        [HideFieldIf("easing", EasingHelper.EaseType.ABInOut, negate:true)]
+        public float EasingParamB;
+        
         [HideInInspector]
         public AnimationCurve curve; 
 
@@ -54,6 +60,8 @@ namespace GameFeelDescriptions
             cp.relative = relative;
             cp.to = to;
             cp.easing = easing;
+            cp.EasingParamA = EasingParamA;
+            cp.EasingParamB = EasingParamB;
             cp.curve = curve;
                 
             return base.DeepCopy(cp as T, ignoreCooldown);
@@ -68,7 +76,7 @@ namespace GameFeelDescriptions
         public Func<float, float> GetEaseFunc()
         {
             if (easing != EasingHelper.EaseType.Curve)
-                return EasingHelper.Ease(easing);
+                return EasingHelper.Ease(easing, EasingParamA, EasingParamB);
 
             if (curve == null)
             {

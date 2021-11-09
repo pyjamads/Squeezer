@@ -44,15 +44,25 @@ namespace GameFeelDescriptions
             var enumRect = new Rect(position.x, position.y, position.width, 20);
             var curveRect = new Rect(position.x, position.y + 20, position.width, position.height - 20);
 
+            var path = property.propertyPath.Substring(0, property.propertyPath.LastIndexOf("."));
+            
             EditorGUI.BeginChangeCheck();
             // Draw fields - pass GUIContent.none to each so they are drawn without labels
             ease = (EasingHelper.EaseType)EditorGUI.EnumPopup(enumRect, GUIContent.none, ease);
             if(ease != EasingHelper.EaseType.Curve && (animationCurve == null || EditorGUI.EndChangeCheck()))
             {
-                animationCurve = EasingHelper.Ease2Curve(ease);
+                if (ease == EasingHelper.EaseType.ABInOut)
+                {
+                    var aProp = property.serializedObject.FindProperty(path+".EasingParamA");
+                    var bProp = property.serializedObject.FindProperty(path+".EasingParamB");
+                    animationCurve = EasingHelper.Ease2Curve(ease, 20, aProp.floatValue, bProp.floatValue);
+                }
+                else
+                {
+                    animationCurve = EasingHelper.Ease2Curve(ease);    
+                }
             }
 
-            var path = property.propertyPath.Substring(0, property.propertyPath.LastIndexOf("."));
             var curveProp = property.serializedObject.FindProperty(path+".curve");
             
             if (ease == EasingHelper.EaseType.Curve)

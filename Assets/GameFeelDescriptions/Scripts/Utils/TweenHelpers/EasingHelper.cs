@@ -7,10 +7,10 @@ namespace GameFeelDescriptions
 {
     public static class EasingHelper
     {
-        public static AnimationCurve Ease2Curve(EaseType ease, int keyFrameCount = 20)
+        public static AnimationCurve Ease2Curve(EaseType ease, int keyFrameCount = 20, float a = 0, float b = 0)
         {
             //TODO: make easing evaluation better 10/02/2020 (made the curve better at least 18/05/2020)
-            var func = Ease(ease);
+            var func = Ease(ease, a, b);
             var curve = new AnimationCurve();
             var keyframes = new Keyframe[keyFrameCount+1];
 
@@ -79,10 +79,10 @@ namespace GameFeelDescriptions
 //            BounceOut,
 //            BounceInOut
 	        Curve,
-	        
+	        ABInOut,
         }
 
-        public static Func<float, float> Ease(EaseType ease)
+        public static Func<float, float> Ease(EaseType ease, float a = 0, float b = 0)
         {
             switch (ease)
             {
@@ -148,6 +148,8 @@ namespace GameFeelDescriptions
 //                    break;
 //                case EaseType.BounceInOut:
 //                    break;
+                case EaseType.ABInOut:
+	                return t=>ABInOut(t, a, b);
                 default:
                     Debug.Log(ease.GetName()+": Not yet implemented, using Linear instead.");
                     return Linear;
@@ -259,7 +261,47 @@ namespace GameFeelDescriptions
         {
 	        return SimpleBezierEvaluator(new Vector2(0.25f,-0.5f), t,new Vector2(0.75f,1.5f));
         }
-        
+
+        /// <summary>
+        /// A parameterized tweening functions with two parameters, that shape the start and end speed.
+        /// Default functionality is EaseInOut, with a and b set to 0.
+        /// </summary>
+        /// <param name="t">Progress between time 0 (begin) and 1 (end)</param>
+        /// <param name="a" default="1">Start speed (0 is flat, positive is up, negative is down)</param>
+        /// <param name="b" default="1">End speed (0 is flat, positive is down, negative is up)</param>
+        /// <returns>Returns 0 at t = 0 and 1 at t = 1, and follows the parameterized curve in-between those two.</returns>
+        public static float ABInOut(float t, float a = 0, float b = 0)
+        {
+	        //https://twitter.com/FarbsMcFarbs/status/1456830625617432576?s=20
+	        /*
+	         Tweening functions! There are so many!
+
+			If you'd rather just use one function with two simple parameters, maybe consider:
+			(b+a-2)x^3 + (-2a-b+3)x^2 + ax
+
+			The parameters a and b control the start and end speeds, and it's very expressive!
+			
+			Linear: 	a=1, b=1
+			EaseIn: 	a=0, b=2
+			EaseOut: 	a=2, b=0
+			EaseInOut:	a=0, b=0
+			PauseMid:	a=2, b=2
+			BackOut:	a=4, b=0
+			BackIn:		a=0, b=4
+			BackInOut:	a=-1,b=-1
+			
+			Just for fun, here's an even simpler but less expressive function. Just one parameter. 
+			Set c to 1 for ease in, 0 for linear -1 for ease out, 
+			anywhere in between for a blend, and anywhere outside for an overshoot. 
+			That's all it can do.
+			cx^2 + (1-c)x
+	        */
+	        
+	        //t is clamped to [0-1]
+	        t = Mathf.Clamp01(t);
+			return (b+a-2)*Mathf.Pow(t,3) + (-2*a-b+3)*Mathf.Pow(t, 2) + a*t;
+        }
+
 
         /// <summary>
         /// Simple Bezier curve evaluator with (0,0) and (1,1) as endpoints, and two control points.
