@@ -32,7 +32,7 @@ namespace GameFeelDescriptions
         private Vector3 interactionDirection = Vector3.zero;
 
         //Jitter control, eg. how often it switches target.
-        private const float jitterCooldown = 0.01f;
+        private const float jitterCooldown = 0.01f;  
         private float timeSinceLastJitter;
         private Vector3 jitterTarget;
         
@@ -108,7 +108,7 @@ namespace GameFeelDescriptions
             var easedAmount = deltaTime;
             if (Duration > 0)
             {
-                easedAmount = easeAmountInOut.Evaluate(elapsed / Duration) * easedAmount;
+                easedAmount = easeAmountInOut.Evaluate(elapsed / Duration);
             }
             
             positionOffset += jitterTarget * easedAmount;

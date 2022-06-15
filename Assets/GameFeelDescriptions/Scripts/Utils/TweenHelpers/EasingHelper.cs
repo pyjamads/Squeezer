@@ -82,6 +82,12 @@ namespace GameFeelDescriptions
 	        ABInOut,
         }
 
+        //TODO: Most of the standard easings can be recreated with the ABInOut, so it might be worth defining some of them that way instead.
+        // public static float LinearABInOut(float t)
+        // {
+	       //  return ABInOut(t, 1, 1);
+        // }
+        
         public static Func<float, float> Ease(EaseType ease, float a = 0, float b = 0)
         {
             switch (ease)
@@ -162,6 +168,8 @@ namespace GameFeelDescriptions
 	        
             return t;
         }
+
+        
 
         public static float QuadIn(float t)
         {
